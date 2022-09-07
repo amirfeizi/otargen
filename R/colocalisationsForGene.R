@@ -6,8 +6,7 @@
 #' data
 #' @export
 
-colocalisationsForGene <- function(ensmbl_ids){
-
+colocalisationsForGene <- function(ensmbl_ids) {
   ensmbl_ids <- ensmbl_ids
   colocal2 <- data.frame()
   colocal_genes_info <- data.frame()
@@ -17,7 +16,7 @@ colocalisationsForGene <- function(ensmbl_ids){
   for (input_gene in ensmbl_ids) {
     print(input_gene)
     qry <- Query$new()
-    qry$query('getgenColocal', 'query	geneandcolocal($gene:String!) {
+    qry$query("getgenColocal", "query	geneandcolocal($gene:String!) {
   geneInfo (geneId:$gene) {
     id
     symbol
@@ -53,24 +52,24 @@ colocalisationsForGene(geneId:$gene){
   h4
 }
 
-}')
+}")
 
-    variables  <- list(gene = input_gene)
-    con <- GraphqlClient$new('https://api.genetics.opentargets.org/graphql')
+    variables <- list(gene = input_gene)
+    con <- GraphqlClient$new("https://api.genetics.opentargets.org/graphql")
 
     colocal <- con$exec(qry$queries$getgenColocal, variables)
     colocal1 <- jsonlite::fromJSON(colocal, flatten = TRUE)
 
     colocal_genes_info <- rbind(colocal_genes_info, as.data.frame(colocal1$data$geneInfo))
 
-    colocal1$data$colocalisationsForGene$gene_symbol <- rep(colocal1$data$geneInfo$symbol,
-                                                            length(colocal1$data$colocalisationsForGene$phenotypeId))
+    colocal1$data$colocalisationsForGene$gene_symbol <- rep(
+      colocal1$data$geneInfo$symbol,
+      length(colocal1$data$colocalisationsForGene$phenotypeId)
+    )
     colocal2 <- rbind(colocal2, colocal1$data$colocalisationsForGene)
 
 
     # Sys.sleep(1)
-
   }
-return(colocal2)
-
+  return(colocal2)
 }

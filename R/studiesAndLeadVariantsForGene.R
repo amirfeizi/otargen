@@ -7,15 +7,13 @@
 #' @export
 
 
-studiesAndLeadVariantsForGene <- function(ensmbl_ids){
-
-
+studiesAndLeadVariantsForGene <- function(ensmbl_ids) {
   res2 <- data.frame()
   res_gene_info <- data.frame()
   for (input_gene in ensmbl_ids) {
     base::print(input_gene)
     qry <- Query$new()
-    qry$query('getgeninfo', 'query	geneandstudy($gene:String!) {
+    qry$query("getgeninfo", "query	geneandstudy($gene:String!) {
    geneInfo (geneId:$gene) {
      id
      symbol
@@ -41,11 +39,11 @@ studiesAndLeadVariantsForGene <- function(ensmbl_ids){
      }
 
    }
- }')
+ }")
 
 
-    variables  <- list(gene = input_gene)
-    con <- GraphqlClient$new('https://api.genetics.opentargets.org/graphql')
+    variables <- list(gene = input_gene)
+    con <- GraphqlClient$new("https://api.genetics.opentargets.org/graphql")
     res <- con$exec(qry$queries$getgeninfo, variables)
 
     res1 <- jsonlite::fromJSON(res, flatten = TRUE)
@@ -54,9 +52,6 @@ studiesAndLeadVariantsForGene <- function(ensmbl_ids){
     res2 <- rbind(res2, res1$data$studiesAndLeadVariantsForGene)
     res_gene_info <- rbind(res_gene_info, as.data.frame(res1$data$geneInfo))
     Sys.sleep(1)
-
-
   }
   return(res2)
-
 }

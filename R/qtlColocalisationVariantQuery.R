@@ -12,8 +12,8 @@ qtlColocalisationVariantQuery <- function(studyid, variantid) {
   otg_cli <- GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
   otg_qry <- Query$new()
   otg_qry$query(
-    'qtl_query',
-    'query qtlColocalisationVariantQuery($studyId: String!, $variantId: String!) {
+    "qtl_query",
+    "query qtlColocalisationVariantQuery($studyId: String!, $variantId: String!) {
   qtlColocalisation(studyId: $studyId, variantId: $variantId){
     qtlStudyName
     phenotypeId
@@ -30,13 +30,12 @@ qtlColocalisationVariantQuery <- function(studyid, variantid) {
     beta
     h4
   }
-}'
+}"
   )
 
-  variables = list(studyId = studyid, variantId = variantid)
+  variables <- list(studyId = studyid, variantId = variantid)
   result <-
     fromJSON(otg_cli$exec(otg_qry$queries$qtl_query, variables, flatten = TRUE))$data
   l2g_result <- result$qtlColocalisation
   return(l2g_result)
-
 }

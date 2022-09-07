@@ -5,16 +5,17 @@
 #'  @param efoid A string. The Experimental Factor Ontology (EFO id)
 #'  @param n  An integer. Number of the record to return
 #'  @return Returns a dataframe which includes data table of the associated drug targets
-#'  @examples
-#'  \dontrun{associatedTargets("EFO_0000540",10)}
+#' @examples
+#' \dontrun{
+#' associatedTargets("EFO_0000540", 10)
+#' }
 #'  @export
-associatedTargets <- function(efoid,n) {
-
-  otp_cli <- GraphqlClient$new(url = 'https://api.platform.opentargets.org/api/v4/graphql')
+associatedTargets <- function(efoid, n) {
+  otp_cli <- GraphqlClient$new(url = "https://api.platform.opentargets.org/api/v4/graphql")
   otp_qry <- Query$new()
 
   ## Query for targets associated with a disease
-  otp_qry$query('simple_query', 'query simpleQuery($efoId: String!){
+  otp_qry$query("simple_query", "query simpleQuery($efoId: String!){
   disease(efoId: $efoId){
     name
     associatedTargets{
@@ -30,8 +31,7 @@ associatedTargets <- function(efoid,n) {
       }
     }
   }
-}'
-  )
+}")
 
   ## Execute the query
   variables <- list(efoId = efoid)
@@ -45,6 +45,5 @@ associatedTargets <- function(efoid,n) {
 
 
   results_final <- cbind(result$associatedTargets$rows$target, score_dt_wd)
-  return(results_final[1:n,])
-
+  return(results_final[1:n, ])
 }
