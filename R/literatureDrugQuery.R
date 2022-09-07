@@ -1,3 +1,10 @@
+#' Collect litreture evidance for known drug for a disease
+#'
+#'
+#' @param ensembl id is a identification id for genes by ensembl database
+#' @return a dataframe including the queried gene indentity and its colocalization
+#' data
+#' @export
 
 
 literatureDrugQuery <- function(efoid){

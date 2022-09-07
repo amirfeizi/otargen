@@ -1,4 +1,13 @@
-
+#' Get associated targets for a disease category
+#'
+#' Retrive n drug targets associated with disease with specified EFO id
+#'
+#'  @param efoid A string. The Experimental Factor Ontology (EFO id)
+#'  @param n  An integer. Number of the record to return
+#'  @return Returns a dataframe which includes data table of the associated drug targets
+#'  @examples
+#'  \dontrun{associatedTargets("EFO_0000540",10)}
+#'  @export
 associatedTargets <- function(efoid,n) {
 
   otp_cli <- GraphqlClient$new(url = 'https://api.platform.opentargets.org/api/v4/graphql')

@@ -1,3 +1,15 @@
+#' Get gwas credible set data for a variant in a study
+#'
+#'
+#' @param studyid is the Open Target Genetics generated id for gwas studies.
+#' @param variantid is Open Target Genetics generated id for each variant in the databse.
+#' @return
+#' @export
+
+
+
+
+
 gwasCredibleSet <- function(studyid,variantid){
 
 

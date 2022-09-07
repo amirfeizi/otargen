@@ -1,3 +1,12 @@
+#' Get locus data table of a variant around a gene
+#'
+#'
+#' @param studyid is the Open Target Genetics generated id for gwas studies.
+#' @param variantid is Open Target Genetics generated id for each variant in the databse.
+#' @return a datframe with summary stats of the study and datatable of the various calculated
+#' scores and features for any lead variant
+#' @export
+
 studyLocus2GeneTable <- function(studyid,variantid){
 
 

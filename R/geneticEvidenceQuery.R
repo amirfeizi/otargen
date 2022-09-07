@@ -1,3 +1,10 @@
+#' Query genetic evidance for a gene in a disease
+#'
+#' @param ensembl id is a identification id for genes by ensembl database
+#' @return a dataframe including the queried gene indentity and its colocalization
+#' data
+#' @export
+
 geneticEvidenceQuery <- function(efo,ensid) {
   otp_cli <- GraphqlClient$new(url = 'https://api.platform.opentargets.org/api/v4/graphql')
   otp_qry <- Query$new()

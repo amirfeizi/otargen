@@ -1,3 +1,9 @@
+#' Get Colocalization data for a variant in specific study
+#'
+#'
+#' @param studyid is the Open Target Genetics generated id for gwas studies.
+#' @param variantid is Open Target Genetics generated id for each variant in the databse.
+
 qtlColocalisationVariantQuery <- function(studyid, variantid) {
 
 

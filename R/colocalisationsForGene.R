@@ -1,4 +1,10 @@
-
+#' Get colocalization data for a gene
+#'
+#'
+#' @param ensembl id is a identification id for genes by ensembl database
+#' @return a dataframe including the queried gene indentity and its colocalization
+#' data
+#' @export
 
 colocalisationsForGene <- function(ensmbl_ids){
 
