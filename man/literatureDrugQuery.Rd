@@ -7,11 +7,10 @@
 literatureDrugQuery(efoid)
 }
 \arguments{
-\item{ensembl}{id is a identification id for genes by ensembl database}
+\item{efoid}{is experimental factor ontology}
 }
 \value{
-a dataframe including the queried gene indentity and its colocalization
-data
+a dataframe including the queried gene indentity and its colocalization data
 }
 \description{
 Collect litreture evidance for known drug for a disease

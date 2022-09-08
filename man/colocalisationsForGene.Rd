@@ -7,11 +7,10 @@
 colocalisationsForGene(ensmbl_ids)
 }
 \arguments{
-\item{ensembl}{id is a identification id for genes by ensembl database}
+\item{ensmbl_ids}{is a identification id for genes by ensembl database}
 }
 \value{
-a dataframe including the queried gene indentity and its colocalization
-data
+a dataframe including the queried gene indentity and its colocalization data
 }
 \description{
 Get colocalization data for a gene

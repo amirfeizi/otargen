@@ -4,7 +4,7 @@ Title: R package to access Open Target Genetics
 Version: 0.1.0
 Author: Amir Feizi
 Maintainer: The package maintainer <afeizi@gmail.com>
-Description: This is an R package to use Graph QL language for querying the Open Target Genetics using its Graph QL schema 
+Description: This is an R package that uses Graph QL query languages to search and retrieve datatables from Open Target Genetics GraphQL end points. 
 Depends: R (>= 3.1.0)
 LazyData: true
 Imports: 
@@ -13,8 +13,11 @@ Imports:
     jsonlite,
     rjson,
     conflicted,
-    data.table
-License: GLP-2
+    data.table,
+    dplyr,
+    purrr,
+    tidyr
+License: MIT + file LICENSE
 Encoding: UTF-8
 Suggests: 
     testthat (>= 3.0.0)

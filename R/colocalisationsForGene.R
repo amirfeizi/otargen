@@ -1,9 +1,7 @@
 #' Get colocalization data for a gene
 #'
-#'
-#' @param ensembl id is a identification id for genes by ensembl database
-#' @return a dataframe including the queried gene indentity and its colocalization
-#' data
+#' @param ensmbl_ids is a identification id for genes by ensembl database
+#' @return a dataframe including the queried gene indentity and its colocalization data
 #' @export
 
 colocalisationsForGene <- function(ensmbl_ids) {
@@ -15,7 +13,7 @@ colocalisationsForGene <- function(ensmbl_ids) {
 
   for (input_gene in ensmbl_ids) {
     print(input_gene)
-    qry <- Query$new()
+    qry <- ghql::Query$new()
     qry$query("getgenColocal", "query	geneandcolocal($gene:String!) {
   geneInfo (geneId:$gene) {
     id
@@ -55,7 +53,7 @@ colocalisationsForGene(geneId:$gene){
 }")
 
     variables <- list(gene = input_gene)
-    con <- GraphqlClient$new("https://api.genetics.opentargets.org/graphql")
+    con <- ghql::GraphqlClient$new("https://api.genetics.opentargets.org/graphql")
 
     colocal <- con$exec(qry$queries$getgenColocal, variables)
     colocal1 <- jsonlite::fromJSON(colocal, flatten = TRUE)

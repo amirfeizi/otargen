@@ -11,6 +11,9 @@ qtlColocalisationVariantQuery(studyid, variantid)
 
 \item{variantid}{is Open Target Genetics generated id for each variant in the databse.}
 }
+\value{
+a data frame of the colocalization information for a lead variant
+}
 \description{
 Get Colocalization data for a variant in specific study
 }

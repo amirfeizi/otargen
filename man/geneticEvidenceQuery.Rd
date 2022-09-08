@@ -7,11 +7,12 @@
 geneticEvidenceQuery(efo, ensid)
 }
 \arguments{
-\item{ensembl}{id is a identification id for genes by ensembl database}
+\item{efo}{is experimental factor ontolody id}
+
+\item{ensid}{is a identification id for genes by ensembl database}
 }
 \value{
-a dataframe including the queried gene indentity and its colocalization
-data
+a dataframe including the queried gene indentity and its colocalization data
 }
 \description{
 Query genetic evidance for a gene in a disease

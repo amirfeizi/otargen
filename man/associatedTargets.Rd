@@ -6,14 +6,14 @@
 \usage{
 associatedTargets(efoid, n)
 }
+\arguments{
+\item{efoid}{A string. The Experimental Factor Ontology-EFO id}
+
+\item{n}{An integer. Number of the record to return}
+}
+\value{
+Returns a dataframe which includes data table of the associated drug targets
+}
 \description{
 Retrive n drug targets associated with disease with specified EFO id
-}
-\details{
-@param efoid A string. The Experimental Factor Ontology (EFO id)
- @param n  An integer. Number of the record to return
- @return Returns a dataframe which includes data table of the associated drug targets
- @examples
- \dontrun{associatedTargets("EFO_0000540",10)}
- @export
 }
