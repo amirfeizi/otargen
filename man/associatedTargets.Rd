@@ -7,13 +7,13 @@
 associatedTargets(efoid, n)
 }
 \arguments{
-\item{efoid}{A string. The Experimental Factor Ontology-EFO id}
+\item{efoid}{A string. The Experimental Factor Ontology(EFO) id}
 
 \item{n}{An integer. Number of the record to return}
 }
 \value{
-Returns a dataframe which includes data table of the associated drug targets
+Returns a dataframe including a data table of the associated drug targets
 }
 \description{
-Retrive n drug targets associated with disease with specified EFO id
+Retrive specified number of drug targets (n) associated with a disease with specified EFO id
 }

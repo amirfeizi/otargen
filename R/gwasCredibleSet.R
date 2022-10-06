@@ -29,8 +29,12 @@ gwasCredibleSet <- function(studyid, variantid) {
 
   ## Execute the query
   variables <- list(studyId = studyid, variantId = variantid)
-  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$credset_query, variables, flatten = TRUE))$data
+  #variables <- list(studyId = "FINNGEN_R5_G6_AD_WIDE_EXMORE", variantId = "19_44908822_C_T")
+  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$credset_query,
+                                            variables, flatten = TRUE))$data
 
-  result <- purrr::flatten(result$gwasCredibleSet)
+  result <- result$gwasCredibleSet %>% dplyr::arrange(.data$pval) %>% dplyr::as_tibble()
+
+
   return(result)
 }
