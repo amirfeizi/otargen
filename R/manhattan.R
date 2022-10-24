@@ -21,33 +21,17 @@ manhattan <- function(studyid, pageindex=0, pagesize=0) {
       totalSetSize
       variant{
         id
+        position
+        rsId
       }
       pval
       oddsRatio
+      oddsRatioCILower
+      oddsRatioCIUpper
       beta
+      betaCILower
+      betaCIUpper
       direction
-      bestGenes{
-        gene{
-          id
-          bioType
-        }
-        score
-      }
-      bestColocGenes{
-        gene{
-          id
-          bioType
-        }
-        score
-      }
-      bestLocus2Genes{
-        gene{
-          id
-          bioType
-        }
-        score
-      }
-
     }
   }
 }")
@@ -55,9 +39,11 @@ manhattan <- function(studyid, pageindex=0, pagesize=0) {
   ## Execute the query
   variables <- list(studyId = studyid, pageIndex = pageindex, pageSize=pagesize)
 
-  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$manhattan_query, variables, flatten=TRUE))$data
+  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$manhattan_query, variables), flatten=TRUE)$data
 
-  result_df <- result %>% as.data.frame
+  result_df <- result$manhattan$associations %>% as.data.frame
+
 
   return(result_df)
+
 }

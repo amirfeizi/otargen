@@ -24,15 +24,16 @@ pheWAS <- function(variantid) {
         traitCategory
       }
       nTotal
-
     }
   }
 }')
 
 variables <- list(variantId = variantid)
 
-result <- jsonlite::fromJSON(client$exec(query_class$queries$phewas_query, variables), flatten=TRUE)$data %>% as.data.frame
+result <- jsonlite::fromJSON(client$exec(query_class$queries$phewas_query, variables), flatten=TRUE)$data
 
-return (result)
+result_df <- result$pheWAS %>% as.data.frame
+
+return (result_df)
 
 }

@@ -18,9 +18,6 @@ gwasRegional <- function(studyid, chromosome, start, end) {
     id
     chromosome
     position
-    nearestGene {
-      id
-    }
   }
   pval
 
@@ -30,7 +27,9 @@ gwasRegional <- function(studyid, chromosome, start, end) {
   ## Execute the query
   variables <- list(studyId = studyid, chromosome = chromosome, start = start, end = end)
 
-  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$gwasregional_query, variables, flatten=TRUE))$data
+  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$gwasregional_query, variables), flatten=TRUE)$data
 
-  return(result)
+  result_df <- result$gwasRegional %>% as.data.frame
+
+  return(result_df)
 }

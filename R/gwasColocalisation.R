@@ -15,14 +15,12 @@ gwasColocalisation <- function(studyid, variantid) {
     indexVariant{
     id
     position
-    altAllele
+    chromosome
     rsId
   }
   study{
+    studyId
     traitReported
-    pubAuthor
-    pmid
-    nCases
   }
   beta
   h3
@@ -33,8 +31,10 @@ gwasColocalisation <- function(studyid, variantid) {
 
   ## Execute the query
   variables <- list(studyId = studyid, variantId = variantid)
-  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$gwascol_query,variables), flatten = TRUE)
+  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$gwascol_query,variables), flatten = TRUE)$data
 
-  print (result)
+  result_df <- result$gwasColocalisation %>% as.data.frame
+
+  return(result_df)
 
 }

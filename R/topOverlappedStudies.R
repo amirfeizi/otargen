@@ -13,6 +13,9 @@ topOverlappedStudies <- function(studyid, pageindex=0, pagesize=0) {
   otg_qry <- ghql::Query$new()
   otg_qry$query("topoverlapstudies_query", "query topoverlapstudiesquery($studyId: String!, $pageIndex: Int!, $pageSize:Int!){
   topOverlappedStudies(studyId: $studyId, pageIndex: $pageIndex, pageSize: $pageSize) {
+    study {
+    studyId
+    }
     topStudiesByLociOverlap{
     studyId
     study{
@@ -28,7 +31,7 @@ topOverlappedStudies <- function(studyid, pageindex=0, pagesize=0) {
 
   result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$topoverlapstudies_query, variables, flatten=TRUE))$data
 
-  result_df <- result %>% as.data.frame
+  result_df <- result$topOverlappedStudies %>% as.data.frame
 
   return(result_df)
 }

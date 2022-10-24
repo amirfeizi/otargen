@@ -15,19 +15,25 @@ gwasColocalisationForRegion <- function(chromosome, start, end) {
   gwasColocalisationForRegion(chromosome: $chromosome, start: $start, end: $end) {
     leftVariant{
       id
+    position
+    chromosome
       rsId
     }
   leftStudy{
     studyId
+    traitReported
   }
   rightVariant
   {
     id
+    position
+    chromosome
     rsId
   }
   rightStudy
   {
     studyId
+    traitCategory
   }
   h3
   h4
@@ -39,7 +45,7 @@ gwasColocalisationForRegion <- function(chromosome, start, end) {
   variables <- list(chromosome = chromosome, start = start, end = end)
   result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$gwascolforreg_query, variables, flatten=TRUE))$data
 
-  result_df <- result %>% as.data.frame
+  result_df <- result$gwasColocalisationForRegion %>% as.data.frame
 
   return(result_df)
 }
