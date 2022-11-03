@@ -1,3 +1,6 @@
 test_that("multiplication works", {
-  expect_equal(2 * 2, 4)
+  expected <- otargen::studiesAndLeadVariantsForGeneByL2G(ensmbl_ids = "ENSG00000169174")
+  expect_s3_class(expected, "data.frame")
+  expect_error(otargen::studiesAndLeadVariantsForGeneByL2G(ensmbl_ids = "ENSGXXXXXXXXX"))
+  expect_false(is.null(dim(expected)))
 })
