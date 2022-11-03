@@ -5,6 +5,13 @@
 #' @export
 
 studiesAndLeadVariantsForGeneByL2G <- function(ensmbl_ids) {
+
+  # Check ensembl id format
+
+  if (!grepl(pattern ="ENSG\\d{11}", ensmbl_ids)) {
+    stop("\n Please provide Ensemble gene ID")
+  }
+
   ensmbl_ids <- ensmbl_ids
   l2g2 <- data.frame()
   l2g_genes_info <- data.frame()

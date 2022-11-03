@@ -5,6 +5,15 @@
 #' @export
 
 colocalisationsForGene <- function(ensmbl_ids) {
+
+
+
+  # Check ensembl id format
+
+  if (!grepl(pattern ="ENSG\\d{11}", ensmbl_ids)) {
+    stop("\n Please provide Ensemble gene ID")
+  }
+
   ensmbl_ids <- ensmbl_ids
   colocal2 <- data.frame()
   colocal_genes_info <- data.frame()

@@ -34,7 +34,7 @@ overlapInfoForStudy <- function(studyid, studyids=list()) {
   ## Execute the query
   variables <- list(studyId = studyid, studyIds = studyids)
   result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$overlapinfostudy_query, variables), flatten=TRUE)$data
-  result <- tibble(place = result)
+  result <- dplyr::tibble(place = result)
 
   final_df <- result %>% unnest_wider(place) %>% select(overlappedVariantsForStudies) %>% unnest(overlappedVariantsForStudies) %>%
     hoist(overlaps, variantIdA = 'variantIdA', variantIdB = 'variantIdB', overlapAB = 'overlapAB', distinctA = 'distinctA', distinctB = 'distinctB') %>%
