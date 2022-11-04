@@ -6,7 +6,7 @@
 #' @param biofeature represents either a tissue, cell type, aggregation type, protein type etc.
 #' @export
 
-qtlCredibleSet <- function(studyid, variantid, geneid, biofeature) {
+qtlCredibleSet <- function(studyId, variantId, geneId, bioFeature) {
 
   ## Set up to query Open Targets Genetics API
 
@@ -15,11 +15,7 @@ qtlCredibleSet <- function(studyid, variantid, geneid, biofeature) {
   otg_qry$query("qtlcredset_query", "query qtlcredsetquery($studyId: String!, $variantId: String!, $geneId: String!, $bioFeature: String!){
   qtlCredibleSet(studyId: $studyId, variantId: $variantId, geneId: $geneId, bioFeature: $bioFeature) {
   tagVariant {
-      chromosome
-      position
-      refAllele
-      altAllele
-      rsId
+      id
     }
   pval
   beta
@@ -32,8 +28,9 @@ qtlCredibleSet <- function(studyid, variantid, geneid, biofeature) {
 }")
 
   ## Execute the query
-  variables <- list(studyId = studyid, variantId = variantid, geneId = geneid, bioFeature = biofeature)
+  variables <- list(studyId = studyId, variantId = variantId, geneId = geneId, bioFeature = bioFeature)
   result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$qtlcredset_query, variables, flatten = TRUE))$data
+  result <- as.data.frame(result)
 
   return(result)
 }

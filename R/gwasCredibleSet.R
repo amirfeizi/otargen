@@ -24,6 +24,11 @@ gwasCredibleSet <- function(studyid, variantid) {
     beta
     postProb
     pval
+    se
+    MultisignalMethod
+    logABF
+    is95
+    is99
   }
 }")
 
@@ -33,7 +38,7 @@ gwasCredibleSet <- function(studyid, variantid) {
   result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$credset_query,
                                             variables, flatten = TRUE))$data
 
-  result <- result$gwasCredibleSet %>% dplyr::arrange(.data$pval) %>% dplyr::as_tibble()
+  result <- result$gwasCredibleSet %>% as.data.frame
 
 
   return(result)
