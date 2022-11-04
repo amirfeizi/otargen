@@ -14,29 +14,33 @@ studyLocus2GeneTable <- function(studyid, variantid) {
 
   ## Query for GWAS study locus details
   otg_qry$query("l2g_query", "query l2gQuery($studyId: String!, $variantId: String!){
-    studyInfo(studyId: $studyId){
-    numAssocLoci
-    ancestryInitial
-    nTotal
-    nCases
-    pubAuthor
-  }
   studyLocus2GeneTable(studyId: $studyId, variantId: $variantId){
+    study{
+    studyId
+  }
+    variant {
+      id
+      rsId
+    }
     rows {
       gene {
         id
         symbol
       }
-      hasColoc
-      yProbaModel
-      distanceToLocus
-    }
+    yProbaDistance
+    yProbaModel
+    yProbaMolecularQTL
+    yProbaPathogenicity
+    yProbaInteraction
+    hasColoc
+    distanceToLocus
+}
   }
 }")
 
   ## Execute the query
   variables <- list(studyId = studyid, variantId = variantid)
-  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$l2g_query, variables, flatten = TRUE))$data
-
-  return(result)
+  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$l2g_query, variables))$data
+  result_df <- as.data.frame(result$studyLocus2GeneTable)
+  return (result_df)
 }

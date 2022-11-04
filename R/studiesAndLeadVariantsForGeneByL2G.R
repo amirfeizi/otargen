@@ -62,7 +62,6 @@ studiesAndLeadVariantsForGeneByL2G <- function(ensmbl_ids) {
                                  numAssocLoci
                                  nTotal
                                  traitEfos
-
                                      }
                                variant{
                                  id
@@ -101,7 +100,6 @@ studiesAndLeadVariantsForGeneByL2G <- function(ensmbl_ids) {
     l2g2 <- dplyr::bind_rows(l2g2, l2g1$data$studiesAndLeadVariantsForGeneByL2G)
     gene_info <- l2g1$data$geneInfo
     l2g_genes_info <- dplyr::bind_rows(l2g_genes_info, gene_info)
-
     # Sys.sleep(1)
   }
 

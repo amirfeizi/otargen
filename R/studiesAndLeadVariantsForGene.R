@@ -46,12 +46,15 @@ studiesAndLeadVariantsForGene <- function(ensmbl_ids) {
     res <- con$exec(qry$queries$getgeninfo, variables)
 
     res1 <- jsonlite::fromJSON(res, flatten = TRUE)
+    if (!is.null(res1$studiesAndLeadVariantsForGene)){
 
     res1$data$studiesAndLeadVariantsForGene$gene_symbol <- rep(res1$data$geneInfo$symbol,
                                                                length(res1$data$studiesAndLeadVariantsForGene$study.pmid))
-    res2 <- rbind(res2, res1$data$studiesAndLeadVariantsForGene)
-    res_gene_info <- rbind(res_gene_info, as.data.frame(res1$data$geneInfo))
-    Sys.sleep(1)
+    res2 <- dplyr::bind_rows(res2, res1$data$studiesAndLeadVariantsForGene)
+    }
+    #res_gene_info <- rbind(res_gene_info, as.data.frame(res1$data$geneInfo))
+    #Sys.sleep(1)
   }
+
   return(res2)
 }
