@@ -1,3 +1,5 @@
-test_that("multiplication works", {
-  expect_equal(2 * 2, 4)
+test_that("test tagVariantsAndStudiesForIndexVariant works", {
+  expected <- otargen::tagVariantsAndStudiesForIndexVariant(variantid = "1_55063514_G_A" , pageindex = 0 , pagesize = 10 )
+  expect_s3_class(expected, "data.frame")
+  expect_false(is.null(dim(expected)))
 })

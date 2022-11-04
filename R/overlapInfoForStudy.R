@@ -36,9 +36,15 @@ overlapInfoForStudy <- function(studyid, studyids=list()) {
   result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$overlapinfostudy_query, variables), flatten=TRUE)$data
   result <- dplyr::tibble(place = result)
 
+<<<<<<< HEAD
   final_df <- result %>% tidyr::unnest_wider(place) %>% dplyr::select(overlappedVariantsForStudies) %>% tidyr::unnest(overlappedVariantsForStudies, keep_empty=TRUE) %>%
     tidyr::hoist(overlaps, variantIdA = 'variantIdA', variantIdB = 'variantIdB', overlapAB = 'overlapAB', distinctA = 'distinctA', distinctB = 'distinctB') %>%
     tidyr::unnest(c(variantIdA, variantIdB, overlapAB, distinctA, distinctB), keep_empty=TRUE) %>% as.data.frame
+=======
+  final_df <- result %>% tidyr::unnest_wider(place) %>% dplyr::select(overlappedVariantsForStudies) %>% tidyr::unnest(overlappedVariantsForStudies) %>%
+    tidyr::hoist(overlaps, variantIdA = 'variantIdA', variantIdB = 'variantIdB', overlapAB = 'overlapAB', distinctA = 'distinctA', distinctB = 'distinctB') %>%
+    tidyr::unnest(c(variantIdA, variantIdB, overlapAB, distinctA, distinctB)) %>% base::as.data.frame()
+>>>>>>> 4309f197b23eaf65b35e242fef6e3aa7b7f93493
 
   return(final_df)
 }
