@@ -11,9 +11,10 @@ studyLocus2GeneTable <- function(studyid, variantid) {
   ## Set up to query Open Targets Genetics API
   otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
   otg_qry <- ghql::Query$new()
+  variables <- list(studyId = studyid, variantId = variantid)
 
   ## Query for GWAS study locus details
-  otg_qry$query("l2g_query", "query l2gQuery($studyId: String!, $variantId: String!){
+  query <- "query l2gQuery($studyId: String!, $variantId: String!){
   studyLocus2GeneTable(studyId: $studyId, variantId: $variantId){
     study{
     studyId
@@ -36,10 +37,13 @@ studyLocus2GeneTable <- function(studyid, variantid) {
     distanceToLocus
 }
   }
-}")
+}"
+
 
   ## Execute the query
-  variables <- list(studyId = studyid, variantId = variantid)
+
+  otg_qry$query(name = "l2g_query", x = query)
+
   result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$l2g_query, variables))$data
   result_df <- as.data.frame(result$studyLocus2GeneTable)
   return (result_df)

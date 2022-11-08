@@ -5,10 +5,9 @@
 
 pheWAS <- function(variantid) {
   ## Set up to query Open Targets Genetics API
-  client <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
-  query_class <- ghql::Query$new()
 
-  query_class$query('phewas_query' , 'query search($variantId: String!){
+  variables <- list(variantId = variantid)
+  query <- 'query search($variantId: String!){
     pheWAS(variantId: $variantId){
     totalGWASStudies
     associations{
@@ -26,9 +25,15 @@ pheWAS <- function(variantid) {
       nTotal
     }
   }
-}')
+}'
 
-variables <- list(variantId = variantid)
+  # make connection to the endpoint
+  client <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
+  query_class <- ghql::Query$new()
+
+  # execute the query
+  query_class$query(name ='phewas_query' , x = query )
+
 
 result <- jsonlite::fromJSON(client$exec(query_class$queries$phewas_query, variables), flatten=TRUE)$data
 

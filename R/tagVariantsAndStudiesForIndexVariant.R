@@ -11,7 +11,10 @@ tagVariantsAndStudiesForIndexVariant <- function(variantid, pageindex=0, pagesiz
 
   otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
   otg_qry <- ghql::Query$new()
-  otg_qry$query("tagVariantsAndStudiesForIndexVariant_query", "query tagVariantsAndStudiesForIndexVariantquery($variantId: String!, $pageIndex: Int!, $pageSize:Int!){
+
+  variables <- list(variantId = variantid, pageIndex = pageindex, pageSize=pagesize)
+
+  query <- "query tagVariantsAndStudiesForIndexVariantquery($variantId: String!, $pageIndex: Int!, $pageSize:Int!){
   tagVariantsAndStudiesForIndexVariant(variantId: $variantId, pageIndex: $pageIndex, pageSize: $pageSize) {
     associations{
   tagVariant{
@@ -46,10 +49,10 @@ tagVariantsAndStudiesForIndexVariant <- function(variantid, pageindex=0, pagesiz
       log10Abf
   }
   }
-}")
+}"
 
   ## Execute the query
-  variables <- list(variantId = variantid, pageIndex = pageindex, pageSize=pagesize)
+  otg_qry$query(name = "tagVariantsAndStudiesForIndexVariant_query", )
 
   result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$tagVariantsAndStudiesForIndexVariant_query, variables, flatten=TRUE))$data
 

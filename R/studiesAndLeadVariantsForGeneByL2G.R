@@ -1,31 +1,22 @@
 #' Query L2G model summary data for a gene
 #'
 #' @param ensmbl_ids is a identification id for genes by ensembl database
+#' @param l2g is locus to gene cut off, the defaul is set to 0.4.
 #' @return a dataframe including the queried gene indentity and its colocalization data
 #' @export
 
-studiesAndLeadVariantsForGeneByL2G <- function(ensmbl_ids) {
+studiesAndLeadVariantsForGeneByL2G <- function(ensmbl_ids, l2g = 0.4, pvalue = 1e-8) {
 
   # Check ensembl id format
 
-  if (!grepl(pattern ="ENSG\\d{11}", ensmbl_ids)) {
+  if (!grepl(pattern = "ENSG\\d{11}", ensmbl_ids)) {
     stop("\n Please provide Ensemble gene ID")
   }
 
   ensmbl_ids <- ensmbl_ids
-  l2g2 <- data.frame()
-  l2g_genes_info <- data.frame()
-  con <- ghql::GraphqlClient$new("https://api.genetics.opentargets.org/graphql") # make a graphql connection
+  variables <- list(gene = input_gene) # define the input gene name
 
-  for (input_gene in ensmbl_ids) {
-    base::print(input_gene)
-
-    # Set up to query Open Targets Platform API
-    qry <- ghql::Query$new()
-
-    # Query for targets associated with a disease and L2G scores
-
-    qry$query("getStudiesLeadL2G", "query	studiesAndLeadl2g($gene:String!) {
+  query <- "query	studiesAndLeadl2g($gene:String!) {
 
              geneInfo (geneId:$gene) {
                                      id
@@ -49,13 +40,13 @@ studiesAndLeadVariantsForGeneByL2G <- function(ensmbl_ids) {
                                      betaCILower
                                      betaCIUpper
                                    }
-                               odds{
+                               odds {
                                    oddsCI
                                    oddsCILower
                                    oddsCIUpper
 
                                    }
-                               study{
+                               study {
                                  studyId
                                  traitReported
                                  traitCategory
@@ -70,7 +61,7 @@ studiesAndLeadVariantsForGeneByL2G <- function(ensmbl_ids) {
                                  nTotal
                                  traitEfos
                                      }
-                               variant{
+                               variant {
                                  id
                                  rsId
                                  chromosome
@@ -90,25 +81,41 @@ studiesAndLeadVariantsForGeneByL2G <- function(ensmbl_ids) {
      }
    }
 
- }")
+ }"
+
+  final_output <- data.frame()
+
+  # make a graphql connection
+  con <- ghql::GraphqlClient$new("https://api.genetics.opentargets.org/graphql")
+
+  for (input_gene in ensmbl_ids) {
+    base::print(input_gene)
+
+    # Set up to query Open Targets Platform API
+    qry <- ghql::Query$new()
+
+    # Query for targets associated with a disease and L2G scores
+
+    qry$query(name = "getStudiesLeadL2G", x = query)
 
     ## Execute the query
 
-    variables <- list(gene = input_gene) # define the input gene name
+    output0 <- con$exec(qry$queries$getStudiesLeadL2G, variables) # execute the query
 
-    l2g <- con$exec(qry$queries$getStudiesLeadL2G, variables) # execute the query
+    output1 <- jsonlite::fromJSON(output0, flatten = TRUE) # convert the query output from json
 
-    l2g1 <- jsonlite::fromJSON(l2g, flatten = TRUE) # convert the query output from json
+    ## tidying the output
 
+    output1$data$studiesAndLeadVariantsForGeneByL2G$gene_symbol <- rep(
+      output1$data$geneInfo$symbol,
+      length(output1$data$studiesAndLeadVariantsForGeneByL2G$yProbaModel)
+    )
 
-    l2g1$data$studiesAndLeadVariantsForGeneByL2G$gene_symbol <- rep(l2g1$data$geneInfo$symbol,
-                                                                    length(l2g1$data$studiesAndLeadVariantsForGeneByL2G$yProbaModel))
+    final_output <- dplyr::bind_rows(final_output, output1$data$studiesAndLeadVariantsForGeneByL2G) %>%
+      dplyr::filter(yProbaModel >= l2g, pval <= pvalue)
 
-    l2g2 <- dplyr::bind_rows(l2g2, l2g1$data$studiesAndLeadVariantsForGeneByL2G)
-    gene_info <- l2g1$data$geneInfo
-    l2g_genes_info <- dplyr::bind_rows(l2g_genes_info, gene_info)
     # Sys.sleep(1)
   }
 
-  return(l2g2)
+  return(final_output)
 }

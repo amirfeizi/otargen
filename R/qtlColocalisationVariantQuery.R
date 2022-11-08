@@ -10,12 +10,9 @@ qtlColocalisationVariantQuery <- function(studyid, variantid) {
 
 
   ## Query for QTL colocalisation
+  variables <- list(studyId = studyid, variantId = variantid)
 
-  otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
-  otg_qry <- ghql::Query$new()
-  otg_qry$query(
-    "qtl_query",
-    "query qtlColocalisationVariantQuery($studyId: String!, $variantId: String!) {
+  query <- "query qtlColocalisationVariantQuery($studyId: String!, $variantId: String!) {
   qtlColocalisation(studyId: $studyId, variantId: $variantId){
     qtlStudyName
     phenotypeId
@@ -33,9 +30,13 @@ qtlColocalisationVariantQuery <- function(studyid, variantid) {
     h4
   }
 }"
-  )
 
-  variables <- list(studyId = studyid, variantId = variantid)
+  otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
+  otg_qry <- ghql::Query$new()
+
+  # execute the query
+  otg_qry$query(name = "qtl_query", x = query)
+
   result <-
     jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$qtl_query, variables, flatten = TRUE))$data
   l2g_result <- result$qtlColocalisation

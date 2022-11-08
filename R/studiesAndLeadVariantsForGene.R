@@ -9,10 +9,16 @@ studiesAndLeadVariantsForGene <- function(ensmbl_ids) {
   res2 <- data.frame()
   res_gene_info <- data.frame()
   for (input_gene in ensmbl_ids) {
+
     base::print(input_gene)
+
+    con <- ghql::GraphqlClient$new("https://api.genetics.opentargets.org/graphql")
     qry <- ghql::Query$new()
 
-    qry$query("getgeninfo", "query	geneandstudy($gene:String!) {
+    variables <- list(gene = input_gene)
+
+
+    query <- "query	geneandstudy($gene:String!) {
    geneInfo (geneId:$gene) {
      id
      symbol
@@ -38,11 +44,11 @@ studiesAndLeadVariantsForGene <- function(ensmbl_ids) {
      }
 
    }
- }")
+ }"
 
+    ## execute the query
+    qry$query(name = "getgeninfo", x = query )
 
-    variables <- list(gene = input_gene)
-    con <- ghql::GraphqlClient$new("https://api.genetics.opentargets.org/graphql")
     res <- con$exec(qry$queries$getgeninfo, variables)
 
     res1 <- jsonlite::fromJSON(res, flatten = TRUE)
