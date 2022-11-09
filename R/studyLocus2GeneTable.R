@@ -2,8 +2,11 @@
 #'
 #' @param studyid is the Open Target Genetics generated id for gwas studies.
 #' @param variantid is Open Target Genetics generated id for each variant in the databse.
-#' @return a datframe with summary stats of the study and datatable of the various calculated scores and features for any lead variant
+#' @return A dataframe with summary stats of the study and datatable of the various calculated scores and features for any lead variant.
+#' @examples
+#' studyLocus2GeneTable("GCST90002357", "1_154119580_C_A")
 #' @export
+#'
 
 studyLocus2GeneTable <- function(studyid, variantid) {
 

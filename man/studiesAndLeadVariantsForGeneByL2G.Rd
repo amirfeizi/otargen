@@ -10,8 +10,12 @@ studiesAndLeadVariantsForGeneByL2G(ensmbl_ids)
 \item{ensmbl_ids}{is a identification id for genes by ensembl database}
 }
 \value{
-a dataframe including the queried gene indentity and its colocalization data
+A dataframe including the queried gene indentity and its colocalization data for L2G model
 }
 \description{
 Query L2G model summary data for a gene
+}
+\examples{
+studiesAndLeadVariantsForGeneByL2G(list("ENSG00000163946","ENSG00000169174", "ENSG00000143001"))
+studiesAndLeadVariantsForGeneByL2G("ENSG00000169174")
 }

@@ -1,8 +1,13 @@
-#' Get gwas colocalisation data for a region
+#' Get gwas colocalisation data for a given region
 #'
-#' @param chromosome
-#' @param start
-#' @param end
+#' @param chromosome chromosome number given as string.
+#' @param start start position of the specified chromosome.
+#' @param end end position of the specified chromosome.
+#' @returns A data frame with gwas colocalisation data containing studies and variants for the queried chromosome and region
+#' @examples
+#' gwasColocalisationForRegion("1", 153992685, 154155116)
+#' @export
+#'
 #'
 
 gwasColocalisationForRegion <- function(chromosome, start, end) {

@@ -12,8 +12,11 @@ gwasCredibleSet(studyid, variantid)
 \item{variantid}{is Open Target Genetics generated id for each variant in the databse.}
 }
 \value{
-a data frame of results from credible set of variants for a specific lead variant
+A data frame of results from credible set of variants for a specific lead variant.
 }
 \description{
 Get gwas credible set data for a variant in a study
+}
+\examples{
+gwasCredibleSet("GCST90002357", "1_154119580_C_A")
 }

@@ -2,7 +2,9 @@
 #'
 #' @param studyid is the Open Target Genetics generated id for gwas studies.
 #' @param studyids is a list of Open Target Genetics generated id for gwas studies.
-#' @return a data frame of results containing the overlap info
+#' @return A data frame of results containing the overlap info between the input studyid and the list of studyids.
+#' @examples
+#' overlapInfoForStudy("GCST90002357", list("GCST90025975","GCST90025962"))
 #' @export
 #'
 

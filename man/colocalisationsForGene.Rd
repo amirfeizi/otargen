@@ -10,8 +10,12 @@ colocalisationsForGene(ensmbl_ids)
 \item{ensmbl_ids}{is a identification id for genes by ensembl database}
 }
 \value{
-a dataframe including the queried gene indentity and its colocalization data
+A dataframe including the queried gene indentity and its colocalization data
 }
 \description{
 Get colocalization data for a gene
+}
+\examples{
+colocalisationsForGene(list("ENSG00000163946","ENSG00000169174", "ENSG00000143001"))
+colocalisationsForGene("ENSG00000169174")
 }

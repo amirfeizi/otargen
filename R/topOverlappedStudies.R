@@ -1,9 +1,15 @@
 #' Gives out top studies ordered by loci overlap.
 #'
-#' @param studyid is the Open Target Genetics generated id for gwas studies.
-#' @param pageIndex
-#' @param pageSize
+#' @param studyid which links the top loci with a trait. Formet: String
+#' @param pageIndex pagination index >= 0. Index of the current page. Format: Int
+#' @param pageSize pagination size > 0. No. of records in a page. Format: Int
+#' @returns A data frame with top studies
+#' @examples
+#' topOverlappedStudies("GCST006614_3")
+#' topOverlappedStudies("NEALE2_6177_1", pageindex=1, pagesize=50)
+#'
 #' @export
+#'
 
 topOverlappedStudies <- function(studyid, pageindex=0, pagesize=0) {
 

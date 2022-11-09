@@ -4,7 +4,11 @@
 #' @param variantid is Open Target Genetics generated id for each variant in the databse.
 #' @param geneid is the Ensembl identifier.
 #' @param biofeature represents either a tissue, cell type, aggregation type, protein type etc.
+#' @return A data frame of results from qtl credible set of variants for a given study, variant, gene and biofeature.
+#' @examples
+#' qtlCredibleSet("Braineac2", "1_55053079_C_T", "ENSG00000169174", "SUBSTANTIA_NIGRA")
 #' @export
+#'
 
 qtlCredibleSet <- function(studyId, variantId, geneId, bioFeature) {
 

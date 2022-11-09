@@ -1,8 +1,13 @@
 #' Get all studies and lead variants for a gene
 #'
-#' @param ensmbl_ids is a identification id for genes by ensembl database
-#' @return a dataframe including the queried gene indentity and its colocalization data
+#' @param ensmbl_ids is a identification id for genes by ensembl database.
+#' @return A dataframe including the queried gene identity and its colocalization data
+#' @examples
+#' studiesAndLeadVariantsForGene(list("ENSG00000163946","ENSG00000169174", "ENSG00000143001"))
+#' studiesAndLeadVariantsForGene("ENSG00000169174")
 #' @export
+#'
+#'
 
 
 studiesAndLeadVariantsForGene <- function(ensmbl_ids) {
@@ -46,7 +51,7 @@ studiesAndLeadVariantsForGene <- function(ensmbl_ids) {
     res <- con$exec(qry$queries$getgeninfo, variables)
 
     res1 <- jsonlite::fromJSON(res, flatten = TRUE)
-    if (!is.null(res1$studiesAndLeadVariantsForGene)){
+    if (!is.null(res1$data$studiesAndLeadVariantsForGene)){
 
     res1$data$studiesAndLeadVariantsForGene$gene_symbol <- rep(res1$data$geneInfo$symbol,
                                                                length(res1$data$studiesAndLeadVariantsForGene$study.pmid))

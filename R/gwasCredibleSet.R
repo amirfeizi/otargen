@@ -2,8 +2,11 @@
 #'
 #' @param studyid is the Open Target Genetics generated id for gwas studies.
 #' @param variantid is Open Target Genetics generated id for each variant in the databse.
-#' @return a data frame of results from credible set of variants for a specific lead variant
+#' @return A data frame of results from credible set of variants for a specific lead variant.
+#' @examples
+#' gwasCredibleSet("GCST90002357", "1_154119580_C_A")
 #' @export
+#'
 
 
 

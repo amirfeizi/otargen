@@ -1,8 +1,13 @@
 #' Query L2G model summary data for a gene
 #'
 #' @param ensmbl_ids is a identification id for genes by ensembl database
-#' @return a dataframe including the queried gene indentity and its colocalization data
+#' @return A dataframe including the queried gene indentity and its colocalization data for L2G model
+#' @examples
+#' studiesAndLeadVariantsForGeneByL2G(list("ENSG00000163946","ENSG00000169174", "ENSG00000143001"))
+#' studiesAndLeadVariantsForGeneByL2G("ENSG00000169174")
 #' @export
+#'
+#'
 
 studiesAndLeadVariantsForGeneByL2G <- function(ensmbl_ids) {
 

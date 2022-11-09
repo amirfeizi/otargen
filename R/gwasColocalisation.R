@@ -2,8 +2,11 @@
 #'
 #' @param studyid is the Open Target Genetics generated id for gwas studies.
 #' @param variantid is Open Target Genetics generated id for each variant in the database.
-#' @return a data frame of the studies which colocalise with the input variant and study
+#' @return A data frame of the studies which colocalise with the input variant and study.
+#' @examples
+#' gwasColocalisation("GCST90002357", "1_154119580_C_A")
 #' @export
+#'
 
 gwasColocalisation <- function(studyid, variantid) {
   ## Set up to query Open Targets Genetics API

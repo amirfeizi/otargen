@@ -7,11 +7,15 @@
 studiesAndLeadVariantsForGene(ensmbl_ids)
 }
 \arguments{
-\item{ensmbl_ids}{is a identification id for genes by ensembl database}
+\item{ensmbl_ids}{is a identification id for genes by ensembl database.}
 }
 \value{
-a dataframe including the queried gene indentity and its colocalization data
+A dataframe including the queried gene identity and its colocalization data
 }
 \description{
 Get all studies and lead variants for a gene
+}
+\examples{
+studiesAndLeadVariantsForGene(list("ENSG00000163946","ENSG00000169174", "ENSG00000143001"))
+studiesAndLeadVariantsForGene("ENSG00000169174")
 }

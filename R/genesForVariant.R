@@ -1,6 +1,7 @@
-#' G2V
+#' Genes and Variants association with
 #'
 #' @export
+#'
 
 genesForVariant <- function(variantid) {
 

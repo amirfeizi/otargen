@@ -12,8 +12,11 @@ studyLocus2GeneTable(studyid, variantid)
 \item{variantid}{is Open Target Genetics generated id for each variant in the databse.}
 }
 \value{
-a datframe with summary stats of the study and datatable of the various calculated scores and features for any lead variant
+A dataframe with summary stats of the study and datatable of the various calculated scores and features for any lead variant.
 }
 \description{
 Get locus data table of a variant around a gene
+}
+\examples{
+studyLocus2GeneTable("GCST90002357", "1_154119580_C_A")
 }
