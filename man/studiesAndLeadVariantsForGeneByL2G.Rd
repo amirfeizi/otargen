@@ -4,10 +4,12 @@
 \alias{studiesAndLeadVariantsForGeneByL2G}
 \title{Query L2G model summary data for a gene}
 \usage{
-studiesAndLeadVariantsForGeneByL2G(ensmbl_ids)
+studiesAndLeadVariantsForGeneByL2G(ensmbl_ids, l2g = 0.4, pvalue = 1e-08)
 }
 \arguments{
-\item{ensmbl_ids}{is a identification id for genes by ensembl database}
+\item{ensmbl_ids}{is a identification id for genes by ensembl database.}
+
+\item{l2g}{is locus to gene cut off, the defaul is set to 0.4.}
 }
 \value{
 A dataframe including the queried gene indentity and its colocalization data for L2G model
@@ -18,4 +20,5 @@ Query L2G model summary data for a gene
 \examples{
 studiesAndLeadVariantsForGeneByL2G(list("ENSG00000163946","ENSG00000169174", "ENSG00000143001"))
 studiesAndLeadVariantsForGeneByL2G("ENSG00000169174")
+studiesAndLeadVariantsForGeneByL2G("ENSG00000169174", l2g=0.6)
 }

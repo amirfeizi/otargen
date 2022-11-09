@@ -17,7 +17,10 @@ topOverlappedStudies <- function(studyid, pageindex=0, pagesize=0) {
 
   otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
   otg_qry <- ghql::Query$new()
-  otg_qry$query("topoverlapstudies_query", "query topoverlapstudiesquery($studyId: String!, $pageIndex: Int!, $pageSize:Int!){
+
+  variables <- list(studyId = studyid, pageIndex = pageindex, pageSize=pagesize)
+
+  query <- "query topoverlapstudiesquery($studyId: String!, $pageIndex: Int!, $pageSize:Int!){
   topOverlappedStudies(studyId: $studyId, pageIndex: $pageIndex, pageSize: $pageSize) {
     study {
     studyId
@@ -30,10 +33,10 @@ topOverlappedStudies <- function(studyid, pageindex=0, pagesize=0) {
     numOverlapLoci
   }
   }
-}")
+}"
 
   ## Execute the query
-  variables <- list(studyId = studyid, pageIndex = pageindex, pageSize=pagesize)
+  otg_qry$query(name = "topoverlapstudies_query", x = query )
 
   result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$topoverlapstudies_query, variables, flatten=TRUE))$data
 

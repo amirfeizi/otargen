@@ -14,9 +14,12 @@ gwasRegional <- function(studyid, chromosome, start, end) {
 
   ## Set up to query Open Targets Genetics API
 
+  variables <- list(studyId = studyid, chromosome = chromosome, start = start, end = end)
+
   otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
   otg_qry <- ghql::Query$new()
-  otg_qry$query("gwasregional_query", "query gwasregionalquery($studyId: String!, $chromosome: String! $start: Long!, $end: Long!){
+
+  query <- "query gwasregionalquery($studyId: String!, $chromosome: String! $start: Long!, $end: Long!){
   gwasRegional(studyId: $studyId, chromosome: $chromosome, start: $start, end: $end) {
      variant{
     id
@@ -26,10 +29,12 @@ gwasRegional <- function(studyid, chromosome, start, end) {
   pval
 
   }
-}")
+}"
+
 
   ## Execute the query
-  variables <- list(studyId = studyid, chromosome = chromosome, start = start, end = end)
+
+  otg_qry$query(name = "gwasregional_query", x =  query)
 
   result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$gwasregional_query, variables), flatten=TRUE)$data
 

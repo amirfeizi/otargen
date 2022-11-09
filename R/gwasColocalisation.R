@@ -9,11 +9,14 @@
 #'
 
 gwasColocalisation <- function(studyid, variantid) {
+
+  variables <- list(studyId = studyid, variantId = variantid)
+
   ## Set up to query Open Targets Genetics API
   otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
   otg_qry <- ghql::Query$new()
 
-  otg_qry$query('gwascol_query' , 'query gwascolquery($studyId: String!, $variantId: String!){
+  query <- 'query gwascolquery($studyId: String!, $variantId: String!){
     gwasColocalisation(studyId: $studyId, variantId: $variantId){
     indexVariant{
     id
@@ -30,10 +33,12 @@ gwasColocalisation <- function(studyid, variantid) {
   h4
   log2h4h3
 }
-}')
+}'
+
 
   ## Execute the query
-  variables <- list(studyId = studyid, variantId = variantid)
+  otg_qry$query(name = 'gwascol_query' , query)
+
   result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$gwascol_query,variables), flatten = TRUE)$data
 
   result_df <- result$gwasColocalisation %>% as.data.frame

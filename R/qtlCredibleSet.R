@@ -16,7 +16,10 @@ qtlCredibleSet <- function(studyId, variantId, geneId, bioFeature) {
 
   otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
   otg_qry <- ghql::Query$new()
-  otg_qry$query("qtlcredset_query", "query qtlcredsetquery($studyId: String!, $variantId: String!, $geneId: String!, $bioFeature: String!){
+
+  variables <- list(studyId = studyId, variantId = variantId, geneId = geneId, bioFeature = bioFeature)
+
+  query <- "query qtlcredsetquery($studyId: String!, $variantId: String!, $geneId: String!, $bioFeature: String!){
   qtlCredibleSet(studyId: $studyId, variantId: $variantId, geneId: $geneId, bioFeature: $bioFeature) {
   tagVariant {
       id
@@ -29,10 +32,10 @@ qtlCredibleSet <- function(studyId, variantId, geneId, bioFeature) {
   is95
   is99
 }
-}")
+}"
+  otg_qry$query(name = "qtlcredset_query", x = query)
 
   ## Execute the query
-  variables <- list(studyId = studyId, variantId = variantId, geneId = geneId, bioFeature = bioFeature)
   result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$qtlcredset_query, variables, flatten = TRUE))$data
   result <- as.data.frame(result)
 

@@ -13,20 +13,16 @@ colocalisationsForGene <- function(ensmbl_ids) {
 
   # Check ensembl id format
 
-  if (!grepl(pattern ="ENSG\\d{11}", ensmbl_ids)) {
+  if (!grepl(pattern = "ENSG\\d{11}", ensmbl_ids)) {
     stop("\n Please provide Ensemble gene ID")
   }
 
   ensmbl_ids <- ensmbl_ids
+
   colocal2 <- data.frame()
   colocal_genes_info <- data.frame()
 
-
-
-  for (input_gene in ensmbl_ids) {
-    print(input_gene)
-    qry <- ghql::Query$new()
-    qry$query("getgenColocal", "query	geneandcolocal($gene:String!) {
+  query <- "query	geneandcolocal($gene:String!) {
   geneInfo (geneId:$gene) {
     id
     symbol
@@ -37,8 +33,11 @@ colocalisationsForGene <- function(ensmbl_ids) {
 
   }
 
-
 colocalisationsForGene(geneId:$gene){
+  leftVariant {
+      id
+      rsId
+    }
   study {
     pmid
     pubDate
@@ -53,19 +52,29 @@ colocalisationsForGene(geneId:$gene){
     numAssocLoci
   }
   tissue {
-    id
+    name
+    __typename
   }
   phenotypeId
-  log2h4h3
-  qtlStudyId
   h3
   h4
+  log2h4h3
+  qtlStudyId
+  __typename
+
 }
 
-}")
+}"
 
-    variables <- list(gene = input_gene)
+
+  for (input_gene in ensmbl_ids) {
+    print(input_gene)
+
     con <- ghql::GraphqlClient$new("https://api.genetics.opentargets.org/graphql")
+    qry <- ghql::Query$new()
+    variables <- list(gene = input_gene)
+
+    qry$query(name = "getgenColocal", x = query)
 
     colocal <- con$exec(qry$queries$getgenColocal, variables)
     colocal1 <- jsonlite::fromJSON(colocal, flatten = TRUE)
