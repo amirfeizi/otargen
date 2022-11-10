@@ -2,7 +2,7 @@
 #'
 #' @param variantid is the Open Target Genetics generated id for each variants.
 #' @param pageIndex pagination index >= 0. Index of the current page.
-#' @param pageSize pagination size > 0. No. of records in a page.
+#' @param pageSize pagination size > 0. No. of records in a page. Default: 20
 #' @return A dataframe containing the variant associations connnected to the input index variant.
 #' @examples
 #' tagVariantsAndStudiesForIndexVariant("GCST006614_3")
@@ -10,7 +10,7 @@
 #' @export
 #'
 
-tagVariantsAndStudiesForIndexVariant <- function(variantid, pageindex=0, pagesize=0) {
+tagVariantsAndStudiesForIndexVariant <- function(variantid, pageindex=0, pagesize=20) {
 
   ## Set up to query Open Targets Genetics API
 

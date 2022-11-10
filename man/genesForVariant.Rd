@@ -2,10 +2,19 @@
 % Please edit documentation in R/genesForVariant.R
 \name{genesForVariant}
 \alias{genesForVariant}
-\title{Genes and Variants association with}
+\title{Variant to Gene (V2G) data}
 \usage{
 genesForVariant(variantid)
 }
+\arguments{
+\item{variantid}{is the Open Target Genetics generated id for each variants.}
+}
+\value{
+A dataframe containing variant to gene (v2g) information with individual QTL associations, distances and functional predictions.
+}
 \description{
-Genes and Variants association with
+Variant to Gene (V2G) data
+}
+\examples{
+genesForVariant("1_55039974_G_T")
 }

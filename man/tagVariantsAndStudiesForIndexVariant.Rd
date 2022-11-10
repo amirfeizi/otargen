@@ -4,14 +4,14 @@
 \alias{tagVariantsAndStudiesForIndexVariant}
 \title{Gives out tagVariants and studies for a given index variant.}
 \usage{
-tagVariantsAndStudiesForIndexVariant(variantid, pageindex = 0, pagesize = 0)
+tagVariantsAndStudiesForIndexVariant(variantid, pageindex = 0, pagesize = 20)
 }
 \arguments{
 \item{variantid}{is the Open Target Genetics generated id for each variants.}
 
 \item{pageIndex}{pagination index >= 0. Index of the current page.}
 
-\item{pageSize}{pagination size > 0. No. of records in a page.}
+\item{pageSize}{pagination size > 0. No. of records in a page. Default: 20}
 }
 \value{
 A dataframe containing the variant associations connnected to the input index variant.

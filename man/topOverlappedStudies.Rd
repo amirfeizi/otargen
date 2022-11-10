@@ -4,17 +4,17 @@
 \alias{topOverlappedStudies}
 \title{Gives out top studies ordered by loci overlap.}
 \usage{
-topOverlappedStudies(studyid, pageindex = 0, pagesize = 0)
+topOverlappedStudies(studyid, pageindex = 0, pagesize = 20)
 }
 \arguments{
 \item{studyid}{which links the top loci with a trait. Formet: String}
 
-\item{pageIndex}{pagination index >= 0. Index of the current page. Format: Int}
+\item{pageIndex}{pagination index >= 0. Index of the current page.}
 
-\item{pageSize}{pagination size > 0. No. of records in a page. Format: Int}
+\item{pageSize}{pagination size > 0. No. of records in a page. Default: 20}
 }
 \value{
-A data frame with top studies
+A data frame with top studies.
 }
 \description{
 Gives out top studies ordered by loci overlap.

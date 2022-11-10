@@ -1,11 +1,17 @@
-#' Gives list of manhattan association for a given study.
+#' Manhattan association for a given study.
 #'
 #' @param studyid is the Open Target Genetics generated id for gwas studies.
-#' @param pageIndex optional argument
-#' @param pageSize optional argument
+#' @param pageIndex pageIndex pagination index >= 0. Index of the current page.
+#' @param pageSize pagination size > 0. No. of records in a page. Default: 20
+#' @return A dataframe containing manhattan associations for the input study id given.
+#' @examples
+#' manhattan("GCST90002357")
+#' manhattan("GCST90002357", 2, 50)
 #' @export
+#'
+#'
 
-manhattan <- function(studyid, pageindex=0, pagesize=0) {
+manhattan <- function(studyid, pageindex=0, pagesize=20) {
 
   ## Set up to query Open Targets Genetics API
 

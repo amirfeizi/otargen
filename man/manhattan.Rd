@@ -2,17 +2,24 @@
 % Please edit documentation in R/manhattan.R
 \name{manhattan}
 \alias{manhattan}
-\title{Gives list of manhattan association for a given study.}
+\title{Manhattan association for a given study.}
 \usage{
-manhattan(studyid, pageindex = 0, pagesize = 0)
+manhattan(studyid, pageindex = 0, pagesize = 20)
 }
 \arguments{
 \item{studyid}{is the Open Target Genetics generated id for gwas studies.}
 
-\item{pageIndex}{optional argument}
+\item{pageIndex}{pageIndex pagination index >= 0. Index of the current page.}
 
-\item{pageSize}{optional argument}
+\item{pageSize}{pagination size > 0. No. of records in a page. Default: 20}
+}
+\value{
+A dataframe containing manhattan associations for the input study id given.
 }
 \description{
-Gives list of manhattan association for a given study.
+Manhattan association for a given study.
+}
+\examples{
+manhattan("GCST90002357")
+manhattan("GCST90002357", 2, 50)
 }

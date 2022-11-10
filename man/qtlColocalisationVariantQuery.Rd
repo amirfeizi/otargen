@@ -9,11 +9,14 @@ qtlColocalisationVariantQuery(studyid, variantid)
 \arguments{
 \item{studyid}{is the Open Target Genetics generated id for gwas studies.}
 
-\item{variantid}{is Open Target Genetics generated id for each variant in the databse.}
+\item{variantid}{is Open Target Genetics generated id for each variant in the database.}
 }
 \value{
-a data frame of the colocalization information for a lead variant
+A data frame of the colocalization information for a lead variant.
 }
 \description{
 Get Colocalization data for a variant in specific study
+}
+\examples{
+qtlColocalisation("GCST90002357","1_154119580_C_A")
 }

@@ -2,9 +2,12 @@
 #'
 #'
 #' @param studyid is the Open Target Genetics generated id for gwas studies.
-#' @param variantid is Open Target Genetics generated id for each variant in the databse.
-#' @return a data frame of the colocalization information for a lead variant
+#' @param variantid is Open Target Genetics generated id for each variant in the database.
+#' @return A data frame of the colocalization information for a lead variant.
+#' @examples
+#' qtlColocalisation("GCST90002357","1_154119580_C_A")
 #' @export
+#'
 
 qtlColocalisationVariantQuery <- function(studyid, variantid) {
 

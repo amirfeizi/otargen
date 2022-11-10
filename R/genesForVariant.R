@@ -1,5 +1,10 @@
-#' Genes and Variants association with
+#' Variant to Gene (V2G) data
 #'
+#'
+#' @param variantid is the Open Target Genetics generated id for each variants.
+#' @return A dataframe containing variant to gene (v2g) information with individual QTL associations, distances and functional predictions.
+#' @examples
+#' genesForVariant("1_55039974_G_T")
 #' @export
 #'
 
@@ -73,6 +78,7 @@ genesForVariant <- function(variantid) {
   df_result <- tidyr::unnest(df_result, distances, names_sep='.', keep_empty=TRUE)
   df_result <- tidyr::unnest(df_result, distances.tissues, names_sep='.',keep_empty=TRUE)
   fin_result <- as.data.frame(df_result)
-  return(fin_result)
+  return (fin_result)
+
 
 }
