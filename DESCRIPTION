@@ -1,7 +1,7 @@
 Package: otargen
 Type: Package
 Title: R package to access Open Target Genetics 
-Version: 0.1.0
+Version: 0.1.1
 Author: Amir Feizi
 Maintainer: The package maintainer <afeizi@gmail.com>
 Description: This is an R package that uses Graph QL query languages to search and retrieve datatables from Open Target Genetics GraphQL end points. 
@@ -16,7 +16,8 @@ Imports:
     data.table,
     dplyr,
     purrr,
-    tidyr
+    tidyr,
+    cli
 License: MIT + file LICENSE
 Encoding: UTF-8
 Suggests: 
