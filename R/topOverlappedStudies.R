@@ -15,6 +15,7 @@ topOverlappedStudies <- function(studyid, pageindex=0, pagesize=20) {
 
   ## Set up to query Open Targets Genetics API
 
+  cli_process_step("Connecting the database...")
   otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
   otg_qry <- ghql::Query$new()
 
@@ -38,6 +39,7 @@ topOverlappedStudies <- function(studyid, pageindex=0, pagesize=20) {
   ## Execute the query
   otg_qry$query(name = "topoverlapstudies_query", x = query )
 
+  cli_progress_step("Downloading data...")
   result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$topoverlapstudies_query, variables, flatten=TRUE))$data
 
   result_df <- result$topOverlappedStudies %>% as.data.frame

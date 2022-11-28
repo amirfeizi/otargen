@@ -14,7 +14,7 @@ genesForVariant <- function(variantid) {
   variables <- list(variantId = variantid)
 
   ## Set up to query Open Targets Genetics API
-
+  cli_progress_step("Connecting to database..")
   otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
   otg_qry <- ghql::Query$new()
 
@@ -66,7 +66,9 @@ genesForVariant <- function(variantid) {
 }"
 
   ## Execute the query
+
   otg_qry$query(name = "v2g_query", x = query)
+  cli_progress_step(paste0("Downloading data for ", variantid," ..."))
 
   result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$v2g_query, variables), flatten=TRUE)$data
 
@@ -78,6 +80,8 @@ genesForVariant <- function(variantid) {
   df_result <- tidyr::unnest(df_result, distances, names_sep='.', keep_empty=TRUE)
   df_result <- tidyr::unnest(df_result, distances.tissues, names_sep='.',keep_empty=TRUE)
   fin_result <- as.data.frame(df_result)
+
+  cli_progress_update()
   return (fin_result)
 
 

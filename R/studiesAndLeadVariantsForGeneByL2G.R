@@ -20,7 +20,7 @@ studiesAndLeadVariantsForGeneByL2G <- function(ensmbl_ids, l2g = 0.4, pvalue = 1
   }
 
   ensmbl_ids <- ensmbl_ids
-  variables <- list(gene = input_gene) # define the input gene name
+  variables <- list(gene = ensmbl_ids) # define the input gene name
 
   query <- "query	studiesAndLeadl2g($gene:String!) {
 
@@ -92,10 +92,13 @@ studiesAndLeadVariantsForGeneByL2G <- function(ensmbl_ids, l2g = 0.4, pvalue = 1
   final_output <- data.frame()
 
   # make a graphql connection
+
+  cli_progress_step("Connecting the database...")
   con <- ghql::GraphqlClient$new("https://api.genetics.opentargets.org/graphql")
 
   for (input_gene in ensmbl_ids) {
-    base::print(input_gene)
+
+    cli_progress_step(paste0("Downloading data for ", input_gene," ..."))
 
     # Set up to query Open Targets Platform API
     qry <- ghql::Query$new()

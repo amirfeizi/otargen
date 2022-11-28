@@ -13,6 +13,8 @@ gwasColocalisation <- function(studyid, variantid) {
   variables <- list(studyId = studyid, variantId = variantid)
 
   ## Set up to query Open Targets Genetics API
+
+  cli_progress_step("Connecting the database...")
   otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
   otg_qry <- ghql::Query$new()
 
@@ -38,10 +40,11 @@ gwasColocalisation <- function(studyid, variantid) {
 
   ## Execute the query
   otg_qry$query(name = 'gwascol_query' , query)
-
+  cli_progress_step("Downloading data...")
   result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$gwascol_query,variables), flatten = TRUE)$data
 
   result_df <- result$gwasColocalisation %>% as.data.frame
+
 
   return(result_df)
 

@@ -18,6 +18,7 @@ gwasCredibleSet <- function(studyid, variantid) {
   ## Query for GWAS study locus details
   variables <- list(studyId = studyid, variantId = variantid)
 
+  cli_progress_step("Connecting the database...")
   otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
   otg_qry <- ghql::Query$new()
 
@@ -39,9 +40,12 @@ gwasCredibleSet <- function(studyid, variantid) {
 }"
 
   ## Execute the query
+
   otg_qry$query(name = "credset_query", x =  query)
 
   #variables <- list(studyId = "FINNGEN_R5_G6_AD_WIDE_EXMORE", variantId = "19_44908822_C_T")
+
+  cli_progress_step("Downloading the data...")
   result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$credset_query,
                                             variables, flatten = TRUE))$data
 

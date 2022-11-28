@@ -65,13 +65,16 @@ colocalisationsForGene(geneId:$gene){
 }
 
 }"
-
+  cli_progress_step("Connecting the database...")
+  con <- ghql::GraphqlClient$new("https://api.genetics.opentargets.org/graphql")
+  qry <- ghql::Query$new()
 
   for (input_gene in ensmbl_ids) {
-    print(input_gene)
 
-    con <- ghql::GraphqlClient$new("https://api.genetics.opentargets.org/graphql")
-    qry <- ghql::Query$new()
+    print(input_gene)
+    cli_progress_step(paste0("Downloading data for ", input_gene," ..."))
+
+
     variables <- list(gene = input_gene)
 
     qry$query(name = "getgenColocal", x = query)
@@ -86,9 +89,7 @@ colocalisationsForGene(geneId:$gene){
       length(colocal1$data$colocalisationsForGene$phenotypeId)
     )
     colocal2 <- rbind(colocal2, colocal1$data$colocalisationsForGene)
-
-
-    # Sys.sleep(1)
-  }
+    cli_progress_update()
+   }
   return(colocal2)
 }

@@ -12,6 +12,8 @@ studyLocus2GeneTable <- function(studyid, variantid) {
 
 
   ## Set up to query Open Targets Genetics API
+
+  cli_progress_step("Connecting the database...")
   otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
   otg_qry <- ghql::Query$new()
   variables <- list(studyId = studyid, variantId = variantid)
@@ -47,6 +49,7 @@ studyLocus2GeneTable <- function(studyid, variantid) {
 
   otg_qry$query(name = "l2g_query", x = query)
 
+  cli_progress_step("Downloading data...")
   result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$l2g_query, variables))$data
   result_df <- as.data.frame(result$studyLocus2GeneTable)
   return (result_df)

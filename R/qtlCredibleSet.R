@@ -13,7 +13,7 @@
 qtlCredibleSet <- function(studyId, variantId, geneId, bioFeature) {
 
   ## Set up to query Open Targets Genetics API
-
+  cli_progress_step("Connecting the database...")
   otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
   otg_qry <- ghql::Query$new()
 
@@ -36,6 +36,8 @@ qtlCredibleSet <- function(studyId, variantId, geneId, bioFeature) {
   otg_qry$query(name = "qtlcredset_query", x = query)
 
   ## Execute the query
+
+  cli_progress_step("Downloading data...")
   result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$qtlcredset_query, variables, flatten = TRUE))$data
   result <- as.data.frame(result)
 
