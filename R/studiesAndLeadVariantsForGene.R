@@ -14,13 +14,13 @@ studiesAndLeadVariantsForGene <- function(ensmbl_ids) {
   res2 <- data.frame()
   res_gene_info <- data.frame()
 
-  cli_progress_step("Connecting the database...")
+  cli_progress_step("Connecting the database...", spinner = TRUE)
   con <- ghql::GraphqlClient$new("https://api.genetics.opentargets.org/graphql")
   qry <- ghql::Query$new()
 
   for (input_gene in ensmbl_ids) {
 
-    cli_progress_step(paste0("Downloading data for ", input_gene," ..."))
+    cli_progress_step(paste0("Downloading data for ", input_gene," ..."), spinner = TRUE)
 
 
     variables <- list(gene = input_gene)

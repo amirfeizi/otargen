@@ -16,7 +16,7 @@ gwasRegional <- function(studyid, chromosome, start, end) {
 
   variables <- list(studyId = studyid, chromosome = chromosome, start = start, end = end)
 
-  cli_progress_step("Connecting the database...")
+  cli_progress_step("Connecting the database...", spinner = TRUE)
   otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
   otg_qry <- ghql::Query$new()
 
@@ -37,7 +37,7 @@ gwasRegional <- function(studyid, chromosome, start, end) {
 
   otg_qry$query(name = "gwasregional_query", x =  query)
 
-  cli_progress_step("Downloading data...")
+  cli_progress_step("Downloading data...", spinner = TRUE)
   result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$gwasregional_query, variables), flatten=TRUE)$data
 
   result_df <- result$gwasRegional %>% as.data.frame

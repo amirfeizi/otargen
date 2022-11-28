@@ -93,12 +93,12 @@ studiesAndLeadVariantsForGeneByL2G <- function(ensmbl_ids, l2g = 0.4, pvalue = 1
 
   # make a graphql connection
 
-  cli_progress_step("Connecting the database...")
+  cli_progress_step("Connecting the database...", spinner = TRUE)
   con <- ghql::GraphqlClient$new("https://api.genetics.opentargets.org/graphql")
 
   for (input_gene in ensmbl_ids) {
 
-    cli_progress_step(paste0("Downloading data for ", input_gene," ..."))
+    cli_progress_step(paste0("Downloading data for ", input_gene," ..."), spinner = TRUE)
 
     # Set up to query Open Targets Platform API
     qry <- ghql::Query$new()

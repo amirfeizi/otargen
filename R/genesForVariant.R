@@ -14,7 +14,7 @@ genesForVariant <- function(variantid) {
   variables <- list(variantId = variantid)
 
   ## Set up to query Open Targets Genetics API
-  cli_progress_step("Connecting to database..")
+  cli_progress_step("Connecting to database..", spinner = TRUE)
   otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
   otg_qry <- ghql::Query$new()
 
@@ -68,7 +68,7 @@ genesForVariant <- function(variantid) {
   ## Execute the query
 
   otg_qry$query(name = "v2g_query", x = query)
-  cli_progress_step(paste0("Downloading data for ", variantid," ..."))
+  cli_progress_step(paste0("Downloading data for ", variantid," ..."), spinner = TRUE)
 
   result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$v2g_query, variables), flatten=TRUE)$data
 

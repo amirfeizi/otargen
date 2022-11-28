@@ -34,14 +34,14 @@ pheWAS <- function(variantid) {
 
   # make connection to the endpoint
 
-  cli_progress_step("Connecting the database...")
+  cli_progress_step("Connecting the database...", spinner = TRUE)
   client <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
   query_class <- ghql::Query$new()
 
   # execute the query
   query_class$query(name ='phewas_query' , x = query )
 
-cli_progress_step("Downloading data...")
+cli_progress_step("Downloading data...", spinner = TRUE)
 result <- jsonlite::fromJSON(client$exec(query_class$queries$phewas_query, variables), flatten=TRUE)$data
 
 result_df <- result$pheWAS %>% as.data.frame
