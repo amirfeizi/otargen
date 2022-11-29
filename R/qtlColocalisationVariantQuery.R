@@ -34,14 +34,14 @@ qtlColocalisationVariantQuery <- function(studyid, variantid) {
   }
 }"
 
-  cli_progress_step("Connecting the database...", spinner = TRUE)
+  cli::cli_progress_step("Connecting the database...", spinner = TRUE)
   otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
   otg_qry <- ghql::Query$new()
 
   # execute the query
   otg_qry$query(name = "qtl_query", x = query)
 
-  cli_progress_step("Downloading data...", spinner = TRUE)
+  cli::cli_progress_step("Downloading data...", spinner = TRUE)
   result <-
     jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$qtl_query, variables, flatten = TRUE))$data
   l2g_result <- result$qtlColocalisation

@@ -15,7 +15,7 @@ gwasColocalisationForRegion <- function(chromosome, start, end) {
   ## Set up to query Open Targets Genetics API
   variables <- list(chromosome = chromosome, start = start, end = end)
 
-  cli_progress_step("Connecting the dataase...", spinner = TRUE)
+  cli::cli_progress_step("Connecting the dataase...", spinner = TRUE)
   otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
   otg_qry <- ghql::Query$new()
 
@@ -52,7 +52,7 @@ gwasColocalisationForRegion <- function(chromosome, start, end) {
   ## Execute the query
   otg_qry$query(name = "gwascolforreg_query", x = query)
 
-  cli_progress_step("Downloading the data...", spinner = TRUE)
+  cli::cli_progress_step("Downloading the data...", spinner = TRUE)
   result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$gwascolforreg_query, variables, flatten=TRUE))$data
 
   result_df <- result$gwasColocalisationForRegion %>% as.data.frame
