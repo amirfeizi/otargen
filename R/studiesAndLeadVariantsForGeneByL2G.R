@@ -113,6 +113,8 @@ studiesAndLeadVariantsForGeneByL2G <- function(ensmbl_ids, l2g = 0.4, pvalue = 1
 
     output1 <- jsonlite::fromJSON(output0, flatten = TRUE) # convert the query output from json
 
+    if (length(output1$data$studiesAndLeadVariantsForGeneByL2G) != 0){
+
     ## tidying the output
 
     output1$data$studiesAndLeadVariantsForGeneByL2G$gene_symbol <- rep(
@@ -124,6 +126,7 @@ studiesAndLeadVariantsForGeneByL2G <- function(ensmbl_ids, l2g = 0.4, pvalue = 1
       dplyr::filter(yProbaModel >= l2g, pval <= pvalue)
 
     # Sys.sleep(1)
+    }
   }
 
   return(final_output)
