@@ -73,7 +73,7 @@ genesForVariant <- function(variantid) {
   result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$v2g_query, variables), flatten=TRUE)$data
 
   df_result <- as.data.frame(result$genesForVariant)
-
+  if (nrow(df_result)!=0){
   df_result <- tidyr::unnest(df_result, qtls, names_sep='.', keep_empty=TRUE)
     if ("qtls.tissues" %in% colnames(df_result)){
       df_result <- tidyr::unnest(df_result, qtls.tissues, names_sep='.',keep_empty=TRUE )
@@ -88,7 +88,7 @@ genesForVariant <- function(variantid) {
     if ("distances.tissues" %in% colnames(df_result)){
       df_result <- tidyr::unnest(df_result, distances.tissues, names_sep='.',keep_empty=TRUE)
     }
-
+}
   fin_result <- as.data.frame(df_result)
 
   cli::cli_progress_update()
