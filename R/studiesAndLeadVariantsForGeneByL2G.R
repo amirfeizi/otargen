@@ -117,6 +117,11 @@ studiesAndLeadVariantsForGeneByL2G <- function(ensmbl_ids, l2g = 0.4, pvalue = 1
 
     ## tidying the output
 
+    output1$data$studiesAndLeadVariantsForGeneByL2G$ensembl_id <- rep(
+      output1$data$geneInfo$id,
+      length(output1$data$studiesAndLeadVariantsForGeneByL2G$yProbaModel)
+    )
+
     output1$data$studiesAndLeadVariantsForGeneByL2G$gene_symbol <- rep(
       output1$data$geneInfo$symbol,
       length(output1$data$studiesAndLeadVariantsForGeneByL2G$yProbaModel)

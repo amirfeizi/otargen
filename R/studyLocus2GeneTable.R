@@ -49,8 +49,16 @@ studyLocus2GeneTable <- function(studyid, variantid) {
 
   otg_qry$query(name = "l2g_query", x = query)
 
-  cli::cli_progress_step("Downloading data...", spinner = TRUE)
-  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$l2g_query, variables))$data
-  result_df <- as.data.frame(result$studyLocus2GeneTable)
+  cli::cli_progress_step(paste("Downloading data for ",studyid,variantid,"..."), spinner = TRUE)
+
+  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$l2g_query, variables), flatten=TRUE)$data
+  result_df <- data.frame()
+  df_rows = as.data.frame(result$studyLocus2GeneTable$rows)
+  if (nrow(df_rows) != 0){
+    if (is.null(result$studyLocus2GeneTable$variant$rsId)){
+      result$studyLocus2GeneTable$variant$rsId = NA
+    }
+    result_df <- as.data.frame(result$studyLocus2GeneTable)
+  }
   return (result_df)
 }

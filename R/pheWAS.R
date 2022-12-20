@@ -41,11 +41,12 @@ pheWAS <- function(variantid) {
   # execute the query
   query_class$query(name ='phewas_query' , x = query )
 
-cli::cli_progress_step("Downloading data...", spinner = TRUE)
-result <- jsonlite::fromJSON(client$exec(query_class$queries$phewas_query, variables), flatten=TRUE)$data
+  cli::cli_progress_step(paste("Downloading data...",variantid,"..."), spinner = TRUE)
 
-result_df <- result$pheWAS %>% as.data.frame
-
-return (result_df)
-
+  result <- jsonlite::fromJSON(client$exec(query_class$queries$phewas_query, variables), flatten=TRUE)$data
+  result_df <- data.frame()
+  if (length(result$pheWAS$associations)!=0){
+    result_df <- result$pheWAS %>% as.data.frame
+  }
+  return (result_df)
 }
