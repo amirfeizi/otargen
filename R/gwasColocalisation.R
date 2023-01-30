@@ -29,6 +29,7 @@ gwasColocalisation <- function(studyid, variantid) {
   study{
     studyId
     traitReported
+    traitCategory
   }
   beta
   h3

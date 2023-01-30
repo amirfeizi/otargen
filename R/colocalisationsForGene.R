@@ -39,6 +39,7 @@ colocalisationsForGene(geneId:$gene){
       rsId
     }
   study {
+    studyId
     pmid
     pubDate
     pubJournal
@@ -48,6 +49,7 @@ colocalisationsForGene(geneId:$gene){
     nInitial
     nReplication
     nCases
+    traitReported
     traitCategory
     numAssocLoci
   }
@@ -88,6 +90,12 @@ colocalisationsForGene(geneId:$gene){
       colocal1$data$geneInfo$symbol,
       length(colocal1$data$colocalisationsForGene$phenotypeId)
     )
+
+    colocal1$data$colocalisationsForGene$gene_id <- rep(
+      colocal1$data$geneInfo$id,
+      length(colocal1$data$colocalisationsForGene$phenotypeId)
+    )
+
     colocal2 <- rbind(colocal2, colocal1$data$colocalisationsForGene)
     cli::cli_progress_update()
    }
