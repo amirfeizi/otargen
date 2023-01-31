@@ -48,6 +48,13 @@ studyInfo <- function(studyid) {
 
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
   result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$studyInfoquery, variables), simplifyDataFrame = TRUE, flatten = TRUE)$data
+<<<<<<< HEAD
   output <- tibble::as_tibble(result[[1]])
   print (result)
+=======
+  result <- result$studyInfo
+  result[result == "NULL"] <- NA # replacing NULL elements with NA
+  output <- tibble::as.tibble(stack(unlist(result)) %>% tidyr::spread(ind,values)) # converting list of information key/value pairs to tibble format
+
+>>>>>>> b6f57bfcf9416ee5a3ffd1ac35aed8f9b9616570
 }
