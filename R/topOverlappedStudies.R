@@ -1,6 +1,6 @@
 #' Gives out top studies ordered by loci overlap.
 #'
-#' @param studyid which links the top loci with a trait. Formet: String
+#' @param studyid which links the top loci with a trait. Format: String
 #' @param pageIndex pagination index >= 0. Index of the current page.
 #' @param pageSize pagination size > 0. No. of records in a page. Default: 20
 #' @returns A data frame with top studies.
