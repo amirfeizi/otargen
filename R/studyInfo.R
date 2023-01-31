@@ -48,4 +48,6 @@ studyInfo <- function(studyid) {
 
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
   result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$studyInfoquery, variables), simplifyDataFrame = TRUE, flatten = TRUE)$data
+  output <- tibble::as_tibble(result[[1]])
+
 }
