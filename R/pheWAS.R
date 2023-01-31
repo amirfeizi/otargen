@@ -82,5 +82,7 @@ pheWAS <- function(variantid) {
   if (length(result$pheWAS$associations)!=0){
     result_df <- result$pheWAS %>% as.data.frame
   }
+
+  base::colnames(result_df) <- stringr::str_replace_all(colnames(result_df),"associations.","")
   return (result_df)
 }
