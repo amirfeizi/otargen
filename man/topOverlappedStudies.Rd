@@ -7,7 +7,7 @@
 topOverlappedStudies(studyid, pageindex = 0, pagesize = 20)
 }
 \arguments{
-\item{studyid}{which links the top loci with a trait. Formet: String}
+\item{studyid}{which links the top loci with a trait. Format: String}
 
 \item{pageIndex}{pagination index >= 0. Index of the current page.}
 

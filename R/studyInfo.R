@@ -11,7 +11,7 @@
 studyInfo <- function(studyid) {
 
   ## Set up to query Open Targets Genetics API
-  variables <- list(studyId = studyid)
+  variables <- studyid
 
   cli::cli_progress_step("Connecting the database...", spinner = TRUE)
   otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
@@ -49,5 +49,5 @@ studyInfo <- function(studyid) {
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
   result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$studyInfoquery, variables), simplifyDataFrame = TRUE, flatten = TRUE)$data
   output <- tibble::as_tibble(result[[1]])
-
+  print (result)
 }

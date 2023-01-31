@@ -14,13 +14,19 @@
 studiesAndLeadVariantsForGeneByL2G <- function(ensmbl_ids, l2g = 0.4, pvalue = 1e-8) {
 
   # Check ensembl id format
-
+  if (length(ensmbl_ids) == 1){
   if (!grepl(pattern = "ENSG\\d{11}", ensmbl_ids)) {
     stop("\n Please provide Ensemble gene ID")
   }
+  }
+  else{
+    for (i in ensmbl_ids){
+      if (!grepl(pattern = "ENSG\\d{11}", i)) {
+        stop("\n Please provide Ensemble gene ID")
+      }
+    }
 
-  ensmbl_ids <- ensmbl_ids
-  variables <- list(gene = ensmbl_ids) # define the input gene name
+  }
 
   query <- "query	studiesAndLeadl2g($gene:String!) {
 
@@ -98,6 +104,7 @@ studiesAndLeadVariantsForGeneByL2G <- function(ensmbl_ids, l2g = 0.4, pvalue = 1
 
   for (input_gene in ensmbl_ids) {
 
+    variables <- list(gene = input_gene)
     cli::cli_progress_step(paste0("Downloading data for ", input_gene," ..."), spinner = TRUE)
 
     # Set up to query Open Targets Platform API
@@ -108,7 +115,6 @@ studiesAndLeadVariantsForGeneByL2G <- function(ensmbl_ids, l2g = 0.4, pvalue = 1
     qry$query(name = "getStudiesLeadL2G", x = query)
 
     ## Execute the query
-
     output0 <- con$exec(qry$queries$getStudiesLeadL2G, variables) # execute the query
 
     output1 <- jsonlite::fromJSON(output0, flatten = TRUE) # convert the query output from json

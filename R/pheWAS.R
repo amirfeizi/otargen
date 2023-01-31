@@ -68,7 +68,6 @@ pheWAS <- function(variantid) {
 }'
 
 
-
   # execute the query
 
   variables <- list(variantId = input_variantid)

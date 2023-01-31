@@ -10,13 +10,40 @@
 
 genesForVariant <- function(variantid) {
 
-
-  variables <- list(variantId = variantid)
-
   ## Set up to query Open Targets Genetics API
   cli::cli_progress_step("Connecting to database..", spinner = TRUE)
   otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
   otg_qry <- ghql::Query$new()
+
+
+  # Check variant id format
+  if (grepl(pattern = "rs\\d+", variantid)) {
+
+    # Convert rs id to variant id
+    query_searchid <- "query ConvertRSIDtoVID($queryString:String!) {
+    search(queryString:$queryString){
+      totalVariants
+      variants{
+        id
+        }
+      }
+    }"
+
+    variables <- list(queryString = variantid)
+    otg_qry$query(name = "convertid", x = query_searchid)
+    id_result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$convertid, variables), flatten=TRUE)$data
+    input_variantid <- id_result$search$variants$id
+  }
+
+  else if (grepl(pattern = "\\d+_\\d+_[a-zA-Z]+_[a-zA-Z]+", variantid))
+  {
+    input_variantid <- variantid
+  }
+  else
+  {
+    stop("\n Please provide a variant Id")
+  }
+
 
   query <- "query v2gquery($variantId: String!){
   genesForVariant(variantId: $variantId) {
@@ -66,6 +93,9 @@ genesForVariant <- function(variantid) {
 }"
 
   ## Execute the query
+
+
+  variables <- list(variantId = input_variantid)
 
   otg_qry$query(name = "v2g_query", x = query)
   cli::cli_progress_step(paste0("Downloading data for ", variantid," ..."), spinner = TRUE)

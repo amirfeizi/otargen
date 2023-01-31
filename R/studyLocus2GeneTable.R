@@ -78,7 +78,7 @@ studyLocus2GeneTable <- function(studyid, variantid) {
 
   otg_qry$query(name = "l2g_query", x = query)
 
-  cli::cli_progress_step(paste("Downloading data for ",studyid,input_variantid,"..."), spinner = TRUE)
+  cli::cli_progress_step(paste("Downloading data for ",studyid, variantid,"..."), spinner = TRUE)
 
   result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$l2g_query, variables), flatten=TRUE)$data
   result_df <- data.frame()

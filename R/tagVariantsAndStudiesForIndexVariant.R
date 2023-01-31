@@ -5,8 +5,8 @@
 #' @param pageSize pagination size > 0. No. of records in a page. Default: 20
 #' @return A dataframe containing the variant associations connnected to the input index variant.
 #' @examples
-#' tagVariantsAndStudiesForIndexVariant("GCST006614_3")
-#' tagVariantsAndStudiesForIndexVariant("NEALE2_6177_1", pageindex=1, pagesize=50)
+#' tagVariantsAndStudiesForIndexVariant("1_109274968_G_T")
+#' tagVariantsAndStudiesForIndexVariant("1_109274968_G_T", pageindex=1, pagesize=50)
 #' @export
 #'
 
@@ -18,7 +18,34 @@ tagVariantsAndStudiesForIndexVariant <- function(variantid, pageindex=0, pagesiz
   otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
   otg_qry <- ghql::Query$new()
 
-  variables <- list(variantId = variantid, pageIndex = pageindex, pageSize=pagesize)
+  # Check variant id format
+  if (grepl(pattern = "rs\\d+", variantid)) {
+
+    # Convert rs id to variant id
+    query_searchid <- "query ConvertRSIDtoVID($queryString:String!) {
+    search(queryString:$queryString){
+      totalVariants
+      variants{
+        id
+        }
+      }
+    }"
+
+    variables <- list(queryString = variantid)
+    otg_qry$query(name = "convertid", x = query_searchid)
+    id_result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$convertid, variables), flatten=TRUE)$data
+    input_variantid <- id_result$search$variants$id
+  }
+
+  else if (grepl(pattern = "\\d+_\\d+_[a-zA-Z]+_[a-zA-Z]+", variantid))
+  {
+    input_variantid <- variantid
+  }
+  else
+  {
+    stop("\n Please provide a variant Id")
+  }
+
 
   query <- "query tagVariantsAndStudiesForIndexVariantquery($variantId: String!, $pageIndex: Int!, $pageSize:Int!){
   tagVariantsAndStudiesForIndexVariant(variantId: $variantId, pageIndex: $pageIndex, pageSize: $pageSize) {
@@ -58,6 +85,8 @@ tagVariantsAndStudiesForIndexVariant <- function(variantid, pageindex=0, pagesiz
 }"
 
   ## Execute the query
+  variables <- list(variantId = input_variantid, pageIndex = pageindex, pageSize=pagesize)
+
   otg_qry$query(name = "tagVariantsAndStudiesForIndexVariant_query", x = query)
 
   cli::cli_progress_step("Downloading data...", spinner = TRUE)

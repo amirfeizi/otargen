@@ -8,19 +8,45 @@
 #' @export
 #'
 
-
-
-
-
 gwasCredibleSet <- function(studyid, variantid) {
 
 
   ## Query for GWAS study locus details
-  variables <- list(studyId = studyid, variantId = variantid)
+
 
   cli::cli_progress_step("Connecting the database...", spinner = TRUE)
   otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
   otg_qry <- ghql::Query$new()
+
+  # Check variant id format
+  if (grepl(pattern = "rs\\d+", variantid)) {
+
+    # Convert rs id to variant id
+    query_searchid <- "query ConvertRSIDtoVID($queryString:String!) {
+    search(queryString:$queryString){
+      totalVariants
+      variants{
+        id
+        }
+      }
+    }"
+
+    variables <- list(queryString = variantid)
+    otg_qry$query(name = "convertid", x = query_searchid)
+    id_result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$convertid, variables), flatten=TRUE)$data
+    input_variantid <- id_result$search$variants$id
+  }
+
+  else if (grepl(pattern = "\\d+_\\d+_[a-zA-Z]+_[a-zA-Z]+", variantid))
+  {
+    input_variantid <- variantid
+  }
+  else
+  {
+    stop("\n Please provide a variant Id")
+  }
+
+
 
 
   query <- "query credsetQuery($studyId: String!, $variantId: String!){
@@ -40,6 +66,8 @@ gwasCredibleSet <- function(studyid, variantid) {
 }"
 
   ## Execute the query
+
+  variables <- list(studyId = studyid, variantId = input_variantid)
 
   otg_qry$query(name = "credset_query", x =  query)
 
