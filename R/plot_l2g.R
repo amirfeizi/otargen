@@ -1,7 +1,7 @@
 #' Plot the the scores obtained from the L2G model results
 #'
 #' @param data is the result of studiesAndLeadVariantsForGeneByL2G function in data frame format
-#' @param disease_efo is the input efo id to filter the L2G data for this particular disease.
+#' @param disease_efo is the input efo id to filter the L2G data for a particular disease.
 #'
 #' @return A radar plot for the input disease and the genes associated with that disease. The variables shown include L2G score, chromatin interaction, variant
 #' pathogenicity and distance.
@@ -33,6 +33,4 @@ plot_l2g <- function(data, disease_efo){
   ggradar::ggradar(df[, 1:6], values.radar = c(0, 0.5, 1), group.line.width = 1,
                    group.point.size = 2,
                    legend.position = "bottom", plot.title=disease_name)
-
-  return (df)
 }
