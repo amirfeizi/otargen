@@ -12,7 +12,7 @@
 #' studiesAndLeadVariantsForGeneByL2G(list("ENSG00000167207","ENSG00000096968", "ENSG00000095303") %>% plot_l2g(disease = "EFO_0003767")
 #'
 
-plot_l2g <- function(data, disease_efo){
+plot_l2g <- function(data, disease_efo=NA){
   exclude <- c("phenotype", "measurement", "Uncategorised", "biological process")
   data <- dplyr::filter(data, !study.traitCategory %in% exclude)
 
@@ -22,15 +22,19 @@ plot_l2g <- function(data, disease_efo){
   df <- setNames(df, c("L2G_score","Distance","Interaction", "Pathogenicity", "mQTL", "pval",
                        "Traits", "EFO_ID","Trait_category", "Gene_name"))
 
-
-  df <- dplyr::filter(df, EFO_ID == disease_efo)
   df <- df[order(df$L2G_score,decreasing=TRUE),]
+  if (is.na(disease_efo)){
+    plot_name = ''
+  }
+  else{
+  df <- dplyr::filter(df, EFO_ID == disease_efo)
+  plot_name <- df[1,"Traits"]
+  }
   df <- df[!duplicated(df$Gene_name),]
   names <- df$Gene_name
   rownames(df) <- names
   df <- tibble::rownames_to_column(df, "group")
-  disease_name <- df[1,"Traits"]
   ggradar::ggradar(df[, 1:6], values.radar = c(0, 0.5, 1), group.line.width = 1,
                    group.point.size = 2,
-                   legend.position = "bottom", plot.title=disease_name)
+                   legend.position = "bottom", plot.title=plot_name)
 }
