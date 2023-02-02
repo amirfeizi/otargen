@@ -22,7 +22,7 @@ manhattan <- function(studyid, pageindex=0, pagesize=20) {
   variables <- list(studyId = studyid, pageIndex = pageindex, pageSize=pagesize)
 
   query <- "query manhattanquery($studyId: String!, $pageIndex: Int!, $pageSize:Int!){
-  manhattan(studyId: $studyId, pageIndex: $pageIndex, pageSize: $pageSize) {
+  manhattan(studyId:$studyId, pageIndex: $pageIndex, pageSize:$pageSize) {
     associations{
       pvalMantissa
       pvalExponent
@@ -42,8 +42,29 @@ manhattan <- function(studyid, pageindex=0, pagesize=20) {
       betaCILower
       betaCIUpper
       direction
+      bestGenes{
+        gene{
+          id
+          symbol
+        }
+        score
+      }
+    bestColocGenes{
+      gene{
+          id
+          symbol
+        }
+        score
+    }
+    bestLocus2Genes{
+      gene{
+          id
+          symbol
+        }
+        score
     }
   }
+}
 }"
 
 
@@ -52,10 +73,6 @@ manhattan <- function(studyid, pageindex=0, pagesize=20) {
 
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
   result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$manhattan_query, variables), flatten=TRUE)$data
-
-  result_df <- result$manhattan$associations %>% as.data.frame
-
-
-  return(result_df)
-
+  result <- as.data.frame(result$manhattan$associations)
+  return (result)
 }
