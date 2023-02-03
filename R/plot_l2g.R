@@ -9,10 +9,10 @@
 #' @export
 #'
 #' @examples
-#' studiesAndLeadVariantsForGeneByL2G(list("ENSG00000167207","ENSG00000096968", "ENSG00000095303") %>% plot_l2g(disease = "EFO_0003767")
+#' studiesAndLeadVariantsForGeneByL2G(list("ENSG00000167207","ENSG00000096968","ENSG00000138821", "ENSG00000125255")) %>% plot_l2g(disease = "EFO_0003767")
 #'
 
-plot_l2g <- function(data, disease_efo=NA){
+plot_l2g <- function(data, disease_efo=NULL){
   exclude <- c("phenotype", "measurement", "Uncategorised", "biological process")
   data <- dplyr::filter(data, !study.traitCategory %in% exclude)
 
@@ -23,18 +23,35 @@ plot_l2g <- function(data, disease_efo=NA){
                        "Traits", "EFO_ID","Trait_category", "Gene_name"))
 
   df <- df[order(df$L2G_score,decreasing=TRUE),]
-  if (is.na(disease_efo)){
-    plot_name = ''
+
+
+  if (!is.null(disease_efo)){
+    df <- df %>% dplyr::filter(EFO_ID == disease_efo) %>% dplyr::group_by(Gene_name) %>% dplyr::filter(L2G_score == max(L2G_score)) %>% data.frame()
+    loop_num <- 1
   }
   else{
-  df <- dplyr::filter(df, EFO_ID == disease_efo)
-  plot_name <- df[1,"Traits"]
+    df <- df %>% dplyr::group_by(Gene_name) %>% dplyr::filter(L2G_score == max(L2G_score)) %>% data.frame()
+    loop_num <- length(unique(as.list(df$EFO_ID)))
   }
-  df <- df[!duplicated(df$Gene_name),]
+
   names <- df$Gene_name
   rownames(df) <- names
   df <- tibble::rownames_to_column(df, "group")
-  ggradar::ggradar(df[, 1:6], values.radar = c(0, 0.5, 1), group.line.width = 1,
-                   group.point.size = 2,
-                   legend.position = "bottom", plot.title=plot_name)
+
+  if (loop_num == 1){
+    trait_name=df[1,'Traits']
+    ggradar::ggradar(df[,1:6], values.radar = c(0, 0.5, 1), group.line.width = 1,
+                     group.point.size = 2, legend.position = "bottom", plot.title=trait_name)
+  }
+  else{
+  plots <- list()
+  for (i in 1:loop_num){
+  trait_name=df[i,'Traits']
+  plots[[i]]=ggradar::ggradar(df[i,1:6], values.radar = c(0, 0.5, 1), group.line.width = 1,
+                   group.point.size = 2, legend.position = "bottom", plot.title=trait_name)
+  }
+  print (df['group'])
+  plots
+  }
+
 }
