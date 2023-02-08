@@ -16,10 +16,10 @@ plot_l2g <- function(data, disease_efo=NULL){
   exclude <- c("phenotype", "measurement", "Uncategorised", "biological process")
   data <- dplyr::filter(data, !study.traitCategory %in% exclude)
 
-  df <- data[,c("yProbaModel","yProbaDistance","yProbaInteraction","yProbaPathogenicity", "yProbaMolecularQTL","gene_symbol",
+  df <- data[,c("yProbaModel","yProbaDistance","yProbaInteraction","yProbaMolecularQTL","yProbaPathogenicity", "gene_symbol",
                 "study.traitReported", "study.traitEfos", "study.traitCategory","pval")]
 
-  df <- setNames(df, c("L2G_score","Distance","Interaction", "Pathogenicity", "mQTL", "Gene_name", "Traits",
+  df <- setNames(df, c("L2G_score","Distance","Interaction", "mQTL", "Pathogenicity", "Gene_name", "Traits",
                        "EFO_ID","Trait_category", "pval"))
 
   df <- df[order(df$L2G_score,decreasing=TRUE),]
@@ -27,20 +27,16 @@ plot_l2g <- function(data, disease_efo=NULL){
 
   if (!is.null(disease_efo)){
     df <- df %>% dplyr::filter(EFO_ID == disease_efo) %>% dplyr::group_by(Gene_name) %>% dplyr::filter(L2G_score == max(L2G_score)) %>% data.frame()
-    names <- df$Gene_name
-    rownames(df) <- names
-    df <- tibble::rownames_to_column(df, "group")
-    ggradar::ggradar(df[,1:6], values.radar = c(0, 0.5, 1), group.line.width = 1,background.circle.colour = "grey",
-                     group.point.size = 2, legend.position = "bottom", plot.title=df[1,'Traits'])
+    df_data <- df[, 1:6]
+    ggiraphExtra::ggRadar(data = df_data,mapping = ggplot2::aes(colour = Gene_name), rescale = FALSE,
+                          use.label = TRUE, alpha = 0.12, size = 2, legend.position = "right") + ggplot2::labs(title = df[1,'Traits'])
   }
   else{
     df <- df %>% dplyr::group_by(Gene_name) %>% dplyr::filter(L2G_score == max(L2G_score)) %>% data.frame()
-    names <- df$Traits
-    rownames(df) <- names
-    df <- tibble::rownames_to_column(df, "group")
-    df <- df %>% dplyr::mutate(group = paste(group, Gene_name, sep=": "))
-    ggradar::ggradar(df[,1:6], values.radar = c(0, 0.5, 1), group.line.width = 1,background.circle.colour = "grey",
-                     group.point.size = 2, legend.position = "bottom") + ggplot2::facet_wrap(~group) + ggplot2::theme_light()
+    df_data <- df[, 1:7]
+    plots <- ggiraphExtra::ggRadar(data = df_data, mapping = ggplot2::aes(colour = Gene_name, facet=Traits),
+                 rescale = FALSE, use.label = TRUE, size = 2, alpha = 0.12, legend.position = "right")
+    plots
   }
 
 }
