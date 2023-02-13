@@ -50,6 +50,7 @@ studyLocus2GeneTable <- function(studyid, variantid) {
   studyLocus2GeneTable(studyId: $studyId, variantId: $variantId){
     study{
     studyId
+    traitReported
   }
     variant {
       id

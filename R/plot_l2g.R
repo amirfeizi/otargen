@@ -22,7 +22,7 @@ plot_l2g <- function(data, disease_efo=NULL){
   df <- setNames(df, c("L2G_score","Distance","Interaction", "mQTL", "Pathogenicity", "Gene_name", "Traits",
                        "EFO_ID","Trait_category", "pval"))
 
-  df <- df[order(df$L2G_score,decreasing=TRUE),]
+  #df <- df[order(df$L2G_score,decreasing=TRUE),]
 
 
   if (!is.null(disease_efo)){
@@ -32,8 +32,9 @@ plot_l2g <- function(data, disease_efo=NULL){
                           use.label = TRUE, alpha = 0.12, size = 2, legend.position = "right") + ggplot2::labs(title = df[1,'Traits'])
   }
   else{
-    df <- df %>% dplyr::group_by(Gene_name) %>% dplyr::filter(L2G_score == max(L2G_score)) %>% data.frame()
+    df <- df %>% dplyr::group_by(Traits)%>% dplyr::arrange(dplyr::desc(L2G_score)) %>% head(n=3) %>% data.frame()
     df_data <- df[, 1:7]
+    print (df_data)
     plots <- ggiraphExtra::ggRadar(data = df_data, mapping = ggplot2::aes(colour = Gene_name, facet=Traits),
                  rescale = FALSE, use.label = TRUE, size = 2, alpha = 0.12, legend.position = "right")
     plots

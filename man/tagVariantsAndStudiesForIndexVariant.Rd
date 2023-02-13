@@ -20,6 +20,6 @@ A dataframe containing the variant associations connnected to the input index va
 Gives out tagVariants and studies for a given index variant.
 }
 \examples{
-tagVariantsAndStudiesForIndexVariant("GCST006614_3")
-tagVariantsAndStudiesForIndexVariant("NEALE2_6177_1", pageindex=1, pagesize=50)
+tagVariantsAndStudiesForIndexVariant("1_109274968_G_T")
+tagVariantsAndStudiesForIndexVariant("1_109274968_G_T", pageindex=1, pagesize=50)
 }
