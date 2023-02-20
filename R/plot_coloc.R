@@ -1,11 +1,11 @@
-#' Plot the PheWAS function results
+#' Plot the coloc function results
 #'
 #' @param data is the result of colocalisationsForGene function in data frame format, contacting the phewas information for a variand id
 #' @param disease is a logical TRUE and FALSE variable, with the default value of TRUE to filter the phewas data for disease.
 #' @param source is a character vector of choices for data sources of phewas analyis including FINNGEN, GCST, NEAL (UKbioBANK), and SAGE
 #' @param ...
 #'
-#' @return
+#' @return a plot for colocalization information
 #' @export
 #'
 #' @examples
@@ -36,7 +36,7 @@ plot_phewas <- function(data, disease = TRUE,  source = c("GCST","FINNGEN","NEAL
       dplyr::mutate(beta_shape = ifelse(beta>0, "positive","negetive"))
   }
 
-  ggplot2::ggplot(data = dt2, ggplot2::aes(study.traitCategory,
+  p <- ggplot2::ggplot(data = dt2, ggplot2::aes(study.traitCategory,
                                            -log10(pval), color = study.source, shape = beta_shape)) +
     ggplot2::geom_point()+
     ggplot2::geom_jitter( width = 0.3, height = 0.3) +
@@ -53,5 +53,6 @@ plot_phewas <- function(data, disease = TRUE,  source = c("GCST","FINNGEN","NEAL
     ggplot2::theme_classic() +
     ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1))
 
+  return(p)
 
 }

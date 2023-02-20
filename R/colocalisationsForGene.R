@@ -99,7 +99,9 @@ colocalisationsForGene(geneId:$gene){
     colocal2 <- rbind(colocal2, colocal1$data$colocalisationsForGene)
     colocal2 <- colocal2 %>% dplyr::select(study.studyId, study.traitReported,leftVariant.id,gene_symbol, gene_id, tissue.name, qtlStudyId ,
                                            h3, h4, log2h4h3, study.pubTitle, study.pubAuthor, study.hasSumstats, study.numAssocLoci ,study.nInitial,
-                                           study.nReplication, study.nCases   ,study.pubDate, study.pubJournal,study.pmid)
+                                           study.nReplication, study.nCases   ,study.pubDate, study.pubJournal,study.pmid) %>%
+      dplyr::mutate(across(where(is.numeric), ~ round(., 2)))
+
     colnames(colocal2) <- c("Study","Trait_reported","Lead_variant", "Molecular_trait","Gene_symbol",
                             "Tissue", "Source","H3","H4","log2(H4/H3)", "Title","Author","Has_sumstats","numAssocLoci",
                             "nInitial cohort","study_nReplication","study_nCases","Publication_date","Journal","Pubmed_id")

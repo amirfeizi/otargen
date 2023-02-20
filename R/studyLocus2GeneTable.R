@@ -89,5 +89,8 @@ studyLocus2GeneTable <- function(studyid, variantid) {
     }
     result_df <- as.data.frame(result$studyLocus2GeneTable)
   }
+
+  result_df <- result_df %>% dplyr::mutate(across(where(is.numeric), ~ round(., 2)))
+
   return (result_df)
 }

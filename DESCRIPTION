@@ -10,17 +10,10 @@ LazyData: true
 Imports: 
     tidyverse,
     ghql,
-    jsonlite,
     rjson,
     conflicted,
     data.table,
-    dplyr,
-    purrr,
-    tidyr,
-    cli,
-    plotly,
-    ggplot2,
-    stringr
+    plotly
 License: MIT + file LICENSE
 Encoding: UTF-8
 Suggests: 

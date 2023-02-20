@@ -2,6 +2,9 @@
 #'
 #' @param ensmbl_ids is a identification id for genes by ensembl database.
 #' @param l2g is locus to gene cut off, the defaul is set to 0.4.
+#' @param vtype is a vector of variants most severe consequence to filter the variants type including c("all","intergenic_variant",
+#' "upstream_gene_variant", "intron_variant", "missense_variant", "5_prime_UTR_variant","non_coding_transcript_exon_variant", "splice_region_variant"). The default
+#' is "all".
 #' @return A dataframe including the queried gene indentity and its colocalization data for L2G model
 #' @examples
 #' studiesAndLeadVariantsForGeneByL2G(list("ENSG00000163946","ENSG00000169174", "ENSG00000143001"))
@@ -11,7 +14,7 @@
 #'
 #'
 
-studiesAndLeadVariantsForGeneByL2G <- function(ensmbl_ids, l2g = 0.4, pvalue = 1e-8) {
+studiesAndLeadVariantsForGeneByL2G <- function(ensmbl_ids, l2g = 0.4, pvalue = 1e-8, vtype = c("all") ) {
 
   # Check ensembl id format
   if (length(ensmbl_ids) == 1){
@@ -134,7 +137,14 @@ studiesAndLeadVariantsForGeneByL2G <- function(ensmbl_ids, l2g = 0.4, pvalue = 1
     )
 
     final_output <- dplyr::bind_rows(final_output, output1$data$studiesAndLeadVariantsForGeneByL2G) %>%
-      dplyr::filter(yProbaModel >= l2g, pval <= pvalue)
+      dplyr::filter(yProbaModel >= l2g, pval <= pvalue) %>%
+      dplyr::mutate(across(where(is.numeric), ~ round(., 2)))
+
+    if (vtype !="all") {
+
+      final_output1 <- final_output %>% dplyr::filter(variant.mostSevereConsequence %in% vtype)
+      return(final_output1)
+    }
 
     # Sys.sleep(1)
     }
