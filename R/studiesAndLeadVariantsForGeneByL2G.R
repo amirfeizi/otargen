@@ -14,7 +14,7 @@
 #'
 #'
 
-studiesAndLeadVariantsForGeneByL2G <- function(ensmbl_ids, l2g = 0.4, pvalue = 1e-8, vtype = c("all") ) {
+studiesAndLeadVariantsForGeneByL2G <- function(ensmbl_ids, l2g = 0.4, pvalue = 5e-8, vtype = c("all") ) {
 
   # Check ensembl id format
   if (length(ensmbl_ids) == 1){
@@ -148,6 +148,10 @@ studiesAndLeadVariantsForGeneByL2G <- function(ensmbl_ids, l2g = 0.4, pvalue = 1
 
     # Sys.sleep(1)
     }
+  }
+
+  if (nrow(final_output) != 0){
+    final_output = data.frame(lapply(final_output, as.character), stringsAsFactors=FALSE)
   }
 
   return(final_output)
