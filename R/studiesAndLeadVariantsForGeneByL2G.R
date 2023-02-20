@@ -140,19 +140,12 @@ studiesAndLeadVariantsForGeneByL2G <- function(ensmbl_ids, l2g = 0.4, pvalue = 5
       dplyr::filter(yProbaModel >= l2g, pval <= pvalue) %>%
       dplyr::mutate(across(where(is.numeric), ~ round(., 2)))
 
+    final_output$study.traitEfos <- as.character(final_output$study.traitEfos)
+
     if (vtype !="all") {
-
-      final_output1 <- final_output %>% dplyr::filter(variant.mostSevereConsequence %in% vtype)
-      return(final_output1)
+      final_output <- final_output %>% dplyr::filter(variant.mostSevereConsequence %in% vtype)
     }
-
-    # Sys.sleep(1)
     }
   }
-
-  if (nrow(final_output) != 0){
-    final_output = data.frame(lapply(final_output, as.character), stringsAsFactors=FALSE)
-  }
-
   return(final_output)
 }
