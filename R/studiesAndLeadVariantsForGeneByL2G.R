@@ -146,7 +146,7 @@ studiesAndLeadVariantsForGeneByL2G <- function(ensmbl_ids, l2g = 0.4, pvalue = 5
     }
   }
 
-  if (nrows(final_output)!=0){
+  if (nrow(final_output)!=0){
     final_output$study.traitEfos <- as.character(final_output$study.traitEfos)
   }
 

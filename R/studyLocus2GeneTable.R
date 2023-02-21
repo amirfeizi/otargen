@@ -1,13 +1,25 @@
-#' Get locus data table of a variant around a gene
+#' Retrieves L2G data table.
 #'
-#' @param studyid is the Open Target Genetics generated id for gwas studies.
-#' @param variantid is Open Target Genetics generated id for each variant in the database.
-#' @return A dataframe with summary stats of the study and datatable of the various calculated scores and features for any lead variant.
+#' For an input variant id and associated study id, generated a table
+#' with the following columns - studyId, variant.id, variant.rsId, yProbaDistance,
+#' yProbaModel, yProbaMolecularQTL, yProbaPathogenicity, yProbaInteraction, hasColoc
+#' distanceToLocus, gene.id, and gene.symbol.
+#'
+#'
+#' @param studyid String: Open Target Genetics generated id for gwas studies.
+#' @param variantid String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
+#'
+#' @return Dataframe with summary stats of the study and datatable of the various calculated scores and features for any lead variant.
+#'
 #' @examples
-#' studyLocus2GeneTable("GCST90002357", "1_154119580_C_A")
+#' studyLocus2GeneTable(studyid="GCST90002357", variantid="1_154119580_C_A")
+#' or
+#' studyLocus2GeneTable(studyid="GCST90002357", variantid="rs2494663")
+#'
 #' @export
 #'
-
+#'
+#'
 studyLocus2GeneTable <- function(studyid, variantid) {
 
   ## Set up to query Open Targets Genetics API
@@ -78,19 +90,19 @@ studyLocus2GeneTable <- function(studyid, variantid) {
 
   otg_qry$query(name = "l2g_query", x = query)
 
-  cli::cli_progress_step(paste("Downloading data for ",studyid, variantid,"..."), spinner = TRUE)
+  cli::cli_progress_step(paste("Downloading data for ",studyid, ",", variantid,"..."), spinner = TRUE)
 
-  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$l2g_query, variables), flatten=TRUE)$data
-  result_df <- data.frame()
-  df_rows = as.data.frame(result$studyLocus2GeneTable$rows)
+  study_l2g <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$l2g_query, variables), flatten=TRUE)$data
+  df_l2g <- data.frame()
+  df_rows = as.data.frame(study_l2g$studyLocus2GeneTable$rows)
   if (nrow(df_rows) != 0){
-    if (is.null(result$studyLocus2GeneTable$variant$rsId)){
-      result$studyLocus2GeneTable$variant$rsId = NA
+    if (is.null(study_l2g$studyLocus2GeneTable$variant$rsId)){
+      study_l2g$studyLocus2GeneTable$variant$rsId = NA
     }
-    result_df <- as.data.frame(result$studyLocus2GeneTable)
+    df_l2g <- as.data.frame(study_l2g$studyLocus2GeneTable)
+    df_l2g <- df_l2g %>% dplyr::mutate(across(where(is.numeric), ~ round(., 2)))
+    base::colnames(df_l2g) <- stringr::str_replace_all(colnames(df_l2g),"rows.","")
   }
 
-  result_df <- result_df %>% dplyr::mutate(across(where(is.numeric), ~ round(., 2)))
-
-  return (result_df)
+  return (df_l2g)
 }

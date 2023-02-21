@@ -1,10 +1,14 @@
-#' Get variants information for an input study identifier
+#' Retrieves variants information for an input study identifier
 #'
 #'
-#' @param studyId is a Open Targets Genetics generated id for each GWAS study.
-#' @return A dataframe containing the all the variants information for all associated loci.
+#' @param studyid String: Open Targets Genetics generated id for GWAS study.
+#'
+#' @return A list containing all the variants information for all associated loci and information
+#' about the loci genes.
+#'
 #' @examples
-#' studyVariants(studyId= "GCST003155")
+#' studyVariants(studyid= "GCST003155")
+#'
 #' @export
 #'
 

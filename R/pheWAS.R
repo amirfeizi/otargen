@@ -1,14 +1,27 @@
-#' Phenome Wide Association Studies
+#' Retrieves Phenome Wide Association Studies
 #'
-#' @param variantid is the Open Target Genetics generated id for each variants
+#' For an input variant id, a table is generated with the following columns-
+#' totalGWASStudies, studyId, pval, beta, eaf(effect allele frequency), se(standard error),
+#' oddsRatio, nTotal(total sample size), nCases, study.source, study.pmid, study,pudDate,
+#' study.traiReported, and study.traitCategory.
+#'
+#'
+#' @param variantid String: Open Target Genetics generated index variant id or rs id.
+#' @param pageIndex Int: Index of the current page, pagination index >= 0.
+#' @param pageSize Int: No. of records in a page, pagination size > 0.
+#'
 #' @returns A data frame with PheWAS associations in it
+#'
 #' @examples
-#' pheWAS("1_154549918_C_A")
-#' pheWAS("1_154562290_G_A")
+#' pheWAS(variantid="1_154549918_C_A")
+#' or
+#' pheWAS(variantid="1_154562290_G_A", pageindex=1, pagesize=50)
+#'
 #' @export
 #'
+#'
 
-pheWAS <- function(variantid) {
+pheWAS <- function(variantid, pageindex=0, pagesize=20) {
 
   # make connection to the endpoint
 
@@ -51,8 +64,11 @@ pheWAS <- function(variantid) {
     pheWAS(variantId: $variantId){
     totalGWASStudies
     associations{
+      studyId
       pval
       beta
+      eaf
+      se
       oddsRatio
       study{
         studyId
@@ -63,6 +79,7 @@ pheWAS <- function(variantid) {
         traitCategory
       }
       nTotal
+      nCases
     }
   }
 }'
@@ -70,18 +87,18 @@ pheWAS <- function(variantid) {
 
   # execute the query
 
-  variables <- list(variantId = input_variantid)
+  variables <- list(variantId = input_variantid, pageIndex = pageindex, pageSize=pagesize)
 
   query_class$query(name ='phewas_query' , x = query )
 
   cli::cli_progress_step(paste("Downloading data...",variantid,"..."), spinner = TRUE)
 
-  result <- jsonlite::fromJSON(client$exec(query_class$queries$phewas_query, variables), flatten=TRUE)$data
-  result_df <- data.frame()
-  if (length(result$pheWAS$associations)!=0){
-    result_df <- result$pheWAS %>% as.data.frame
+  phewas_out <- jsonlite::fromJSON(client$exec(query_class$queries$phewas_query, variables), flatten=TRUE)$data
+  df_phewas <- data.frame()
+  if (length(phewas_out$pheWAS$associations)!=0){
+    df_phewas <- phewas_out$pheWAS %>% as.data.frame
+    base::colnames(df_phewas) <- stringr::str_replace_all(colnames(df_phewas),"associations.","")
   }
 
-  base::colnames(result_df) <- stringr::str_replace_all(colnames(result_df),"associations.","")
-  return (result_df)
+  return (df_phewas)
 }

@@ -1,21 +1,24 @@
 #' Retrieves the information about the input variant id.
 #'
+#' For an input variant id, a table is generated with the following columns -
+#' chromosome, position, refAllele, altAllele, rsId, chromosomeB37 , positionB37, id,
+#' nearestGene.id, nearestGene.symbol, nearestGeneDistance, nearestCodingGene.id, nearestCodingGene.symbol,
+#' nearestCodingGeneDistance, mostSevereConsequence, caddRaw, caddPhred, gnomadAFR,	gnomadAMR,	gnomadASJ,
+#' gnomadEAS, gnomadFIN,	gnomadNFE,	gnomadNFEEST,	gnomadNFENWE,	gnomadNFESEU,	gnomadNFEONF, and	gnomadOTH.
 #'
-#' @param variantid String : Open Target Genetics generated variant id or rs id.
+#' @param variantid String: Open Target Genetics generated variant id or rs id.
 #'
-#' @return Data frame containing the variant information.
+#' @return Data frame containing the variant information with the above mentioned columns.
 #'
 #' @examples
 #' var_info <- variantInfo(variantid = "1_55039974_G_T")
+#' or
 #' var_info <- variantInfo(variantid = "rs11591147")
-#' var_info
-#' chromosome	position	refAllele	altAllele	  rsId	     chromosomeB37	positionB37	    id	         nearestGene.id	  nearestGene.symbol	nearestGeneDistance	nearestCodingGene.id	nearestCodingGene.symbol	nearestCodingGeneDistance	mostSevereConsequence	caddRaw	caddPhred	gnomadAFR	  gnomadAMR	  gnomadASJ	  gnomadEAS	 gnomadFIN	  gnomadNFE	  gnomadNFEEST	gnomadNFENWE	gnomadNFESEU	gnomadNFEONF	gnomadOTH
-#'   <chr>     <int>     <chr>     <chr>     <chr>         <chr>         <int>         <chr>             <chr>             <chr>               <int>               <chr>                    <chr>                   <int>                      <chr>           <num>    <num>    <num>       <num>         <num>     <int>       <num>         <num>       <num>         <num>          <int>        <num>         <num>
-#'     1	    55039974	   G	       T	    rs11591147	    1	          55505647	  1_55039974_G_T	 ENSG00000169174	     PCSK9	              527	            ENSG00000169174	            PCSK9	                  527	                  missense_variant	  1.40806	  15.41	  0.002870264	0.004716981	0.006896552	   0	     0.04689298	  0.014970836	0.014590592	   0.015941354	      0	      0.012628625	  0.014732965
 #'
 #' @export
 #'
-
+#'
+#'
 variantInfo <- function(variantid) {
 
   ## Set up to query Open Targets Genetics API
@@ -99,7 +102,7 @@ variantInfo <- function(variantid) {
   otg_qry$query(name = "variantInfoquery", x =  query)
 
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
-  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$variantInfoquery, variables), flatten = TRUE)$data
-  result <- as.data.frame(result$variantInfo)
-  return (result)
+  var_info <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$variantInfoquery, variables), flatten = TRUE)$data
+  var_info <- as.data.frame(var_info$variantInfo)
+  return (var_info)
 }
