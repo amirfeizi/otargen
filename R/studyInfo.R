@@ -1,11 +1,24 @@
-#' Gets the information about the input study id which links top loci with a trait.
+#' Retrieves GWAS study id information.
 #'
+#' For a given study id which links top loci with a trait, a table is generated with the
+#' columns mentioned below.
 #'
-#' @param studyid is the Open Target Genetics generated id for gwas studies.
-#' @return A dataframe containing the study information.
+#' @param studyid String: Open Targets Genetics generated id for GWAS study.
+#'
+#' @return Dataframe containing the study information.
+#'
 #' @examples
-#' studyInfo("GCST90002357")
+#' study_info <- studyInfo(studyid="GCST90002357")
+#' study_info
+#'
+#' # A tibble: 1 × 17
+#' #studyId      traitReported  source traitEfos   pmid         pubDate pubJo…¹ pubTi…² pubAu…³ hasSu…⁴ ances…⁵ nInit…⁶ nRepl…⁷ nCases trait…⁸ numAs…⁹ nTotal
+#' #<chr>        <chr>          <chr>  <chr>       <chr>        <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>  <chr>   <chr>   <chr>
+#' # GCST90002357 Platelet count GCST   EFO_0004309 PMID:328884… 2020-0… Cell    Trans-… Chen MH TRUE    Europe… 542827  NA      NA     measur… 1252    542827
+#' # with abbreviated variable names ¹pubJournal, ²pubTitle, ³pubAuthor, ⁴hasSumstats, ⁵ancestryInitial, ⁶nInitial, ⁷nReplication, ⁸traitCategory, ⁹numAssocLoci
+#'
 #' @export
+#'
 #'
 
 studyInfo <- function(studyid) {
@@ -47,9 +60,9 @@ studyInfo <- function(studyid) {
   otg_qry$query(name = "studyInfoquery", x =  query)
 
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
-  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$studyInfoquery, variables), simplifyDataFrame = TRUE, flatten = TRUE)$data
-  result <- result$studyInfo
-  result[result == "NULL"] <- NA # replacing NULL elements with NA
-  output <- tibble::as.tibble(stack(unlist(result)) %>% tidyr::spread(ind,values)) # converting list of information key/value pairs to tibble format
-  return (output)
+  study_info <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$studyInfoquery, variables), simplifyDataFrame = TRUE, flatten = TRUE)$data
+  study_info <- study_info$studyInfo
+  study_info[study_info == "NULL"] <- NA # replacing NULL elements with NA
+  study_out <- tibble::as_tibble(stack(unlist(study_info)) %>% tidyr::spread(ind,values)) # converting list of information key/value pairs to tibble format
+  return (study_out)
 }
