@@ -1,11 +1,18 @@
-#' Gets the information about the input variant id.
+#' Retrieves the information about the input variant id.
 #'
 #'
-#' @param variantid is the Open Target Genetics generated id for each variant in the database.
-#' @return A dataframe containing the variant information.
+#' @param variantid String : Open Target Genetics generated variant id or rs id.
+#'
+#' @return Data frame containing the variant information.
+#'
 #' @examples
-#' variantInfo("1_55039974_G_T")
-#' variantInfo("rs4129267")
+#' var_info <- variantInfo(variantid = "1_55039974_G_T")
+#' var_info <- variantInfo(variantid = "rs11591147")
+#' var_info
+#' chromosome	position	refAllele	altAllele	  rsId	     chromosomeB37	positionB37	    id	         nearestGene.id	  nearestGene.symbol	nearestGeneDistance	nearestCodingGene.id	nearestCodingGene.symbol	nearestCodingGeneDistance	mostSevereConsequence	caddRaw	caddPhred	gnomadAFR	  gnomadAMR	  gnomadASJ	  gnomadEAS	 gnomadFIN	  gnomadNFE	  gnomadNFEEST	gnomadNFENWE	gnomadNFESEU	gnomadNFEONF	gnomadOTH
+#'   <chr>     <int>     <chr>     <chr>     <chr>         <chr>         <int>         <chr>             <chr>             <chr>               <int>               <chr>                    <chr>                   <int>                      <chr>           <num>    <num>    <num>       <num>         <num>     <int>       <num>         <num>       <num>         <num>          <int>        <num>         <num>
+#'     1	    55039974	   G	       T	    rs11591147	    1	          55505647	  1_55039974_G_T	 ENSG00000169174	     PCSK9	              527	            ENSG00000169174	            PCSK9	                  527	                  missense_variant	  1.40806	  15.41	  0.002870264	0.004716981	0.006896552	   0	     0.04689298	  0.014970836	0.014590592	   0.015941354	      0	      0.012628625	  0.014732965
+#'
 #' @export
 #'
 
