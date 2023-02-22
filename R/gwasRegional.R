@@ -1,13 +1,27 @@
 #' GWAS Regional Association of a study.
 #'
-#' @param studyid is the Open Target Genetics generated id for gwas studies.
-#' @param chromosome chromosome number as string.
-#' @param start start position of the specified chromosome.
-#' @param end end position of the specified chromosome.
-#' @return A dataframe of variants and pval score which have regional association with the given study id, chromosome number and the specified region.
+#' A table with variants and their respective p-val is generated as shown
+#' in the example.
+#'
+#' @param studyid String: Open Target Genetics generated id for GWAS study.
+#' @param chromosome String: chromosome number as string.
+#' @param start Long: start position of the specified chromosome.
+#' @param end Long: end position of the specified chromosome.
+#'
+#'
+#' @return Data frame of variants and p-val.
+#'
 #' @examples
-#' gwasRegional("GCST90002357", "1", 153992685, 154155116)
+#' gwas_reg <- gwasRegional(studyid="GCST90002357", chromosome="1", start=153992685, end=154155116)
+#' gwas_reg
+#'
+#'        pval      variant.id variant.chromosome variant.position
+#'   5.000e-20 1_153993605_G_C                  1        153993605
+#'   1.580e-06 1_153993862_C_T                  1        153993862
+#'   2.750e-17 1_153994184_T_G                  1        153994184
+#'
 #' @export
+#'
 #'
 
 gwasRegional <- function(studyid, chromosome, start, end) {
@@ -38,9 +52,9 @@ gwasRegional <- function(studyid, chromosome, start, end) {
   otg_qry$query(name = "gwasregional_query", x =  query)
 
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
-  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$gwasregional_query, variables), flatten=TRUE)$data
+  gwasreg_result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$gwasregional_query, variables), flatten=TRUE)$data
 
-  result_df <- result$gwasRegional %>% as.data.frame
+  df_gwasreg <- gwasreg_result$gwasRegional %>% as.data.frame
 
-  return(result_df)
+  return(df_gwasreg)
 }

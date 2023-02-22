@@ -1,10 +1,21 @@
-#' Get gwas credible set data for a variant in a study
+#' Get GWAS credible set data for a variant in a study
 #'
-#' @param studyid is the Open Target Genetics generated id for gwas studies.
-#' @param variantid is Open Target Genetics generated id for each variant in the databse.
-#' @return A data frame of results from credible set of variants for a specific lead variant.
+#' A table is generated withthe tag variant and its associated statistics.
+#'
+#' @param studyid String: Open Target Genetics generated id for GWAS study.
+#' @param variantid String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
+#'
+#' @return Data frame of results from credible set of variants for a specific lead variant.
+#'
 #' @examples
-#' gwasCredibleSet("GCST90002357", "1_154119580_C_A")
+#' gwas_cred_set <- gwasCredibleSet(studyid="GCST90002357", variantid="1_154119580_C_A")
+#' or
+#' gwas_cred_set <- gwasCredibleSet(studyid="GCST90002357", variantid="rs2494663")
+#' gwas_cred_set
+#'
+#'     tagVariant.id tagVariant.rsId      beta postProb    pval       se MultisignalMethod   logABF is95 is99
+#' 1 1_154119580_C_A              NA -0.021553        1 9.1e-32 0.001837       conditional 71.63937 TRUE TRUE
+#'
 #' @export
 #'
 
@@ -53,6 +64,7 @@ gwasCredibleSet <- function(studyid, variantid) {
   gwasCredibleSet(studyId: $studyId, variantId: $variantId) {
     tagVariant {
       id
+      rsId
     }
     beta
     postProb
@@ -74,11 +86,11 @@ gwasCredibleSet <- function(studyid, variantid) {
   #variables <- list(studyId = "FINNGEN_R5_G6_AD_WIDE_EXMORE", variantId = "19_44908822_C_T")
 
   cli::cli_progress_step("Downloading the data...", spinner = TRUE)
-  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$credset_query,
+  gwas_cred_set <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$credset_query,
                                             variables, flatten = TRUE))$data
 
-  result <- result$gwasCredibleSet %>% as.data.frame()
+  df_gwas <- gwas_cred_set$gwasCredibleSet %>% as.data.frame()
 
-  return(result)
+  return(df_gwas)
 
 }

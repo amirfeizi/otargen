@@ -7,7 +7,7 @@
 #' about the loci genes.
 #'
 #' @examples
-#' studyVariants(studyid= "GCST003155")
+#' studyVariants(studyid="GCST003155")
 #'
 #' @export
 #'

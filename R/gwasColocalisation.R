@@ -1,11 +1,24 @@
-#' Get gwas colocalisation for a variant in a study
+#' Retrieves GWAS colocalisation data.
 #'
-#' @param studyid is the Open Target Genetics generated id for gwas studies.
-#' @param variantid is Open Target Genetics generated id for each variant in the database.
-#' @return A data frame of the studies which colocalise with the input variant and study.
+#'
+#' A table is generated for which variants tag the input variant, the studies and statistics
+#' associated with it. The columns are as follows- indexVariant.id, indexVariant.position,
+#' indexVariant.chromosome, indexVariant.rsId, study.studyId, study.traitReported,
+#' study.traitCategory, beta, h3, h4 and log2h4h3.
+#'
+#'
+#' @param studyid String: Open Target Genetics generated id for GWAS study.
+#' @param variantid String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
+#'
+#' @return Data frame of the studies which colocalise with the input variant and study.
+#'
 #' @examples
-#' gwasColocalisation("GCST90002357", "1_154119580_C_A")
+#' gwasColocalisation(studyid="GCST90002357", variantid="1_154119580_C_A")
+#' or
+#' gwasColocalisation(studyid="GCST90002357", variantid="rs2494663")
+#'
 #' @export
+#'
 #'
 
 gwasColocalisation <- function(studyid, variantid) {
@@ -53,17 +66,17 @@ gwasColocalisation <- function(studyid, variantid) {
     position
     chromosome
     rsId
+    }
+    study{
+      studyId
+      traitReported
+      traitCategory
+    }
+    beta
+    h3
+    h4
+    log2h4h3
   }
-  study{
-    studyId
-    traitReported
-    traitCategory
-  }
-  beta
-  h3
-  h4
-  log2h4h3
-}
 }'
 
 
@@ -74,11 +87,11 @@ gwasColocalisation <- function(studyid, variantid) {
 
   otg_qry$query(name = 'gwascol_query' , query)
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
-  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$gwascol_query,variables), flatten = TRUE)$data
+  gwas_coloc <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$gwascol_query,variables), flatten = TRUE)$data
 
-  result_df <- result$gwasColocalisation %>% as.data.frame
+  df_gwas_coloc <- gwas_coloc$gwasColocalisation %>% as.data.frame
 
 
-  return(result_df)
+  return(df_gwas_coloc)
 
 }

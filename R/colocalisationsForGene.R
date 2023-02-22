@@ -1,23 +1,42 @@
-#' Get colocalization data for a gene
+#' Retrieves colocalisation data for a gene.
 #'
-#' @param ensmbl_ids is a identification id for genes by ensembl database.
-#' @return A dataframe including the queried gene identity and its colocalization data
+#' A table is generated with the following columns-
+#' Study, trait_reported, Lead_variant, Molecular_trait, Gene_symbol,
+#' Tissue, Source, H3, H4, log2(H4/H3), Title, Author, Has_sumstats,
+#' numAssocLoci, nInitial, cohort, study_nReplication, study_nCases,
+#' Publication_date, Journal, and Pubmed_id.
+#'
+#' @param ensembl_ids String: one or more gene ENSEMBL identifier.
+#'
+#' @return Data frame including the queried gene identity and its colocalisation data
+#'
 #' @examples
-#' colocalisationsForGene(list("ENSG00000163946","ENSG00000169174", "ENSG00000143001"))
-#' colocalisationsForGene("ENSG00000169174")
+#' colocalisationsForGene(ensembl_ids=list("ENSG00000163946","ENSG00000169174", "ENSG00000143001"))
+#' or
+#' colocalisationsForGene(ensembl_ids="ENSG00000169174")
+#'
 #' @export
-
-colocalisationsForGene <- function(ensmbl_ids) {
-
-
+#'
+#'
+colocalisationsForGene <- function(ensembl_ids) {
 
   # Check ensembl id format
 
-  if (!grepl(pattern = "ENSG\\d{11}", ensmbl_ids)) {
-    stop("\n Please provide Ensemble gene ID")
+  if (length(ensembl_ids) == 1){
+    if (!grepl(pattern = "ENSG\\d{11}", ensembl_ids)) {
+      stop("\n Please provide Ensemble gene ID")
+    }
+  }
+  else{
+    for (i in ensembl_ids){
+      if (!grepl(pattern = "ENSG\\d{11}", i)) {
+        stop("\n Please provide Ensemble gene ID")
+      }
+    }
+
   }
 
-  ensmbl_ids <- ensmbl_ids
+  ensembl_ids <- ensembl_ids
 
   colocal2 <- data.frame()
   colocal_genes_info <- data.frame()
@@ -71,9 +90,7 @@ colocalisationsForGene(geneId:$gene){
   con <- ghql::GraphqlClient$new("https://api.genetics.opentargets.org/graphql")
   qry <- ghql::Query$new()
 
-  for (input_gene in ensmbl_ids) {
-
-    print(input_gene)
+  for (input_gene in ensembl_ids) {
     cli::cli_progress_step(paste0("Downloading data for ", input_gene," ..."), spinner = TRUE)
 
 
@@ -84,6 +101,7 @@ colocalisationsForGene(geneId:$gene){
     colocal <- con$exec(qry$queries$getgenColocal, variables)
     colocal1 <- jsonlite::fromJSON(colocal, flatten = TRUE)
 
+    print (colocal1)
     colocal_genes_info <- rbind(colocal_genes_info, as.data.frame(colocal1$data$geneInfo))
 
     colocal1$data$colocalisationsForGene$gene_symbol <- rep(
@@ -97,6 +115,7 @@ colocalisationsForGene(geneId:$gene){
     )
 
     colocal2 <- rbind(colocal2, colocal1$data$colocalisationsForGene)
+
     colocal2 <- colocal2 %>% dplyr::select(study.studyId, study.traitReported,leftVariant.id,gene_symbol, gene_id, tissue.name, qtlStudyId ,
                                            h3, h4, log2h4h3, study.pubTitle, study.pubAuthor, study.hasSumstats, study.numAssocLoci ,study.nInitial,
                                            study.nReplication, study.nCases   ,study.pubDate, study.pubJournal,study.pmid) %>%

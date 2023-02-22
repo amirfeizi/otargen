@@ -1,11 +1,18 @@
-#' Get gene information for an input ENSEMBL identifier
+#' Retrieves gene information for a gene ENSEMBL identifier
 #'
+#' For a specified id, a table with the following columns
+#' is generated- id, symbol, bioType, description, chromosome,
+#' tss, start, end, fwdStrand, and exons.
 #'
-#' @param geneid An ENSEMBL identifier for a gene
-#' @return A dataframe containing the input gene information like symbol, chromosome information, etc.
+#' @param geneid String: a gene ENSEMBL identifier.
+#'
+#' @return Data frame containing the input gene information like symbol, chromosome information, etc.
+#'
 #' @examples
-#' geneInfo("ENSG00000169174")
+#' geneInfo(geneid="ENSG00000169174")
+#'
 #' @export
+#'
 #'
 
 geneInfo <- function(geneid) {
@@ -39,8 +46,8 @@ geneInfo <- function(geneid) {
   otg_qry$query(name = "geneInfoquery", x =  query)
 
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
-  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$geneInfoquery, variables), flatten=TRUE)$data
-  final_output <- as.data.frame(result$geneInfo)
+  gene_info <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$geneInfoquery, variables), flatten=TRUE)$data
+  final_output <- as.data.frame(gene_info$geneInfo)
   if (nrow(final_output)==0){
     final_output <- data.frame()
   }

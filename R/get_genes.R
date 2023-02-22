@@ -1,16 +1,22 @@
-#' Information about genes on an input locus
+#' Retrieves information about genes on an input locus
 #'
+#' A table is generated containing information about all the genes
+#' present in the specified locus. The columns are id, symbol, bioType,
+#' description, chromosome, tss, start, end, fwdStrand, and exons.
 #'
-#' @param chromosome Chromosome given as a string
-#' @param start start position of the input chromosome
-#' @param end end position of the input chromosome
-#' @return A dataframe containing the details of all the genes in the mentioned locus.
+#' @param chromosome String: chromosome number as string.
+#' @param start Long: start position of the specified chromosome.
+#' @param end Long: end position of the specified chromosome.
+#'
+#' @return Data frame containing the details of all the genes in the mentioned locus.
+#'
 #' @examples
-#' genes(chromosome="1", start=800, end=500000)
+#' get_genes(chromosome="1", start=800, end=500000)
+#'
 #' @export
 #'
-
-genes <- function(chromosome, start, end) {
+#'
+get_genes <- function(chromosome, start, end) {
 
   ## Set up to query Open Targets Genetics API
   variables <- list(chromosome = chromosome, start = start, end = end)
@@ -40,8 +46,8 @@ genes <- function(chromosome, start, end) {
 
   otg_qry$query(name = "genesquery", x =  query)
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
-  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$genesquery, variables), flatten=TRUE)$data
-  final_output <- as.data.frame(result$genes)
+  genes_result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$genesquery, variables), flatten=TRUE)$data
+  final_output <- as.data.frame(genes_result$genes)
   if (nrow(final_output)==0){
     final_output <- data.frame()
   }

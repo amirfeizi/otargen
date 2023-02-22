@@ -1,11 +1,24 @@
-#' Get gwas colocalisation data for a given region
+#' Retrieves GWAS colocalisation data for a region.
 #'
-#' @param chromosome chromosome number given as string.
-#' @param start start position of the specified chromosome.
-#' @param end end position of the specified chromosome.
-#' @returns A data frame with gwas colocalisation data containing studies and variants for the queried chromosome and region
+#' A table is generated with the following columns-
+#' leftVariant.id, leftVariant.position, leftVariant.chromosome,
+#' leftVariant.rsId, leftStudy.studyId, leftStudy.traitReported,
+#' leftStudy.traitCategory, rightVariant.id, rightVariant.position,
+#' rightVariant.chromosome, rightVariant.rsId, rightStudy.studyId,
+#' rightStudy.traitReported, rightStudy.traitCategory, h3, h4
+#' and log2h4h3.
+#'
+#' @param chromosome String: chromosome number as string.
+#' @param start Long: start position of the specified chromosome.
+#' @param end Long: end position of the specified chromosome.
+#'
+#'
+#' @returns Data frame with GWAS colocalisation data for a specified region.
+#'
 #' @examples
-#' gwasColocalisationForRegion("1", 153992685, 154155116)
+#' gwasColocalisationForRegion(chromosome="1", start=153992685, end=154155116)
+#'
+#'
 #' @export
 #'
 #'
@@ -30,6 +43,7 @@ gwasColocalisationForRegion <- function(chromosome, start, end) {
   leftStudy{
     studyId
     traitReported
+    traitCategory
   }
   rightVariant
   {
@@ -41,6 +55,7 @@ gwasColocalisationForRegion <- function(chromosome, start, end) {
   rightStudy
   {
     studyId
+    traitReported
     traitCategory
   }
   h3
@@ -53,9 +68,9 @@ gwasColocalisationForRegion <- function(chromosome, start, end) {
   otg_qry$query(name = "gwascolforreg_query", x = query)
 
   cli::cli_progress_step("Downloading the data...", spinner = TRUE)
-  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$gwascolforreg_query, variables, flatten=TRUE))$data
+  gwasreg_coloc <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$gwascolforreg_query, variables, flatten=TRUE))$data
 
-  result_df <- result$gwasColocalisationForRegion %>% as.data.frame
+  df_gwasreg_coloc <- gwasreg_coloc$gwasColocalisationForRegion %>% as.data.frame
 
-  return(result_df)
+  return(df_gwasreg_coloc)
 }
