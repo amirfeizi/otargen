@@ -101,7 +101,6 @@ colocalisationsForGene(geneId:$gene){
     colocal <- con$exec(qry$queries$getgenColocal, variables)
     colocal1 <- jsonlite::fromJSON(colocal, flatten = TRUE)
 
-    print (colocal1)
     colocal_genes_info <- rbind(colocal_genes_info, as.data.frame(colocal1$data$geneInfo))
 
     colocal1$data$colocalisationsForGene$gene_symbol <- rep(
