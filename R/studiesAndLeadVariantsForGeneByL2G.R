@@ -31,7 +31,7 @@
 #'
 
 
-studiesAndLeadVariantsForGeneByL2G <- function(ensmbl_ids,
+studiesAndLeadVariantsForGeneByL2G <- function(ensembl_ids,
                                                l2g = 0.4,
                                                pvalue = 5e-8,
                                                vtype = NULL ) {
@@ -159,7 +159,7 @@ studiesAndLeadVariantsForGeneByL2G <- function(ensmbl_ids,
 
     final_output <- dplyr::bind_rows(final_output, output1$data$studiesAndLeadVariantsForGeneByL2G) %>%
       dplyr::filter(yProbaModel >= l2g, pval <= pvalue) %>%
-      dplyr::mutate(across(where(is.numeric), ~ round(., 2)))
+      dplyr::mutate(across((yProbaModel:yProbaPathogenicity), ~ round(., 3)))
 
     if (!is.null(vtype)) {
       final_output <- final_output %>% dplyr::filter(variant.mostSevereConsequence %in% vtype)
