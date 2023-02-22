@@ -2,19 +2,23 @@
 #'
 #' @param ensmbl_ids is a identification id for genes by ensembl database.
 #' @param l2g is locus to gene cut off, the defaul is set to 0.4.
-#' @param vtype is a vector of variants most severe consequence to filter the variants type including c("all","intergenic_variant",
+#' @param vtype is a vector of variants most severe consequence to filter the variants type including c("intergenic_variant",
 #' "upstream_gene_variant", "intron_variant", "missense_variant", "5_prime_UTR_variant","non_coding_transcript_exon_variant", "splice_region_variant"). The default
-#' is "all".
+#' is NULL which includes all the types.
 #' @return A dataframe including the queried gene indentity and its colocalization data for L2G model
 #' @examples
 #' studiesAndLeadVariantsForGeneByL2G(list("ENSG00000163946","ENSG00000169174", "ENSG00000143001"))
 #' studiesAndLeadVariantsForGeneByL2G("ENSG00000169174")
 #' studiesAndLeadVariantsForGeneByL2G("ENSG00000169174", l2g=0.6)
+#' studiesAndLeadVariantsForGeneByL2G("ENSG00000169174", l2g=0.6, c("upstream_gene_variant","missense_variant"))
 #' @export
 #'
 #'
 
-studiesAndLeadVariantsForGeneByL2G <- function(ensmbl_ids, l2g = 0.4, pvalue = 5e-8, vtype = c("all") ) {
+studiesAndLeadVariantsForGeneByL2G <- function(ensmbl_ids,
+                                               l2g = 0.4,
+                                               pvalue = 5e-8,
+                                               vtype = NULL ) {
 
   # Check ensembl id format
   if (length(ensmbl_ids) == 1){

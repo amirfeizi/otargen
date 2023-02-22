@@ -1,5 +1,6 @@
 #' Get gene information for an input ENSEMBL identifier
 #'
+#' This function bla bla
 #'
 #' @param geneid An ENSEMBL identifier for a gene
 #' @return A dataframe containing the input gene information like symbol, chromosome information, etc.
