@@ -1,15 +1,15 @@
 #' Plot the PheWAS function results
 #'
-#' @param data is the result of PheWAS function in data frame format, contacting the phewas information for a variand id
-#' @param disease is a logical TRUE and FALSE variable, with the default value of TRUE to filter the phewas data for disease.
-#' @param source is a character vector of choices for data sources of phewas analyis including FINNGEN, GCST, NEAL (UKbioBANK), and SAGE
-#' @param ...
+#' @param data Data Frame: result of PheWAS function in data frame format, contacting the PheWAS information for a variand id
+#' @param disease Logical: a logical TRUE and FALSE variable, with the default value of TRUE to filter the PheWAS data for disease.
+#' @param source Character vector: choices for data sources of PheWAS analysis including FINNGEN, GCST, NEAL (UKBioBANK), and SAGE.
 #'
-#' @return a plot to priorotize variants based on their -log10(pval)
-#' @export
+#' @return A plot to prioritize variants based on their -log10(pval).
 #'
 #' @examples
 #' pheWAS(variantid = "14_87978408_G_A") %>% plot_phewas(disease = TRUE)
+#'
+#' @export
 #'
 plot_phewas <- function(data, disease = TRUE,  source = c("GCST","FINNGEN","NEALE","SAIGE")){
 

@@ -1,15 +1,17 @@
-#' Plot the coloc function results
+#' Plot the colocalisation function results
 #'
-#' @param data is the result of colocalisationsForGene function in data frame format, contacting the phewas information for a variand id
-#' @param disease is a logical TRUE and FALSE variable, with the default value of TRUE to filter the phewas data for disease.
-#' @param source is a character vector of choices for data sources of phewas analyis including FINNGEN, GCST, NEAL (UKbioBANK), and SAGE
+#' @param data Data Frame: result of colocalisationsForGene function in data frame format, contacting the phewas information for a variant id
+#' @param disease Logical: TRUE and FALSE variable, with the default value of TRUE to filter the phewas data for disease.
+#' @param source Character vector: choices for data sources of PHEWAS analysis including FINNGEN, GCST, NEAL (UKBioBANK), and SAGE.
 #' @param ...
 #'
-#' @return a plot for colocalization information
-#' @export
+#' @return A plot for colocalisation information
 #'
 #' @examples
 #' pheWAS(variantid = "14_87978408_G_A") %>% plot_phewas(disease = TRUE)
+#'
+#' @export
+#'
 #'
 plot_phewas <- function(data, disease = TRUE,  source = c("GCST","FINNGEN","NEALE","SAIGE")){
 

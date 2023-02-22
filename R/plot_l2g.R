@@ -1,7 +1,7 @@
 #' Plot the the scores obtained from the L2G model results
 #'
-#' @param data is the result of studiesAndLeadVariantsForGeneByL2G function in data frame format
-#' @param disease_efo is the input efo id to filter the L2G data for a particular disease.
+#' @param data Data Frame: result of studiesAndLeadVariantsForGeneByL2G function in data frame format
+#' @param disease_efo String: efo id as string to filter the L2G data for a particular disease.
 #'
 #' @return A radar plot for the input disease and the genes associated with that disease. The variables shown include L2G score, chromatin interaction, variant
 #' pathogenicity and distance.
@@ -9,9 +9,9 @@
 #' @export
 #'
 #' @examples
-#' studiesAndLeadVariantsForGeneByL2G(list("ENSG00000167207","ENSG00000096968", "ENSG00000095303") %>% plot_l2g(disease = "EFO_0003767")
+#' studiesAndLeadVariantsForGeneByL2G(ensembl_ids=list("ENSG00000167207","ENSG00000096968", "ENSG00000095303") %>% plot_l2g(disease = "EFO_0003767")
 #'
-
+#'
 plot_l2g <- function(data, disease_efo){
   exclude <- c("phenotype", "measurement", "Uncategorised", "biological process")
   data <- dplyr::filter(data, !study.traitCategory %in% exclude)
