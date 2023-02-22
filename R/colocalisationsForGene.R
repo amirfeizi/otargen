@@ -1,6 +1,6 @@
 #' Retrieves colocalisation data for a gene.
 #'
-#' A table is generated with the following columns-
+#' This functions takes a (list) gene ensembl id(s) as an input and retrieves datatable for studies that have evidence of colocalisation with molecular QTLs. The output table includes the following columns-
 #' Study, trait_reported, Lead_variant, Molecular_trait, Gene_symbol,
 #' Tissue, Source, H3, H4, log2(H4/H3), Title, Author, Has_sumstats,
 #' numAssocLoci, nInitial, cohort, study_nReplication, study_nCases,
