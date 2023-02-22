@@ -1,4 +1,4 @@
-#' Retrieves gene information for a gene ENSEMBL identifier
+#' Retrieves gene information for a gene ENSEMBL identifier.
 #'
 #' For a specified id, a table with the following columns
 #' is generated- id, symbol, bioType, description, chromosome,
@@ -7,7 +7,7 @@
 #' @param geneid String: a gene ENSEMBL identifier.
 #'
 #' @return Data frame containing the input gene information like symbol, chromosome information, etc.
-#'
+
 #' @examples
 #' geneInfo(geneid="ENSG00000169174")
 #'

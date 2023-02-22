@@ -18,8 +18,9 @@
 #' "upstream_gene_variant", "intron_variant", "missense_variant", "5_prime_UTR_variant",
 #' "non_coding_transcript_exon_variant", "splice_region_variant")
 #'
-#' @return Dataframe containing the queried gene identity and its data for L2G model
+#' @return Data frame containing the queried gene identity and its data for L2G model
 #'
+
 #' @examples
 #' studiesAndLeadVariantsForGeneByL2G(ensembl_ids=list("ENSG00000163946","ENSG00000169174", "ENSG00000143001"),l2g=0.7)
 #' or
@@ -29,7 +30,12 @@
 #'
 #'
 
-studiesAndLeadVariantsForGeneByL2G <- function(ensembl_ids, l2g=0.4, pvalue=5e-8, vtype=NULL) {
+
+studiesAndLeadVariantsForGeneByL2G <- function(ensmbl_ids,
+                                               l2g = 0.4,
+                                               pvalue = 5e-8,
+                                               vtype = NULL ) {
+
 
   # Check ensembl id format
   if (length(ensembl_ids) == 1){
