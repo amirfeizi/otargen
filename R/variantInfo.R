@@ -1,14 +1,24 @@
-#' Gets the information about the input variant id.
+#' Retrieves the information about the input variant id.
 #'
+#' For an input variant id, a table is generated with the following columns -
+#' chromosome, position, refAllele, altAllele, rsId, chromosomeB37 , positionB37, id,
+#' nearestGene.id, nearestGene.symbol, nearestGeneDistance, nearestCodingGene.id, nearestCodingGene.symbol,
+#' nearestCodingGeneDistance, mostSevereConsequence, caddRaw, caddPhred, gnomadAFR,	gnomadAMR,	gnomadASJ,
+#' gnomadEAS, gnomadFIN,	gnomadNFE,	gnomadNFEEST,	gnomadNFENWE,	gnomadNFESEU,	gnomadNFEONF, and	gnomadOTH.
 #'
-#' @param variantid is the Open Target Genetics generated id for each variant in the database.
-#' @return A dataframe containing the variant information.
+#' @param variantid String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
+#'
+#' @return Data frame containing the variant information with the above mentioned columns.
+#'
 #' @examples
-#' variantInfo("1_55039974_G_T")
-#' variantInfo("rs4129267")
+#' var_info <- variantInfo(variantid = "1_55039974_G_T")
+#' or
+#' var_info <- variantInfo(variantid = "rs11591147")
+#'
 #' @export
 #'
-
+#'
+#'
 variantInfo <- function(variantid) {
 
   ## Set up to query Open Targets Genetics API
@@ -92,7 +102,7 @@ variantInfo <- function(variantid) {
   otg_qry$query(name = "variantInfoquery", x =  query)
 
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
-  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$variantInfoquery, variables), flatten = TRUE)$data
-  result <- as.data.frame(result$variantInfo)
-  return (result)
+  var_info <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$variantInfoquery, variables), flatten = TRUE)$data
+  var_info <- as.data.frame(var_info$variantInfo)
+  return (var_info)
 }

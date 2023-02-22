@@ -1,33 +1,50 @@
-#' Query L2G model summary data for a gene
+#' Retrieves L2G model summary data for a gene.
 #'
-#' @param ensmbl_ids is a identification id for genes by ensembl database.
-#' @param l2g is locus to gene cut off, the defaul is set to 0.4.
-#' @param vtype is a vector of variants most severe consequence to filter the variants type including c("intergenic_variant",
-#' "upstream_gene_variant", "intron_variant", "missense_variant", "5_prime_UTR_variant","non_coding_transcript_exon_variant", "splice_region_variant"). The default
-#' is NULL which includes all the types.
-#' @return A dataframe including the queried gene indentity and its colocalization data for L2G model
+#' For one or more input ENSEMBL ids, a table is generated with following columns-
+#' yProbaModel (L2G score), yProbaDistance, yProbaInteraction (chromatin interaction),
+#' yProbaMolecularQTL, yProbaPathogenicity, pval, beta.direction, beta.betaCI, beta.betaCILower
+#' beta.betaCIUpper, odds.oddsCI, odds.oddsCILower, odds.oddsCIUpper, study.studyId,
+#' study.traitReported, study.traitCategory, study.pubDate, study.pubTitle, study.pubAuthor,
+#' study.pubJournal, study.pmid, study.hasSumstats, study.nCases, study.numAssocLoci, study.nTotal
+#' study.traitEfos, variant.id, variant.rsId, variant.chromosome, variant.position, variant.refAllele
+#' variant.altAllele, variant.nearestCodingGeneDistance, variant.nearestGeneDistance, variant.mostSevereConsequence,
+#' variant.nearestGene.id, variant.nearestCodingGene.id, ensembl_id, and gene_symbol.
+#'
+#'
+#' @param ensembl_ids String: one or more gene ENSEMBL id.
+#' @param l2g Float: locus to gene cut off score.
+#' @param pvalue Float: pvalue cut off.
+#' @param vtype Character vector: most severe consequence to filter the variants type including c(intergenic_variant",
+#' "upstream_gene_variant", "intron_variant", "missense_variant", "5_prime_UTR_variant",
+#' "non_coding_transcript_exon_variant", "splice_region_variant")
+#'
+#' @return Dataframe containing the queried gene identity and its data for L2G model
+#'
+
 #' @examples
-#' studiesAndLeadVariantsForGeneByL2G(list("ENSG00000163946","ENSG00000169174", "ENSG00000143001"))
-#' studiesAndLeadVariantsForGeneByL2G("ENSG00000169174")
-#' studiesAndLeadVariantsForGeneByL2G("ENSG00000169174", l2g=0.6)
-#' studiesAndLeadVariantsForGeneByL2G("ENSG00000169174", l2g=0.6, c("upstream_gene_variant","missense_variant"))
+#' studiesAndLeadVariantsForGeneByL2G(ensembl_ids=list("ENSG00000163946","ENSG00000169174", "ENSG00000143001"),l2g=0.7)
+#' or
+#' studiesAndLeadVariantsForGeneByL2G(ensembl_ids="ENSG00000169174", l2g=0.6, pvalue=1e-8, vtype=c("intergenic_variant","intron_variant"))
+#'
 #' @export
 #'
 #'
+
 
 studiesAndLeadVariantsForGeneByL2G <- function(ensmbl_ids,
                                                l2g = 0.4,
                                                pvalue = 5e-8,
                                                vtype = NULL ) {
 
+
   # Check ensembl id format
-  if (length(ensmbl_ids) == 1){
-  if (!grepl(pattern = "ENSG\\d{11}", ensmbl_ids)) {
+  if (length(ensembl_ids) == 1){
+  if (!grepl(pattern = "ENSG\\d{11}", ensembl_ids)) {
     stop("\n Please provide Ensemble gene ID")
   }
   }
   else{
-    for (i in ensmbl_ids){
+    for (i in ensembl_ids){
       if (!grepl(pattern = "ENSG\\d{11}", i)) {
         stop("\n Please provide Ensemble gene ID")
       }
@@ -109,7 +126,7 @@ studiesAndLeadVariantsForGeneByL2G <- function(ensmbl_ids,
   cli::cli_progress_step("Connecting the database...", spinner = TRUE)
   con <- ghql::GraphqlClient$new("https://api.genetics.opentargets.org/graphql")
 
-  for (input_gene in ensmbl_ids) {
+  for (input_gene in ensembl_ids) {
 
     variables <- list(gene = input_gene)
     cli::cli_progress_step(paste0("Downloading data for ", input_gene," ..."), spinner = TRUE)
@@ -144,18 +161,14 @@ studiesAndLeadVariantsForGeneByL2G <- function(ensmbl_ids,
       dplyr::filter(yProbaModel >= l2g, pval <= pvalue) %>%
       dplyr::mutate(across(where(is.numeric), ~ round(., 2)))
 
-    if (vtype !="all") {
-
-      final_output1 <- final_output %>% dplyr::filter(variant.mostSevereConsequence %in% vtype)
-      return(final_output1)
+    if (!is.null(vtype)) {
+      final_output <- final_output %>% dplyr::filter(variant.mostSevereConsequence %in% vtype)
     }
-
-    # Sys.sleep(1)
     }
   }
 
-  if (nrow(final_output) != 0){
-    final_output = data.frame(lapply(final_output, as.character), stringsAsFactors=FALSE)
+  if (nrow(final_output)!=0){
+    final_output$study.traitEfos <- as.character(final_output$study.traitEfos)
   }
 
   return(final_output)
