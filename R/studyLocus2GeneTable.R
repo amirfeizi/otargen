@@ -6,7 +6,7 @@
 #' distanceToLocus, gene.id, and gene.symbol.
 #'
 #'
-#' @param studyid String: Open Target Genetics generated id for gwas studies.
+#' @param studyid String: Open Target Genetics generated id for GWAS study.
 #' @param variantid String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
 #'
 #' @return Dataframe with summary stats of the study and datatable of the various calculated scores and features for any lead variant.

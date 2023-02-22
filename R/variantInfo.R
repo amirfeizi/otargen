@@ -6,7 +6,7 @@
 #' nearestCodingGeneDistance, mostSevereConsequence, caddRaw, caddPhred, gnomadAFR,	gnomadAMR,	gnomadASJ,
 #' gnomadEAS, gnomadFIN,	gnomadNFE,	gnomadNFEEST,	gnomadNFENWE,	gnomadNFESEU,	gnomadNFEONF, and	gnomadOTH.
 #'
-#' @param variantid String: Open Target Genetics generated variant id or rs id.
+#' @param variantid String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
 #'
 #' @return Data frame containing the variant information with the above mentioned columns.
 #'

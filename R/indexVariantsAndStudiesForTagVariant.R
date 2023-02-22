@@ -1,14 +1,25 @@
-#' Gives out index variants and studies for an input tag variant.
+#' Retrieves index variants and studies for a tag variant.
 #'
-#' @param variantid is the Open Target Genetics generated id for each variants.
-#' @param pageIndex pagination index >= 0. Index of the current page.
-#' @param pageSize pagination size > 0. No. of records in a page. Default: 20
-#' @return A dataframe containing the variant associated to the input tag variant.
+#' For an input tag variant, a table is generated with the following columns-
+#' indexVariant, study, pval, pvalMantissa, pvalExponent, nTotal, nCases, overallR2,
+#' afr1000GProp, amr1000GProp, eas1000GProp, eur1000GProp, sas1000GProp, log10Abf,
+#' posteriorProbability, oddsRatio, oddsRatioCILower, oddsRatioCIUpper, beta,
+#' betaCILower, betaCIUpper, direction.
+#'
+#'
+#' @param variantid String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
+#' @param pageIndex Int: Index of the current page, pagination index >= 0.
+#' @param pageSize Int: No. of records in a page, pagination size > 0.
+#'
+#' @return Dataframe containing the variant associated to the input tag variant.
+#'
 #' @examples
-#' indexVariantsAndStudiesForTagVariant("1_109274968_G_T")
-#' indexVariantsAndStudiesForTagVariant("rs12740374")
-#' indexVariantsAndStudiesForTagVariant("1_109274968_G_T", pageindex=1, pagesize=50)
+#' indexVariantsAndStudiesForTagVariant(variantid="1_109274968_G_T")
+#' or
+#' indexVariantsAndStudiesForTagVariant(variantid="rs12740374", pageindex=1, pagesize=50)
+#'
 #' @export
+#'
 #'
 
 indexVariantsAndStudiesForTagVariant <- function(variantid, pageindex=0, pagesize=20) {
@@ -90,7 +101,7 @@ indexVariantsAndStudiesForTagVariant <- function(variantid, pageindex=0, pagesiz
   otg_qry$query(name = "indexvariantsandstudiesquery", x = query)
 
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
-  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$indexvariantsandstudiesquery, variables, flatten=TRUE))$data
-  result <- as.data.frame(result$indexVariantsAndStudiesForTagVariant$associations)
-  return (result)
+  index_var <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$indexvariantsandstudiesquery, variables, flatten=TRUE))$data
+  index_var <- as.data.frame(index_var$indexVariantsAndStudiesForTagVariant$associations)
+  return (index_var)
 }

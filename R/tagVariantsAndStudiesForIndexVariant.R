@@ -7,7 +7,7 @@
 #' oddsRatioCILower, oddsRatioCIUpper, posteriorProbability, beta, betaCILower, betaCIUpper, direction, log10Abf.
 #'
 #'
-#' @param variantid String: String:Open Target Genetics generated index variant id or rs id.
+#' @param variantid String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
 #' @param pageIndex Int: Index of the current page, pagination index >= 0.
 #' @param pageSize Int: No. of records in a page, pagination size > 0.
 #'

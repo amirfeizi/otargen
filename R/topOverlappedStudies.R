@@ -7,7 +7,7 @@
 #' and number of overlap with the referenced study (topStudiesByLociOverlap.numOverlapLoci).
 #'
 #'
-#' @param studyid String: Open Target Genetics generated id for gwas studies.
+#' @param studyid String: Open Target Genetics generated id for GWAS study.
 #' @param pageIndex Int: Index of the current page, pagination index >= 0.
 #' @param pageSize Int: No. of records in a page, pagination size > 0.
 #'

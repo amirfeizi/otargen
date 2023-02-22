@@ -72,7 +72,7 @@ manhattan <- function(studyid, pageindex=0, pagesize=20) {
   otg_qry$query(name = "manhattan_query", x = query)
 
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
-  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$manhattan_query, variables), flatten=TRUE)$data
-  result <- as.data.frame(result$manhattan$associations)
-  return (result)
+  man_result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$manhattan_query, variables), flatten=TRUE)$data
+  man_result <- as.data.frame(man_result$manhattan$associations)
+  return (man_result)
 }
