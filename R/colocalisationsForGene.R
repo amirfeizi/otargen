@@ -7,6 +7,7 @@
 #' Publication_date, Journal, and Pubmed_id.
 #'
 #' @param ensembl_ids String: one or more gene ENSEMBL identifier.
+#' @param h4 Float: This is cut off for log2(H4/H3) which measures evidence for colocalisation between 2 traits. The default cut off is 5.
 #'
 #' @return Data frame including the queried gene identity and its colocalisation data
 #'
@@ -18,7 +19,7 @@
 #' @export
 #'
 #'
-colocalisationsForGene <- function(ensembl_ids) {
+colocalisationsForGene <- function(ensembl_ids, h4 = 5) {
 
   # Check ensembl id format
 
@@ -126,7 +127,9 @@ colocalisationsForGene(geneId:$gene){
     colnames(colocal2) <- c("Study","Trait_reported","Lead_variant", "Molecular_trait","Gene_symbol",
                             "Tissue", "Source","H3","H4","log2(H4/H3)", "Title","Author","Has_sumstats","numAssocLoci",
                             "nInitial cohort","study_nReplication","study_nCases","Publication_date","Journal","Pubmed_id")
+
+    colocal3 <- colocal2 %>% dplyr::filter(log2(H4/H3) >= h4)
   }
 
-  return(colocal2)
+  return(colocal3)
 }

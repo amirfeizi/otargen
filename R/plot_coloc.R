@@ -13,31 +13,25 @@
 #' @export
 #'
 #'
-plot_phewas <- function(data, disease = TRUE,  source = c("GCST","FINNGEN","NEALE","SAIGE")){
+plot_coloc <- function(data, biobank = FALSE){
 
   dt0 <- data
-  dt0$study.traitCategory <- base::tolower(dt0$study.traitCategory)
-  dt1 <- dt0  %>%  dplyr::mutate(study.traitReported_trimmed = stringr::str_replace_all(study.traitReported,pattern = "[:punct:]|[:symbol:]",replacement = "")) %>%
-    dplyr::mutate(study.traitReported_trimmed = stringr::str_trunc(study.traitReported_trimmed, width = 35,side = "right"))
+  dt0$study.traitCategory <- base::tolower(dt0$Trait_reported )
+  dt1 <- dt0  %>%  dplyr::mutate(Trait_reported_trimmed = stringr::str_replace_all(Trait_reported,pattern = "[:punct:]|[:symbol:]",replacement = "")) %>%
+    dplyr::mutate(Trait_reported_trimmed = stringr::str_trunc(Trait_reported_trimmed, width = 35,side = "right"))
 
 
   #source <- match.arg(source)
   #type <- match.arg(type)
 
-  if (disease ) {
+  if (biobank == TRUE ) {
 
-    dt2 <- dt1 %>% dplyr::filter(study.source %in% source) %>%
-      dplyr::filter(!study.traitCategory %in% c("measurement", "phenotype", "biological process","uncategorised")) %>%
-      dplyr::mutate(beta_shape = ifelse(beta>0, "positive","negetive"))
+    dt2 <- dt1 %>% dplyr::filter(grepl(pattern = "^GCST.*", Study))
 
 
-  } else {
-
-    dt2 <- dt1 %>% dplyr::filter(study.source %in% source) %>%
-      dplyr::filter(study.traitCategory %in% c("measurement", "phenotype", "biological process","uncategorised")) %>%
-      dplyr::mutate(beta_shape = ifelse(beta>0, "positive","negetive"))
+  }else {
+    dt2 <- dt1
   }
-
   p <- ggplot2::ggplot(data = dt2, ggplot2::aes(study.traitCategory,
                                            -log10(pval), color = study.source, shape = beta_shape)) +
     ggplot2::geom_point()+
