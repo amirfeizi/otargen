@@ -1,16 +1,19 @@
 #' Manhattan association for a given study.
 #'
-#' @param studyid is the Open Target Genetics generated id for gwas studies.
-#' @param pageIndex pageIndex pagination index >= 0. Index of the current page.
-#' @param pageSize pagination size > 0. No. of records in a page. Default: 20
-#' @return A dataframe containing manhattan associations for the input study id given.
+#' @param studyid String: Open Targets Genetics generated id for GWAS study.
+#' @param pageIndex Int: Index of the current page, pagination index >= 0.
+#' @param pageSize Int: No. of records in a page, pagination size > 0.
+#'
+#' @return Dataframe containing manhattan associations for the input study id given.
+#'
 #' @examples
-#' manhattan("GCST90002357")
-#' manhattan("GCST90002357", 2, 50)
+#' manhattan(studyid="GCST90002357")
+#' or
+#' manhattan(studyid="GCST90002357", pageindex=2, pagesize=50)
+#'
 #' @export
 #'
 #'
-
 manhattan <- function(studyid, pageindex=0, pagesize=20) {
 
   ## Set up to query Open Targets Genetics API
@@ -63,7 +66,7 @@ manhattan <- function(studyid, pageindex=0, pagesize=20) {
         }
         score
     }
-  }
+    }
 }
 }"
 
@@ -74,5 +77,17 @@ manhattan <- function(studyid, pageindex=0, pagesize=20) {
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
   man_result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$manhattan_query, variables), flatten=TRUE)$data
   man_result <- as.data.frame(man_result$manhattan$associations)
+
+  if (nrow(man_result)!=0){
+  man_result <- as.data.frame(tidyr::unnest(man_result, bestGenes, names_sep='.', keep_empty=TRUE))
+  man_result <- as.data.frame(tidyr::unnest(man_result, bestColocGenes, names_sep='.', keep_empty=TRUE))
+  man_result <- as.data.frame(tidyr::unnest(man_result, bestLocus2Genes, names_sep='.', keep_empty=TRUE))
+  colnames(man_result) <- c("pvalMantissa","pvalExponent","credibleSetSize","ldSetSize", "totalSetSize",
+                            "pval", "oddsRatio", "oddsRatioCILower", "oddsRatioCIUpper", "beta", "betaCILower",
+                            "betaCIUpper", "direction", "bestGenes.score",  "bestGenes.gene_id", "bestGenes.gene_symbol",
+                            "bestColocGenes.score", "bestColocGenes.gene_id", "bestColocGenes.gene_symbol",
+                            "bestLocus2Genes.score", "bestLocus2Genes.gene_id", "bestLocus2Genes.gene_symbol",
+                            "variant.id", "variant.position", "variant.rsId")
+  }
   return (man_result)
 }
