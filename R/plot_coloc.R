@@ -20,26 +20,29 @@ plot_coloc <- function(data, biobank = FALSE) {
     dplyr::mutate(Trait_reported_trimmed = stringr::str_replace_all(Trait_reported, pattern = "[:punct:]|[:symbol:]", replacement = "")) %>%
     dplyr::mutate(Trait_reported_trimmed = stringr::str_trunc(Trait_reported_trimmed, width = 35, side = "right"))
 
+  dt2 <- dt1[!duplicated(dt1[ , c("Study","Lead_variant","Molecular_trait")]),]
+
 
   # source <- match.arg(source)
   # type <- match.arg(type)
 
   if (biobank == TRUE) {
-    dt2 <- dt1 %>% dplyr::filter(grepl(pattern = "^GCST.*", Study))
+    dt3 <- dt2 %>% dplyr::filter(grepl(pattern = "^GCST.*", Study))
   } else {
-    dt2 <- dt1
+    dt3 <- dt2
   }
-  p <- ggplot2::ggplot(data = dt2, ggplot2::aes(study.traitCategory,
-    -log10(pval),
-    color = study.source, shape = beta_shape
+  p <-  dt3 %>% ggplot2::ggplot(ggplot2::aes(Trait_reported,
+                                                log2(H4/H3),
+    color = Source, shape = Tissue
   )) +
     ggplot2::geom_point() +
     ggplot2::geom_jitter(width = 0.3, height = 0.3) +
     ggplot2::geom_label(
-      ggplot2::aes(study.traitCategory, -log10(pval),
-        label = study.traitReported_trimmed
+      ggplot2::aes(Trait_reported,
+                   log2(H4/H3),
+        label = Lead_variant
       ),
-      data = dt2[-log10(dt2$pval) > 5, ],
+      data = dt3[dt3$`log2(H4/H3)` > 5, ],
       vjust = "inward", hjust = "inward"
     ) +
     ggplot2::scale_shape_manual(name = "beta direction", values = c(6, 2)) +
