@@ -13,36 +13,36 @@
 #' @export
 #'
 #'
-plot_coloc <- function(data, biobank = FALSE){
-
+plot_coloc <- function(data, biobank = FALSE) {
   dt0 <- data
-  dt0$study.traitCategory <- base::tolower(dt0$Trait_reported )
-  dt1 <- dt0  %>%  dplyr::mutate(Trait_reported_trimmed = stringr::str_replace_all(Trait_reported,pattern = "[:punct:]|[:symbol:]",replacement = "")) %>%
-    dplyr::mutate(Trait_reported_trimmed = stringr::str_trunc(Trait_reported_trimmed, width = 35,side = "right"))
+  dt0$study.traitCategory <- base::tolower(dt0$Trait_reported)
+  dt1 <- dt0 %>%
+    dplyr::mutate(Trait_reported_trimmed = stringr::str_replace_all(Trait_reported, pattern = "[:punct:]|[:symbol:]", replacement = "")) %>%
+    dplyr::mutate(Trait_reported_trimmed = stringr::str_trunc(Trait_reported_trimmed, width = 35, side = "right"))
 
 
-  #source <- match.arg(source)
-  #type <- match.arg(type)
+  # source <- match.arg(source)
+  # type <- match.arg(type)
 
-  if (biobank == TRUE ) {
-
+  if (biobank == TRUE) {
     dt2 <- dt1 %>% dplyr::filter(grepl(pattern = "^GCST.*", Study))
-
-
-  }else {
+  } else {
     dt2 <- dt1
   }
   p <- ggplot2::ggplot(data = dt2, ggplot2::aes(study.traitCategory,
-                                           -log10(pval), color = study.source, shape = beta_shape)) +
-    ggplot2::geom_point()+
-    ggplot2::geom_jitter( width = 0.3, height = 0.3) +
-
-    ggplot2::geom_label(ggplot2::aes(study.traitCategory, -log10(pval),
-                                     label = study.traitReported_trimmed),
-                        data = dt2[-log10(dt2$pval)>5 ,],
-                        vjust="inward",hjust="inward") +
-
-    ggplot2::scale_shape_manual(name = "beta direction" ,values = c(6,2)) +
+    -log10(pval),
+    color = study.source, shape = beta_shape
+  )) +
+    ggplot2::geom_point() +
+    ggplot2::geom_jitter(width = 0.3, height = 0.3) +
+    ggplot2::geom_label(
+      ggplot2::aes(study.traitCategory, -log10(pval),
+        label = study.traitReported_trimmed
+      ),
+      data = dt2[-log10(dt2$pval) > 5, ],
+      vjust = "inward", hjust = "inward"
+    ) +
+    ggplot2::scale_shape_manual(name = "beta direction", values = c(6, 2)) +
     ggplot2::scale_color_discrete(name = "Data source") +
     ggplot2::geom_hline(yintercept = 5, color = "grey", linetype = 2) +
     ggplot2::xlab("") +
@@ -50,5 +50,4 @@ plot_coloc <- function(data, biobank = FALSE){
     ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1))
 
   return(p)
-
 }

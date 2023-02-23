@@ -22,9 +22,9 @@
 #'
 
 #' @examples
-#' studiesAndLeadVariantsForGeneByL2G(ensembl_ids=list("ENSG00000163946","ENSG00000169174", "ENSG00000143001"),l2g=0.7)
+#' studiesAndLeadVariantsForGeneByL2G(ensembl_ids = list("ENSG00000163946", "ENSG00000169174", "ENSG00000143001"), l2g = 0.7)
 #' or
-#' studiesAndLeadVariantsForGeneByL2G(ensembl_ids="ENSG00000169174", l2g=0.6, pvalue=1e-8, vtype=c("intergenic_variant","intron_variant"))
+#' studiesAndLeadVariantsForGeneByL2G(ensembl_ids = "ENSG00000169174", l2g = 0.6, pvalue = 1e-8, vtype = c("intergenic_variant", "intron_variant"))
 #'
 #' @export
 #'
@@ -34,22 +34,18 @@
 studiesAndLeadVariantsForGeneByL2G <- function(ensembl_ids,
                                                l2g = 0.4,
                                                pvalue = 5e-8,
-                                               vtype = NULL ) {
-
-
+                                               vtype = NULL) {
   # Check ensembl id format
-  if (length(ensembl_ids) == 1){
-  if (!grepl(pattern = "ENSG\\d{11}", ensembl_ids)) {
-    stop("\n Please provide Ensemble gene ID")
-  }
-  }
-  else{
-    for (i in ensembl_ids){
+  if (length(ensembl_ids) == 1) {
+    if (!grepl(pattern = "ENSG\\d{11}", ensembl_ids)) {
+      stop("\n Please provide Ensemble gene ID")
+    }
+  } else {
+    for (i in ensembl_ids) {
       if (!grepl(pattern = "ENSG\\d{11}", i)) {
         stop("\n Please provide Ensemble gene ID")
       }
     }
-
   }
 
   query <- "query	studiesAndLeadl2g($gene:String!) {
@@ -127,9 +123,8 @@ studiesAndLeadVariantsForGeneByL2G <- function(ensembl_ids,
   con <- ghql::GraphqlClient$new("https://api.genetics.opentargets.org/graphql")
 
   for (input_gene in ensembl_ids) {
-
     variables <- list(gene = input_gene)
-    cli::cli_progress_step(paste0("Downloading data for ", input_gene," ..."), spinner = TRUE)
+    cli::cli_progress_step(paste0("Downloading data for ", input_gene, " ..."), spinner = TRUE)
 
     # Set up to query Open Targets Platform API
     qry <- ghql::Query$new()
@@ -143,31 +138,30 @@ studiesAndLeadVariantsForGeneByL2G <- function(ensembl_ids,
 
     output1 <- jsonlite::fromJSON(output0, flatten = TRUE) # convert the query output from json
 
-    if (length(output1$data$studiesAndLeadVariantsForGeneByL2G) != 0){
+    if (length(output1$data$studiesAndLeadVariantsForGeneByL2G) != 0) {
+      ## tidying the output
 
-    ## tidying the output
+      output1$data$studiesAndLeadVariantsForGeneByL2G$ensembl_id <- rep(
+        output1$data$geneInfo$id,
+        length(output1$data$studiesAndLeadVariantsForGeneByL2G$yProbaModel)
+      )
 
-    output1$data$studiesAndLeadVariantsForGeneByL2G$ensembl_id <- rep(
-      output1$data$geneInfo$id,
-      length(output1$data$studiesAndLeadVariantsForGeneByL2G$yProbaModel)
-    )
+      output1$data$studiesAndLeadVariantsForGeneByL2G$gene_symbol <- rep(
+        output1$data$geneInfo$symbol,
+        length(output1$data$studiesAndLeadVariantsForGeneByL2G$yProbaModel)
+      )
 
-    output1$data$studiesAndLeadVariantsForGeneByL2G$gene_symbol <- rep(
-      output1$data$geneInfo$symbol,
-      length(output1$data$studiesAndLeadVariantsForGeneByL2G$yProbaModel)
-    )
+      final_output <- dplyr::bind_rows(final_output, output1$data$studiesAndLeadVariantsForGeneByL2G) %>%
+        dplyr::filter(yProbaModel >= l2g, pval <= pvalue) %>%
+        dplyr::mutate(across((yProbaModel:yProbaPathogenicity), ~ round(., 3)))
 
-    final_output <- dplyr::bind_rows(final_output, output1$data$studiesAndLeadVariantsForGeneByL2G) %>%
-      dplyr::filter(yProbaModel >= l2g, pval <= pvalue) %>%
-      dplyr::mutate(across((yProbaModel:yProbaPathogenicity), ~ round(., 3)))
-
-    if (!is.null(vtype)) {
-      final_output <- final_output %>% dplyr::filter(variant.mostSevereConsequence %in% vtype)
-    }
+      if (!is.null(vtype)) {
+        final_output <- final_output %>% dplyr::filter(variant.mostSevereConsequence %in% vtype)
+      }
     }
   }
 
-  if (nrow(final_output)!=0){
+  if (nrow(final_output) != 0) {
     final_output$study.traitEfos <- as.character(final_output$study.traitEfos)
   }
 

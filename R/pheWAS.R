@@ -13,16 +13,15 @@
 #' @returns A data frame with PheWAS associations in it
 #'
 #' @examples
-#' pheWAS(variantid="1_154549918_C_A")
+#' pheWAS(variantid = "1_154549918_C_A")
 #' or
-#' pheWAS(variantid="1_154562290_G_A", pageindex=1, pagesize=50)
+#' pheWAS(variantid = "1_154562290_G_A", pageindex = 1, pagesize = 50)
 #'
 #' @export
 #'
 #'
 
-pheWAS <- function(variantid, pageindex=0, pagesize=20) {
-
+pheWAS <- function(variantid, pageindex = 0, pagesize = 20) {
   # make connection to the endpoint
 
   cli::cli_progress_step("Connecting the database...", spinner = TRUE)
@@ -31,7 +30,6 @@ pheWAS <- function(variantid, pageindex=0, pagesize=20) {
 
   # Check variant id format
   if (grepl(pattern = "rs\\d+", variantid)) {
-
     # Convert rs id to variant id
     query_searchid <- "query ConvertRSIDtoVID($queryString:String!) {
     search(queryString:$queryString){
@@ -44,23 +42,18 @@ pheWAS <- function(variantid, pageindex=0, pagesize=20) {
 
     variables <- list(queryString = variantid)
     query_class$query(name = "convertid", x = query_searchid)
-    id_result <- jsonlite::fromJSON(client$exec(query_class$queries$convertid, variables), flatten=TRUE)$data
+    id_result <- jsonlite::fromJSON(client$exec(query_class$queries$convertid, variables), flatten = TRUE)$data
     input_variantid <- id_result$search$variants$id
-  }
-
-  else if (grepl(pattern = "\\d+_\\d+_[a-zA-Z]+_[a-zA-Z]+", variantid))
-  {
+  } else if (grepl(pattern = "\\d+_\\d+_[a-zA-Z]+_[a-zA-Z]+", variantid)) {
     input_variantid <- variantid
-  }
-  else
-  {
+  } else {
     stop("\n Please provide a variant Id")
   }
 
 
   ## Set up to query Open Targets Genetics API
 
-  query <- 'query search($variantId: String!){
+  query <- "query search($variantId: String!){
     pheWAS(variantId: $variantId){
     totalGWASStudies
     associations{
@@ -82,23 +75,23 @@ pheWAS <- function(variantid, pageindex=0, pagesize=20) {
       nCases
     }
   }
-}'
+}"
 
 
   # execute the query
 
-  variables <- list(variantId = input_variantid, pageIndex = pageindex, pageSize=pagesize)
+  variables <- list(variantId = input_variantid, pageIndex = pageindex, pageSize = pagesize)
 
-  query_class$query(name ='phewas_query' , x = query )
+  query_class$query(name = "phewas_query", x = query)
 
-  cli::cli_progress_step(paste("Downloading data...",variantid,"..."), spinner = TRUE)
+  cli::cli_progress_step(paste("Downloading data...", variantid, "..."), spinner = TRUE)
 
-  phewas_out <- jsonlite::fromJSON(client$exec(query_class$queries$phewas_query, variables), flatten=TRUE)$data
+  phewas_out <- jsonlite::fromJSON(client$exec(query_class$queries$phewas_query, variables), flatten = TRUE)$data
   df_phewas <- data.frame()
-  if (length(phewas_out$pheWAS$associations)!=0){
-    df_phewas <- phewas_out$pheWAS %>% as.data.frame
-    base::colnames(df_phewas) <- stringr::str_replace_all(colnames(df_phewas),"associations.","")
+  if (length(phewas_out$pheWAS$associations) != 0) {
+    df_phewas <- phewas_out$pheWAS %>% as.data.frame()
+    base::colnames(df_phewas) <- stringr::str_replace_all(colnames(df_phewas), "associations.", "")
   }
 
-  return (df_phewas)
+  return(df_phewas)
 }

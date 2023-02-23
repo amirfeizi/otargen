@@ -14,16 +14,15 @@
 #' @return Dataframe containing the variant associated to the input tag variant.
 #'
 #' @examples
-#' indexVariantsAndStudiesForTagVariant(variantid="1_109274968_G_T")
+#' indexVariantsAndStudiesForTagVariant(variantid = "1_109274968_G_T")
 #' or
-#' indexVariantsAndStudiesForTagVariant(variantid="rs12740374", pageindex=1, pagesize=50)
+#' indexVariantsAndStudiesForTagVariant(variantid = "rs12740374", pageindex = 1, pagesize = 50)
 #'
 #' @export
 #'
 #'
 
-indexVariantsAndStudiesForTagVariant <- function(variantid, pageindex=0, pagesize=20) {
-
+indexVariantsAndStudiesForTagVariant <- function(variantid, pageindex = 0, pagesize = 20) {
   ## Set up to query Open Targets Genetics API
 
   cli::cli_progress_step("Connecting the database...", spinner = TRUE)
@@ -32,7 +31,6 @@ indexVariantsAndStudiesForTagVariant <- function(variantid, pageindex=0, pagesiz
 
   # Check variant id format
   if (grepl(pattern = "rs\\d+", variantid)) {
-
     # Convert rs id to variant id
     query_searchid <- "query ConvertRSIDtoVID($queryString:String!) {
     search(queryString:$queryString){
@@ -45,16 +43,11 @@ indexVariantsAndStudiesForTagVariant <- function(variantid, pageindex=0, pagesiz
 
     variables <- list(queryString = variantid)
     otg_qry$query(name = "convertid", x = query_searchid)
-    id_result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$convertid, variables), flatten=TRUE)$data
+    id_result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$convertid, variables), flatten = TRUE)$data
     input_variantid <- id_result$search$variants$id
-  }
-
-  else if (grepl(pattern = "\\d+_\\d+_[a-zA-Z]+_[a-zA-Z]+", variantid))
-  {
+  } else if (grepl(pattern = "\\d+_\\d+_[a-zA-Z]+_[a-zA-Z]+", variantid)) {
     input_variantid <- variantid
-  }
-  else
-  {
+  } else {
     stop("\n Please provide a variant Id")
   }
 
@@ -96,12 +89,12 @@ indexVariantsAndStudiesForTagVariant <- function(variantid, pageindex=0, pagesiz
 }"
 
   ## Execute the query
-  variables <- list(variantId = input_variantid, pageIndex = pageindex, pageSize=pagesize)
+  variables <- list(variantId = input_variantid, pageIndex = pageindex, pageSize = pagesize)
 
   otg_qry$query(name = "indexvariantsandstudiesquery", x = query)
 
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
-  index_var <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$indexvariantsandstudiesquery, variables, flatten=TRUE))$data
+  index_var <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$indexvariantsandstudiesquery, variables, flatten = TRUE))$data
   index_var <- as.data.frame(index_var$indexVariantsAndStudiesForTagVariant$associations)
-  return (index_var)
+  return(index_var)
 }

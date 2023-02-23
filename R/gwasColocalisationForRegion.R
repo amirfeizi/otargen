@@ -16,15 +16,13 @@
 #' @returns Data frame with GWAS colocalisation data for a specified region.
 #'
 #' @examples
-#' gwasColocalisationForRegion(chromosome="1", start=153992685, end=154155116)
-#'
+#' gwasColocalisationForRegion(chromosome = "1", start = 153992685, end = 154155116)
 #'
 #' @export
 #'
 #'
 
 gwasColocalisationForRegion <- function(chromosome, start, end) {
-
   ## Set up to query Open Targets Genetics API
   variables <- list(chromosome = chromosome, start = start, end = end)
 
@@ -68,9 +66,9 @@ gwasColocalisationForRegion <- function(chromosome, start, end) {
   otg_qry$query(name = "gwascolforreg_query", x = query)
 
   cli::cli_progress_step("Downloading the data...", spinner = TRUE)
-  gwasreg_coloc <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$gwascolforreg_query, variables, flatten=TRUE))$data
+  gwasreg_coloc <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$gwascolforreg_query, variables, flatten = TRUE))$data
 
-  df_gwasreg_coloc <- gwasreg_coloc$gwasColocalisationForRegion %>% as.data.frame
+  df_gwasreg_coloc <- gwasreg_coloc$gwasColocalisationForRegion %>% as.data.frame()
 
   return(df_gwasreg_coloc)
 }

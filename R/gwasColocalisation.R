@@ -13,16 +13,15 @@
 #' @return Data frame of the studies which colocalise with the input variant and study.
 #'
 #' @examples
-#' gwasColocalisation(studyid="GCST90002357", variantid="1_154119580_C_A")
+#' gwasColocalisation(studyid = "GCST90002357", variantid = "1_154119580_C_A")
 #' or
-#' gwasColocalisation(studyid="GCST90002357", variantid="rs2494663")
+#' gwasColocalisation(studyid = "GCST90002357", variantid = "rs2494663")
 #'
 #' @export
 #'
 #'
 
 gwasColocalisation <- function(studyid, variantid) {
-
   ## Set up to query Open Targets Genetics API
 
   cli::cli_progress_step("Connecting the database...", spinner = TRUE)
@@ -32,7 +31,6 @@ gwasColocalisation <- function(studyid, variantid) {
 
   # Check variant id format
   if (grepl(pattern = "rs\\d+", variantid)) {
-
     # Convert rs id to variant id
     query_searchid <- "query ConvertRSIDtoVID($queryString:String!) {
     search(queryString:$queryString){
@@ -45,21 +43,16 @@ gwasColocalisation <- function(studyid, variantid) {
 
     variables <- list(queryString = variantid)
     otg_qry$query(name = "convertid", x = query_searchid)
-    id_result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$convertid, variables), flatten=TRUE)$data
+    id_result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$convertid, variables), flatten = TRUE)$data
     input_variantid <- id_result$search$variants$id
-  }
-
-  else if (grepl(pattern = "\\d+_\\d+_[a-zA-Z]+_[a-zA-Z]+", variantid))
-  {
+  } else if (grepl(pattern = "\\d+_\\d+_[a-zA-Z]+_[a-zA-Z]+", variantid)) {
     input_variantid <- variantid
-  }
-  else
-  {
+  } else {
     stop("\n Please provide a variant Id")
   }
 
 
-  query <- 'query gwascolquery($studyId: String!, $variantId: String!){
+  query <- "query gwascolquery($studyId: String!, $variantId: String!){
     gwasColocalisation(studyId: $studyId, variantId: $variantId){
     indexVariant{
     id
@@ -77,7 +70,7 @@ gwasColocalisation <- function(studyid, variantid) {
     h4
     log2h4h3
   }
-}'
+}"
 
 
   ## Execute the query
@@ -85,13 +78,12 @@ gwasColocalisation <- function(studyid, variantid) {
   variables <- list(studyId = studyid, variantId = input_variantid)
 
 
-  otg_qry$query(name = 'gwascol_query' , query)
+  otg_qry$query(name = "gwascol_query", query)
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
-  gwas_coloc <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$gwascol_query,variables), flatten = TRUE)$data
+  gwas_coloc <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$gwascol_query, variables), flatten = TRUE)$data
 
-  df_gwas_coloc <- gwas_coloc$gwasColocalisation %>% as.data.frame
+  df_gwas_coloc <- gwas_coloc$gwasColocalisation %>% as.data.frame()
 
 
   return(df_gwas_coloc)
-
 }

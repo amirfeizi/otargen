@@ -11,13 +11,12 @@
 #' @return Data frame containing the details of all the genes in the mentioned locus.
 #'
 #' @examples
-#' get_genes(chromosome="1", start=800, end=500000)
+#' get_genes(chromosome = "1", start = 800, end = 500000)
 #'
 #' @export
 #'
 #'
 get_genes <- function(chromosome, start, end) {
-
   ## Set up to query Open Targets Genetics API
   variables <- list(chromosome = chromosome, start = start, end = end)
 
@@ -44,12 +43,12 @@ get_genes <- function(chromosome, start, end) {
 
   ## Execute the query
 
-  otg_qry$query(name = "genesquery", x =  query)
+  otg_qry$query(name = "genesquery", x = query)
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
-  genes_result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$genesquery, variables), flatten=TRUE)$data
+  genes_result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$genesquery, variables), flatten = TRUE)$data
   final_output <- as.data.frame(genes_result$genes)
-  if (nrow(final_output)==0){
+  if (nrow(final_output) == 0) {
     final_output <- data.frame()
   }
-  return (final_output)
+  return(final_output)
 }

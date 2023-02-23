@@ -9,14 +9,13 @@
 #' @return Data frame containing the input gene information like symbol, chromosome information, etc.
 
 #' @examples
-#' geneInfo(geneid="ENSG00000169174")
+#' geneInfo(geneid = "ENSG00000169174")
 #'
 #' @export
 #'
 #'
 
 geneInfo <- function(geneid) {
-
   ## Set up to query Open Targets Genetics API
   variables <- list(geneId = geneid)
 
@@ -43,13 +42,13 @@ geneInfo <- function(geneid) {
 
   ## Execute the query
 
-  otg_qry$query(name = "geneInfoquery", x =  query)
+  otg_qry$query(name = "geneInfoquery", x = query)
 
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
-  gene_info <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$geneInfoquery, variables), flatten=TRUE)$data
+  gene_info <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$geneInfoquery, variables), flatten = TRUE)$data
   final_output <- as.data.frame(gene_info$geneInfo)
-  if (nrow(final_output)==0){
+  if (nrow(final_output) == 0) {
     final_output <- data.frame()
   }
-  return (final_output)
+  return(final_output)
 }

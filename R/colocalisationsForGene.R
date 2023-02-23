@@ -12,29 +12,26 @@
 #' @return Data frame including the queried gene identity and its colocalisation data
 #'
 #' @examples
-#' colocalisationsForGene(ensembl_ids=list("ENSG00000163946","ENSG00000169174", "ENSG00000143001"))
+#' colocalisationsForGene(ensembl_ids = list("ENSG00000163946", "ENSG00000169174", "ENSG00000143001"))
 #' or
-#' colocalisationsForGene(ensembl_ids="ENSG00000169174")
+#' colocalisationsForGene(ensembl_ids = "ENSG00000169174")
 #'
 #' @export
 #'
 #'
 colocalisationsForGene <- function(ensembl_ids, h4 = 5) {
-
   # Check ensembl id format
 
-  if (length(ensembl_ids) == 1){
+  if (length(ensembl_ids) == 1) {
     if (!grepl(pattern = "ENSG\\d{11}", ensembl_ids)) {
       stop("\n Please provide Ensemble gene ID")
     }
-  }
-  else{
-    for (i in ensembl_ids){
+  } else {
+    for (i in ensembl_ids) {
       if (!grepl(pattern = "ENSG\\d{11}", i)) {
         stop("\n Please provide Ensemble gene ID")
       }
     }
-
   }
 
   ensembl_ids <- ensembl_ids
@@ -87,12 +84,12 @@ colocalisationsForGene(geneId:$gene){
 }
 
 }"
-  cli::cli_progress_step("Connecting the database...",spinner = TRUE)
+  cli::cli_progress_step("Connecting the database...", spinner = TRUE)
   con <- ghql::GraphqlClient$new("https://api.genetics.opentargets.org/graphql")
   qry <- ghql::Query$new()
 
   for (input_gene in ensembl_ids) {
-    cli::cli_progress_step(paste0("Downloading data for ", input_gene," ..."), spinner = TRUE)
+    cli::cli_progress_step(paste0("Downloading data for ", input_gene, " ..."), spinner = TRUE)
 
 
     variables <- list(gene = input_gene)
@@ -118,17 +115,24 @@ colocalisationsForGene(geneId:$gene){
     cli::cli_progress_update()
   }
 
-  if (nrow(colocal2)!=0){
-    colocal2 <- colocal2 %>% dplyr::select(study.studyId, study.traitReported,leftVariant.id,gene_symbol, gene_id, tissue.name, qtlStudyId ,
-                                           h3, h4, log2h4h3, study.pubTitle, study.pubAuthor, study.hasSumstats, study.numAssocLoci ,study.nInitial,
-                                           study.nReplication, study.nCases   ,study.pubDate, study.pubJournal,study.pmid) %>%
+  if (nrow(colocal2) != 0) {
+    colocal2 <- colocal2 %>%
+      dplyr::select(
+        study.studyId, study.traitReported, leftVariant.id, gene_symbol, gene_id, tissue.name, qtlStudyId,
+        h3, h4, log2h4h3, study.pubTitle, study.pubAuthor, study.hasSumstats, study.numAssocLoci, study.nInitial,
+        study.nReplication, study.nCases, study.pubDate, study.pubJournal, study.pmid
+      ) %>%
       dplyr::mutate(across(where(is.numeric), ~ round(., 2)))
 
-    colnames(colocal2) <- c("Study","Trait_reported","Lead_variant", "Molecular_trait","Gene_symbol",
-                            "Tissue", "Source","H3","H4","log2(H4/H3)", "Title","Author","Has_sumstats","numAssocLoci",
-                            "nInitial cohort","study_nReplication","study_nCases","Publication_date","Journal","Pubmed_id")
+    colnames(colocal2) <- c(
+      "Study", "Trait_reported", "Lead_variant", "Molecular_trait", "Gene_symbol",
+      "Tissue", "Source", "H3", "H4", "log2(H4/H3)", "Title", "Author", "Has_sumstats", "numAssocLoci",
+      "nInitial cohort", "study_nReplication", "study_nCases", "Publication_date", "Journal", "Pubmed_id"
+    )
 
-    colocal3 <- colocal2 %>% dplyr::filter(log2(H4/H3) >= h4)
+    colocal3 <- colocal2 %>%
+      dplyr::filter(log2(H4 / H3) >= h4) %>%
+      dplyr::arrange(desc(log2(H4 / H3)))
   }
 
   return(colocal3)

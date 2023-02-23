@@ -20,7 +20,6 @@
 #'
 #'
 variantInfo <- function(variantid) {
-
   ## Set up to query Open Targets Genetics API
 
 
@@ -30,7 +29,6 @@ variantInfo <- function(variantid) {
 
   # Check variant id format
   if (grepl(pattern = "rs\\d+", variantid)) {
-
     # Convert rs id to variant id
     query_searchid <- "query ConvertRSIDtoVID($queryString:String!) {
     search(queryString:$queryString){
@@ -43,16 +41,11 @@ variantInfo <- function(variantid) {
 
     variables <- list(queryString = variantid)
     otg_qry$query(name = "convertid", x = query_searchid)
-    id_result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$convertid, variables), flatten=TRUE)$data
+    id_result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$convertid, variables), flatten = TRUE)$data
     input_variantid <- id_result$search$variants$id
-  }
-
-  else if (grepl(pattern = "\\d+_\\d+_[a-zA-Z]+_[a-zA-Z]+", variantid))
-  {
+  } else if (grepl(pattern = "\\d+_\\d+_[a-zA-Z]+_[a-zA-Z]+", variantid)) {
     input_variantid <- variantid
-  }
-  else
-  {
+  } else {
     stop("\n Please provide a variant Id")
   }
 
@@ -99,10 +92,10 @@ variantInfo <- function(variantid) {
 
   variables <- list(variantId = input_variantid)
 
-  otg_qry$query(name = "variantInfoquery", x =  query)
+  otg_qry$query(name = "variantInfoquery", x = query)
 
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
   var_info <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$variantInfoquery, variables), flatten = TRUE)$data
   var_info <- as.data.frame(var_info$variantInfo)
-  return (var_info)
+  return(var_info)
 }
