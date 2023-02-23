@@ -101,7 +101,7 @@ colocalisationsForGene(geneId:$gene){
     colocal <- con$exec(qry$queries$getgenColocal, variables)
     colocal1 <- jsonlite::fromJSON(colocal, flatten = TRUE)
 
-    colocal_genes_info <- rbind(colocal_genes_info, as.data.frame(colocal1$data$geneInfo))
+    colocal_genes_info <- dplyr::bind_rows(colocal_genes_info, as.data.frame(colocal1$data$geneInfo))
 
     colocal1$data$colocalisationsForGene$gene_symbol <- rep(
       colocal1$data$geneInfo$symbol,
@@ -113,8 +113,11 @@ colocalisationsForGene(geneId:$gene){
       length(colocal1$data$colocalisationsForGene$phenotypeId)
     )
 
-    colocal2 <- rbind(colocal2, colocal1$data$colocalisationsForGene)
+    colocal2 <- dplyr::bind_rows(colocal2, as.data.frame(colocal1$data$colocalisationsForGene))
+    cli::cli_progress_update()
+  }
 
+  if (nrow(colocal2)!=0){
     colocal2 <- colocal2 %>% dplyr::select(study.studyId, study.traitReported,leftVariant.id,gene_symbol, gene_id, tissue.name, qtlStudyId ,
                                            h3, h4, log2h4h3, study.pubTitle, study.pubAuthor, study.hasSumstats, study.numAssocLoci ,study.nInitial,
                                            study.nReplication, study.nCases   ,study.pubDate, study.pubJournal,study.pmid) %>%
@@ -123,8 +126,7 @@ colocalisationsForGene(geneId:$gene){
     colnames(colocal2) <- c("Study","Trait_reported","Lead_variant", "Molecular_trait","Gene_symbol",
                             "Tissue", "Source","H3","H4","log2(H4/H3)", "Title","Author","Has_sumstats","numAssocLoci",
                             "nInitial cohort","study_nReplication","study_nCases","Publication_date","Journal","Pubmed_id")
+  }
 
-    cli::cli_progress_update()
-   }
   return(colocal2)
 }
