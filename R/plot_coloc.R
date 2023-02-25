@@ -14,7 +14,7 @@
 #'
 #'
 plot_coloc <- function(data, biobank = FALSE) {
-  dt0 <- test
+  dt0 <- data
   dt0$study.traitCategory <- base::tolower(dt0$Trait_reported)
   dt1 <- dt0 %>%
     dplyr::mutate(Trait_reported_trimmed = stringr::str_replace_all(Trait_reported, pattern = "[:punct:]|[:symbol:]", replacement = "")) %>%
@@ -26,20 +26,21 @@ plot_coloc <- function(data, biobank = FALSE) {
   dt3 <- dt2 %>% dplyr::group_by(Molecular_trait,Lead_variant) %>%
     dplyr::arrange(desc(dt2$`log2(H4/H3)`)) %>% dplyr::top_n(1) %>%
     dplyr::select(Trait_reported_trimmed, Molecular_trait,Lead_variant,
-                  Study,Tissue, Source,`log2(H4/H3)`) %>% dplyr::ungroup()
+                  Study,Tissue, Source,`log2(H4/H3)`) %>% dplyr::ungroup() %>%
+    dplyr::filter(`log2(H4/H3)` > 7)
 
 
   # source <- match.arg(source)
   # type <- match.arg(type)
 
   if (biobank == TRUE) {
-    dt3 <- dt2 %>% dplyr::filter(grepl(pattern = "^GCST.*", Study))
+    dt34 <- dt3 %>% dplyr::filter(grepl(pattern = "^GCST.*", Study))
   } else {
-    dt3 <- dt2
+    dt4 <- dt3
 
   }
 
- p <- dt3 %>% ggplot2::ggplot(ggplot2::aes(x= reorder(Trait_reported_trimmed, -`log2(H4/H3)`),
+ p <- dt4 %>% ggplot2::ggplot(ggplot2::aes(x= reorder(Trait_reported_trimmed, -`log2(H4/H3)`),
                                             `log2(H4/H3)`, fill = Source)) +
     ggplot2::geom_bar(stat = "identity", position = "dodge") +
     ggplot2::coord_flip () +
