@@ -131,7 +131,7 @@ colocalisationsForGene(geneId:$gene){
     )
 
     colocal3 <- colocal2 %>%
-      dplyr::filter(log2(H4 / H3) >= h4) %>%
+      #dplyr::filter(log2(H4 / H3) >= h4) %>%
       dplyr::arrange(desc(`log2(H4/H3)`))
   }
 
