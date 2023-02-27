@@ -34,6 +34,7 @@ manhattan <- function(studyid, pageindex = 0, pagesize = 20) {
       variant{
         id
         position
+        chromosome
         rsId
       }
       pval
@@ -48,6 +49,9 @@ manhattan <- function(studyid, pageindex = 0, pagesize = 20) {
         gene{
           id
           symbol
+          chromosome
+          start
+          end
         }
         score
       }
@@ -55,6 +59,9 @@ manhattan <- function(studyid, pageindex = 0, pagesize = 20) {
       gene{
           id
           symbol
+          chromosome
+          start
+          end
         }
         score
     }
@@ -62,6 +69,9 @@ manhattan <- function(studyid, pageindex = 0, pagesize = 20) {
       gene{
           id
           symbol
+          chromosome
+          start
+          end
         }
         score
     }
@@ -81,14 +91,7 @@ manhattan <- function(studyid, pageindex = 0, pagesize = 20) {
     man_result <- as.data.frame(tidyr::unnest(man_result, bestGenes, names_sep = ".", keep_empty = TRUE))
     man_result <- as.data.frame(tidyr::unnest(man_result, bestColocGenes, names_sep = ".", keep_empty = TRUE))
     man_result <- as.data.frame(tidyr::unnest(man_result, bestLocus2Genes, names_sep = ".", keep_empty = TRUE))
-    colnames(man_result) <- c(
-      "pvalMantissa", "pvalExponent", "credibleSetSize", "ldSetSize", "totalSetSize",
-      "pval", "oddsRatio", "oddsRatioCILower", "oddsRatioCIUpper", "beta", "betaCILower",
-      "betaCIUpper", "direction", "bestGenes.score", "bestGenes.gene_id", "bestGenes.gene_symbol",
-      "bestColocGenes.score", "bestColocGenes.gene_id", "bestColocGenes.gene_symbol",
-      "bestLocus2Genes.score", "bestLocus2Genes.gene_id", "bestLocus2Genes.gene_symbol",
-      "variant.id", "variant.position", "variant.rsId"
-    )
   }
+
   return(man_result)
 }
