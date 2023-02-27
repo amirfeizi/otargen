@@ -125,6 +125,8 @@ genesForVariant <- function(variantid) {
   result_df <- as.data.frame(result$genesForVariant) %>%
     dplyr::arrange(desc(overallScore))
 
+
+ # parsing the nested json output in tidy data table format
   result_core <- result_df %>% dplyr::select(gene.symbol, variant, overallScore, gene.id )
 
   result_qtl <- result_df %>% dplyr::select(gene.symbol, variant, qtls) %>%
@@ -149,7 +151,8 @@ genesForVariant <- function(variantid) {
 
 
   result_pkg <- list(v2g = result_core, tssd= result_distances,
-                     qtls = result_qtl, chromatin = result_intervals, functionalpred = result_functionalPredictions)
+                     qtls = result_qtl, chromatin = result_intervals,
+                     functionalpred = result_functionalPredictions)
 
 
   cli::cli_progress_update()
