@@ -4,9 +4,9 @@
 #' is generated- id, symbol, bioType, description, chromosome,
 #' tss, start, end, fwdStrand, and exons.
 #'
-#' @param geneid String: a gene ENSEMBL identifier.
+#' @param geneid String: a ensembl gene identifier (e.g.ENSG00000169174).
 #'
-#' @return Data frame containing the input gene information like symbol, chromosome information, etc.
+#' @return tibble data table containing the input gene information such as symbol, chromosome information, etc.
 
 #' @examples
 #' geneInfo(geneid = "ENSG00000169174")
@@ -46,9 +46,10 @@ geneInfo <- function(geneid) {
 
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
   gene_info <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$geneInfoquery, variables), flatten = TRUE)$data
-  final_output <- as.data.frame(gene_info$geneInfo)
-  if (nrow(final_output) == 0) {
-    final_output <- data.frame()
+  output <- gene_info$geneInfo %>% dplyr::tibble() # converting to tibble format
+
+  if (nrow(output) == 0) {
+    output <- data.frame()
   }
-  return(final_output)
+  return(output)
 }

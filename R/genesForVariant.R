@@ -1,6 +1,6 @@
 #' Retrieves variant to Gene (V2G) data.
 #'
-#' A table is generated containing the following columns-
+#' This function gets Variant ID formated as CHR_POSITION_REFALLELE_ALT_ALLELE or canonical SNPs id as an input and returns a tibble data table containing the following columns-
 #' Variant, overallScore, qtls.typeId, qtls.aggregatedScore,
 #' qtls.tissues.quantile, qtls.tissues.beta, qtls.tissues.pval,
 #' qtls.tissues.id, qtls.tissues.name, int.typeId,
@@ -18,9 +18,9 @@
 #' individual QTL associations, intervals, distances and functional predictions.
 #'
 #' @examples
-#' genesForVariant(variantid = "1_109274968_G_T")
+#' genesForVariant(variantid = "1_154453788_C_T")
 #' or
-#' genesForVariant(variantid = "rs12740374")
+#' genesForVariant(variantid = "rs4129267")
 #'
 #' @export
 #'
@@ -46,6 +46,7 @@ genesForVariant <- function(variantid) {
     }"
 
     variables <- list(queryString = variantid)
+
     otg_qry$query(name = "convertid", x = query_searchid)
     id_result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$convertid, variables), flatten = TRUE)$data
     input_variantid <- id_result$search$variants$id

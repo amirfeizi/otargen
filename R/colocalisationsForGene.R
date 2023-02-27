@@ -1,15 +1,15 @@
 #' Retrieves colocalisation data for a gene.
 #'
-#' This functions takes a (list) gene ensembl id(s) as an input and retrieves datatable for studies that have evidence of colocalisation with molecular QTLs. The output table includes the following columns-
-#' Study, trait_reported, Lead_variant, Molecular_trait, Gene_symbol,
+#' This functions takes gene(s) ensemble id(s) as an input and returns a tibble format data table of studies that have evidence of colocalisation with molecular QTLs. The output table includes the following columns-
+#' Study, Trait_reported, Lead_variant, Molecular_trait, Gene_symbol,
 #' Tissue, Source, H3, H4, log2(H4/H3), Title, Author, Has_sumstats,
 #' numAssocLoci, nInitial, cohort, study_nReplication, study_nCases,
 #' Publication_date, Journal, and Pubmed_id.
 #'
 #' @param ensembl_ids String: one or more gene ENSEMBL identifier.
-#' @param h4 Float: This is cut off for log2(H4/H3) which measures evidence for colocalisation between 2 traits. The default cut off is 5.
+#' @param h4 Float: This is a cut off for log2(H4/H3) and quantifies the possibility of colocalization between 2 traits (H4) based on one shared SNP over being independent (H3), two independent SNPs. The default cut off is set to 5.
 #'
-#' @return Data frame including the queried gene identity and its colocalisation data
+#' @return tibble including the queries gene(s) colocalisation data
 #'
 #' @examples
 #' colocalisationsForGene(ensembl_ids = list("ENSG00000163946", "ENSG00000169174", "ENSG00000143001"))
@@ -19,7 +19,7 @@
 #' @export
 #'
 #'
-colocalisationsForGene <- function(ensembl_ids, h4 = 5) {
+colocalisationsForGene <- function(ensembl_ids) {
   # Check ensembl id format
 
   if (length(ensembl_ids) == 1) {
@@ -131,8 +131,7 @@ colocalisationsForGene(geneId:$gene){
     )
 
     colocal3 <- colocal2 %>%
-      #dplyr::filter(log2(H4 / H3) >= h4) %>%
-      dplyr::arrange(desc(`log2(H4/H3)`))
+      dplyr::arrange(desc(`log2(H4/H3)`)) %>% dplyr::tibble()
   }
 
   return(colocal3)

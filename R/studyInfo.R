@@ -1,11 +1,11 @@
 #' Retrieves GWAS study id information.
 #'
-#' For a given study id which links top loci with a trait, a table is generated with the
+#' For a given study id which links top loci with a trait, a table is returned with the
 #' columns mentioned below.
 #'
-#' @param studyid String: Open Targets Genetics generated id for GWAS study.
+#' @param studyid String: Open Targets Genetics generated id for a GWAS study.
 #'
-#' @return Dataframe containing the study information.
+#' @return tibble data table containing the study information.
 #'
 #' @examples
 #' study_info <- studyInfo(studyid = "GCST90002357")
@@ -26,11 +26,12 @@ studyInfo <- function(studyid) {
   variables <- list(studyId = studyid)
 
   cli::cli_progress_step("Connecting the database...", spinner = TRUE)
+
   otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
   otg_qry <- ghql::Query$new()
 
 
-  query <- "query studyInfoquery($studyId: String!){
+  query <- "query studyInfoQuery($studyId: String!){
   studyInfo(studyId:$studyId){
     studyId
     traitReported
@@ -56,12 +57,17 @@ studyInfo <- function(studyid) {
 
   ## Execute the query
 
-  otg_qry$query(name = "studyInfoquery", x = query)
+  otg_qry$query(name = "studyInfoQuery", x = query)
 
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
-  study_info <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$studyInfoquery, variables), simplifyDataFrame = TRUE, flatten = TRUE)$data
+
+  study_info <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$studyInfoquery, variables),
+                                   simplifyDataFrame = TRUE, flatten = TRUE)$data
   study_info <- study_info$studyInfo
+
   study_info[study_info == "NULL"] <- NA # replacing NULL elements with NA
-  study_out <- tibble::as_tibble(stack(unlist(study_info)) %>% tidyr::spread(ind, values)) # converting list of information key/value pairs to tibble format
+
+  study_out <- tibble::as_tibble(stack(unlist(study_info)) %>%
+            tidyr::spread(ind, values)) # converting list of information key/value pairs to tibble format
   return(study_out)
 }
