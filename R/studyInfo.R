@@ -61,7 +61,7 @@ studyInfo <- function(studyid) {
 
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
 
-  study_info <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$studyInfoquery, variables),
+  study_info <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$studyInfoQuery, variables),
                                    simplifyDataFrame = TRUE, flatten = TRUE)$data
   study_info <- study_info$studyInfo
 

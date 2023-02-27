@@ -1,7 +1,7 @@
 #' Retrieves gene information for a gene ENSEMBL identifier.
 #'
-#' For a specified id, a table with the following columns
-#' is generated- id, symbol, bioType, description, chromosome,
+#' This function takes gene ensembl id (e.g.ENSG00000169174) and it returns tibble data table with basic annotation with following columns
+#' - id, symbol, bioType, description, chromosome,
 #' tss, start, end, fwdStrand, and exons.
 #'
 #' @param geneid String: a ensembl gene identifier (e.g.ENSG00000169174).
@@ -24,7 +24,7 @@ geneInfo <- function(geneid) {
   otg_qry <- ghql::Query$new()
 
 
-  query <- "query geneInfoquery($geneId: String!){
+  query <- "query geneInfoQuery($geneId: String!){
   geneInfo(geneId:$geneId){
     id
     symbol
@@ -42,11 +42,14 @@ geneInfo <- function(geneid) {
 
   ## Execute the query
 
-  otg_qry$query(name = "geneInfoquery", x = query)
+  otg_qry$query(name = "geneInfoQuery", x = query)
 
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
-  gene_info <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$geneInfoquery, variables), flatten = TRUE)$data
-  output <- gene_info$geneInfo %>% dplyr::tibble() # converting to tibble format
+  # executing the query
+  gene_info <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$geneInfoQuery, variables), flatten = TRUE)$data
+
+  output <- gene_info$geneInfo %>% as.data.frame() %>%
+    dplyr::distinct(symbol, .keep_all = TRUE) %>% dplyr::tibble() # converting to tibble format
 
   if (nrow(output) == 0) {
     output <- data.frame()
