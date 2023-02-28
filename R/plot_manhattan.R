@@ -1,7 +1,7 @@
 #' Plot the data obtained from the manhattan associations.
 #'
 #' The plot is generated using the p-value and variant information obtained from
-#' the manhattan function. Users can provide p-value as a parameter to obtain the significant SNPs.
+#' the manhattan function. Users can provide p-value as a parameter to obtain a plot with the significant SNPs.
 #'
 #'
 #' @param data Data frame: result of the manhattan function containing SNP information
@@ -13,17 +13,17 @@
 #' @export
 #'
 #' @examples
-#' manhattan(studyid = "GCST003044") %>% plot_l2g(pval= 10e-8)
+#' manhattan(studyid = "GCST003044") %>% plot_manhattan(pval= 10e-8)
 #'
 #'
 
 plot_l2g <- function(data, pvalue=10e-8){
 
-  gwasResults <- data[c('variant.position', 'variant.chromosome', 'pval', 'variant.id')] %>% unique() %>%
+  gwasResults <- data[c('variant_position', 'variant_chromosome', 'pval', 'variant_id')] %>% unique() %>%
             dplyr::filter(pval <= pvalue)
 
-  gwasResults <- gwasResults %>% dplyr::rename("BP"="variant.position", "CHR"="variant.chromosome",
-                                               "P"="pval", "SNP"="variant.id")
+  gwasResults <- gwasResults %>% dplyr::rename("BP"="variant_position", "CHR"="variant_chromosome",
+                                               "P"="pval", "SNP"="variant_id")
 
   gwasResults$CHR = as.integer(gwasResults$CHR)
 
