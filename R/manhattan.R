@@ -14,7 +14,7 @@
 #' @export
 #'
 #'
-manhattan <- function(studyid, pageindex = 0, pagesize = 20) {
+manhattan <- function(studyid, pageindex = 0, pagesize = 100) {
   ## Set up to query Open Targets Genetics API
 
   cli::cli_progress_step("Connecting the database...", spinner = TRUE)
