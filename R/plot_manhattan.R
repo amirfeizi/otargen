@@ -10,11 +10,10 @@
 #' @return A manhattan plot representing SNPs on the x-axis with the corresponding
 #' negative logarithm of p-value on the y-axis.
 #'
-#' @export
-#'
 #' @examples
 #' manhattan(studyid = "GCST003044") %>% plot_manhattan(pval= 10e-8)
 #'
+#' @export
 #'
 
 plot_l2g <- function(data, pvalue=10e-8){
