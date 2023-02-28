@@ -1,14 +1,20 @@
-#' Plot the the scores obtained from the manhattan associations.
+#' Plot the data obtained from the manhattan associations.
 #'
-#' @param data is the result of manhattan function in data frame format
-#' @param pval
+#' The plot is generated using the p-value and variant information obtained from
+#' the manhattan function. Users can provide p-value as a parameter to obtain the significant SNPs.
 #'
-#' @return A manhattan plot
+#'
+#' @param data Data frame: result of the manhattan function containing SNP information
+#' @param pvalue Float: pvalue cut off.
+#'
+#' @return A manhattan plot representing SNPs on the x-axis with the corresponding
+#' negative logarithm of p-value on the y-axis.
 #'
 #' @export
 #'
 #' @examples
 #' manhattan(studyid = "GCST003044") %>% plot_l2g(pval= 10e-8)
+#'
 #'
 
 plot_l2g <- function(data, pvalue=10e-8){
@@ -42,7 +48,7 @@ plot_l2g <- function(data, pvalue=10e-8){
                             gwasResults$CHR, "\n-log10(pval):", -log10(gwasResults$P) %>% round(3), sep="")
 
   # Make the plot
-  p <- ggplot2::ggplot(gwasResults, ggplot2::aes(x=BPcum, y=-log10(P), text=text)) +
+  plt <- ggplot2::ggplot(gwasResults, ggplot2::aes(x=BPcum, y=-log10(P), text=text)) +
 
     # Show all points
     ggplot2::geom_point(ggplot2::aes(color=as.factor(CHR)), alpha=0.8, size=1.3) +
@@ -63,6 +69,6 @@ plot_l2g <- function(data, pvalue=10e-8){
     ggplot2::labs(title = 'Manhattan Plot')
 
 
-  plotly::ggplotly(p, tooltip="text")
+  plotly::ggplotly(plt, tooltip="text")
 
 }
