@@ -1,4 +1,4 @@
-test_that("multiplication works", {
+test_that("test the colocalisationsForGene works", {
   expected <- otargen::colocalisationsForGene(ensmbl_ids = "ENSG00000169174")
   expect_s3_class(expected, "data.frame")
   expect_error(otargen::colocalisationsForGene(ensmbl_ids = "ENSGXXXXXXXXX"))

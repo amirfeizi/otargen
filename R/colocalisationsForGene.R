@@ -7,7 +7,6 @@
 #' Publication_date, Journal, and Pubmed_id.
 #'
 #' @param ensembl_ids String: one or more gene ENSEMBL identifier.
-#' @param h4 Float: This is a cut off for log2(H4/H3) and quantifies the possibility of colocalization between 2 traits (H4) based on one shared SNP over being independent (H3), two independent SNPs. The default cut off is set to 5.
 #'
 #' @return tibble including the queries gene(s) colocalisation data
 #'

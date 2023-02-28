@@ -49,9 +49,6 @@ manhattan <- function(studyid, pageindex = 0, pagesize = 20) {
         gene{
           id
           symbol
-          chromosome
-          start
-          end
         }
         score
       }
@@ -59,9 +56,6 @@ manhattan <- function(studyid, pageindex = 0, pagesize = 20) {
       gene{
           id
           symbol
-          chromosome
-          start
-          end
         }
         score
     }
@@ -69,13 +63,10 @@ manhattan <- function(studyid, pageindex = 0, pagesize = 20) {
       gene{
           id
           symbol
-          chromosome
-          start
-          end
         }
         score
     }
-    }
+  }
 }
 }"
 
@@ -91,6 +82,18 @@ manhattan <- function(studyid, pageindex = 0, pagesize = 20) {
     man_result <- as.data.frame(tidyr::unnest(man_result, bestGenes, names_sep = ".", keep_empty = TRUE))
     man_result <- as.data.frame(tidyr::unnest(man_result, bestColocGenes, names_sep = ".", keep_empty = TRUE))
     man_result <- as.data.frame(tidyr::unnest(man_result, bestLocus2Genes, names_sep = ".", keep_empty = TRUE))
+
+    man_result <- man_result %>% dplyr::rename("pval_mantissa"="pvalMantissa","pval_exponent"="pvalExponent",
+                  "credible_set_size"="credibleSetSize", "ld_set_size"="ldSetSize", "total_set_size"="totalSetSize",
+                  "odds_ratio"="oddsRatio", "odds_ratio_CI_lower"="oddsRatioCILower", "odds_ratio_CI_upper"="oddsRatioCIUpper",
+                  "beta_CI_lower"="betaCILower", "beta_CI_upper"="betaCIUpper",
+                  "best_genes_score"="bestGenes.score", "best_genes_id"= "bestGenes.gene.id",
+                  "best_genes_symbol"="bestGenes.gene.symbol", "best_coloc_genes_score"="bestColocGenes.score",
+                  "best_coloc_genes_id"="bestColocGenes.gene.id", "best_coloc_genes_symbol"="bestColocGenes.gene.symbol",
+                  "best_L2G_genes_score"="bestLocus2Genes.score", "best_L2G_genes_id"="bestLocus2Genes.gene.id",
+                  "best_L2G_genes_symbol"="bestLocus2Genes.gene.symbol", "variant_id"="variant.id",
+                  "variant_position"="variant.position", "variant_chromosome"="variant.chromosome","variant_rsId"="variant.rsId")
+
   }
 
   return(man_result)
