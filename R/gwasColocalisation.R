@@ -1,8 +1,8 @@
 #' Retrieves GWAS colocalisation data.
 #'
 #'
-#' A table is generated for which variants tag the input variant, the studies and statistics
-#' associated with it. The columns are as follows- indexVariant.id, indexVariant.position,
+#' Provided with study id and variant id, this function returns a tibble data table of all colocalizeed tag variants with the corresponding GWAS study information and colocalization scores.  A table is generated for which variants tag the input variant, the studies and statistics
+#' The output table is expected to contain following data columns- indexVariant.id, indexVariant.position,
 #' indexVariant.chromosome, indexVariant.rsId, study.studyId, study.traitReported,
 #' study.traitCategory, beta, h3, h4 and log2h4h3.
 #'
@@ -80,10 +80,13 @@ gwasColocalisation <- function(studyid, variantid) {
 
   otg_qry$query(name = "gwascol_query", query)
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
-  gwas_coloc <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$gwascol_query, variables), flatten = TRUE)$data
+  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$gwascol_query, variables), flatten = TRUE)$data
 
-  df_gwas_coloc <- gwas_coloc$gwasColocalisation %>% as.data.frame()
+  output <- result$gwasColocalisation %>% dplyr::tibble()
+  output <- output[, c("study.studyId" ,"study.traitReported" , "study.traitCategory",
+                       "indexVariant.id" , "indexVariant.position",
+                       "indexVariant.chromosome", "indexVariant.rsId",
+                       "beta", "h3" , "h4" ,"log2h4h3")]
 
-
-  return(df_gwas_coloc)
+  return(output)
 }

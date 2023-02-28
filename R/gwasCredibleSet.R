@@ -1,6 +1,8 @@
 #' Get GWAS credible set data for a variant in a study
 #'
-#' A table is generated withthe tag variant and its associated statistics.
+#' Provided with study id and a lead variant id parameters,
+#'  this functions returns a tibble data table of all associated credible
+#'  set tag variants including the statistical data.
 #'
 #' @param studyid String: Open Target Genetics generated id for GWAS study.
 #' @param variantid String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
@@ -86,11 +88,11 @@ gwasCredibleSet <- function(studyid, variantid) {
   #variables <- list(studyId = "FINNGEN_R5_G6_AD_WIDE_EXMORE", variantId = "19_44908822_C_T")
 
   cli::cli_progress_step("Downloading the data...", spinner = TRUE)
-  gwas_cred_set <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$credset_query,
+  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$credset_query,
                                             variables, flatten = TRUE))$data
 
-  df_gwas <- gwas_cred_set$gwasCredibleSet %>% as.data.frame()
+  output <- result$gwasCredibleSet %>% dplyr::tibble()
 
-  return(df_gwas)
+  return(output)
 
 }

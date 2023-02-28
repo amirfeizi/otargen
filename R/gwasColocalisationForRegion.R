@@ -1,6 +1,8 @@
 #' Retrieves GWAS colocalisation data for a region.
 #'
-#' A table is generated with the following columns-
+#' With providing a defined chromosomal right this function reruns a tibble data table
+#' of colocalized variants to the left and right side of the provided regions including
+#' the calculated colocalization scores. The following data columns is expected for the output-
 #' leftVariant.id, leftVariant.position, leftVariant.chromosome,
 #' leftVariant.rsId, leftStudy.studyId, leftStudy.traitReported,
 #' leftStudy.traitCategory, rightVariant.id, rightVariant.position,
@@ -30,7 +32,7 @@ gwasColocalisationForRegion <- function(chromosome, start, end) {
   otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
   otg_qry <- ghql::Query$new()
 
-  query <- "query gwascolforregquery($chromosome: String!, $start: Long!, $end: Long!){
+  query <- "query gwasColForReg_query($chromosome: String!, $start: Long!, $end: Long!){
   gwasColocalisationForRegion(chromosome: $chromosome, start: $start, end: $end) {
     leftVariant{
       id
@@ -63,12 +65,12 @@ gwasColocalisationForRegion <- function(chromosome, start, end) {
 }"
 
   ## Execute the query
-  otg_qry$query(name = "gwascolforreg_query", x = query)
+  otg_qry$query(name = "gwasColForReg_query", x = query)
 
   cli::cli_progress_step("Downloading the data...", spinner = TRUE)
-  gwasreg_coloc <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$gwascolforreg_query, variables, flatten = TRUE))$data
+  results <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$gwasColForReg_query, variables, flatten = TRUE))$data
 
-  df_gwasreg_coloc <- gwasreg_coloc$gwasColocalisationForRegion %>% as.data.frame()
+  output <- results$gwasColocalisationForRegion %>% as.data.frame() %>% dplyr::tibble()
 
-  return(df_gwasreg_coloc)
+  return(output)
 }
