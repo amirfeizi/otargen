@@ -12,10 +12,7 @@ export(indexVariantsAndStudiesForTagVariant)
 export(manhattan)
 export(overlapInfoForStudy)
 export(pheWAS)
-<<<<<<< HEAD
 export(plot_coloc)
-=======
->>>>>>> plot
 export(plot_l2g)
 export(plot_phewas)
 export(qtlColocalisationVariantQuery)

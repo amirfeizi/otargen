@@ -16,7 +16,7 @@
 #' @export
 #'
 
-plot_l2g <- function(data, pvalue=10e-8){
+plot_manhattan <- function(data, pvalue=10e-8){
 
   gwasResults <- data[c('variant_position', 'variant_chromosome', 'pval', 'variant_id')] %>% unique() %>%
             dplyr::filter(pval <= pvalue)
