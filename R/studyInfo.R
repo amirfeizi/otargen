@@ -1,6 +1,8 @@
 #' Retrieves GWAS study id information.
 #'
-#' For a given study id which links top loci with a trait, a table is returned with the
+#' For a given study id, this function returns all the  relevant information about
+#'  GWAS study such as PubMed id, studied trait EFO id, case/control size etc.
+#'  See the example for full list of columns names
 #' columns mentioned below.
 #'
 #' @param studyid String: Open Targets Genetics generated id for a GWAS study.
@@ -61,13 +63,13 @@ studyInfo <- function(studyid) {
 
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
 
-  study_info <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$studyInfoQuery, variables),
+  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$studyInfoQuery, variables),
                                    simplifyDataFrame = TRUE, flatten = TRUE)$data
-  study_info <- study_info$studyInfo
+  output <- result$studyInfo
 
-  study_info[study_info == "NULL"] <- NA # replacing NULL elements with NA
+  output[output == "NULL"] <- NA # replacing NULL elements with NA
 
-  study_out <- tibble::as_tibble(stack(unlist(study_info)) %>%
+  output_tb <- tibble::as_tibble(stack(unlist(output)) %>%
             tidyr::spread(ind, values)) # converting list of information key/value pairs to tibble format
-  return(study_out)
+  return(output_tb)
 }
