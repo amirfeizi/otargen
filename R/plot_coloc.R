@@ -8,7 +8,7 @@
 #' @return A plot for colocalisation information
 #'
 #' @examples
-#' pheWAS(variantid = "14_87978408_G_A") %>% plot_phewas(disease = TRUE)
+#' colocalisationsForGene(ensembl_ids = "ENSG00000169174") %>% plot_coloc(biobank = TRUE)
 #'
 #' @export
 #'
@@ -34,7 +34,7 @@ plot_coloc <- function(data, biobank = FALSE) {
   # type <- match.arg(type)
 
   if (biobank == TRUE) {
-    dt34 <- dt3 %>% dplyr::filter(grepl(pattern = "^GCST.*", Study))
+    dt4 <- dt3 %>% dplyr::filter(grepl(pattern = "^GCST.*", Study))
   } else {
     dt4 <- dt3
 

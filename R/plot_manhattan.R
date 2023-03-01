@@ -19,7 +19,7 @@
 plot_manhattan <- function(data){
 
   gwasResults <- data[c('variant_position', 'variant_chromosome', 'pval', 'variant_id',
-                        'best_L2G_genes_score', 'best_L2G_genes_symbol')] %>% unique() %>%
+                        'best_locus2genes_score', 'best_locus2genes_gene_symbol')] %>% unique() %>%
                          dplyr::rename("BP"="variant_position", "CHR"="variant_chromosome",
                                                "P"="pval", "SNP"="variant_id")
 
@@ -32,7 +32,7 @@ plot_manhattan <- function(data){
 
   df_axis <- gwasResults %>% dplyr::group_by(CHR) %>% dplyr::summarize(center=( max(BPcum) + min(BPcum))/2)
 
-  l2g_annot <- gwasResults  %>% dplyr::group_by(CHR)%>% dplyr::arrange(dplyr::desc(best_L2G_genes_score)) %>%
+  l2g_annot <- gwasResults  %>% dplyr::group_by(CHR)%>% dplyr::arrange(dplyr::desc(best_locus2genes_score)) %>%
     dplyr::slice(1:3)%>% as.data.frame()
 
   p_cutoff <- 10e-8
@@ -40,7 +40,7 @@ plot_manhattan <- function(data){
   plt <- ggplot2::ggplot(gwasResults, ggplot2::aes(x=BPcum, y=-log10(P))) +
 
     #ggplot2::geom_label() +
-    ggrepel::geom_text_repel(data=l2g_annot, ggplot2::aes(label=best_L2G_genes_symbol, color=as.factor(CHR)), na.rm=TRUE) +
+    ggrepel::geom_label_repel(data=l2g_annot, ggplot2::aes(label=best_locus2genes_gene_symbol, color=as.factor(CHR)), na.rm=TRUE) +
 
     ggplot2::geom_point(ggplot2::aes(color=as.factor(CHR)), alpha=0.85, size=1.3) +
     ggplot2::scale_color_manual(values = rep(c("darkblue", "darkgreen"), unique(length(df_axis$CHR)))) +
@@ -53,5 +53,5 @@ plot_manhattan <- function(data){
       panel.grid.major.x = ggplot2::element_blank(),
       panel.grid.minor.x = ggplot2::element_blank()
     )
-  plt
+  return (plt)
 }

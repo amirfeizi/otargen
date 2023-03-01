@@ -1,0 +1,9 @@
+test_that("test plot_coloc works", {
+  expected_1 <- otargen::colocalisationsForGene(ensembl_ids = "ENSG00000169174") %>% otargen::plot_coloc(biobank = TRUE)
+  expected_2 <- otargen::colocalisationsForGene(ensembl_ids = list("ENSG00000167207","ENSG00000096968","ENSG00000138821", "ENSG00000125255")) %>%
+                otargen::plot_coloc()
+  expect_s3_class(expected_1, "ggplot")
+  expect_s3_class(expected_2, "ggplot")
+  expect_false(is.null(expected_1))
+  expect_false(is.null(expected_2))
+})

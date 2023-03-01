@@ -1,7 +1,7 @@
 #' Plot the the scores obtained from the L2G model results
 #'
-#' @param data is the result of studiesAndLeadVariantsForGeneByL2G function in data frame format
-#' @param disease_efo is the input efo id to filter the L2G data for a particular disease.
+#' @param data Data frame: result of studiesAndLeadVariantsForGeneByL2G function.
+#' @param disease_efo String: input efo id to filter the L2G data for a particular disease.
 #'
 #' @return A radar plot for the input disease and the genes associated with that disease. The variables shown include L2G score, chromatin interaction, variant
 #' pathogenicity and distance.
@@ -28,16 +28,14 @@ plot_l2g <- function(data, disease_efo=NULL){
   if (!is.null(disease_efo)){
     df <- df %>% dplyr::filter(EFO_ID == disease_efo) %>% dplyr::group_by(Gene_name) %>% dplyr::filter(L2G_score == max(L2G_score)) %>% data.frame()
     df_data <- df[, 1:6]
-    ggiraphExtra::ggRadar(data = df_data,mapping = ggplot2::aes(colour = Gene_name), rescale = FALSE,
+    plot <- ggiraphExtra::ggRadar(data = df_data,mapping = ggplot2::aes(colour = Gene_name), rescale = FALSE,
                           use.label = TRUE, alpha = 0.12, size = 2, legend.position = "right") + ggplot2::labs(title = df[1,'Traits'])
   }
   else{
     df <- df %>% dplyr::group_by(Traits)%>% dplyr::arrange(dplyr::desc(L2G_score)) %>% head(n=3) %>% data.frame()
     df_data <- df[, 1:7]
-    print (df_data)
-    plots <- ggiraphExtra::ggRadar(data = df_data, mapping = ggplot2::aes(colour = Gene_name, facet=Traits),
+    plot <- ggiraphExtra::ggRadar(data = df_data, mapping = ggplot2::aes(colour = Gene_name, facet=Traits),
                                    rescale = FALSE, use.label = TRUE, size = 2, alpha = 0.12, legend.position = "right")
-    plots
   }
-
+  return (plot)
 }

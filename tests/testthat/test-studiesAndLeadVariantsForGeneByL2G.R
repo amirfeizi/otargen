@@ -1,4 +1,4 @@
-test_that("test studiesAndLeadVariantsForGeneByL2G", {
+test_that("test studiesAndLeadVariantsForGeneByL2G works", {
   expected <- otargen::studiesAndLeadVariantsForGeneByL2G(ensembl_ids = "ENSG00000169174")
   expect_s3_class(expected, "data.frame")
   expect_error(otargen::studiesAndLeadVariantsForGeneByL2G(ensembl_ids = "ENSGXXXXXXXXX"))
