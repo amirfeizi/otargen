@@ -7,9 +7,9 @@
 plot_l2g(data, disease_efo = NULL)
 }
 \arguments{
-\item{data}{is the result of studiesAndLeadVariantsForGeneByL2G function in data frame format}
+\item{data}{Data frame: result of studiesAndLeadVariantsForGeneByL2G function.}
 
-\item{disease_efo}{is the input efo id to filter the L2G data for a particular disease.}
+\item{disease_efo}{String: input efo id to filter the L2G data for a particular disease.}
 }
 \value{
 A radar plot for the input disease and the genes associated with that disease. The variables shown include L2G score, chromatin interaction, variant

@@ -1,14 +1,15 @@
 #' Plot the colocalisation function results
 #'
-#' @param data Data Frame: result of colocalisationsForGene function in data frame format, contacting the phewas information for a variant id
-#' @param disease Logical: TRUE and FALSE variable, with the default value of TRUE to filter the phewas data for disease.
-#' @param source Character vector: choices for data sources of PHEWAS analysis including FINNGEN, GCST, NEAL (UKBioBANK), and SAGE.
-#' @param ...
+#' @param data Data Frame: result of colocalisationsForGene function in data
+#' frame format, contacting the phewas information for a variant id
+#' @param biobank Logical: TRUE and FALSE variable, with the default value of
+#' FALSE which will keep the data that are from UKbioBank beside the published GWAS data. In case,
+#' this parameter is set to TRUE, only UKbioBank data will be kept which  has not been published.
 #'
 #' @return A plot for colocalisation information
 #'
 #' @examples
-#' colocalisationsForGene(ensembl_ids = "ENSG00000169174") %>% plot_coloc(biobank = TRUE)
+#' colocalisationsForGene(ensembl_ids = "ENSG00000169174") %>% plot_coloc(biobank = FALSE)
 #'
 #' @export
 #'

@@ -4,14 +4,14 @@
 \alias{tagVariantsAndStudiesForIndexVariant}
 \title{Retrieves tag variants and studies for a given index variant.}
 \usage{
-tagVariantsAndStudiesForIndexVariant(variantid, pageindex = 0, pagesize = 20)
+tagVariantsAndStudiesForIndexVariant(variantid, page_ind = 0, page_size = 20)
 }
 \arguments{
 \item{variantid}{String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).}
 
-\item{pageIndex}{Int: Index of the current page, pagination index >= 0.}
+\item{page_ind}{Int: Index of the current page, pagination index >= 0.}
 
-\item{pageSize}{Int: No. of records in a page, pagination size > 0.}
+\item{page_size}{Int: No. of records in a page, pagination size > 0.}
 }
 \value{
 Data Frame containing the variant associations connected to the input index variant with the above
@@ -28,6 +28,6 @@ oddsRatioCILower, oddsRatioCIUpper, posteriorProbability, beta, betaCILower, bet
 
 tagVariantsAndStudiesForIndexVariant(variantid = "1_109274968_G_T")
 or
-tagVariantsAndStudiesForIndexVariant(variantid = "1_109274968_G_T", pageindex = 1, pagesize = 50)
+tagVariantsAndStudiesForIndexVariant(variantid = "1_109274968_G_T", page_ind = 1, page_size = 50)
 
 }

@@ -4,10 +4,12 @@
 #' @param query is a GraphQL desired query body to be run.
 #' @param query_name is a string format of the query name
 #'
-#' @return
+#' @return a flatten json file format
 #' @export
 #'
 #' @examples
+#'
+#' run_custom_query (variableList, query, query_name)
 #'
 #'
 run_custom_query <- function(variableList, query, query_name) {

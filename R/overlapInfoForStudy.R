@@ -9,13 +9,14 @@
 #' @return A list containing a data frame of overlap information and the variant intersection set.
 #'
 #' @examples
-#' overlap_output <- overlapInfoForStudy(studyid="GCST90002357", studyids=list("GCST90025975","GCST90025962"))
+#' overlap_output <- overlapInfoForStudy(studyid="GCST90002357",
+#'  studyids=list("GCST90025975","GCST90025962"))
 #' overlap_output
 #' $overlap_info
 #'       studyId  traitReported traitCategory       variantIdA       variantIdB overlapAB distinctA distinctB study.studyId                       study.traitReported study.traitCategory
 #'  GCST90002357 Platelet count   measurement   2_27508073_T_C   2_27508073_T_C         1         0         0  GCST90025975                  Mean reticulocyte volume         measurement
 #'  GCST90002357 Platelet count   measurement  15_75077277_G_A  15_75039464_T_G         2        51         1  GCST90025975                  Mean reticulocyte volume         measurement
-#'  GCST90002357 Platelet count   measurement  15_78243095_C_G  15_78244187_C_T         1        12         0  GCST90025975                  Mean reticulocyte volume         measurement
+
 #' ...
 #'
 #' $variant_intersection

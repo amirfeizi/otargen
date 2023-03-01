@@ -97,6 +97,6 @@ studyLocus2GeneTable <- function(studyid, variantid) {
     df_l2g <- df_l2g %>% dplyr::mutate(across(where(is.numeric), ~ round(., 2)))
     base::colnames(df_l2g) <- stringr::str_replace_all(colnames(df_l2g), "rows.", "")
   }
-
+  df_l2g <- df_l2g %>% dplyr::as_tibble()
   return(df_l2g)
 }

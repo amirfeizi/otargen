@@ -5,7 +5,6 @@
 #'
 #'
 #' @param data Data frame: result of the manhattan function containing SNP information
-#' @param pvalue Float: pvalue cut off.
 #'
 #' @return A manhattan plot representing SNPs on the x-axis with the corresponding
 #' negative logarithm of p-value on the y-axis.

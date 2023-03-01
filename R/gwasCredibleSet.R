@@ -10,12 +10,14 @@
 #' @return Data frame of results from credible set of variants for a specific lead variant.
 #'
 #' @examples
-#' gwas_cred_set <- gwasCredibleSet(studyid="GCST90002357", variantid="1_154119580_C_A")
+#' gwas_cred_set <- gwasCredibleSet(studyid="GCST90002357",
+#' variantid="1_154119580_C_A")
 #' or
-#' gwas_cred_set <- gwasCredibleSet(studyid="GCST90002357", variantid="rs2494663")
+#' gwas_cred_set <- gwasCredibleSet(studyid="GCST90002357",
+#' variantid="rs2494663")
 #' gwas_cred_set
 #'
-#'     tagVariant.id tagVariant.rsId      beta postProb    pval       se MultisignalMethod   logABF is95 is99
+#'  tagVariant.id tagVariant.rsId      beta postProb    pval       se MultisignalMethod   logABF is95 is99
 #' 1 1_154119580_C_A              NA -0.021553        1 9.1e-32 0.001837       conditional 71.63937 TRUE TRUE
 #'
 #' @export

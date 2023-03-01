@@ -25,7 +25,7 @@
 #' @export
 #'
 #'
-qtlCredibleSet <- function(studyId, variantId, geneId, bioFeature) {
+qtlCredibleSet <- function(studyid, variantid, geneid, biofeature) {
   ## Set up to query Open Targets Genetics API
   cli::cli_progress_step("Connecting the database...", spinner = TRUE)
   otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
