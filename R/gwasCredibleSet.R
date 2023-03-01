@@ -1,8 +1,8 @@
 #' Get GWAS credible set data for a variant in a study
 #'
 #' Provided with study id and a lead variant id parameters,
-#'  this functions returns a tibble data table of all associated credible
-#'  set tag variants including the statistical data.
+#'  this functions returns a data table in tibble format including all associated credible
+#'  set tag variants with he corresponding statistical data.
 #'
 #' @param studyid String: Open Target Genetics generated id for GWAS study.
 #' @param variantid String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
@@ -58,9 +58,6 @@ gwasCredibleSet <- function(studyid, variantid) {
   {
     stop("\n Please provide a variant Id")
   }
-
-
-
 
   query <- "query credsetQuery($studyId: String!, $variantId: String!){
   gwasCredibleSet(studyId: $studyId, variantId: $variantId) {

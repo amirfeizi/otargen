@@ -1,7 +1,7 @@
 #' GWAS Regional Association of a study.
 #'
-#' with providing a study id and a chromosomal regin information,
-#' this function returns a tibble data table with all variants and
+#' Providing a study id and a chromosomal region information,
+#' this function returns a data table with all variants and
 #'  their respective p-value as shown in the example.
 #'
 #' @param studyid String: Open Target Genetics generated id for GWAS study.
@@ -55,7 +55,9 @@ gwasRegional <- function(studyid, chromosome, start, end) {
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
   result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$gwasregional_query, variables), flatten=TRUE)$data
 
-  output <- result$gwasRegional %>% as.data.frame
+  output <- result$gwasRegional %>%
+    dplyr::select(variant.id,variant.chromosome, variant.position, pval) %>%
+    dplyr::as_tibble()
 
   return(output)
 }
