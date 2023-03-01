@@ -11,63 +11,47 @@
 #' negative logarithm of p-value on the y-axis.
 #'
 #' @examples
-#' manhattan(studyid = "GCST003044") %>% plot_manhattan(pval= 10e-8)
+#' manhattan(studyid = "GCST003044") %>% plot_manhattan()
 #'
 #' @export
 #'
 
-plot_manhattan <- function(data, pvalue=10e-8){
+plot_manhattan <- function(data){
 
-  gwasResults <- data[c('variant_position', 'variant_chromosome', 'pval', 'variant_id')] %>% unique() %>%
-            dplyr::filter(pval <= pvalue)
-
-  gwasResults <- gwasResults %>% dplyr::rename("BP"="variant_position", "CHR"="variant_chromosome",
+  gwasResults <- data[c('variant_position', 'variant_chromosome', 'pval', 'variant_id',
+                        'best_L2G_genes_score', 'best_L2G_genes_symbol')] %>% unique() %>%
+                         dplyr::rename("BP"="variant_position", "CHR"="variant_chromosome",
                                                "P"="pval", "SNP"="variant_id")
 
   gwasResults$CHR = as.integer(gwasResults$CHR)
 
-  # Compute chromosome size
-  gwasResults <- gwasResults %>% dplyr::group_by(CHR) %>%
-    dplyr::summarise(chr_len=max(BP)) %>%
+  gwasResults <- gwasResults %>% dplyr::group_by(CHR) %>% dplyr::summarise(chr_len=max(BP)) %>%
+                 dplyr::mutate(tot=cumsum(as.numeric(chr_len))-chr_len) %>%
+                 dplyr::select(-chr_len) %>% dplyr::left_join(gwasResults, ., by=c("CHR"="CHR")) %>%
+                 dplyr::arrange(CHR, BP) %>% dplyr::mutate(BPcum=BP+tot)
 
-    # Calculate cumulative position of each chromosome
-    dplyr::mutate(tot=cumsum(as.numeric(chr_len))-chr_len) %>%
-    dplyr::select(-chr_len) %>%
+  df_axis <- gwasResults %>% dplyr::group_by(CHR) %>% dplyr::summarize(center=( max(BPcum) + min(BPcum))/2)
 
-    # Add this info to the initial dataset
-    dplyr::left_join(gwasResults, ., by=c("CHR"="CHR")) %>%
+  l2g_annot <- gwasResults  %>% dplyr::group_by(CHR)%>% dplyr::arrange(dplyr::desc(best_L2G_genes_score)) %>%
+    dplyr::slice(1:3)%>% as.data.frame()
 
-    # Add a cumulative position of each SNP
-    dplyr::arrange(CHR, BP) %>%
-    dplyr::mutate( BPcum=BP+tot)
-
-  axisdf <- gwasResults %>% dplyr::group_by(CHR) %>% dplyr::summarize(center=( max(BPcum) + min(BPcum))/2)
-
-  gwasResults$text <- paste("SNP: ", gwasResults$SNP, "\nPosition: ", gwasResults$BP, "\nChromosome: ",
-                            gwasResults$CHR, "\n-log10(pval):", -log10(gwasResults$P) %>% round(3), sep="")
-
+  p_cutoff <- 10e-8
   # Make the plot
-  plt <- ggplot2::ggplot(gwasResults, ggplot2::aes(x=BPcum, y=-log10(P), text=text)) +
+  plt <- ggplot2::ggplot(gwasResults, ggplot2::aes(x=BPcum, y=-log10(P))) +
 
-    # Show all points
-    ggplot2::geom_point(ggplot2::aes(color=as.factor(CHR)), alpha=0.8, size=1.3) +
-    ggplot2::scale_color_manual(values = rep(c("darkblue", "darkgreen"), 22)) +
+    #ggplot2::geom_label() +
+    ggrepel::geom_text_repel(data=l2g_annot, ggplot2::aes(label=best_L2G_genes_symbol, color=as.factor(CHR)), na.rm=TRUE) +
 
-    # custom X axis:
-    ggplot2::scale_x_continuous(name= 'Chromosome', label = axisdf$CHR, breaks=axisdf$center) +
-    ggplot2::scale_y_continuous(expand = c(0, 0)) +
-
-    # Custom the theme:
-    ggplot2::theme_bw() +
+    ggplot2::geom_point(ggplot2::aes(color=as.factor(CHR)), alpha=0.85, size=1.3) +
+    ggplot2::scale_color_manual(values = rep(c("darkblue", "darkgreen"), unique(length(df_axis$CHR)))) +
+    ggplot2::scale_size_continuous(range = c(1,25)) +
+    ggplot2::scale_x_continuous(name= 'Chromosome', label = df_axis$CHR, breaks=df_axis$center) +
+    ggplot2::theme_minimal() +
     ggplot2::theme(
       legend.position="none",
       panel.border = ggplot2::element_blank(),
       panel.grid.major.x = ggplot2::element_blank(),
       panel.grid.minor.x = ggplot2::element_blank()
-    ) +
-    ggplot2::labs(title = 'Manhattan Plot')
-
-
-  plotly::ggplotly(plt, tooltip="text")
-
+    )
+  plt
 }

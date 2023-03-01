@@ -26,10 +26,7 @@ plot_l2g <- function(data, disease_efo=NULL){
 
 
   if (!is.null(disease_efo)){
-    df <- df %>% dplyr::filter(EFO_ID == disease_efo) %>%
-      dplyr::group_by(Gene_name) %>%
-      dplyr::filter(L2G_score == max(L2G_score)) %>% data.frame()
-
+    df <- df %>% dplyr::filter(EFO_ID == disease_efo) %>% dplyr::group_by(Gene_name) %>% dplyr::filter(L2G_score == max(L2G_score)) %>% data.frame()
     df_data <- df[, 1:6]
     ggiraphExtra::ggRadar(data = df_data,mapping = ggplot2::aes(colour = Gene_name), rescale = FALSE,
                           use.label = TRUE, alpha = 0.12, size = 2, legend.position = "right") + ggplot2::labs(title = df[1,'Traits'])

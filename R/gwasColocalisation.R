@@ -74,19 +74,20 @@ gwasColocalisation <- function(studyid, variantid) {
 
 
   ## Execute the query
-
+  output = data.frame()
   variables <- list(studyId = studyid, variantId = input_variantid)
-
 
   otg_qry$query(name = "gwascol_query", query)
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
   result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$gwascol_query, variables), flatten = TRUE)$data
 
   output <- result$gwasColocalisation %>% dplyr::tibble()
+
+  if (nrow(output) !=0){
   output <- output[, c("study.studyId" ,"study.traitReported" , "study.traitCategory",
                        "indexVariant.id" , "indexVariant.position",
                        "indexVariant.chromosome", "indexVariant.rsId",
                        "beta", "h3" , "h4" ,"log2h4h3")]
-
+  }
   return(output)
 }
