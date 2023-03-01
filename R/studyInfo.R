@@ -58,7 +58,7 @@ studyInfo <- function(studyid) {
 
 
   ## Execute the query
-
+  output_tb <- data.frame()
   otg_qry$query(name = "studyInfoQuery", x = query)
 
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
@@ -69,7 +69,9 @@ studyInfo <- function(studyid) {
 
   output[output == "NULL"] <- NA # replacing NULL elements with NA
 
+  if (length(output) != 0){
   output_tb <- tibble::as_tibble(stack(unlist(output)) %>%
             tidyr::spread(ind, values)) # converting list of information key/value pairs to tibble format
+  }
   return(output_tb)
 }

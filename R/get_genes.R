@@ -1,4 +1,3 @@
-
 #' Retrieves information about genes on an input locus
 #'
 #' This function gets information for a region of a specified chromosome and returns a tibble data table of all the overlapping genes in the specified region with following information columns: id, symbol, bioType,
@@ -8,7 +7,7 @@
 #' @param start Long: start position of the specified chromosome.
 #' @param end Long: end position of the specified chromosome.
 #'
-#' @return Data frame containing the details of all the genes in the mentioned locus.
+#' @return tibble data table containing the details of all the genes in the mentioned locus.
 #'
 #' @examples
 #' get_genes(chromosome = "2", start = 239634984, end = 241634984)
@@ -46,7 +45,7 @@ get_genes <- function(chromosome, start, end) {
   otg_qry$query(name = "genesquery", x = query)
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
 
-  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$genesquery, variables), flatten = TRUE)$data
+  genes_result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$genesquery, variables), flatten = TRUE)$data
   output <- as.data.frame(genes_result$genes) %>% dplyr::tibble()
 
   if (nrow(output) == 0) {
