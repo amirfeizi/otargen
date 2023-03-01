@@ -13,7 +13,8 @@ Imports:
     rjson,
     conflicted,
     data.table,
-    plotly
+    janitor,
+    ggiraphExtra
 License: MIT + file LICENSE
 Encoding: UTF-8
 Suggests: 

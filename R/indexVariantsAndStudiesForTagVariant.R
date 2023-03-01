@@ -1,7 +1,7 @@
 #' Retrieves index variants and studies for a tag variant.
 #'
-#' For an input tag variant id, this function returns a tibble data table
-#' with population level summary stats data across various gwas studies.
+#' For an input tag variant id, this function returns a  data table in tibble format
+#' with population level summary stats data columns across various GWAS studies.
 #' The following columns are expected in the output table:
 #' indexVariant, study, pval, pvalMantissa, pvalExponent, nTotal, nCases, overallR2,
 #' afr1000GProp, amr1000GProp, eas1000GProp, eur1000GProp, sas1000GProp, log10Abf,
@@ -98,5 +98,11 @@ indexVariantsAndStudiesForTagVariant <- function(variantid, pageindex = 0, pages
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
   result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$indexvariantsandstudiesquery, variables, flatten = TRUE))$data
   output <- result$indexVariantsAndStudiesForTagVariant$associations %>% dplyr::tibble()
+
+
+  if (nrow(output) == 0) {
+    output <- data.frame()
+  }
+
   return(output)
 }

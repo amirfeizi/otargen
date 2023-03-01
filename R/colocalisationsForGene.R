@@ -133,5 +133,9 @@ colocalisationsForGene(geneId:$gene){
       dplyr::arrange(desc(`log2(H4/H3)`)) %>% dplyr::tibble()
   }
 
+  if (nrow(colocal3) == 0) {
+    colocal3 <- data.frame()
+  }
+
   return(colocal3)
 }

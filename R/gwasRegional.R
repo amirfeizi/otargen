@@ -59,5 +59,9 @@ gwasRegional <- function(studyid, chromosome, start, end) {
     dplyr::select(variant.id,variant.chromosome, variant.position, pval) %>%
     dplyr::as_tibble()
 
+  if (nrow(output) == 0) {
+    output <- data.frame()
+  }
+
   return(output)
 }

@@ -1,6 +1,6 @@
 #' Retrieves overlap info for a study and a list of studies
 #'
-#' For an input study id and a list of other study ids, generates a table as shown in the example.
+#' For an input study id and a list of other study ids, this function returns a data table as shown in the example.
 #' It represents an overlap between two variants of the two given studies.
 #'
 #' @param studyid String: Open Target Genetics generated id for GWAS study.
@@ -37,6 +37,7 @@ overlapInfoForStudy <- function(studyid, studyids=list()) {
   otg_qry <- ghql::Query$new()
 
   variables <- list(studyId = studyid, studyIds = studyids)
+  variables <- list(studyId="GCST90002357", studyIds=list("GCST90025975","GCST90025962"))
 
   query <- "query overlapinfostudyquery($studyId: String!, $studyIds: [String!]!){
   overlapInfoForStudy(studyId: $studyId, studyIds: $studyIds) {
@@ -70,15 +71,20 @@ overlapInfoForStudy <- function(studyid, studyids=list()) {
   ## Execute the query
 
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
+
   result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$overlapinfostudy_query, variables), flatten=TRUE)$data
+
   df_study <- data.frame(result$overlapInfoForStudy$study)
   var_int_set <- result$overlapInfoForStudy$variantIntersectionSet
   result <- dplyr::tibble(place = result)
+
   df_overlap <- result %>% tidyr::unnest_wider(place) %>%
     dplyr::select(overlappedVariantsForStudies) %>%
     tidyr::unnest(overlappedVariantsForStudies, keep_empty=TRUE) %>%
-    tidyr::hoist(overlaps, variantIdA = 'variantIdA', variantIdB = 'variantIdB', overlapAB = 'overlapAB', distinctA = 'distinctA', distinctB = 'distinctB') %>%
-    tidyr::unnest(c(variantIdA, variantIdB, overlapAB, distinctA, distinctB), keep_empty=TRUE) %>% as.data.frame()
+    tidyr::hoist(overlaps, variantIdA = 'variantIdA', variantIdB = 'variantIdB',
+                 overlapAB = 'overlapAB', distinctA = 'distinctA', distinctB = 'distinctB') %>%
+    tidyr::unnest(c(variantIdA, variantIdB, overlapAB, distinctA, distinctB),
+                  keep_empty=TRUE) %>% dplyr::as_tibble()
 
   row_num <- nrow(df_overlap)
 
@@ -87,6 +93,8 @@ overlapInfoForStudy <- function(studyid, studyids=list()) {
   rownames(new_df) <- NULL
 
   final_output <- list(overlap_info = new_df, variant_intersection = var_int_set)
+
+
 
   return(final_output)
 }
