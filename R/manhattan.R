@@ -1,20 +1,20 @@
 #' Manhattan association for a given study.
 #'
 #' @param studyid String: Open Targets Genetics generated id for GWAS study.
-#' @param page_ind Int: Index of the current page, pagination index >= 0.
-#' @param page_size Int: No. of records in a page, pagination size > 0.
+#' @param pageindex Int: Index of the current page, pagination index >= 0.
+#' @param pagesize Int: No. of records in a page, pagination size > 0.
 #'
 #' @return Dataframe containing manhattan associations for the input study id given.
 #'
 #' @examples
 #' manhattan(studyid = "GCST90002357")
 #' or
-#' manhattan(studyid = "GCST90002357", page_ind = 2, page_size = 50)
+#' manhattan(studyid = "GCST90002357", pageindex = 2, pagesize = 50)
 #'
 #' @export
 #'
 #'
-manhattan <- function(studyid, page_ind = 0, page_size = 100) {
+manhattan <- function(studyid, pageindex = 0, pagesize = 100) {
   ## Set up to query Open Targets Genetics API
 
   cli::cli_progress_step("Connecting the database...", spinner = TRUE)

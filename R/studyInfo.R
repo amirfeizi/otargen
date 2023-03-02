@@ -1,8 +1,10 @@
 #' Retrieves GWAS study id information.
 #'
 #' For a given study id, this function returns all the  relevant information about
-#'  GWAS study such as PubMed id, studied trait EFO id, case/control size etc.
-#'  See the example for full list of columns names
+#' GWAS study such as PubMed id, studied trait EFO id, case/control size etc.
+#' The columns in the table are as follows- studyId, traitReported, source,
+#' traitEfos, pmid, pubDatepubJournal, pubTitle, pubAuthor, hasSumstats,
+#' ancestryInitial, nInitial, nReplication, traitCategory, numAssocLoci, nTotal.
 #' columns mentioned below.
 #'
 #' @param studyid String: Open Targets Genetics generated id for a GWAS study.
@@ -10,14 +12,7 @@
 #' @return tibble data table containing the study information.
 #'
 #' @examples
-#' study_info <- studyInfo(studyid = "GCST90002357")
-#' study_info
-#'
-#' # A tibble: 1 × 17
-#' # studyId      traitReported  source traitEfos   pmid         pubDate pubJo…¹ pubTi…² pubAu…³ hasSu…⁴ ances…⁵ nInit…⁶ nRepl…⁷ nCases trait…⁸ numAs…⁹ nTotal
-#' #<chr>        <chr>          <chr>  <chr>       <chr>        <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>  <chr>   <chr>   <chr>
-#' # GCST90002357 Platelet count GCST   EFO_0004309 PMID:328884… 2020-0… Cell    Trans-… Chen MH TRUE    Europe… 542827  NA      NA     measur… 1252    542827
-#' # with abbreviated variable names ¹pubJournal, ²pubTitle, ³pubAuthor, ⁴hasSumstats, ⁵ancestryInitial, ⁶nInitial, ⁷nReplication, ⁸traitCategory, ⁹numAssocLoci
+#' studyInfo(studyid = "GCST90002357")
 #'
 #' @export
 #'

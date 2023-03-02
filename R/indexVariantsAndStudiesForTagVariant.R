@@ -10,21 +10,21 @@
 #'
 #'
 #' @param variantid String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
-#' @param page_ind Int: Index of the current page, pagination index >= 0.
-#' @param page_size Int: No. of records in a page, pagination size > 0.
+#' @param pageindex Int: Index of the current page, pagination index >= 0.
+#' @param pagesize Int: No. of records in a page, pagination size > 0.
 #'
 #' @return Dataframe containing the variant associated to the input tag variant.
 #'
 #' @examples
 #' indexVariantsAndStudiesForTagVariant(variantid = "1_109274968_G_T")
 #' or
-#' indexVariantsAndStudiesForTagVariant(variantid = "rs12740374", page_ind = 1, page_size = 50)
+#' indexVariantsAndStudiesForTagVariant(variantid = "rs12740374", pageindex = 1, pagesize = 50)
 #'
 #' @export
 #'
 #'
 
-indexVariantsAndStudiesForTagVariant <- function(variantid, page_ind = 0, page_size = 20) {
+indexVariantsAndStudiesForTagVariant <- function(variantid, pageindex = 0, pagesize = 20) {
   ## Set up to query Open Targets Genetics API
 
   cli::cli_progress_step("Connecting the database...", spinner = TRUE)

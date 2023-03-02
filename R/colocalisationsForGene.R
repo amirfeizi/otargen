@@ -1,6 +1,8 @@
 #' Retrieves colocalisation data for a gene.
 #'
-#' This functions takes gene(s) ensemble id(s) as an input and returns a tibble format data table of studies that have evidence of colocalisation with molecular QTLs. The output table includes the following columns-
+#' This functions takes gene(s) ensemble id(s) as an input and returns a tibble
+#' format data table of studies that have evidence of colocalisation with molecular QTLs.
+#' The output table includes the following columns-
 #' Study, Trait_reported, Lead_variant, Molecular_trait, Gene_symbol,
 #' Tissue, Source, H3, H4, log2(H4/H3), Title, Author, Has_sumstats,
 #' numAssocLoci, nInitial, cohort, study_nReplication, study_nCases,
@@ -12,7 +14,6 @@
 #'
 #' @examples
 #' colocalisationsForGene(ensembl_ids = list("ENSG00000163946", "ENSG00000169174", "ENSG00000143001"))
-#' or
 #' colocalisationsForGene(ensembl_ids = "ENSG00000169174")
 #'
 #' @export
