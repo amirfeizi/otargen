@@ -1,21 +1,18 @@
-#' Retrieves colocalization data for a variant in a study
+#' Retrieves colocalisation data for a variant in a study
 #'
-#' For an input study id and variant id, a table is generated as given in the example.
+#' For an input study id and variant id, a table is generated with the following columns-
+#' qtlStudyName, phenotypeId, gene.id, gene.symbol, name, indexVariant.id, indexVariant.rsId,
+#' beta, h4, h3, log2h4h3.
 #'
 #' @param studyid String: Open Target Genetics generated id for gwas studies.
 #' @param variantid String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
 #'
-#' @return A data frame of the colocalization information for a lead variant.
-#' @examples
-#' qtl_coloc <- qtlColocalisationVariantQuery(studyid="GCST90002357",variantid="1_154119580_C_A")
-#' or
-#' qtl_coloc <- qtlColocalisationVariantQuery(studyid="GCST90002357",variantid="rs2494663")
+#' @return A data frame of the colocalisation information for a lead variant.
 #'
-#' qtl_coloc
-#'    qtlStudyName                                      phenotypeId         gene.id     gene.symbol                          name indexVariant.id indexVariant.rsId         beta        h4         h3 log2h4h3
-#'     GTEx-sQTL   chr1^154570367^154571189^clu_38024^ENSG00000160716 ENSG00000160716      CHRNB2               Brain hippocampus 1_153673124_G_A       rs150151810  0.180563301 0.1058276 0.06300702 0.748131
-#'       eQTLGen                                      ENSG00000163221 ENSG00000163221     S100A12                           Blood 1_153705169_T_G       rs115182992 -0.007249468 0.8150887 0.17168439 2.247198
-#'     GTEx-sQTL   chr1^153759613^153760311^clu_47736^ENSG00000143624 ENSG00000143624       INTS3          Heart atrial appendage 1_153744649_G_A        rs78105201  0.208291218 0.5487299 0.04672203 3.553921
+#' @examples
+#' qtlColocalisationVariantQuery(studyid="GCST90002357",variantid="1_154119580_C_A")
+#' or
+#' qtlColocalisationVariantQuery(studyid="GCST90002357",variantid="rs2494663")
 #'
 #' @export
 #'

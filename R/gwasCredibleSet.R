@@ -1,8 +1,9 @@
 #' Get GWAS credible set data for a variant in a study
 #'
 #' Provided with study id and a lead variant id parameters,
-#'  this functions returns a data table in tibble format including all associated credible
-#'  set tag variants with he corresponding statistical data.
+#' this functions returns a data table in tibble format including all associated credible
+#' set tag variants with the corresponding statistical data. The output table contains the following columns-
+#' tagVariant.id, tagVariant.rsId, beta, postProb, pval, se (standard error), MultisignalMethod, logABF, is95, is99.
 #'
 #' @param studyid String: Open Target Genetics generated id for GWAS study.
 #' @param variantid String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
@@ -10,15 +11,9 @@
 #' @return Data frame of results from credible set of variants for a specific lead variant.
 #'
 #' @examples
-#' gwas_cred_set <- gwasCredibleSet(studyid="GCST90002357",
-#' variantid="1_154119580_C_A")
+#' gwasCredibleSet(studyid="GCST90002357", variantid="1_154119580_C_A")
 #' or
-#' gwas_cred_set <- gwasCredibleSet(studyid="GCST90002357",
-#' variantid="rs2494663")
-#' gwas_cred_set
-#'
-#'  tagVariant.id tagVariant.rsId      beta postProb    pval       se MultisignalMethod   logABF is95 is99
-#' 1 1_154119580_C_A              NA -0.021553        1 9.1e-32 0.001837       conditional 71.63937 TRUE TRUE
+#' gwasCredibleSet(studyid="GCST90002357", variantid="rs2494663")
 #'
 #' @export
 #'
@@ -83,8 +78,6 @@ gwasCredibleSet <- function(studyid, variantid) {
   variables <- list(studyId = studyid, variantId = input_variantid)
 
   otg_qry$query(name = "credset_query", x =  query)
-
-  #variables <- list(studyId = "FINNGEN_R5_G6_AD_WIDE_EXMORE", variantId = "19_44908822_C_T")
 
   cli::cli_progress_step("Downloading the data...", spinner = TRUE)
   result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$credset_query,

@@ -1,6 +1,9 @@
 #' Retrieves overlap info for a study and a list of studies
 #'
-#' For an input study id and a list of other study ids, this function returns a data table as shown in the example.
+#' For an input study id and a list of other study ids, this function returns two elements.
+#' One contains the overlap information in a table format with the following columns-
+#' studyId, traitReported, traitCategory, variantIdA, variantIdB, overlapAB, distinctA, distinctB, study.studyId,
+#' study.traitReported, study.traitCategory. The other element is the variant intersection set.
 #' It represents an overlap between two variants of the two given studies.
 #'
 #' @param studyid String: Open Target Genetics generated id for GWAS study.
@@ -9,20 +12,7 @@
 #' @return A list containing a data frame of overlap information and the variant intersection set.
 #'
 #' @examples
-#' overlap_output <- overlapInfoForStudy(studyid="GCST90002357",
-#'  studyids=list("GCST90025975","GCST90025962"))
-#' overlap_output
-#' $overlap_info
-#'       studyId  traitReported traitCategory       variantIdA       variantIdB overlapAB distinctA distinctB study.studyId                       study.traitReported study.traitCategory
-#'  GCST90002357 Platelet count   measurement   2_27508073_T_C   2_27508073_T_C         1         0         0  GCST90025975                  Mean reticulocyte volume         measurement
-#'  GCST90002357 Platelet count   measurement  15_75077277_G_A  15_75039464_T_G         2        51         1  GCST90025975                  Mean reticulocyte volume         measurement
-
-#' ...
-#'
-#' $variant_intersection
-#' "17_44108762_C_A"  "9_133256028_C_T"  "10_103916707_C_A" "12_11613555_A_C"  "3_179024902_T_C"  "2_240571486_G_A"  "1_247876149_C_T"  "12_4225142_G_C"
-#' "17_46144477_A_G"  "13_32571858_G_A"  "8_30422400_T_C"   "14_105290148_A_G" "4_54542832_T_C"   "10_69334748_T_C"  "16_68704303_G_A"  "18_63253621_C_T"
-#' ...
+#' overlapInfoForStudy(studyid="GCST90002357", studyids=list("GCST90025975","GCST90025962"))
 #'
 #' @export
 #'
@@ -93,7 +83,7 @@ overlapInfoForStudy <- function(studyid, studyids=list()) {
   new_df <- cbind(df_study, df_overlap)
   rownames(new_df) <- NULL
 
-  final_output <- list(overlap_info = new_df, variant_intersection = var_int_set)
+  final_output <- list(overlap_info = new_df, variant_intersection_set = var_int_set)
 
 
 

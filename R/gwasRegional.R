@@ -2,7 +2,8 @@
 #'
 #' Providing a study id and a chromosomal region information,
 #' this function returns a data table with all variants and
-#'  their respective p-value as shown in the example.
+#' their respective p-value as shown in the example. The table contains
+#' the following columns- pval, variant.id, variant.chromosome, variant.position.
 #'
 #' @param studyid String: Open Target Genetics generated id for GWAS study.
 #' @param chromosome String: chromosome number as string.
@@ -13,13 +14,7 @@
 #' @return Data frame of variants and p-val.
 #'
 #' @examples
-#' gwas_reg <- gwasRegional(studyid="GCST90002357", chromosome="1", start=153992685, end=154155116)
-#' gwas_reg
-#'
-#'        pval      variant.id variant.chromosome variant.position
-#'   5.000e-20 1_153993605_G_C                  1        153993605
-#'   1.580e-06 1_153993862_C_T                  1        153993862
-#'   2.750e-17 1_153994184_T_G                  1        153994184
+#' gwasRegional(studyid="GCST90002357", chromosome="1", start=153992685, end=154155116)
 #'
 #' @export
 #'
