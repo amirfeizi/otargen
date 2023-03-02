@@ -9,8 +9,9 @@
 #' @return A plot for colocalisation information
 #'
 #' @examples
-#' colocalisationsForGene(ensembl_ids = "ENSG00000169174") %>% plot_coloc(biobank = FALSE)
-#'
+#' \dontrun{
+#' otargen::colocalisationsForGene(ensembl_ids = "ENSG00000169174") %>% otargen::plot_coloc(biobank = FALSE)
+#' }
 #' @export
 #'
 #'

@@ -11,10 +11,10 @@
 #' @return Data frame containing the variant information with the above mentioned columns.
 #'
 #' @examples
-#' var_info <- variantInfo(variantid = "1_55039974_G_T")
-#' or
-#' var_info <- variantInfo(variantid = "rs11591147")
-#'
+#' \dontrun{
+#' otargen::var_info <- variantInfo(variantid = "1_55039974_G_T")
+#' otargen::var_info <- variantInfo(variantid = "rs11591147")
+#'}
 #' @export
 #'
 #'

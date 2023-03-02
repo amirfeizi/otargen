@@ -5,11 +5,11 @@
 #' @return Dataframe with the queried gene identity and its colocalization data
 #'
 #' @examples
-#' studiesAndLeadVariantsForGene(ensembl_ids = list("ENSG00000163946",
+#' \dontrun{
+#' otargen::studiesAndLeadVariantsForGene(ensembl_ids = list("ENSG00000163946",
 #'  "ENSG00000169174", "ENSG00000143001"))
-#' or
-#' studiesAndLeadVariantsForGene(ensembl_ids = "ENSG00000169174")
-#'
+#' otargen::studiesAndLeadVariantsForGene(ensembl_ids = "ENSG00000169174")
+#'}
 #' @export
 #'
 #'

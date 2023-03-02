@@ -7,10 +7,10 @@
 #' @return Dataframe containing manhattan associations for the input study id given.
 #'
 #' @examples
-#' manhattan(studyid = "GCST90002357")
-#' or
-#' manhattan(studyid = "GCST90002357", pageindex = 2, pagesize = 50)
-#'
+#' \dontrun{
+#' otargen::manhattan(studyid = "GCST90002357")
+#' otargen::manhattan(studyid = "GCST90002357", pageindex = 2, pagesize = 50)
+#' }
 #' @export
 #'
 #'

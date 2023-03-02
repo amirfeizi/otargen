@@ -9,8 +9,9 @@
 #' @return tibble data table containing the input gene information such as symbol, chromosome information, etc.
 
 #' @examples
-#' geneInfo(geneid = "ENSG00000169174")
-#'
+#' \dontrun{
+#' otargen::geneInfo(geneid = "ENSG00000169174")
+#' }
 #' @export
 #'
 #'

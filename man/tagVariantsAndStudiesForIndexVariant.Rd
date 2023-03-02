@@ -25,8 +25,8 @@ overallR2, afr1000GProp, amr1000GProp, eas1000GProp, eur1000GProp, sas1000GProp,
 oddsRatioCILower, oddsRatioCIUpper, posteriorProbability, beta, betaCILower, betaCIUpper, direction, log10Abf.
 }
 \examples{
-tagVariantsAndStudiesForIndexVariant(variantid = "1_109274968_G_T")
-or
-tagVariantsAndStudiesForIndexVariant(variantid = "1_109274968_G_T", pageindex = 1, pagesize = 50)
-
+\dontrun{
+otargen::tagVariantsAndStudiesForIndexVariant(variantid = "1_109274968_G_T")
+otargen::tagVariantsAndStudiesForIndexVariant(variantid = "1_109274968_G_T", pageindex = 1, pagesize = 50)
+}
 }

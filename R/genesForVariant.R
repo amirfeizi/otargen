@@ -8,10 +8,10 @@
 #' individual QTL associations, intervals, distances and functional predictions.
 #'
 #' @examples
-#' genesForVariant(variantid = "1_154453788_C_T")
-#' or
-#' genesForVariant(variantid = "rs4129267")
-#'
+#' \dontrun{
+#' otargen::genesForVariant(variantid = "1_154453788_C_T")
+#' otargen::genesForVariant(variantid = "rs4129267")
+#' }
 #' @export
 #'
 #'

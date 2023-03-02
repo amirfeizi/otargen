@@ -14,11 +14,10 @@
 #' @returns Data frame with top studies containing the above mentioned columns.
 #'
 #' @examples
-#'
-#' topOverlappedStudies(studyid = "GCST006614_3")
-#' or
-#' topOverlappedStudies(studyid = "NEALE2_6177_1", pageindex = 1, pagesize = 50)
-#'
+#' \dontrun{
+#' otargen::topOverlappedStudies(studyid = "GCST006614_3")
+#' otargen::topOverlappedStudies(studyid = "NEALE2_6177_1", pageindex = 1, pagesize = 50)
+#'}
 #' @export
 #'
 #'

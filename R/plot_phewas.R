@@ -7,8 +7,9 @@
 #' @return A plot to prioritize variants based on their -log10(pval).
 #'
 #' @examples
-#' pheWAS(variantid = "14_87978408_G_A") %>% plot_phewas(disease = TRUE)
-#'
+#' \dontrun{
+#' otargen::pheWAS(variantid = "14_87978408_G_A") %>% otargen::plot_phewas(disease = TRUE)
+#'}
 #' @export
 #'
 plot_phewas <- function(data, disease = TRUE, source = c("GCST", "FINNGEN", "NEALE", "SAIGE")) {

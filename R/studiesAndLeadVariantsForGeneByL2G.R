@@ -22,12 +22,12 @@
 #'
 
 #' @examples
-#' studiesAndLeadVariantsForGeneByL2G(ensembl_ids = list("ENSG00000163946",
+#' \dontrun{
+#' otargen::studiesAndLeadVariantsForGeneByL2G(ensembl_ids = list("ENSG00000163946",
 #'  "ENSG00000169174", "ENSG00000143001"), l2g = 0.7)
-#' or
-#' studiesAndLeadVariantsForGeneByL2G(ensembl_ids = "ENSG00000169174",
+#' otargen::studiesAndLeadVariantsForGeneByL2G(ensembl_ids = "ENSG00000169174",
 #' l2g = 0.6, pvalue = 1e-8, vtype = c("intergenic_variant", "intron_variant"))
-#'
+#'}
 #' @export
 #'
 #'

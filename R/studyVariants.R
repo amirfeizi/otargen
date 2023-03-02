@@ -7,8 +7,9 @@
 #' about the loci genes.
 #'
 #' @examples
-#' studyVariants(studyid = "GCST003155")
-#'
+#' \dontrun{
+#' otargen::studyVariants(studyid = "GCST003155")
+#'}
 #' @export
 #'
 

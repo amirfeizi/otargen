@@ -12,8 +12,9 @@
 #' @return A list containing a data frame of overlap information and the variant intersection set.
 #'
 #' @examples
-#' overlapInfoForStudy(studyid="GCST90002357", studyids=list("GCST90025975","GCST90025962"))
-#'
+#' \dontrun{
+#' otargen::overlapInfoForStudy(studyid="GCST90002357", studyids=list("GCST90025975","GCST90025962"))
+#' }
 #' @export
 #'
 #'
