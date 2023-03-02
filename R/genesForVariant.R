@@ -124,10 +124,12 @@ genesForVariant <- function(variantid) {
 
   result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$v2g_query, variables), flatten = TRUE)$data
   result_df <- as.data.frame(result$genesForVariant) %>%
-    dplyr::arrange(desc(overallScore))
+    dplyr::arrange(desc(result$overallScore))
 
   if (nrow(result_df)!=0){
  # parsing the nested json output in tidy data table format
+
+    utils::globalVariables(result_df)
   result_core <- result_df %>% dplyr::select(gene.symbol, variant, overallScore, gene.id )
 
 

@@ -140,6 +140,8 @@ studiesAndLeadVariantsForGeneByL2G <- function(ensembl_ids,
 
     output1 <- jsonlite::fromJSON(output0, flatten = TRUE) # convert the query output from json
 
+    utils::globalVariables(names(output1))
+
     if (length(output1$data$studiesAndLeadVariantsForGeneByL2G) != 0) {
       ## tidying the output
 
