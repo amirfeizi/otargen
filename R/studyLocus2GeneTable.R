@@ -12,10 +12,10 @@
 #' @return Dataframe with summary stats of the study and datatable of the various calculated scores and features for any lead variant.
 #'
 #' @examples
-#' studyLocus2GeneTable(studyid = "GCST90002357", variantid = "1_154119580_C_A")
-#' or
-#' studyLocus2GeneTable(studyid = "GCST90002357", variantid = "rs2494663")
-#'
+#' \dontrun{
+#' otargen::studyLocus2GeneTable(studyid = "GCST90002357", variantid = "1_154119580_C_A")
+#' otargen::studyLocus2GeneTable(studyid = "GCST90002357", variantid = "rs2494663")
+#'}
 #' @export
 #'
 #'

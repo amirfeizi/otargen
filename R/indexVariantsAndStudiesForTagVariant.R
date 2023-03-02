@@ -16,10 +16,10 @@
 #' @return Dataframe containing the variant associated to the input tag variant.
 #'
 #' @examples
-#' indexVariantsAndStudiesForTagVariant(variantid = "1_109274968_G_T")
-#' or
-#' indexVariantsAndStudiesForTagVariant(variantid = "rs12740374", pageindex = 1, pagesize = 50)
-#'
+#' \dontrun{
+#' otargen::indexVariantsAndStudiesForTagVariant(variantid = "1_109274968_G_T")
+#' otargen::indexVariantsAndStudiesForTagVariant(variantid = "rs12740374", pageindex = 1, pagesize = 50)
+#' }
 #' @export
 #'
 #'

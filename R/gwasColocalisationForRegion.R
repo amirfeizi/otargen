@@ -18,8 +18,9 @@
 #' @returns Data frame with GWAS colocalisation data for a specified region.
 #'
 #' @examples
-#' gwasColocalisationForRegion(chromosome = "1", start = 153992685, end = 154155116)
-#'
+#' \dontrun{
+#' otargen::gwasColocalisationForRegion(chromosome = "1", start = 153992685, end = 154155116)
+#' }
 #' @export
 #'
 #'

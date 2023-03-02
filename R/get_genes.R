@@ -10,8 +10,9 @@
 #' @return tibble data table containing the details of all the genes in the mentioned locus.
 #'
 #' @examples
-#' get_genes(chromosome = "2", start = 239634984, end = 241634984)
-#'
+#' \dontrun{
+#' otargen::get_genes(chromosome = "2", start = 239634984, end = 241634984)
+#' }
 #' @export
 #'
 #'

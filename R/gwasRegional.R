@@ -14,8 +14,9 @@
 #' @return Data frame of variants and p-val.
 #'
 #' @examples
-#' gwasRegional(studyid="GCST90002357", chromosome="1", start=153992685, end=154155116)
-#'
+#' \dontrun{
+#' otargen::gwasRegional(studyid="GCST90002357", chromosome="1", start=153992685, end=154155116)
+#' }
 #' @export
 #'
 #'

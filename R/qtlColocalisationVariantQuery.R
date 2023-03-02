@@ -10,10 +10,10 @@
 #' @return A data frame of the colocalisation information for a lead variant.
 #'
 #' @examples
-#' qtlColocalisationVariantQuery(studyid="GCST90002357",variantid="1_154119580_C_A")
-#' or
-#' qtlColocalisationVariantQuery(studyid="GCST90002357",variantid="rs2494663")
-#'
+#' \dontrun{
+#' otargen::qtlColocalisationVariantQuery(studyid="GCST90002357",variantid="1_154119580_C_A")
+#' otargen::qtlColocalisationVariantQuery(studyid="GCST90002357",variantid="rs2494663")
+#'}
 #' @export
 #'
 #'

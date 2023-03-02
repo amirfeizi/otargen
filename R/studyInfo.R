@@ -12,8 +12,9 @@
 #' @return tibble data table containing the study information.
 #'
 #' @examples
-#' studyInfo(studyid = "GCST90002357")
-#'
+#' \dontrun{
+#' otargen::studyInfo(studyid = "GCST90002357")
+#'}
 #' @export
 #'
 #'

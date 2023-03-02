@@ -11,10 +11,10 @@
 #' @return Data frame of results from credible set of variants for a specific lead variant.
 #'
 #' @examples
-#' gwasCredibleSet(studyid="GCST90002357", variantid="1_154119580_C_A")
-#' or
-#' gwasCredibleSet(studyid="GCST90002357", variantid="rs2494663")
-#'
+#' \dontrun{
+#' otargen::gwasCredibleSet(studyid="GCST90002357", variantid="1_154119580_C_A")
+#' otargen::gwasCredibleSet(studyid="GCST90002357", variantid="rs2494663")
+#' }
 #' @export
 #'
 

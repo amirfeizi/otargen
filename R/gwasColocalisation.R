@@ -13,10 +13,10 @@
 #' @return Data frame of the studies which colocalise with the input variant and study.
 #'
 #' @examples
-#' gwasColocalisation(studyid = "GCST90002357", variantid = "1_154119580_C_A")
-#' or
-#' gwasColocalisation(studyid = "GCST90002357", variantid = "rs2494663")
-#'
+#' \dontrun{
+#' otargen::gwasColocalisation(studyid = "GCST90002357", variantid = "1_154119580_C_A")
+#' otargen::gwasColocalisation(studyid = "GCST90002357", variantid = "rs2494663")
+#' }
 #' @export
 #'
 #'

@@ -10,8 +10,9 @@
 #' negative logarithm of p-value on the y-axis.
 #'
 #' @examples
-#' manhattan(studyid = "GCST003044") %>% plot_manhattan()
-#'
+#' \dontrun{
+#' otargen::manhattan(studyid = "GCST003044") %>% otargen::plot_manhattan()
+#'}
 #' @export
 #'
 

@@ -8,9 +8,9 @@
 #' @export
 #'
 #' @examples
-#'
-#' run_custom_query (variableList, query, query_name)
-#'
+#'\dontrun{
+#' otargen::run_custom_query (variableList, query, query_name)
+#'}
 #'
 run_custom_query <- function(variableList, query, query_name) {
 
