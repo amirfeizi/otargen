@@ -129,7 +129,6 @@ genesForVariant <- function(variantid) {
   if (nrow(result_df)!=0){
  # parsing the nested json output in tidy data table format
 
-    utils::globalVariables(result_df)
   result_core <- result_df %>% dplyr::select(gene.symbol, variant, overallScore, gene.id )
 
 
