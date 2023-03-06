@@ -20,7 +20,9 @@ Plot the the scores obtained from the L2G model results
 }
 \examples{
 \dontrun{
-otargen::studiesAndLeadVariantsForGeneByL2G(list("ENSG00000167207","ENSG00000096968","ENSG00000138821", "ENSG00000125255")) \%>\% otargen::plot_l2g(disease = "EFO_0003767")
+studiesAndLeadVariantsForGeneByL2G(list("ENSG00000167207",
+"ENSG00000096968","ENSG00000138821", "ENSG00000125255")) \%>\%
+otargen::plot_l2g(disease = "EFO_0003767")
 }
 
 }

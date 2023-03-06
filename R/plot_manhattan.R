@@ -13,6 +13,9 @@
 #' \dontrun{
 #' otargen::manhattan(studyid = "GCST003044") %>% otargen::plot_manhattan()
 #'}
+#' @import dplyr
+#' @import ggplot2
+#' @importFrom magrittr %>%
 #' @export
 #'
 

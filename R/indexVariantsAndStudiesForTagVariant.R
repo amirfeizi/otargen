@@ -17,9 +17,12 @@
 #'
 #' @examples
 #' \dontrun{
-#' otargen::indexVariantsAndStudiesForTagVariant(variantid = "1_109274968_G_T")
-#' otargen::indexVariantsAndStudiesForTagVariant(variantid = "rs12740374", pageindex = 1, pagesize = 50)
+#' indexVariantsAndStudiesForTagVariant(variantid = "1_109274968_G_T")
+#' indexVariantsAndStudiesForTagVariant(variantid = "rs12740374",
+#'  pageindex = 1, pagesize = 50)
 #' }
+#' @import dplyr
+#' @importFrom magrittr %>%
 #' @export
 #'
 #'

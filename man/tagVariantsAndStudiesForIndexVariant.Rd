@@ -26,7 +26,8 @@ oddsRatioCILower, oddsRatioCIUpper, posteriorProbability, beta, betaCILower, bet
 }
 \examples{
 \dontrun{
-otargen::tagVariantsAndStudiesForIndexVariant(variantid = "1_109274968_G_T")
-otargen::tagVariantsAndStudiesForIndexVariant(variantid = "1_109274968_G_T", pageindex = 1, pagesize = 50)
+tagVariantsAndStudiesForIndexVariant(variantid = "1_109274968_G_T")
+tagVariantsAndStudiesForIndexVariant(variantid = "1_109274968_G_T",
+ pageindex = 1, pagesize = 50)
 }
 }

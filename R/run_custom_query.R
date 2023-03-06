@@ -3,7 +3,7 @@
 #' @param variableList is a list format which includes the key value pair list of genes/variants/study ids to be queries.
 #' @param query is a GraphQL desired query body to be run.
 #' @param query_name is a string format of the query name
-#'
+#' @importFrom magrittr %>%
 #' @return a flatten json file format
 #' @export
 #'

@@ -6,6 +6,8 @@
 #' \dontrun{
 #' otargen::pheWAS("1_154549918_C_A")
 #' }
+#' @import dplyr
+#' @importFrom magrittr %>%
 #' @export
 #'
 

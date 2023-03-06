@@ -18,6 +18,7 @@
 #' otargen::topOverlappedStudies(studyid = "GCST006614_3")
 #' otargen::topOverlappedStudies(studyid = "NEALE2_6177_1", pageindex = 1, pagesize = 50)
 #'}
+#' @importFrom magrittr %>%
 #' @export
 #'
 #'

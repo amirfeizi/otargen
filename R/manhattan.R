@@ -11,6 +11,8 @@
 #' otargen::manhattan(studyid = "GCST90002357")
 #' otargen::manhattan(studyid = "GCST90002357", pageindex = 2, pagesize = 50)
 #' }
+#' @import dplyr
+#' @importFrom magrittr %>%
 #' @export
 #'
 #'

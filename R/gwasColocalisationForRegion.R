@@ -21,6 +21,8 @@
 #' \dontrun{
 #' otargen::gwasColocalisationForRegion(chromosome = "1", start = 153992685, end = 154155116)
 #' }
+#' @import dplyr
+#' @importFrom magrittr %>%
 #' @export
 #'
 #'

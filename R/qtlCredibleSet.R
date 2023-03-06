@@ -12,9 +12,11 @@
 #'
 #' @examples
 #' \dontrun{
-#' otargen::qtlCredibleSet(studyid="Braineac2", variantid="1_55053079_C_T", geneid="ENSG00000169174", biofeature="SUBSTANTIA_NIGRA")
+#' qtlCredibleSet(studyid="Braineac2", variantid="1_55053079_C_T",
+#'  geneid="ENSG00000169174", biofeature="SUBSTANTIA_NIGRA")
 #'}
 #'
+#' @importFrom magrittr %>%
 #' @export
 #'
 #'

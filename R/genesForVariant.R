@@ -13,6 +13,8 @@
 #' otargen::genesForVariant(variantid = "rs4129267")
 #' }
 #' @export
+#' @import dplyr
+#' @importFrom magrittr %>%
 #'
 #'
 

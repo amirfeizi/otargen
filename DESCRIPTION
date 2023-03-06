@@ -16,6 +16,8 @@ Imports:
     ggplot2,
     ggrepel,
     jsonlite,
+    rlang,
+    magrittr,
     stringr,
     tibble,
     tidyr

@@ -10,6 +10,7 @@
 #' \dontrun{
 #' otargen::studyVariants(studyid = "GCST003155")
 #'}
+#' @importFrom magrittr %>%
 #' @export
 #'
 

@@ -10,6 +10,7 @@
 #'  "ENSG00000169174", "ENSG00000143001"))
 #' otargen::studiesAndLeadVariantsForGene(ensembl_ids = "ENSG00000169174")
 #'}
+#' @importFrom magrittr %>%
 #' @export
 #'
 #'

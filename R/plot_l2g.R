@@ -5,12 +5,17 @@
 #'
 #' @return A radar plot for the input disease and the genes associated with that disease. The variables shown include L2G score, chromatin interaction, variant
 #' pathogenicity and distance.
+#' @import dplyr
+#' @import ggplot2
+#' @importFrom magrittr %>%
 #'
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' otargen::studiesAndLeadVariantsForGeneByL2G(list("ENSG00000167207","ENSG00000096968","ENSG00000138821", "ENSG00000125255")) %>% otargen::plot_l2g(disease = "EFO_0003767")
+#' studiesAndLeadVariantsForGeneByL2G(list("ENSG00000167207",
+#' "ENSG00000096968","ENSG00000138821", "ENSG00000125255")) %>%
+#' otargen::plot_l2g(disease = "EFO_0003767")
 #'}
 #'
 

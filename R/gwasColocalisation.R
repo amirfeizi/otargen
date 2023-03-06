@@ -17,6 +17,8 @@
 #' otargen::gwasColocalisation(studyid = "GCST90002357", variantid = "1_154119580_C_A")
 #' otargen::gwasColocalisation(studyid = "GCST90002357", variantid = "rs2494663")
 #' }
+#' @import dplyr
+#' @importFrom magrittr %>%
 #' @export
 #'
 #'

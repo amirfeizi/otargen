@@ -15,6 +15,7 @@
 #' \dontrun{
 #' otargen::studyInfo(studyid = "GCST90002357")
 #'}
+#' @importFrom magrittr %>%
 #' @export
 #'
 #'

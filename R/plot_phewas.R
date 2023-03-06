@@ -10,6 +10,9 @@
 #' \dontrun{
 #' otargen::pheWAS(variantid = "14_87978408_G_A") %>% otargen::plot_phewas(disease = TRUE)
 #'}
+#' @import dplyr
+#' @import ggplot2
+#' @importFrom magrittr %>%
 #' @export
 #'
 plot_phewas <- function(data, disease = TRUE, source = c("GCST", "FINNGEN", "NEALE", "SAIGE")) {

@@ -15,6 +15,8 @@
 #' \dontrun{
 #' otargen::overlapInfoForStudy(studyid="GCST90002357", studyids=list("GCST90025975","GCST90025962"))
 #' }
+#' @import dplyr
+#' @importFrom magrittr %>%
 #' @export
 #'
 #'

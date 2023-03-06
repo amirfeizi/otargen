@@ -14,6 +14,10 @@
 #' otargen::qtlColocalisationVariantQuery(studyid="GCST90002357",variantid="1_154119580_C_A")
 #' otargen::qtlColocalisationVariantQuery(studyid="GCST90002357",variantid="rs2494663")
 #'}
+#' @import dplyr
+#' @import cli
+#' @import ghql
+#' @importFrom magrittr %>%
 #' @export
 #'
 #'

@@ -9,13 +9,17 @@
 #' Publication_date, Journal, and Pubmed_id.
 #'
 #' @param ensembl_ids String: one or more gene ENSEMBL identifier.
+#' @import dplyr
+#' @importFrom magrittr %>%
+#' @import rlang
 #'
 #' @return a tibble including the queries gene(s) colocalisation data
 #'
 #'
 #' @examples
 #' \dontrun{
-#' otargen::colocalisationsForGene(ensembl_ids=list("ENSG00000163946", "ENSG00000169174", "ENSG00000143001"))
+#' otargen::colocalisationsForGene(ensembl_ids=list("ENSG00000163946",
+#'  "ENSG00000169174", "ENSG00000143001"))
 #' otargen::colocalisationsForGene(ensembl_ids="ENSG00000169174")
 #' }
 #' @export

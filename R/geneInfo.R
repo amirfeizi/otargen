@@ -12,6 +12,8 @@
 #' \dontrun{
 #' otargen::geneInfo(geneid = "ENSG00000169174")
 #' }
+#' @import dplyr
+#' @importFrom magrittr %>%
 #' @export
 #'
 #'

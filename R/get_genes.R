@@ -13,6 +13,8 @@
 #' \dontrun{
 #' otargen::get_genes(chromosome = "2", start = 239634984, end = 241634984)
 #' }
+#' @import dplyr
+#' @importFrom magrittr %>%
 #' @export
 #'
 #'
