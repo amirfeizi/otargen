@@ -118,7 +118,6 @@ genesForVariant <- function(variantid) {
   result_pkg = list()
 
   variables <- list(variantId = input_variantid)
-  variables <- list(variantId = "1_154453788_C_T")
 
 
   otg_qry$query(name = "v2g_query", x = query)
