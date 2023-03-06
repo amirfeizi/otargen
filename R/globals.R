@@ -13,4 +13,4 @@ utils::globalVariables(c("BP","BPcum","CHR","EFO_ID","Gene_name","L2G_score","Le
 "study.traitReported","study.traitReported_trimmed","tissue.name","tot",".",
 "values","variant","variant.chromosome","variant.id",
 "variant.mostSevereConsequence","variant.position","variantIdA",
-"variantIdB","yProbaModel","yProbaPathogenicity"))
+"variantIdB","yProbaModel","yProbaPathogenicity","where"))
