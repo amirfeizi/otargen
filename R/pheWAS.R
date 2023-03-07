@@ -4,7 +4,8 @@
 #' @returns A data frame with PheWAS associations in it
 #' @examples
 #' \dontrun{
-#' otargen::pheWAS("1_154549918_C_A")
+#' otargen::pheWAS(variantid ="1_154549918_C_A")
+#' otargen::pheWAS(variantid ="rs72698179")
 #' }
 #' @import dplyr
 #' @importFrom magrittr %>%

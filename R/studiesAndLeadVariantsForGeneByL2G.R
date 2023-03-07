@@ -1,6 +1,6 @@
 #' Retrieves L2G model summary data for a gene.
 #'
-#' For one or more input ENSEMBL ids, a table is generated with following columns-
+#' For one or more input ENSEMBL ids or gene names, a table is generated with following columns-
 #' yProbaModel (L2G score), yProbaDistance, yProbaInteraction (chromatin interaction),
 #' yProbaMolecularQTL, yProbaPathogenicity, pval, beta.direction, beta.betaCI, beta.betaCILower
 #' beta.betaCIUpper, odds.oddsCI, odds.oddsCILower, odds.oddsCIUpper, study.studyId,
@@ -11,7 +11,7 @@
 #' variant.nearestGene.id, variant.nearestCodingGene.id, ensembl_id, and gene_symbol.
 #'
 #'
-#' @param ensembl_ids String: one or more gene ENSEMBL id.
+#' @param genes String: one or more gene ENSEMBL id or gene names.
 #' @param l2g Float: locus to gene cut off score.
 #' @param pvalue Float: pvalue cut off.
 #' @param vtype Character vector: most severe consequence to filter the variants type including c(intergenic_variant",
@@ -23,13 +23,14 @@
 
 #' @examples
 #' \dontrun{
-#' otargen::studiesAndLeadVariantsForGeneByL2G(ensembl_ids =
+#' otargen::studiesAndLeadVariantsForGeneByL2G(genes =
 #' list("ENSG00000163946",
 #'  "ENSG00000169174", "ENSG00000143001"), l2g = 0.7)
 #' otargen::studiesAndLeadVariantsForGeneByL2G(
-#' ensembl_ids = "ENSG00000169174",
+#' genes = "ENSG00000169174",
 #' l2g = 0.6, pvalue = 1e-8,
 #' vtype = c("intergenic_variant", "intron_variant"))
+#' otargen::studiesAndLeadVariantsForGeneByL2G(genes ="TMEM61")
 #'}
 #' @importFrom magrittr %>%
 #' @export
@@ -37,22 +38,54 @@
 #'
 
 
-studiesAndLeadVariantsForGeneByL2G <- function(ensembl_ids,
+studiesAndLeadVariantsForGeneByL2G <- function(genes,
                                                l2g = 0.4,
                                                pvalue = 5e-8,
                                                vtype = NULL) {
-  # Check ensembl id format
-  if (length(ensembl_ids) == 1) {
-    if (!grepl(pattern = "ENSG\\d{11}", ensembl_ids)) {
-      stop("\n Please provide Ensemble gene ID")
-    }
-  } else {
-    for (i in ensembl_ids) {
-      if (!grepl(pattern = "ENSG\\d{11}", i)) {
-        stop("\n Please provide Ensemble gene ID")
+
+  # make a graphql connection
+
+  cli::cli_progress_step("Connecting the database...", spinner = TRUE)
+  con <- ghql::GraphqlClient$new("https://api.genetics.opentargets.org/graphql")
+  # Set up to query Open Targets Platform API
+  qry <- ghql::Query$new()
+
+  # Check gene format
+  #Query for gene name search
+  query_search <- "query convertnametoid($queryString:String!) {
+    search(queryString:$queryString){
+      genes{
+        id
+        symbol
+      }
+      }
+    }"
+
+  # Check format
+  match_result <- grepl(pattern = "ENSG\\d{11}", genes)
+  df_id = data.frame()
+
+  if (all(match_result) == FALSE){
+    for (g in genes) {
+      variables <- list(queryString = g)
+      qry$query(name = "convertnametoid", x = query_search)
+      id_result <- jsonlite::fromJSON(con$exec(qry$queries$convertnametoid, variables), flatten = TRUE)$data
+      id <- as.data.frame(id_result$search$genes)
+      if (nrow(id)!=0){
+        name_match <- id[id$symbol == g, ]
+        ensembl_ids <- name_match$id
+        df_id <- dplyr::bind_rows(df_id, as.data.frame(ensembl_ids))
       }
     }
+    if (nrow(df_id)==0){
+      stop("\nPlease provide Ensemble gene ID or gene name")
+    } else {
+      ensembl_ids <- as.list(df_id$ensembl_ids)
+    }
+  } else {
+    ensembl_ids <- genes
   }
+
 
   query <- "query	studiesAndLeadl2g($gene:String!) {
 
@@ -123,17 +156,9 @@ studiesAndLeadVariantsForGeneByL2G <- function(ensembl_ids,
 
   final_output <- data.frame()
 
-  # make a graphql connection
-
-  cli::cli_progress_step("Connecting the database...", spinner = TRUE)
-  con <- ghql::GraphqlClient$new("https://api.genetics.opentargets.org/graphql")
-
   for (input_gene in ensembl_ids) {
     variables <- list(gene = input_gene)
     cli::cli_progress_step(paste0("Downloading data for ", input_gene, " ..."), spinner = TRUE)
-
-    # Set up to query Open Targets Platform API
-    qry <- ghql::Query$new()
 
     # Query for targets associated with a disease and L2G scores
 

@@ -10,8 +10,8 @@
 #'
 #' @examples
 #' \dontrun{
-#' otargen::colocalisationsForGene(ensembl_ids = "ENSG00000169174") %>%
-#' otargen::plot_coloc(biobank = FALSE)
+#' otargen::colocalisationsForGene(genes = "ENSG00000169174") %>% otargen::plot_coloc(biobank = FALSE)
+#' otargen::colocalisationsForGene(genes = "PCSK9") %>% otargen::plot_coloc(biobank = TRUE)
 #' }
 #' @import dplyr
 #' @import ggplot2

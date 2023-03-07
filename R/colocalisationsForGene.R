@@ -18,7 +18,8 @@
 #'
 #' @examples
 #' \dontrun{
-#' otargen::colocalisationsForGene(genes=list("ENSG00000163946", "ENSG00000169174", "ENSG00000143001"))
+#' otargen::colocalisationsForGene(genes=list("ENSG00000163946",
+#' "ENSG00000169174", "ENSG00000143001"))
 #' otargen::colocalisationsForGene(genes="ENSG00000169174")
 #' otargen::colocalisationsForGene(genes=list("TP53", "TASOR"))
 #' otargen::colocalisationsForGene(genes="TP53")
@@ -48,13 +49,13 @@ colocalisationsForGene <- function(genes) {
   df_id = data.frame()
 
   if (all(match_result) == FALSE){
-    for (i in genes) {
-    variables <- list(queryString = i)
+    for (g in genes) {
+    variables <- list(queryString = g)
     qry$query(name = "convertnametoid", x = query_search)
     id_result <- jsonlite::fromJSON(con$exec(qry$queries$convertnametoid, variables), flatten = TRUE)$data
     id <- as.data.frame(id_result$search$genes)
     if (nrow(id)!=0){
-        name_match <- id[id$symbol == i, ]
+        name_match <- id[id$symbol == g, ]
         ensembl_ids <- name_match$id
         df_id <- dplyr::bind_rows(df_id, as.data.frame(ensembl_ids))
     }
@@ -152,7 +153,7 @@ if (nrow(colocal2) != 0) {
                                          study.numAssocLoci, study.nInitial, study.nReplication, study.nCases,
                                          study.pubDate, study.pubJournal, study.pmid) %>% dplyr::mutate(dplyr::across(where(is.numeric), ~ round(., 2)))
 
-  colnames(colocal2) <- c("Study", "Trait_reported", "Lead_variant", "Gene_symbol","Gene_id",
+  colnames(colocal2) <- c("Study", "Trait_reported", "Lead_variant", "Molecular_trait", "Gene_symbol",
                           "Tissue", "Source", "H3", "H4", "log2(H4/H3)", "Title", "Author", "Has_sumstats", "numAssocLoci",
                           "nInitial cohort", "study_nReplication", "study_nCases", "Publication_date", "Journal", "Pubmed_id")
 
