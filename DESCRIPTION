@@ -8,12 +8,19 @@ Description: This is an R package that uses Graph QL query languages to search a
 Depends: R (>= 3.1.0)
 LazyData: true
 Imports: 
-    tidyverse,
     ghql,
-    rjson,
-    conflicted,
-    data.table,
-    plotly
+    janitor,
+    ggiraphExtra,
+    cli,
+    dplyr,
+    ggplot2,
+    ggrepel,
+    jsonlite,
+    rlang,
+    magrittr,
+    stringr,
+    tibble,
+    tidyr
 License: MIT + file LICENSE
 Encoding: UTF-8
 Suggests: 

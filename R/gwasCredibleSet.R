@@ -1,10 +1,22 @@
-#' Get gwas credible set data for a variant in a study
+#' Get GWAS credible set data for a variant in a study
 #'
-#' @param studyid is the Open Target Genetics generated id for gwas studies.
-#' @param variantid is Open Target Genetics generated id for each variant in the databse.
-#' @return A data frame of results from credible set of variants for a specific lead variant.
+#' Provided with study id and a lead variant id parameters,
+#' this functions returns a data table in tibble format including all associated credible
+#' set tag variants with the corresponding statistical data. The output table contains the following columns-
+#' tagVariant.id, tagVariant.rsId, beta, postProb, pval, se (standard error), MultisignalMethod, logABF, is95, is99.
+#'
+#' @param studyid String: Open Target Genetics generated id for GWAS study.
+#' @param variantid String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
+#'
+#' @return Data frame of results from credible set of variants for a specific lead variant.
+#'
 #' @examples
-#' gwasCredibleSet("GCST90002357", "1_154119580_C_A")
+#' \dontrun{
+#' otargen::gwasCredibleSet(studyid="GCST90002357", variantid="1_154119580_C_A")
+#' otargen::gwasCredibleSet(studyid="GCST90002357", variantid="rs2494663")
+#' }
+#' @import dplyr
+#' @importFrom magrittr %>%
 #' @export
 #'
 
@@ -46,13 +58,11 @@ gwasCredibleSet <- function(studyid, variantid) {
     stop("\n Please provide a variant Id")
   }
 
-
-
-
   query <- "query credsetQuery($studyId: String!, $variantId: String!){
   gwasCredibleSet(studyId: $studyId, variantId: $variantId) {
     tagVariant {
       id
+      rsId
     }
     beta
     postProb
@@ -71,14 +81,12 @@ gwasCredibleSet <- function(studyid, variantid) {
 
   otg_qry$query(name = "credset_query", x =  query)
 
-  #variables <- list(studyId = "FINNGEN_R5_G6_AD_WIDE_EXMORE", variantId = "19_44908822_C_T")
-
   cli::cli_progress_step("Downloading the data...", spinner = TRUE)
   result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$credset_query,
                                             variables, flatten = TRUE))$data
 
-  result <- result$gwasCredibleSet %>% as.data.frame()
+  output <- result$gwasCredibleSet %>% dplyr::tibble()
 
-  return(result)
+  return(output)
 
 }

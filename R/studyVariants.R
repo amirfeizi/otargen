@@ -1,18 +1,23 @@
-#' Get variants information for an input study identifier
+#' Retrieves variants information for an input study identifier
 #'
 #'
-#' @param studyId is a Open Targets Genetics generated id for each GWAS study.
-#' @return A dataframe containing the all the variants information for all associated loci.
+#' @param studyid String: Open Targets Genetics generated id for GWAS study.
+#'
+#' @return A list containing all the variants information for all associated loci and information
+#' about the loci genes.
+#'
 #' @examples
-#' studyVariants(studyId= "GCST003155")
+#' \dontrun{
+#' otargen::studyVariants(studyid = "GCST003155")
+#'}
+#' @importFrom magrittr %>%
 #' @export
 #'
 
 studyVariants <- function(studyid) {
-
   ## Set up to query Open Targets Genetics API
   variables <- list(studyId = studyid)
-  #variables <- list(studyId = "GCST003155")
+  # variables <- list(studyId = "GCST003155")
 
   cli::cli_progress_step("Connecting the database...", spinner = TRUE)
   otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
@@ -61,21 +66,21 @@ studyVariants <- function(studyid) {
 
   ## Execute the query
 
-  otg_qry$query(name = "StudyVariants", x =  query)
+  otg_qry$query(name = "StudyVariants", x = query)
 
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
-  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$StudyVariants, variables), flatten=TRUE)$data
+  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$StudyVariants, variables), flatten = TRUE)$data
   loci_all <- as.data.frame(result$manhattan$associations) %>% dplyr::arrange(pval)
   loci_all_core <- loci_all %>% dplyr::select(-bestGenes)
-  loci_all_core <- loci_all_core[, c(11,1,17,12:15,2:4,7,10)]
+  loci_all_core <- loci_all_core[, c(11, 1, 17, 12:15, 2:4, 7, 10)]
   loci_all_best_genes <- loci_all$bestGenes
 
   final_output <- list(loci_data = loci_all_core, loci_genes = loci_all_best_genes)
 
 
 
-  if (nrow(final_output$loci_data)==0){
+  if (nrow(final_output$loci_data) == 0) {
     final_output <- data.frame()
   }
-  return (final_output)
+  return(final_output)
 }

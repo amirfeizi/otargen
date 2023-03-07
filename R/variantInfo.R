@@ -1,16 +1,28 @@
-#' Gets the information about the input variant id.
+#' Retrieves the information about the input variant id.
 #'
+#' For an input variant id, a table is generated with the following columns -
+#' chromosome, position, refAllele, altAllele, rsId, chromosomeB37 , positionB37, id,
+#' nearestGene.id, nearestGene.symbol, nearestGeneDistance, nearestCodingGene.id, nearestCodingGene.symbol,
+#' nearestCodingGeneDistance, mostSevereConsequence, caddRaw, caddPhred, gnomadAFR,	gnomadAMR,	gnomadASJ,
+#' gnomadEAS, gnomadFIN,	gnomadNFE,	gnomadNFEEST,	gnomadNFENWE,	gnomadNFESEU,	gnomadNFEONF, and	gnomadOTH.
 #'
-#' @param variantid is the Open Target Genetics generated id for each variant in the database.
-#' @return A dataframe containing the variant information.
+#' @param variantid String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
+#'
+#' @return Data frame containing the variant information with the above mentioned columns.
+#'
 #' @examples
-#' variantInfo("1_55039974_G_T")
-#' variantInfo("rs4129267")
+#' \dontrun{
+#' otargen::var_info <- variantInfo(variantid = "1_55039974_G_T")
+#' otargen::var_info <- variantInfo(variantid = "rs11591147")
+#'}
+#' @importFrom magrittr %>%
+#' @import dplyr
+#' @import tidyr
 #' @export
 #'
-
+#'
+#'
 variantInfo <- function(variantid) {
-
   ## Set up to query Open Targets Genetics API
 
 
@@ -20,7 +32,6 @@ variantInfo <- function(variantid) {
 
   # Check variant id format
   if (grepl(pattern = "rs\\d+", variantid)) {
-
     # Convert rs id to variant id
     query_searchid <- "query ConvertRSIDtoVID($queryString:String!) {
     search(queryString:$queryString){
@@ -33,16 +44,11 @@ variantInfo <- function(variantid) {
 
     variables <- list(queryString = variantid)
     otg_qry$query(name = "convertid", x = query_searchid)
-    id_result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$convertid, variables), flatten=TRUE)$data
+    id_result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$convertid, variables), flatten = TRUE)$data
     input_variantid <- id_result$search$variants$id
-  }
-
-  else if (grepl(pattern = "\\d+_\\d+_[a-zA-Z]+_[a-zA-Z]+", variantid))
-  {
+  } else if (grepl(pattern = "\\d+_\\d+_[a-zA-Z]+_[a-zA-Z]+", variantid)) {
     input_variantid <- variantid
-  }
-  else
-  {
+  } else {
     stop("\n Please provide a variant Id")
   }
 
@@ -89,10 +95,10 @@ variantInfo <- function(variantid) {
 
   variables <- list(variantId = input_variantid)
 
-  otg_qry$query(name = "variantInfoquery", x =  query)
+  otg_qry$query(name = "variantInfoquery", x = query)
 
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
-  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$variantInfoquery, variables), flatten = TRUE)$data
-  result <- as.data.frame(result$variantInfo)
-  return (result)
+  var_info <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$variantInfoquery, variables), flatten = TRUE)$data
+  var_info <- as.data.frame(var_info$variantInfo)
+  return(var_info)
 }

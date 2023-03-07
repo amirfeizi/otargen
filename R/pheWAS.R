@@ -3,8 +3,12 @@
 #' @param variantid is the Open Target Genetics generated id for each variants
 #' @returns A data frame with PheWAS associations in it
 #' @examples
-#' pheWAS("1_154549918_C_A")
-#' pheWAS("1_154562290_G_A")
+#' \dontrun{
+#' otargen::pheWAS(variantid ="1_154549918_C_A")
+#' otargen::pheWAS(variantid ="rs72698179")
+#' }
+#' @import dplyr
+#' @importFrom magrittr %>%
 #' @export
 #'
 

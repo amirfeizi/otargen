@@ -1,0 +1,7 @@
+test_that("test get_genes works", {
+  expected <- otargen::get_genes(chromosome = "2", start = 239634984, end = 241634984)
+  expect_s3_class(expected, c("tbl_df", "tbl", "data.frame"))
+  expect_named(expected, c("id", "symbol","bioType","description","chromosome", "tss", "start","end","fwdStrand","exons"))
+  expect_false(is.null(dim(expected)))
+  expect_error(otargen::get_genes(chromosome = 1, start = "239634984", end = "241634984"))
+})

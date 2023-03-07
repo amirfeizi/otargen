@@ -1,17 +1,33 @@
-#' Get gwas colocalisation data for a given region
+#' Retrieves GWAS colocalisation data for a region.
 #'
-#' @param chromosome chromosome number given as string.
-#' @param start start position of the specified chromosome.
-#' @param end end position of the specified chromosome.
-#' @returns A data frame with gwas colocalisation data containing studies and variants for the queried chromosome and region
+#' With providing a defined chromosomal right this function reruns a tibble data table
+#' of colocalized variants to the left and right side of the provided regions including
+#' the calculated colocalization scores. The following data columns is expected for the output-
+#' leftVariant.id, leftVariant.position, leftVariant.chromosome,
+#' leftVariant.rsId, leftStudy.studyId, leftStudy.traitReported,
+#' leftStudy.traitCategory, rightVariant.id, rightVariant.position,
+#' rightVariant.chromosome, rightVariant.rsId, rightStudy.studyId,
+#' rightStudy.traitReported, rightStudy.traitCategory, h3, h4
+#' and log2h4h3.
+#'
+#' @param chromosome String: chromosome number as string.
+#' @param start Long: start position of the specified chromosome.
+#' @param end Long: end position of the specified chromosome.
+#'
+#'
+#' @returns Data frame with GWAS colocalisation data for a specified region.
+#'
 #' @examples
-#' gwasColocalisationForRegion("1", 153992685, 154155116)
+#' \dontrun{
+#' otargen::gwasColocalisationForRegion(chromosome = "1", start = 153992685, end = 154155116)
+#' }
+#' @import dplyr
+#' @importFrom magrittr %>%
 #' @export
 #'
 #'
 
 gwasColocalisationForRegion <- function(chromosome, start, end) {
-
   ## Set up to query Open Targets Genetics API
   variables <- list(chromosome = chromosome, start = start, end = end)
 
@@ -19,7 +35,7 @@ gwasColocalisationForRegion <- function(chromosome, start, end) {
   otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
   otg_qry <- ghql::Query$new()
 
-  query <- "query gwascolforregquery($chromosome: String!, $start: Long!, $end: Long!){
+  query <- "query gwasColForReg_query($chromosome: String!, $start: Long!, $end: Long!){
   gwasColocalisationForRegion(chromosome: $chromosome, start: $start, end: $end) {
     leftVariant{
       id
@@ -30,6 +46,7 @@ gwasColocalisationForRegion <- function(chromosome, start, end) {
   leftStudy{
     studyId
     traitReported
+    traitCategory
   }
   rightVariant
   {
@@ -41,6 +58,7 @@ gwasColocalisationForRegion <- function(chromosome, start, end) {
   rightStudy
   {
     studyId
+    traitReported
     traitCategory
   }
   h3
@@ -50,12 +68,12 @@ gwasColocalisationForRegion <- function(chromosome, start, end) {
 }"
 
   ## Execute the query
-  otg_qry$query(name = "gwascolforreg_query", x = query)
+  otg_qry$query(name = "gwasColForReg_query", x = query)
 
   cli::cli_progress_step("Downloading the data...", spinner = TRUE)
-  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$gwascolforreg_query, variables, flatten=TRUE))$data
+  results <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$gwasColForReg_query, variables, flatten = TRUE))$data
 
-  result_df <- result$gwasColocalisationForRegion %>% as.data.frame
+  output <- results$gwasColocalisationForRegion %>% as.data.frame() %>% dplyr::tibble()
 
-  return(result_df)
+  return(output)
 }

@@ -1,18 +1,33 @@
-#' Gives out index variants and studies for an input tag variant.
+#' Retrieves index variants and studies for a tag variant.
 #'
-#' @param variantid is the Open Target Genetics generated id for each variants.
-#' @param pageIndex pagination index >= 0. Index of the current page.
-#' @param pageSize pagination size > 0. No. of records in a page. Default: 20
-#' @return A dataframe containing the variant associated to the input tag variant.
+#' For an input tag variant id, this function returns a  data table in tibble format
+#' with population level summary stats data columns across various GWAS studies.
+#' The following columns are expected in the output table:
+#' indexVariant, study, pval, pvalMantissa, pvalExponent, nTotal, nCases, overallR2,
+#' afr1000GProp, amr1000GProp, eas1000GProp, eur1000GProp, sas1000GProp, log10Abf,
+#' posteriorProbability, oddsRatio, oddsRatioCILower, oddsRatioCIUpper, beta,
+#' betaCILower, betaCIUpper, direction.
+#'
+#'
+#' @param variantid String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
+#' @param pageindex Int: Index of the current page, pagination index >= 0.
+#' @param pagesize Int: No. of records in a page, pagination size > 0.
+#'
+#' @return Dataframe containing the variant associated to the input tag variant.
+#'
 #' @examples
-#' indexVariantsAndStudiesForTagVariant("1_109274968_G_T")
-#' indexVariantsAndStudiesForTagVariant("rs12740374")
-#' indexVariantsAndStudiesForTagVariant("1_109274968_G_T", pageindex=1, pagesize=50)
+#' \dontrun{
+#' indexVariantsAndStudiesForTagVariant(variantid = "1_109274968_G_T")
+#' indexVariantsAndStudiesForTagVariant(variantid = "rs12740374",
+#'  pageindex = 1, pagesize = 50)
+#' }
+#' @import dplyr
+#' @importFrom magrittr %>%
 #' @export
 #'
+#'
 
-indexVariantsAndStudiesForTagVariant <- function(variantid, pageindex=0, pagesize=20) {
-
+indexVariantsAndStudiesForTagVariant <- function(variantid, pageindex = 0, pagesize = 20) {
   ## Set up to query Open Targets Genetics API
 
   cli::cli_progress_step("Connecting the database...", spinner = TRUE)
@@ -21,7 +36,6 @@ indexVariantsAndStudiesForTagVariant <- function(variantid, pageindex=0, pagesiz
 
   # Check variant id format
   if (grepl(pattern = "rs\\d+", variantid)) {
-
     # Convert rs id to variant id
     query_searchid <- "query ConvertRSIDtoVID($queryString:String!) {
     search(queryString:$queryString){
@@ -34,16 +48,11 @@ indexVariantsAndStudiesForTagVariant <- function(variantid, pageindex=0, pagesiz
 
     variables <- list(queryString = variantid)
     otg_qry$query(name = "convertid", x = query_searchid)
-    id_result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$convertid, variables), flatten=TRUE)$data
+    id_result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$convertid, variables), flatten = TRUE)$data
     input_variantid <- id_result$search$variants$id
-  }
-
-  else if (grepl(pattern = "\\d+_\\d+_[a-zA-Z]+_[a-zA-Z]+", variantid))
-  {
+  } else if (grepl(pattern = "\\d+_\\d+_[a-zA-Z]+_[a-zA-Z]+", variantid)) {
     input_variantid <- variantid
-  }
-  else
-  {
+  } else {
     stop("\n Please provide a variant Id")
   }
 
@@ -85,12 +94,18 @@ indexVariantsAndStudiesForTagVariant <- function(variantid, pageindex=0, pagesiz
 }"
 
   ## Execute the query
-  variables <- list(variantId = input_variantid, pageIndex = pageindex, pageSize=pagesize)
+  variables <- list(variantId = input_variantid, pageIndex = pageindex, pageSize = pagesize)
 
   otg_qry$query(name = "indexvariantsandstudiesquery", x = query)
 
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
-  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$indexvariantsandstudiesquery, variables, flatten=TRUE))$data
-  result <- as.data.frame(result$indexVariantsAndStudiesForTagVariant$associations)
-  return (result)
+  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$indexvariantsandstudiesquery, variables, flatten = TRUE))$data
+  output <- result$indexVariantsAndStudiesForTagVariant$associations %>% dplyr::tibble()
+
+
+  if (nrow(output) == 0) {
+    output <- data.frame()
+  }
+
+  return(output)
 }

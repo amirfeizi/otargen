@@ -1,17 +1,24 @@
-#' Information about genes on an input locus
+#' Retrieves information about genes on an input locus
 #'
+#' This function gets information for a region of a specified chromosome and returns a tibble data table of all the overlapping genes in the specified region with following information columns: id, symbol, bioType,
+#' description, chromosome, tss, start, end, fwdStrand, and exons.
 #'
-#' @param chromosome Chromosome given as a string
-#' @param start start position of the input chromosome
-#' @param end end position of the input chromosome
-#' @return A dataframe containing the details of all the genes in the mentioned locus.
+#' @param chromosome String: chromosome number as string.
+#' @param start Long: start position of the specified chromosome.
+#' @param end Long: end position of the specified chromosome.
+#'
+#' @return tibble data table containing the details of all the genes in the mentioned locus.
+#'
 #' @examples
-#' genes(chromosome="1", start=800, end=500000)
+#' \dontrun{
+#' otargen::get_genes(chromosome = "2", start = 239634984, end = 241634984)
+#' }
+#' @import dplyr
+#' @importFrom magrittr %>%
 #' @export
 #'
-
-genes <- function(chromosome, start, end) {
-
+#'
+get_genes <- function(chromosome, start, end) {
   ## Set up to query Open Targets Genetics API
   variables <- list(chromosome = chromosome, start = start, end = end)
 
@@ -38,12 +45,14 @@ genes <- function(chromosome, start, end) {
 
   ## Execute the query
 
-  otg_qry$query(name = "genesquery", x =  query)
+  otg_qry$query(name = "genesquery", x = query)
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
-  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$genesquery, variables), flatten=TRUE)$data
-  final_output <- as.data.frame(result$genes)
-  if (nrow(final_output)==0){
+
+  genes_result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$genesquery, variables), flatten = TRUE)$data
+  output <- as.data.frame(genes_result$genes) %>% dplyr::tibble()
+
+  if (nrow(output) == 0) {
     final_output <- data.frame()
   }
-  return (final_output)
+  return(output)
 }

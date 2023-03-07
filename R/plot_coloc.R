@@ -1,58 +1,65 @@
-#' Plot the coloc function results
+#' Plot the colocalisation function results
 #'
-#' @param data is the result of colocalisationsForGene function in data frame format, contacting the phewas information for a variand id
-#' @param disease is a logical TRUE and FALSE variable, with the default value of TRUE to filter the phewas data for disease.
-#' @param source is a character vector of choices for data sources of phewas analyis including FINNGEN, GCST, NEAL (UKbioBANK), and SAGE
-#' @param ...
+#' @param data Data Frame: result of colocalisationsForGene function in data
+#' frame format, contacting the phewas information for a variant id
+#' @param biobank Logical: TRUE and FALSE variable, with the default value of
+#' FALSE which will keep the data that are from UKbioBank beside the published GWAS data. In case,
+#' this parameter is set to TRUE, only UKbioBank data will be kept which  has not been published.
 #'
-#' @return a plot for colocalization information
-#' @export
+#' @return A plot for colocalisation information
 #'
 #' @examples
-#' pheWAS(variantid = "14_87978408_G_A") %>% plot_phewas(disease = TRUE)
+#' \dontrun{
+#' otargen::colocalisationsForGene(genes = "ENSG00000169174") %>% otargen::plot_coloc(biobank = FALSE)
+#' otargen::colocalisationsForGene(genes = "PCSK9") %>% otargen::plot_coloc(biobank = TRUE)
+#' }
+#' @import dplyr
+#' @import ggplot2
+#' @importFrom magrittr %>%
+#' @export
 #'
-plot_phewas <- function(data, disease = TRUE,  source = c("GCST","FINNGEN","NEALE","SAIGE")){
-
+#'
+plot_coloc <- function(data, biobank = FALSE) {
   dt0 <- data
-  dt0$study.traitCategory <- base::tolower(dt0$study.traitCategory)
-  dt1 <- dt0  %>%  dplyr::mutate(study.traitReported_trimmed = stringr::str_replace_all(study.traitReported,pattern = "[:punct:]|[:symbol:]",replacement = "")) %>%
-    dplyr::mutate(study.traitReported_trimmed = stringr::str_trunc(study.traitReported_trimmed, width = 35,side = "right"))
+  dt0$study.traitCategory <- base::tolower(dt0$Trait_reported)
+  dt1 <- dt0 %>%
+    dplyr::mutate(Trait_reported_trimmed = stringr::str_replace_all(Trait_reported, pattern = "[:punct:]|[:symbol:]", replacement = "")) %>%
+    dplyr::mutate(Trait_reported_trimmed = stringr::str_trunc(Trait_reported_trimmed, width = 35, side = "right"))
+
+  dt2 <- dt1[!duplicated(dt1[ , c("Study","Lead_variant","Molecular_trait")]),]
 
 
-  #source <- match.arg(source)
-  #type <- match.arg(type)
-
-  if (disease ) {
-
-    dt2 <- dt1 %>% dplyr::filter(study.source %in% source) %>%
-      dplyr::filter(!study.traitCategory %in% c("measurement", "phenotype", "biological process","uncategorised")) %>%
-      dplyr::mutate(beta_shape = ifelse(beta>0, "positive","negetive"))
+  dt3 <- dt2 %>% dplyr::group_by(Molecular_trait,Lead_variant) %>%
+    dplyr::arrange(desc(dt2$`log2(H4/H3)`)) %>% dplyr::top_n(1) %>%
+    dplyr::select(Trait_reported_trimmed, Molecular_trait,Lead_variant,
+                  Study,Tissue, Source,`log2(H4/H3)`) %>% dplyr::ungroup() %>%
+    dplyr::filter(`log2(H4/H3)` > 7)
 
 
+  # source <- match.arg(source)
+  # type <- match.arg(type)
+
+  if (biobank == TRUE) {
+    dt4 <- dt3 %>% dplyr::filter(grepl(pattern = "^GCST.*", Study))
   } else {
+    dt4 <- dt3
 
-    dt2 <- dt1 %>% dplyr::filter(study.source %in% source) %>%
-      dplyr::filter(study.traitCategory %in% c("measurement", "phenotype", "biological process","uncategorised")) %>%
-      dplyr::mutate(beta_shape = ifelse(beta>0, "positive","negetive"))
   }
 
-  p <- ggplot2::ggplot(data = dt2, ggplot2::aes(study.traitCategory,
-                                           -log10(pval), color = study.source, shape = beta_shape)) +
-    ggplot2::geom_point()+
-    ggplot2::geom_jitter( width = 0.3, height = 0.3) +
+ p <- dt4 %>% ggplot2::ggplot(ggplot2::aes(x= reorder(Trait_reported_trimmed, -`log2(H4/H3)`),
+                                            `log2(H4/H3)`, fill = Source)) +
+    ggplot2::geom_bar(stat = "identity", position = "dodge") +
+    ggplot2::coord_flip () +
+    ggplot2::facet_wrap(.~Molecular_trait) +
 
-    ggplot2::geom_label(ggplot2::aes(study.traitCategory, -log10(pval),
-                                     label = study.traitReported_trimmed),
-                        data = dt2[-log10(dt2$pval)>5 ,],
-                        vjust="inward",hjust="inward") +
-
-    ggplot2::scale_shape_manual(name = "beta direction" ,values = c(6,2)) +
-    ggplot2::scale_color_discrete(name = "Data source") +
-    ggplot2::geom_hline(yintercept = 5, color = "grey", linetype = 2) +
+    ggplot2::geom_label(ggplot2::aes(
+     label = Lead_variant,
+     fill = Source),
+   color = "white", fontface = "bold",  label.size = 0.1) +
     ggplot2::xlab("") +
-    ggplot2::theme_classic() +
-    ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1))
-
+    ggplot2::theme(
+      panel.grid.major.y = ggplot2::element_blank(),
+      panel.grid.minor.y = ggplot2::element_blank()
+    )
   return(p)
-
 }

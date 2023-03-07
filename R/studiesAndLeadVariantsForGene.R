@@ -1,28 +1,66 @@
-#' Get all studies and lead variants for a gene
+#' Retrieves all studies and lead variants for a gene
 #'
-#' @param ensmbl_ids is a identification id for genes by ensembl database.
-#' @return A dataframe including the queried gene identity and its colocalization data
+#' @param genes String: one or more gene ENSEMBL id or gene name.
+#'
+#' @return Dataframe with the queried gene identity and its colocalization data
+#'
 #' @examples
-#' studiesAndLeadVariantsForGene(list("ENSG00000163946","ENSG00000169174", "ENSG00000143001"))
-#' studiesAndLeadVariantsForGene("ENSG00000169174")
+#' \dontrun{
+#' otargen::studiesAndLeadVariantsForGene(genes = list("ENSG00000163946",
+#' "ENSG00000169174", "ENSG00000143001"))
+#' otargen::studiesAndLeadVariantsForGene(genes = "ENSG00000169174")
+#' otargen::studiesAndLeadVariantsForGene(genes = list("PCSK9","TASOR", "TMEM61"))
+#' otargen::studiesAndLeadVariantsForGene(genes = "PCSK9")
+#'}
+#' @importFrom magrittr %>%
 #' @export
 #'
 #'
 
 
-studiesAndLeadVariantsForGene <- function(ensmbl_ids) {
-  res2 <- data.frame()
-  res_gene_info <- data.frame()
-
+studiesAndLeadVariantsForGene <- function(genes) {
   cli::cli_progress_step("Connecting the database...", spinner = TRUE)
   con <- ghql::GraphqlClient$new("https://api.genetics.opentargets.org/graphql")
   qry <- ghql::Query$new()
 
-  for (input_gene in ensmbl_ids) {
+  #Query for gene name search
+  # check for gene name:
+  query_search <- "query convertnametoid($queryString:String!) {
+    search(queryString:$queryString){
+      genes{
+        id
+        symbol
+      }
+      }
+    }"
 
-    cli::cli_progress_step(paste0("Downloading data for ", input_gene," ..."), spinner = TRUE)
+  # Check format
+  match_result <- grepl(pattern = "ENSG\\d{11}", genes)
+  df_id = data.frame()
 
+  if (all(match_result) == FALSE){
+    for (g in genes) {
+      variables <- list(queryString = g)
+      qry$query(name = "convertnametoid", x = query_search)
+      id_result <- jsonlite::fromJSON(con$exec(qry$queries$convertnametoid, variables), flatten = TRUE)$data
+      id <- as.data.frame(id_result$search$genes)
+      if (nrow(id)!=0){
+        name_match <- id[id$symbol == g, ]
+        ensembl_ids <- name_match$id
+        df_id <- dplyr::bind_rows(df_id, as.data.frame(ensembl_ids))
+      }
+    }
+    if (nrow(df_id)==0){
+      stop("\nPlease provide Ensemble gene ID or gene name")
+    } else {
+      ensembl_ids <- as.list(df_id$ensembl_ids)
+    }
+  } else {
+    ensembl_ids <- genes
+  }
 
+  for (input_gene in ensembl_ids) {
+    cli::cli_progress_step(paste0("Downloading data for ", input_gene, " ..."), spinner = TRUE)
     variables <- list(gene = input_gene)
 
 
@@ -54,21 +92,24 @@ studiesAndLeadVariantsForGene <- function(ensmbl_ids) {
    }
  }"
 
+    final_out <- data.frame()
+
     ## execute the query
-    qry$query(name = "getgeninfo", x = query )
+    qry$query(name = "getgeninfo", x = query)
 
-    res <- con$exec(qry$queries$getgeninfo, variables)
+    study_var_result <- con$exec(qry$queries$getgeninfo, variables)
 
-    res1 <- jsonlite::fromJSON(res, flatten = TRUE)
-    if (!is.null(res1$data$studiesAndLeadVariantsForGene)){
+    study_var_result1 <- jsonlite::fromJSON(study_var_result, flatten = TRUE)
 
-    res1$data$studiesAndLeadVariantsForGene$gene_symbol <- rep(res1$data$geneInfo$symbol,
-                                                               length(res1$data$studiesAndLeadVariantsForGene$study.pmid))
-    res2 <- dplyr::bind_rows(res2, res1$data$studiesAndLeadVariantsForGene)
+    if (!is.null(study_var_result1$data$studiesAndLeadVariantsForGene)) {
+      study_var_result1$data$studiesAndLeadVariantsForGene$gene_symbol <- rep(
+        study_var_result1$data$geneInfo$symbol,
+        length(study_var_result1$data$studiesAndLeadVariantsForGene$study.pmid)
+      )
+
+      final_out <- dplyr::bind_rows(final_out, study_var_result1$data$studiesAndLeadVariantsForGene)
     }
-    #res_gene_info <- rbind(res_gene_info, as.data.frame(res1$data$geneInfo))
-    #Sys.sleep(1)
   }
 
-  return(res2)
+  return(final_out)
 }

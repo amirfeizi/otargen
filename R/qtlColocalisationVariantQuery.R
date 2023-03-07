@@ -1,12 +1,25 @@
-#' Get Colocalization data for a variant in specific study
+#' Retrieves colocalisation data for a variant in a study
 #'
+#' For an input study id and variant id, a table is generated with the following columns-
+#' qtlStudyName, phenotypeId, gene.id, gene.symbol, name, indexVariant.id, indexVariant.rsId,
+#' beta, h4, h3, log2h4h3.
 #'
-#' @param studyid is the Open Target Genetics generated id for gwas studies.
-#' @param variantid is Open Target Genetics generated id for each variant in the database.
-#' @return A data frame of the colocalization information for a lead variant.
+#' @param studyid String: Open Target Genetics generated id for gwas studies.
+#' @param variantid String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
+#'
+#' @return A data frame of the colocalisation information for a lead variant.
+#'
 #' @examples
-#' qtlColocalisation("GCST90002357","1_154119580_C_A")
+#' \dontrun{
+#' otargen::qtlColocalisationVariantQuery(studyid="GCST90002357",variantid="1_154119580_C_A")
+#' otargen::qtlColocalisationVariantQuery(studyid="GCST90002357",variantid="rs2494663")
+#'}
+#' @import dplyr
+#' @import cli
+#' @import ghql
+#' @importFrom magrittr %>%
 #' @export
+#'
 #'
 
 qtlColocalisationVariantQuery <- function(studyid, variantid) {
@@ -63,6 +76,8 @@ qtlColocalisationVariantQuery <- function(studyid, variantid) {
     }
     beta
     h4
+    h3
+    log2h4h3
   }
 }"
 
@@ -74,8 +89,7 @@ qtlColocalisationVariantQuery <- function(studyid, variantid) {
   otg_qry$query(name = "qtl_query", x = query)
 
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
-  result <-
-    jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$qtl_query, variables, flatten = TRUE))$data
-  l2g_result <- as.data.frame(result$qtlColocalisation)
-  return(l2g_result)
+  qtlcoloc_result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$qtl_query, variables, flatten = TRUE))$data
+  df_qtlcoloc <- as.data.frame(qtlcoloc_result$qtlColocalisation)
+  return(df_qtlcoloc)
 }

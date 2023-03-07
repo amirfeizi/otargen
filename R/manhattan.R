@@ -1,25 +1,29 @@
 #' Manhattan association for a given study.
 #'
-#' @param studyid is the Open Target Genetics generated id for gwas studies.
-#' @param pageIndex pageIndex pagination index >= 0. Index of the current page.
-#' @param pageSize pagination size > 0. No. of records in a page. Default: 20
-#' @return A dataframe containing manhattan associations for the input study id given.
+#' @param studyid String: Open Targets Genetics generated id for GWAS study.
+#' @param pageindex Int: Index of the current page, pagination index >= 0.
+#' @param pagesize Int: No. of records in a page, pagination size > 0.
+#'
+#' @return Dataframe containing manhattan associations for the input study id given.
+#'
 #' @examples
-#' manhattan("GCST90002357")
-#' manhattan("GCST90002357", 2, 50)
+#' \dontrun{
+#' otargen::manhattan(studyid = "GCST90002357")
+#' otargen::manhattan(studyid = "GCST90002357", pageindex = 2, pagesize = 50)
+#' }
+#' @import dplyr
+#' @importFrom magrittr %>%
 #' @export
 #'
 #'
-
-manhattan <- function(studyid, pageindex=0, pagesize=20) {
-
+manhattan <- function(studyid, pageindex = 0, pagesize = 100) {
   ## Set up to query Open Targets Genetics API
 
   cli::cli_progress_step("Connecting the database...", spinner = TRUE)
   otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
   otg_qry <- ghql::Query$new()
 
-  variables <- list(studyId = studyid, pageIndex = pageindex, pageSize=pagesize)
+  variables <- list(studyId = studyid, pageIndex = pageindex, pageSize = pagesize)
 
   query <- "query manhattanquery($studyId: String!, $pageIndex: Int!, $pageSize:Int!){
   manhattan(studyId:$studyId, pageIndex: $pageIndex, pageSize:$pageSize) {
@@ -32,6 +36,7 @@ manhattan <- function(studyid, pageindex=0, pagesize=20) {
       variant{
         id
         position
+        chromosome
         rsId
       }
       pval
@@ -72,7 +77,22 @@ manhattan <- function(studyid, pageindex=0, pagesize=20) {
   otg_qry$query(name = "manhattan_query", x = query)
 
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
-  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$manhattan_query, variables), flatten=TRUE)$data
-  result <- as.data.frame(result$manhattan$associations)
-  return (result)
+  man_result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$manhattan_query, variables), flatten = TRUE)$data
+  man_result <- as.data.frame(man_result$manhattan$associations)
+
+  if (nrow(man_result) != 0) {
+    man_result <- as.data.frame(tidyr::unnest(man_result, bestGenes, names_sep = ".", keep_empty = TRUE))
+    man_result <- as.data.frame(tidyr::unnest(man_result, bestColocGenes, names_sep = ".", keep_empty = TRUE))
+    man_result <- as.data.frame(tidyr::unnest(man_result, bestLocus2Genes, names_sep = ".", keep_empty = TRUE))
+
+    man_result <- man_result %>% janitor::clean_names()
+  }
+
+
+  if (nrow(man_result) == 0) {
+    output <- data.frame()
+  }
+
+
+  return(man_result)
 }
