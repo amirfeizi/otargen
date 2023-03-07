@@ -8,7 +8,7 @@
 #' numAssocLoci, nInitial, cohort, study_nReplication, study_nCases,
 #' Publication_date, Journal, and Pubmed_id.
 #'
-#' @param ensembl_ids String: one or more gene ENSEMBL identifier.
+#' @param genes String: one or more gene ENSEMBL identifier or gene name.
 #' @import dplyr
 #' @importFrom magrittr %>%
 #' @import rlang
@@ -18,29 +18,55 @@
 #'
 #' @examples
 #' \dontrun{
-#' otargen::colocalisationsForGene(ensembl_ids=list("ENSG00000163946",
-#'  "ENSG00000169174", "ENSG00000143001"))
-#' otargen::colocalisationsForGene(ensembl_ids="ENSG00000169174")
+#' otargen::colocalisationsForGene(genes=list("ENSG00000163946", "ENSG00000169174", "ENSG00000143001"))
+#' otargen::colocalisationsForGene(genes="ENSG00000169174")
+#' otargen::colocalisationsForGene(genes=list("TP53", "TASOR"))
+#' otargen::colocalisationsForGene(genes="TP53")
 #' }
 #' @export
 #'
 #'
-colocalisationsForGene <- function(ensembl_ids) {
-  # Check ensembl id format
+colocalisationsForGene <- function(genes) {
 
-  if (length(ensembl_ids) == 1) {
-    if (!grepl(pattern = "ENSG\\d{11}", ensembl_ids)) {
-      stop("\n Please provide Ensemble gene ID")
+  cli::cli_progress_step("Connecting the database...", spinner = TRUE)
+  con <- ghql::GraphqlClient$new("https://api.genetics.opentargets.org/graphql")
+  qry <- ghql::Query$new()
+
+  #Query for gene name search
+  # check for gene name:
+  query_search <- "query convertnametoid($queryString:String!) {
+    search(queryString:$queryString){
+      genes{
+        id
+        symbol
+      }
+      }
+    }"
+
+  # Check format
+  match_result <- grepl(pattern = "ENSG\\d{11}", genes)
+  df_id = data.frame()
+
+  if (all(match_result) == FALSE){
+    for (i in genes) {
+    variables <- list(queryString = i)
+    qry$query(name = "convertnametoid", x = query_search)
+    id_result <- jsonlite::fromJSON(con$exec(qry$queries$convertnametoid, variables), flatten = TRUE)$data
+    id <- as.data.frame(id_result$search$genes)
+    if (nrow(id)!=0){
+        name_match <- id[id$symbol == i, ]
+        ensembl_ids <- name_match$id
+        df_id <- dplyr::bind_rows(df_id, as.data.frame(ensembl_ids))
+    }
+    }
+    if (nrow(df_id)==0){
+        stop("\nPlease provide Ensemble gene ID or gene name")
+    } else {
+      ensembl_ids <- as.list(df_id$ensembl_ids)
     }
   } else {
-    for (i in ensembl_ids) {
-      if (!grepl(pattern = "ENSG\\d{11}", i)) {
-        stop("\n Please provide Ensemble gene ID")
-      }
-    }
+      ensembl_ids <- genes
   }
-
-  ensembl_ids <- ensembl_ids
 
   colocal2 <- data.frame()
   colocal_genes_info <- data.frame()
@@ -90,9 +116,7 @@ colocalisationsForGene(geneId:$gene){
 }
 
 }"
-cli::cli_progress_step("Connecting the database...", spinner = TRUE)
-con <- ghql::GraphqlClient$new("https://api.genetics.opentargets.org/graphql")
-qry <- ghql::Query$new()
+
 
 for (input_gene in ensembl_ids) {
   cli::cli_progress_step(paste0("Downloading data for ", input_gene, " ..."), spinner = TRUE)
@@ -128,7 +152,7 @@ if (nrow(colocal2) != 0) {
                                          study.numAssocLoci, study.nInitial, study.nReplication, study.nCases,
                                          study.pubDate, study.pubJournal, study.pmid) %>% dplyr::mutate(dplyr::across(where(is.numeric), ~ round(., 2)))
 
-  colnames(colocal2) <- c("Study", "Trait_reported", "Lead_variant", "Molecular_trait", "Gene_symbol",
+  colnames(colocal2) <- c("Study", "Trait_reported", "Lead_variant", "Gene_symbol","Gene_id",
                           "Tissue", "Source", "H3", "H4", "log2(H4/H3)", "Title", "Author", "Has_sumstats", "numAssocLoci",
                           "nInitial cohort", "study_nReplication", "study_nCases", "Publication_date", "Journal", "Pubmed_id")
 
