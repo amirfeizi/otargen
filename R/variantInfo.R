@@ -12,8 +12,8 @@
 #'
 #' @examples
 #' \dontrun{
-#' otargen::var_info <- variantInfo(variantid = "1_55039974_G_T")
-#' otargen::var_info <- variantInfo(variantid = "rs11591147")
+#' otargen::variantInfo(variantid = "1_55039974_G_T")
+#' otargen::variantInfo(variantid = "rs11591147")
 #'}
 #' @importFrom magrittr %>%
 #' @import dplyr
