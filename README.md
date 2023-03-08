@@ -24,7 +24,7 @@ Given below are a few examples on how to use the functions in the package:
 ``` r
 library(otargen)
 
-<<<<<<< HEAD
+
 colocalisationsForGene(genes=list("ENSG00000163946","ENSG00000169174", "ENSG00000143001"))
 studiesAndLeadVariantsForGeneByL2G(genes = "PCSK9", l2g = 0.6, pvalue = 1e-8, vtype = c("intergenic_variant", "intron_variant"))
 gwasCredibleSet(studyid="GCST90002357", variantid="1_154119580_C_A")
