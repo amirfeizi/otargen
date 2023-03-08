@@ -38,4 +38,4 @@ pheWAS(variantid = "14_87978408_G_A") %>% otargen::plot_phewas(disease = TRUE)
 =======
 # otargen
 This is an R package to retrieve data from Open Target Genetics using GraphQL queries.
->>>>>>> b182ffb16ba7dc977f1c520d985803c273bf30c4
+
