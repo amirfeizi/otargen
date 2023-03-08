@@ -25,4 +25,4 @@ library(otargen)
 
 =======
 # otargen
-This is an R package to retrieve data from Open Target Genetics
+This is an R package to retrieve data from Open Target Genetics using GraphQL queries.
