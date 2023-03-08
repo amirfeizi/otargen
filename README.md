@@ -4,22 +4,37 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of otargen is to ...
+`otargen` is an open-source and freely available R package that facilitates data retrieval
+and analysis from Open Target Genetics portal in the R programming environment. `otargen` functions
+cover all the GraphQL query types in Open Target Genetics schema, and return tidy data tables. It 
+also includes several useful plotting functions to help visualize and gain insight from core complex
+data tables.
+
+![alt text](https://github.com/amirfeizi/otargen/figures/otargen_overview_fig.png?raw=true)
+
 
 ## Installation
 
-You can install the development version of otargen like so:
+You can install the development version of otargen as follows:
 
 ``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+install.packages("otargen")
 ```
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+Given below are a few examples on how to use the functions in the package:
 
 ``` r
 library(otargen)
-## basic example code
+
+colocalisationsForGene(genes=list("ENSG00000163946","ENSG00000169174", "ENSG00000143001"))
+studiesAndLeadVariantsForGeneByL2G(genes = "PCSK9", l2g = 0.6, pvalue = 1e-8, vtype = c("intergenic_variant", "intron_variant"))
+gwasCredibleSet(studyid="GCST90002357", variantid="1_154119580_C_A")
+get_genes(chromosome = "2", start = 239634984, end = 241634984)
+topOverlappedStudies(studyid = "NEALE2_6177_1", pageindex = 1, pagesize = 50)
+qtlCredibleSet(studyid="Braineac2", variantid="rs7552841", gene="PCSK9", biofeature="SUBSTANTIA_NIGRA")
+manhattan(studyid = "GCST003044") %>% otargen::plot_manhattan()
+pheWAS(variantid = "14_87978408_G_A") %>% otargen::plot_phewas(disease = TRUE)
 ```
 
