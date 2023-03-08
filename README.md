@@ -14,7 +14,7 @@ data tables.
 You can install the development version of otargen as follows:
 
 ``` r
-install.packages("otargen")
+devtools::install_github("amirfeizi/otargen")
 ```
 
 ## Example
