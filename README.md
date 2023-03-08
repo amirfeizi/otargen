@@ -10,7 +10,7 @@ cover all the GraphQL query types in Open Target Genetics schema, and return tid
 also includes several useful plotting functions to help visualize and gain insight from core complex
 data tables.
 
-![alt text](https://github.com/amirfeizi/otargen/figures/otargen_overview_fig.png?raw=true)
+![alt text](https://github.com/amirfeizi/otargen/img/otargen_overview_fig.png?raw=true)
 
 
 ## Installation
