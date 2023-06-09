@@ -4,7 +4,36 @@
 #' @param pageindex Int: Index of the current page, pagination index >= 0.
 #' @param pagesize Int: No. of records in a page, pagination size > 0.
 #'
-#' @return Dataframe containing manhattan associations for the input study id given.
+#' @return Returns a data frame containing manhattan associations for the input study id given. The table consists of the following columns:
+#'
+#' \enumerate{
+#' \item pval_mantissa
+#' \item pval_exponent
+#' \item credible_set_size
+#' \item ld_set_size
+#' \item total_set_size
+#' \item pval
+#' \item odds_ratio
+#' \item odds_ratio_ci_lower
+#' \item odds_ratio_ci_upper
+#' \item beta
+#' \item beta_ci_lower
+#' \item beta_ci_upper
+#' \item direction
+#' \item best_genes_score
+#' \item best_genes_gene_id
+#' \item best_genes_gene_symbol
+#' \item best_coloc_genes_score
+#' \item best_coloc_genes_gene_id
+#' \item best_coloc_genes_gene_symbol
+#' \item best_locus2genes_score
+#' \item best_locus2genes_gene_id
+#' \item best_locus2genes_gene_symbol
+#' \item variant_id
+#' \item variant_position
+#' \item variant_chromosome
+#' \item variant_rs_id
+#' }
 #'
 #' @examples
 #' \dontrun{

@@ -1,35 +1,60 @@
 #' Retrieves L2G model summary data for a gene.
 #'
-#' For one or more input ENSEMBL ids or gene names, a table is generated with following columns-
-#' yProbaModel (L2G score), yProbaDistance, yProbaInteraction (chromatin interaction),
-#' yProbaMolecularQTL, yProbaPathogenicity, pval, beta.direction, beta.betaCI, beta.betaCILower
-#' beta.betaCIUpper, odds.oddsCI, odds.oddsCILower, odds.oddsCIUpper, study.studyId,
-#' study.traitReported, study.traitCategory, study.pubDate, study.pubTitle, study.pubAuthor,
-#' study.pubJournal, study.pmid, study.hasSumstats, study.nCases, study.numAssocLoci, study.nTotal
-#' study.traitEfos, variant.id, variant.rsId, variant.chromosome, variant.position, variant.refAllele
-#' variant.altAllele, variant.nearestCodingGeneDistance, variant.nearestGeneDistance, variant.mostSevereConsequence,
-#' variant.nearestGene.id, variant.nearestCodingGene.id, ensembl_id, and gene_symbol.
-#'
-#'
 #' @param genes String: one or more gene ENSEMBL id or gene names.
-#' @param l2g Float: locus to gene cut off score.
-#' @param pvalue Float: pvalue cut off.
+#' @param l2g Float: locus to gene cut off score. (Default: 0.4)
+#' @param pvalue Float: pvalue cut off. (Default: 5e-8)
 #' @param vtype Character vector: most severe consequence to filter the variants type including c(intergenic_variant",
 #' "upstream_gene_variant", "intron_variant", "missense_variant", "5_prime_UTR_variant",
-#' "non_coding_transcript_exon_variant", "splice_region_variant")
+#' "non_coding_transcript_exon_variant", "splice_region_variant"). (Default: NULL)
 #'
-#' @return Data frame containing the queried gene identity and its data for L2G model
+#' @return Returns a data frame containing the input gene id and its data for the L2G model. The table consists of the following columns:
 #'
-
+#' \enumerate{
+#' \item yProbaModel (L2G score)
+#' \item yProbaDistance (Distance)
+#' \item yProbaInteraction (Chromatin interaction)
+#' \item yProbaMolecularQTL (Molecular QTL)
+#' \item yProbaPathogenicity (Pathogenicity)
+#' \item pval
+#' \item beta.direction
+#' \item beta.betaCI
+#' \item beta.betaCILower
+#' \item beta.betaCIUpper
+#' \item odds.oddsCI
+#' \item odds.oddsCILower
+#' \item odds.oddsCIUpper
+#' \item study.studyId
+#' \item study.traitReported
+#' \item study.traitCategory
+#' \item study.pubDate
+#' \item study.pubTitle
+#' \item study.pubAuthor
+#' \item study.pubJournal
+#' \item study.pmid
+#' \item study.hasSumstats
+#' \item study.nCases
+#' \item study.numAssocLoci
+#' \item study.nTotal
+#' \item study.traitEfos
+#' \item variant.id
+#' \item variant.rsId
+#' \item variant.chromosome
+#' \item variant.position
+#' \item variant.refAllele
+#' \item variant.altAllele
+#' \item variant.nearestCodingGeneDistance
+#' \item variant.nearestGeneDistance
+#' \item variant.mostSevereConsequence
+#' \item variant.nearestGene.id
+#' \item variant.nearestCodingGene.id
+#' \item ensembl_id
+#' \item gene_symbol
+#' }
+#'
 #' @examples
 #' \dontrun{
-#' otargen::studiesAndLeadVariantsForGeneByL2G(genes =
-#' list("ENSG00000163946",
-#'  "ENSG00000169174", "ENSG00000143001"), l2g = 0.7)
-#' otargen::studiesAndLeadVariantsForGeneByL2G(
-#' genes = "ENSG00000169174",
-#' l2g = 0.6, pvalue = 1e-8,
-#' vtype = c("intergenic_variant", "intron_variant"))
+#' otargen::studiesAndLeadVariantsForGeneByL2G(genes = list("ENSG00000163946","ENSG00000169174", "ENSG00000143001"), l2g = 0.7)
+#' otargen::studiesAndLeadVariantsForGeneByL2G(genes = "ENSG00000169174",l2g = 0.6, pvalue = 1e-8,vtype = c("intergenic_variant", "intron_variant"))
 #' otargen::studiesAndLeadVariantsForGeneByL2G(genes ="TMEM61")
 #'}
 #' @importFrom magrittr %>%

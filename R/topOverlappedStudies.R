@@ -1,17 +1,23 @@
 #' Retrieves the top studies having overlap with the given input study.
 #'
-#' For an input study id, a table is generated with the following columns -
-#' input studyid (study.studyId), study.traitReported, study.traitCategory,
-#' top study ids ordered by loci overlap (topStudiesByLociOverlap.studyId),
-#' topStudiesByLociOverlap.study.traitReported, topStudiesByLociOverlap.study.traitCategory
-#' and number of overlap with the referenced study (topStudiesByLociOverlap.numOverlapLoci).
-#'
+#' Fetches the top associated studies for a given study id ordered by loci overlap.
 #'
 #' @param studyid String: Open Target Genetics generated id for GWAS study.
 #' @param pageindex Int: Index of the current page, pagination index >= 0.
 #' @param pagesize Int: No. of records in a page, pagination size > 0.
 #'
-#' @returns Data frame with top studies containing the above mentioned columns.
+#' @returns Returns a data frame with top studies containing the following columns:
+#'
+#' \enumerate{
+#' \item study.studyId
+#' \item study.traitReported
+#' \item study.traitCategory
+#' \item topStudiesByLociOverlap.studyId
+#' \item topStudiesByLociOverlap.study.studyId
+#' \item topStudiesByLociOverlap.study.traitReported
+#' \item topStudiesByLociOverlap.study.traitCategory
+#' \item topStudiesByLociOverlap.numOverlapLoci
+#' }
 #'
 #' @examples
 #' \dontrun{

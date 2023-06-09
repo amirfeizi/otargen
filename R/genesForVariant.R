@@ -1,11 +1,78 @@
 #' Retrieves variant to Gene (V2G) data.
 #'
-#' This function gets variant ID formated as CHR_POSITION_REFALLELE_ALT_ALLELE or canonical SNPs ID as an input and returns a list of tibble data tables including ranked gene table and corresponding functional genomics data tables that are functionally implicated by this variant
+#' This function gets variant ID formated as CHR_POSITION_REFALLELE_ALT_ALLELE or canonical SNPs ID as an input and returns a list of
+#' tibble data tables including ranked gene table and corresponding functional genomics data tables that are functionally implicated by this variant.
 #'
 #' @param variantid String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
 #'
-#' @return A list of tibble data tables containing variant to gene information with
+#' @return A list of tibble data tables containing variant to gene (v2g) information with
 #' individual QTL associations, intervals, distances and functional predictions.
+#'
+#' v2g table consists of following columns:
+#'
+#' \enumerate{
+#' \item gene.symbol
+#' \item variant
+#' \item overallScore
+#' \item gene.id
+#' }
+#'
+#' tssd (distance to TSS) table consists of following columns:
+#'
+#'\enumerate{
+#' \item gene.symbol
+#' \item variant
+#' \item typeId
+#' \item sourceId
+#' \item aggregatedScore
+#' \item tissues_distance
+#' \item tissues_score
+#' \item tissues_quantile
+#' \item tissues_id
+#' \item tissues_name
+#'}
+#'
+#' qtl table consists of the following columns:
+#'
+#'\enumerate{
+#' \item gene.symbol
+#' \item variant
+#' \item typeId
+#' \item aggregatedScore
+#' \item tissues_quantile
+#' \item tissues_beta
+#' \item tissues_pval
+#' \item tissues_id
+#' \item tissues_name
+#' }
+#'
+#' chromatin table consists of the following columns:
+#'
+#'\enumerate{
+#' \item gene.symbol
+#' \item variant
+#' \item typeId
+#' \item sourceId
+#' \item aggregatedScore
+#' \item tissues_quantile
+#' \item tissues_score
+#' \item tissues_id
+#' \item tissues_name
+#'}
+#'
+#' functional prediction (functionalpred) table consists of following columns:
+#'
+#' \enumerate{
+#' \item gene.symbol
+#' \item variant
+#' \item typeId
+#' \item sourceId
+#' \item aggregatedScore
+#' \item tissues_maxEffectLabel
+#' \item tissues_maxEffectScore
+#' \item tissues_id
+#' \item tissues_name
+#' }
 #'
 #' @examples
 #' \dontrun{

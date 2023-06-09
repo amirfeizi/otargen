@@ -2,18 +2,38 @@
 #'
 #' For an input tag variant id, this function returns a  data table in tibble format
 #' with population level summary stats data columns across various GWAS studies.
-#' The following columns are expected in the output table:
-#' indexVariant, study, pval, pvalMantissa, pvalExponent, nTotal, nCases, overallR2,
-#' afr1000GProp, amr1000GProp, eas1000GProp, eur1000GProp, sas1000GProp, log10Abf,
-#' posteriorProbability, oddsRatio, oddsRatioCILower, oddsRatioCIUpper, beta,
-#' betaCILower, betaCIUpper, direction.
 #'
 #'
 #' @param variantid String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
 #' @param pageindex Int: Index of the current page, pagination index >= 0.
 #' @param pagesize Int: No. of records in a page, pagination size > 0.
 #'
-#' @return Dataframe containing the variant associated to the input tag variant.
+#' @return Returns a dataframe containing the variant associated to the input tag variant. The table consists of the following columns:
+#'
+#' \enumerate{
+#' \item index_variant
+#' \item study
+#' \item pval
+#' \item pval_mantissa
+#' \item pval_exponent
+#' \item n_total
+#' \item n_cases
+#' \item overall_r2
+#' \item afr1000g_prop
+#' \item amr1000g_prop
+#' \item eas1000g_prop
+#' \item eur1000g_prop
+#' \item sas1000g_prop
+#' \item log10abf
+#' \item posterior_probability
+#' \item odds_ratio
+#' \item odds_ratio_ci_lower
+#' \item odds_ratio_ci_upper
+#' \item beta
+#' \item beta_ci_lower
+#' \item beta_ci_upper
+#' \item direction
+#' }
 #'
 #' @examples
 #' \dontrun{
@@ -101,7 +121,7 @@ indexVariantsAndStudiesForTagVariant <- function(variantid, pageindex = 0, pages
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
   result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$indexvariantsandstudiesquery, variables, flatten = TRUE))$data
   output <- result$indexVariantsAndStudiesForTagVariant$associations %>% dplyr::tibble()
-
+  output <- output %>% janitor::clean_names()
 
   if (nrow(output) == 0) {
     output <- data.frame()

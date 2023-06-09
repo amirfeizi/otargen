@@ -2,19 +2,37 @@
 #'
 #' This functions takes gene(s)/ensemble id(s) as an input and returns a tibble
 #' format data table of studies that have evidence of colocalisation with molecular QTLs.
-#' The output table includes the following columns-
-#' Study, Trait_reported, Lead_variant, Molecular_trait, Gene_symbol,
-#' Tissue, Source, H3, H4, log2(H4/H3), Title, Author, Has_sumstats,
-#' numAssocLoci, nInitial, cohort, study_nReplication, study_nCases,
-#' Publication_date, Journal, and Pubmed_id.
 #'
 #' @param genes String: one or more gene ENSEMBL identifier or gene name.
 #' @import dplyr
 #' @importFrom magrittr %>%
 #' @import rlang
 #'
-#' @return a tibble including the queries gene(s) colocalisation data
+#' @returns Returns a tibble including the query gene(s) colocalisation data.
 #'
+#' The output data frame contain the following columns:
+#'
+#' \enumerate{
+#' \item Study
+#' \item Trait_reported
+#' \item Lead_variant
+#' \item Molecular_trait
+#' \item Gene_symbol
+#' \item Tissue
+#' \item Source
+#' \item H3
+#' \item log2(H4/H3)
+#' \item Title
+#' \item Author
+#' \item Has_sumstats
+#' \item numAssocLoci
+#' \item nInitial cohort
+#' \item study_nReplication
+#' \item study_nCases
+#' \item Publication_date
+#' \item Journal
+#' \item Pubmed_id
+#' }
 #'
 #' @examples
 #' \dontrun{
@@ -118,6 +136,7 @@ colocalisationsForGene(geneId:$gene){
 
 }"
 
+colocal3 <- data.frame()
 
 for (input_gene in ensembl_ids) {
   cli::cli_progress_step(paste0("Downloading data for ", input_gene, " ..."), spinner = TRUE)

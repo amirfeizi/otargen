@@ -2,14 +2,29 @@
 #'
 #' For a given study id, this function returns all the  relevant information about
 #' GWAS study such as PubMed id, studied trait EFO id, case/control size etc.
-#' The columns in the table are as follows- studyId, traitReported, source,
-#' traitEfos, pmid, pubDatepubJournal, pubTitle, pubAuthor, hasSumstats,
-#' ancestryInitial, nInitial, nReplication, traitCategory, numAssocLoci, nTotal.
-#' columns mentioned below.
 #'
 #' @param studyid String: Open Targets Genetics generated id for a GWAS study.
 #'
-#' @return tibble data table containing the study information.
+#' @return Returns a tibble data table containing the GWAS study information. The columns in the table are as follows:
+#'
+#' \enumerate{
+#' \item studyId
+#' \item traitReported
+#' \item source
+#' \item traitEfos
+#' \item pmid
+#' \item pubDate
+#' \item pubJournal
+#' \item pubTitle
+#' \item pubAuthor
+#' \item hasSumstats
+#' \item ancestryInitial
+#' \item nInitial
+#' \item nReplication
+#' \item traitCategory
+#' \item numAssocLoci
+#' \item nTotal
+#' }
 #'
 #' @examples
 #' \dontrun{

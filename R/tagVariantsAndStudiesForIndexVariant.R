@@ -1,24 +1,48 @@
 #' Retrieves tag variants and studies for a given index variant.
 #'
-#' For an input index variant id, a table is generated with the following columns -
-#' tagVariant.id, tagVariant.chromosome, tagVariant.rsId, tagVariant.position, study.studyId,
-#' study.traitReported, study.traitCategory, pval, pvalMantissa, pvalExponent, nTotal, nCases,
-#' overallR2, afr1000GProp, amr1000GProp, eas1000GProp, eur1000GProp, sas1000GProp, oddsRatio,
-#' oddsRatioCILower, oddsRatioCIUpper, posteriorProbability, beta, betaCILower, betaCIUpper, direction, log10Abf.
+#' For an input index variant id, fetches the tag variant information along with study information and scores.
 #'
 #'
 #' @param variantid String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
 #' @param pageindex Int: Index of the current page, pagination index >= 0.
 #' @param pagesize Int: No. of records in a page, pagination size > 0.
 #'
-#' @return Data Frame containing the variant associations connected to the input index variant with the above
-#' mentioned columns.
+#' @return Returns a data Frame containing the variant associations connected to the input index variant with the following columns:
+#'
+#' \enumerate{
+#' \item tagVariant.id
+#' \item tagVariant.chromosome
+#' \item tagVariant.rsId
+#' \item tagVariant.position
+#' \item study.studyId
+#' \item study.traitReported
+#' \item study.traitCategory
+#' \item pval
+#' \item pvalMantissa
+#' \item pvalExponent
+#' \item nTotal
+#' \item nCases
+#' \item overallR2
+#' \item afr1000GProp
+#' \item amr1000GProp
+#' \item eas1000GProp
+#' \item eur1000GProp
+#' \item sas1000GProp
+#' \item oddsRatio
+#' \item oddsRatioCILower
+#' \item oddsRatioCIUpper
+#' \item posteriorProbability
+#' \item beta
+#' \item betaCILower
+#' \item betaCIUpper
+#' \item direction
+#' \item log10Abf
+#' }
 #'
 #' @examples
 #' \dontrun{
-#' tagVariantsAndStudiesForIndexVariant(variantid = "1_109274968_G_T")
-#' tagVariantsAndStudiesForIndexVariant(variantid = "1_109274968_G_T",
-#'  pageindex = 1, pagesize = 50)
+#' otargen::tagVariantsAndStudiesForIndexVariant(variantid = "1_109274968_G_T")
+#' otargen::tagVariantsAndStudiesForIndexVariant(variantid = "1_109274968_G_T",pageindex = 1, pagesize = 50)
 #'}
 #' @importFrom magrittr %>%
 #' @export

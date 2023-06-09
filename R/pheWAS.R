@@ -1,7 +1,25 @@
 #' Phenome Wide Association Studies
 #'
+#' Fetches the phenome-wide association study for a variant.
+#'
 #' @param variantid is the Open Target Genetics generated id for each variants
-#' @returns A data frame with PheWAS associations in it
+#' @returns Returns a data frame with PheWAS associations consisting of the following columns:
+#'
+#' \enumerate{
+#' \item totalGWASStudies
+#' \item pval
+#' \item beta
+#' \item oddsRatio
+#' \item nTotal
+#' \item study.studyId
+#' \item study.source
+#' \item study.pmid
+#' \item study.pubDate
+#' \item study.traitReported
+#' \item study.traitCategory
+#' }
+#'
+#'
 #' @examples
 #' \dontrun{
 #' otargen::pheWAS(variantid ="1_154549918_C_A")

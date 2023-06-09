@@ -1,13 +1,25 @@
 #' Retrieves information about genes on an input locus
 #'
-#' This function gets information for a region of a specified chromosome and returns a tibble data table of all the overlapping genes in the specified region with following information columns: id, symbol, bioType,
-#' description, chromosome, tss, start, end, fwdStrand, and exons.
+#' This function gets information for a region of a specified chromosome .
 #'
 #' @param chromosome String: chromosome number as string.
 #' @param start Long: start position of the specified chromosome.
 #' @param end Long: end position of the specified chromosome.
 #'
-#' @return tibble data table containing the details of all the genes in the mentioned locus.
+#' @return Returns a tibble data table of all the overlapping genes in the specified region with following information columns:
+#'
+#' \enumerate{
+#' \item id
+#' \item symbol
+#' \item bioType
+#' \item description
+#' \item chromosome
+#' \item tss
+#' \item start
+#' \item end
+#' \item fwdStrand
+#' \item exons
+#'}
 #'
 #' @examples
 #' \dontrun{

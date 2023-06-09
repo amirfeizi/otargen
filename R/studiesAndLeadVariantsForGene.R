@@ -2,16 +2,16 @@
 #'
 #' @param genes String: one or more gene ENSEMBL id or gene name.
 #'
-#' @return Dataframe with the queried gene identity and its colocalization data
+#' @return Returns a dataframe
 #'
 #' @examples
 #' \dontrun{
-#' otargen::studiesAndLeadVariantsForGene(genes = list("ENSG00000163946",
-#' "ENSG00000169174", "ENSG00000143001"))
+#' otargen::studiesAndLeadVariantsForGene(genes = list("ENSG00000163946","ENSG00000169174", "ENSG00000143001"))
 #' otargen::studiesAndLeadVariantsForGene(genes = "ENSG00000169174")
 #' otargen::studiesAndLeadVariantsForGene(genes = list("PCSK9","TASOR", "TMEM61"))
 #' otargen::studiesAndLeadVariantsForGene(genes = "PCSK9")
 #'}
+#'
 #' @importFrom magrittr %>%
 #' @export
 #'

@@ -1,15 +1,25 @@
 #' Retrieves L2G data table.
 #'
-#' For an input variant id and associated study id, generated a table
-#' with the following columns - studyId, variant.id, variant.rsId, yProbaDistance,
-#' yProbaModel, yProbaMolecularQTL, yProbaPathogenicity, yProbaInteraction, hasColoc
-#' distanceToLocus, gene.id, and gene.symbol.
-#'
-#'
 #' @param studyid String: Open Target Genetics generated id for GWAS study.
 #' @param variantid String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
 #'
-#' @return Dataframe with summary stats of the study and datatable of the various calculated scores and features for any lead variant.
+#' @return Returns a data frame with summary stats of the study and data table of the various calculated scores and features for any lead variant.
+#' The table consists of the following columns:
+#'
+#' \enumerate{
+#' \item studyId
+#' \item variant.id
+#' \item variant.rsId
+#' \item yProbaDistance
+#' \item yProbaModel
+#' \item yProbaMolecularQTL
+#' \item yProbaPathogenicity
+#' \item yProbaInteraction
+#' \item hasColoc
+#' \item distanceToLocus
+#' \item gene.id
+#' \item gene.symbol
+#' }
 #'
 #' @examples
 #' \dontrun{

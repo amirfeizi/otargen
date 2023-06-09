@@ -1,10 +1,33 @@
 #' Retrieves variants information for an input study identifier
 #'
-#'
 #' @param studyid String: Open Targets Genetics generated id for GWAS study.
 #'
 #' @return A list containing all the variants information for all associated loci and information
 #' about the loci genes.
+#'
+#' The loci data consists of the following columns:
+#'
+#' \enumerate{
+#' \item variant.id
+#' \item pval
+#' \item variant.nearestCodingGene.symbol
+#' \item variant.rsId
+#' \item variant.chromosome
+#' \item variant.position
+#' \item variant.nearestCodingGeneDistance
+#' \item credibleSetSize
+#' \item ldSetSize
+#' \item oddsRatio
+#' \item beta
+#' }
+#'
+#' The information about the loci genes consists of the following columns:
+#'
+#' \enumerate{
+#' \item score
+#' \item gene.id
+#' \item gene.symbol
+#' }
 #'
 #' @examples
 #' \dontrun{

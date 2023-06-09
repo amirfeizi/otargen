@@ -1,21 +1,32 @@
 #' Retrieves QTL credible set data
 #'
-#' For an input gene id or gene name and it's associated study id, variant id and biofeature, a data table with following columns
-#' are generated- tagVariant.id, tagVariant.rsId, pval, se (standard error), beta, postProb, MultisignalMethod, logABF, is95, is99.
+#' For a specific gene, lead variant, study id and biofeature, the function obtains tag variant information
+#' that are considered to have a high probability of being truly associated with the trait and the corresponding scores.
 #'
 #' @param studyid String: Open Target Genetics generated id for GWAS study.
 #' @param variantid String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
 #' @param gene String: a gene ENSEMBL id or a gene name.
 #' @param biofeature String: represents either a tissue, cell type, aggregation type, protein type etc.
 #'
-#' @return Data frame of results from qtl credible set of variants for a given study, variant, gene and biofeature.
+#' @return Returns a data frame of results from qtl credible set of variants consisting of the following columns:
+#'
+#' \enumerate{
+#' \item tagVariant.id
+#' \item tagVariant.rsId
+#' \item pval
+#' \item se
+#' \item beta
+#' \item postProb
+#' \item MultisignalMethod
+#' \item logABF
+#' \item is95
+#' \item is99
+#' }
 #'
 #' @examples
 #' \dontrun{
-#' otargen::qtlCredibleSet(studyid="Braineac2", variantid="1_55053079_C_T",
-#' gene="ENSG00000169174", biofeature="SUBSTANTIA_NIGRA")
-#' otargen::qtlCredibleSet(studyid="Braineac2", variantid="rs7552841",
-#' gene="PCSK9", biofeature="SUBSTANTIA_NIGRA")
+#' otargen::qtlCredibleSet(studyid="Braineac2", variantid="1_55053079_C_T", gene="ENSG00000169174", biofeature="SUBSTANTIA_NIGRA")
+#' otargen::qtlCredibleSet(studyid="Braineac2", variantid="rs7552841",gene="PCSK9", biofeature="SUBSTANTIA_NIGRA")
 #'}
 #'
 #' @importFrom magrittr %>%

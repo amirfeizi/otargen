@@ -1,9 +1,10 @@
 Package: otargen
 Type: Package
 Title: R package to access Open Target Genetics 
-Version: 0.1.1
-Author: Amir Feizi
-Maintainer: The package maintainer <afeizi@gmail.com>
+Version: 1.0.0
+Authors@R: c(person("Amir", "Feizi", role = c("aut", "cre"), email = "afeizi@gmail.com"),
+             person("Kamalika", "Ray", role = "aut"))
+Maintainer: Amir Feizi <afeizi@gmail.com>
 Description: This is an R package that uses Graph QL query languages to search and retrieve datatables from Open Target Genetics GraphQL end points. 
 Depends: R (>= 3.1.0)
 LazyData: true

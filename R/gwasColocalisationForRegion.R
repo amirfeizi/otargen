@@ -1,21 +1,29 @@
 #' Retrieves GWAS colocalisation data for a region.
 #'
 #' With providing a defined chromosomal right this function reruns a tibble data table
-#' of colocalized variants to the left and right side of the provided regions including
-#' the calculated colocalization scores. The following data columns is expected for the output-
-#' leftVariant.id, leftVariant.position, leftVariant.chromosome,
-#' leftVariant.rsId, leftStudy.studyId, leftStudy.traitReported,
-#' leftStudy.traitCategory, rightVariant.id, rightVariant.position,
-#' rightVariant.chromosome, rightVariant.rsId, rightStudy.studyId,
-#' rightStudy.traitReported, rightStudy.traitCategory, h3, h4
-#' and log2h4h3.
+#' of colocalised variants to the left and right side of the provided regions including
+#' the calculated colocalization scores.
 #'
 #' @param chromosome String: chromosome number as string.
 #' @param start Long: start position of the specified chromosome.
 #' @param end Long: end position of the specified chromosome.
 #'
 #'
-#' @returns Data frame with GWAS colocalisation data for a specified region.
+#' @returns Returns a data frame with the following columns:
+#'
+#' \enumerate{
+#' \item study.studyId
+#' \item study.traitReported
+#' \item study.traitCategory
+#' \item indexVariant.id
+#' \item indexVariant.position
+#' \item indexVariant.chromosome
+#' \item indexVariant.rsId
+#' \item beta
+#' \item h3
+#' \item h4
+#' \item log2h4h3
+#' }
 #'
 #' @examples
 #' \dontrun{

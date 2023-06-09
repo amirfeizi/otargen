@@ -1,16 +1,28 @@
 #' Retrieves GWAS colocalisation data.
 #'
 #'
-#' Provided with study id and variant id, this function returns a tibble data table of all colocalizeed tag variants with the corresponding GWAS study information and colocalization scores.  A table is generated for which variants tag the input variant, the studies and statistics
-#' The output table is expected to contain following data columns- indexVariant.id, indexVariant.position,
-#' indexVariant.chromosome, indexVariant.rsId, study.studyId, study.traitReported,
-#' study.traitCategory, beta, h3, h4 and log2h4h3.
+#' Provided with study id and variant id, this function returns a tibble data table of all
+#' colocalised index variants with the corresponding GWAS study information and colocalisation scores.
 #'
 #'
 #' @param studyid String: Open Target Genetics generated id for GWAS study.
 #' @param variantid String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
 #'
-#' @return Data frame of the studies which colocalise with the input variant and study.
+#' @return Returns a data frame of the studies which colocalise with the input variant and study. The table consists of the following columns:
+#'
+#' \enumerate{
+#' \item study.studyId
+#' \item study.traitReported
+#' \item study.traitCategory
+#' \item indexVariant.id
+#' \item indexVariant.position
+#' \item indexVariant.chromosome
+#' \item indexVariant.rsId
+#' \item beta
+#' \item h3
+#' \item h4
+#' \item log2h4h3
+#' }
 #'
 #' @examples
 #' \dontrun{

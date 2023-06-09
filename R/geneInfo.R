@@ -1,12 +1,23 @@
 #' Retrieves gene information for a gene ENSEMBL identifier or a gene name.
 #'
-#' This function takes gene ensembl id (e.g.ENSG00000169174) or gene name (e.g.PCSK9) and it returns tibble data table with basic annotation with following columns
-#' - id, symbol, bioType, description, chromosome,
-#' tss, start, end, fwdStrand, and exons.
+#' This function takes gene ensembl id (e.g.ENSG00000169174) or gene name (e.g.PCSK9).
 #'
 #' @param gene String: a ensembl gene identifier or gene name (e.g.ENSG00000169174/PCSK9).
 #'
-#' @return tibble data table containing the input gene information such as symbol, chromosome information, etc.
+#' @return Returns a tibble data table containing the following columns:
+#'
+#' \enumerate{
+#' \item id
+#' \item symbol
+#' \item bioType
+#' \item description
+#' \item chromosome
+#' \item tss
+#' \item start
+#' \item end
+#' \item fwdStrand
+#' \item exons
+#' }
 
 #' @examples
 #' \dontrun{

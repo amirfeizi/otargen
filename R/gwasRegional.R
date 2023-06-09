@@ -1,9 +1,9 @@
 #' GWAS Regional Association of a study.
 #'
-#' Providing a study id and a chromosomal region information,
-#' this function returns a data table with all variants and
-#' their respective p-value as shown in the example. The table contains
-#' the following columns- pval, variant.id, variant.chromosome, variant.position.
+#' For a given study id and a chromosomal region information,
+#' this function returns a data table in a tibble format with all variants and
+#' their respective p-values.
+#'
 #'
 #' @param studyid String: Open Target Genetics generated id for GWAS study.
 #' @param chromosome String: chromosome number as string.
@@ -11,7 +11,15 @@
 #' @param end Long: end position of the specified chromosome.
 #'
 #'
-#' @return Data frame of variants and p-val.
+#' @return Returns a data table of variant information and pvalue. The table consists of the following columns:
+#'
+#' \enumerate{
+#' \item variant.id
+#' \item variant.chromosome
+#' \item variant.position
+#' \item pval
+#' }
+#'
 #'
 #' @examples
 #' \dontrun{

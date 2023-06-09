@@ -1,0 +1,61 @@
+url: ~
+template:
+  bootstrap: 5
+  bootswatch: simplex
+  bslib:
+    pkgdown-nav-height: 100px
+    base_font: {google: "Roboto"}
+    heading_font: {google: "Roboto Slab"}
+    code_font: {google: "JetBrains Mono"}
+
+development:
+  mode: auto
+
+reference:
+- title: Query functions
+  contents:
+  - colocalisationsForGene
+  - genesForVariant
+  - gwasColocalisation
+  - gwasColocalisationForRegion
+  - gwasCredibleSet
+  - gwasRegional
+  - manhattan
+  - overlapInfoForStudy
+  - pheWAS
+  - qtlColocalisationVariantQuery
+  - qtlCredibleSet
+  - studiesAndLeadVariantsForGene
+  - studiesAndLeadVariantsForGeneByL2G
+  - studyLocus2GeneTable
+  - tagVariantsAndStudiesForIndexVariant
+  - indexVariantsAndStudiesForTagVariant
+  - topOverlappedStudies
+  - get_genes
+  - geneInfo
+  - studyInfo
+  - variantInfo
+  - studyVariants
+
+- title: Plotting functions
+  contents:
+  - starts_with("plot")
+
+- title: Custom query function
+  contents:
+  - run_custom_query
+
+news:
+  text: Changelog
+
+navbar:
+  bg: "dark"
+  components:
+   reference:
+    text: Functions
+    href: reference/index.html
+    navbar:
+   github:
+    icon: fa-github
+    href: https://github.com/amirfeizi/otargen
+

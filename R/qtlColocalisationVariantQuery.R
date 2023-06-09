@@ -1,13 +1,26 @@
 #' Retrieves colocalisation data for a variant in a study
 #'
-#' For an input study id and variant id, a table is generated with the following columns-
-#' qtlStudyName, phenotypeId, gene.id, gene.symbol, name, indexVariant.id, indexVariant.rsId,
-#' beta, h4, h3, log2h4h3.
+#' Fetches various colocalisation  data  on molecular quantitative trait locus (QTL) analysis for a variant in a specific study.
 #'
 #' @param studyid String: Open Target Genetics generated id for gwas studies.
 #' @param variantid String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
 #'
-#' @return A data frame of the colocalisation information for a lead variant.
+#' @return Returns a data frame of the colocalisation information for a lead variant in a specific study.
+#' The table consists of the following columns:
+#'
+#' \enumerate{
+#' \item qtlStudyName
+#' \item phenotypeId
+#' \item gene.id
+#' \item gene.symbol
+#' \item name
+#' \item indexVariant.id
+#' \item indexVariant.rsId
+#' \item beta
+#' \item h4
+#' \item h3
+#' \item log2h4h3
+#' }
 #'
 #' @examples
 #' \dontrun{
