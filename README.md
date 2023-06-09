@@ -9,14 +9,9 @@
 You can install the development version of `otargen` as follows:
 
 ``` r
-install.packages("otargen")
+devtools::install_github("amirfeizi/otargen")
 ```
 
 -   Install latest development version from GitHub (requires [devtools](https://github.com/hadley/devtools) package):
 
 ``` r
-if (!require("devtools")) {
-  install.packages("devtools")
-}
-devtools::install_github("https://github.com/amirfeizi/otargen.git")
-```
