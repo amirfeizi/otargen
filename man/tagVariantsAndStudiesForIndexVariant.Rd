@@ -47,11 +47,13 @@ Returns a data Frame containing the variant associations connected to the input 
 }
 }
 \description{
-For an input index variant id, fetches the tag variant information along with study information and scores.
+For an input index variant id, fetches the tag variant information
+along with study information and scores.
 }
 \examples{
 \dontrun{
 otargen::tagVariantsAndStudiesForIndexVariant(variantid = "1_109274968_G_T")
-otargen::tagVariantsAndStudiesForIndexVariant(variantid = "1_109274968_G_T",pageindex = 1, pagesize = 50)
+otargen::tagVariantsAndStudiesForIndexVariant(variantid = "1_109274968_G_T"
+    ,pageindex = 1, pagesize = 50)
 }
 }

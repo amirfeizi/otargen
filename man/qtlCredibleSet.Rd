@@ -37,8 +37,10 @@ that are considered to have a high probability of being truly associated with th
 }
 \examples{
 \dontrun{
-otargen::qtlCredibleSet(studyid="Braineac2", variantid="1_55053079_C_T", gene="ENSG00000169174", biofeature="SUBSTANTIA_NIGRA")
-otargen::qtlCredibleSet(studyid="Braineac2", variantid="rs7552841",gene="PCSK9", biofeature="SUBSTANTIA_NIGRA")
+otargen::qtlCredibleSet(studyid="Braineac2", variantid="1_55053079_C_T",
+    gene="ENSG00000169174", biofeature="SUBSTANTIA_NIGRA")
+otargen::qtlCredibleSet(studyid="Braineac2", variantid="rs7552841",
+    gene="PCSK9", biofeature="SUBSTANTIA_NIGRA")
 }
 
 }

@@ -31,7 +31,8 @@ The table consists of the following columns:
 }
 }
 \description{
-Retrieves L2G data table.
+Fetches the locus-to-gene (L2G) pipeline summary data table for
+the neighboring genes of a variant in a GWAS study.
 }
 \examples{
 \dontrun{

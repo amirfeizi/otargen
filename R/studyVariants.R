@@ -1,9 +1,11 @@
-#' Retrieves variants information for an input study identifier
+#' Retrieves variants information for a study.
+#'
+#' For an input studyid, the function gives out information for all variants for all
+#' associated loci and information about the loci genes
 #'
 #' @param studyid String: Open Targets Genetics generated id for GWAS study.
 #'
-#' @return A list containing all the variants information for all associated loci and information
-#' about the loci genes.
+#' @return Returns a list of data frames.
 #'
 #' The loci data consists of the following columns:
 #'

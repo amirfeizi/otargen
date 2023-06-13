@@ -2,7 +2,7 @@
 % Please edit documentation in R/pheWAS.R
 \name{pheWAS}
 \alias{pheWAS}
-\title{Phenome Wide Association Studies}
+\title{Retrieves Phenome Wide Association Studies for a variant.}
 \usage{
 pheWAS(variantid)
 }
@@ -27,7 +27,9 @@ Returns a data frame with PheWAS associations consisting of the following column
 }
 }
 \description{
-Fetches the phenome-wide association study for a variant.
+PheWAS (Phenome-wide association study) is a method that investigates the relationships
+between genetic variants and a traits or phenotypes. It helps in the study of their
+potential influence on multiple traits or diseases concurrently.
 }
 \examples{
 \dontrun{

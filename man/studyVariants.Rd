@@ -2,7 +2,7 @@
 % Please edit documentation in R/studyVariants.R
 \name{studyVariants}
 \alias{studyVariants}
-\title{Retrieves variants information for an input study identifier}
+\title{Retrieves variants information for a study.}
 \usage{
 studyVariants(studyid)
 }
@@ -10,8 +10,7 @@ studyVariants(studyid)
 \item{studyid}{String: Open Targets Genetics generated id for GWAS study.}
 }
 \value{
-A list containing all the variants information for all associated loci and information
-about the loci genes.
+Returns a list of data frames.
 
 The loci data consists of the following columns:
 
@@ -38,7 +37,8 @@ The information about the loci genes consists of the following columns:
 }
 }
 \description{
-Retrieves variants information for an input study identifier
+For an input studyid, the function gives out information for all variants for all
+associated loci and information about the loci genes
 }
 \examples{
 \dontrun{

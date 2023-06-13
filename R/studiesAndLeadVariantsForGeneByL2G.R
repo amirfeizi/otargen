@@ -1,5 +1,8 @@
 #' Retrieves L2G model summary data for a gene.
 #'
+#' The locus-to-gene model utilizes genetic and functional genomics features to
+#' obtain prioritization scores for likely causal genes at each GWAS locus.
+#'
 #' @param genes String: one or more gene ENSEMBL id or gene names.
 #' @param l2g Float: locus to gene cut off score. (Default: 0.4)
 #' @param pvalue Float: pvalue cut off. (Default: 5e-8)
@@ -53,8 +56,10 @@
 #'
 #' @examples
 #' \dontrun{
-#' otargen::studiesAndLeadVariantsForGeneByL2G(genes = list("ENSG00000163946","ENSG00000169174", "ENSG00000143001"), l2g = 0.7)
-#' otargen::studiesAndLeadVariantsForGeneByL2G(genes = "ENSG00000169174",l2g = 0.6, pvalue = 1e-8,vtype = c("intergenic_variant", "intron_variant"))
+#' otargen::studiesAndLeadVariantsForGeneByL2G(genes = list("ENSG00000163946",
+#'      "ENSG00000169174", "ENSG00000143001"), l2g = 0.7)
+#' otargen::studiesAndLeadVariantsForGeneByL2G(genes = "ENSG00000169174",
+#'      l2g = 0.6, pvalue = 1e-8,vtype = c("intergenic_variant", "intron_variant"))
 #' otargen::studiesAndLeadVariantsForGeneByL2G(genes ="TMEM61")
 #'}
 #' @importFrom magrittr %>%

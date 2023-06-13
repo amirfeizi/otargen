@@ -15,10 +15,11 @@ FALSE which will keep the data that are from UKbioBank beside the published GWAS
 this parameter is set to TRUE, only UKbioBank data will be kept which  has not been published.}
 }
 \value{
-A plot for colocalisation information
+A horizontal bar plot for colocalisation of information.
 }
 \description{
-Plot the colocalisation function results
+Generates a plot of the data obtained from colocalisationsForGene
+function results.
 }
 \examples{
 \dontrun{

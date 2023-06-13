@@ -30,7 +30,8 @@ The table consists of the following columns:
 }
 }
 \description{
-Fetches various colocalisation  data  on molecular quantitative trait locus (QTL) analysis for a variant in a specific study.
+Fetches various colocalisation data  on molecular quantitative trait locus
+(QTL) analysis for a variant in a specific study.
 }
 \examples{
 \dontrun{

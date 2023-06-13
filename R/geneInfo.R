@@ -1,8 +1,9 @@
 #' Retrieves gene information for a gene ENSEMBL identifier or a gene name.
 #'
-#' This function takes gene ensembl id (e.g.ENSG00000169174) or gene name (e.g.PCSK9).
+#' This function takes gene ENSEMBL id (e.g.ENSG00000169174) or gene name (e.g.PCSK9) and returns a table containing details about the
+#' input gene.
 #'
-#' @param gene String: a ensembl gene identifier or gene name (e.g.ENSG00000169174/PCSK9).
+#' @param gene String: an ENSEMBL gene identifier or gene name (e.g.ENSG00000169174/PCSK9).
 #'
 #' @return Returns a tibble data table containing the following columns:
 #'

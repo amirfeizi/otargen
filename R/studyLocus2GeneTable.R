@@ -1,5 +1,8 @@
 #' Retrieves L2G data table.
 #'
+#' Fetches the locus-to-gene (L2G) pipeline summary data table for
+#' the neighboring genes of a variant in a GWAS study.
+#'
 #' @param studyid String: Open Target Genetics generated id for GWAS study.
 #' @param variantid String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
 #'

@@ -1,5 +1,9 @@
 #' Manhattan association for a given study.
 #'
+#' The data generated is used to plot the Manhattan association. Manhattan association is used to  graphically representat genetic association studies,
+#' particularly in genome-wide association studies (GWAS). It displays the results of statistical associations between genetic variants and a trait or
+#' disease of interest across the genome.
+#'
 #' @param studyid String: Open Targets Genetics generated id for GWAS study.
 #' @param pageindex Int: Index of the current page, pagination index >= 0.
 #' @param pagesize Int: No. of records in a page, pagination size > 0.

@@ -7,7 +7,7 @@
 geneInfo(gene)
 }
 \arguments{
-\item{gene}{String: a ensembl gene identifier or gene name (e.g.ENSG00000169174/PCSK9).}
+\item{gene}{String: an ENSEMBL gene identifier or gene name (e.g.ENSG00000169174/PCSK9).}
 }
 \value{
 Returns a tibble data table containing the following columns:
@@ -26,7 +26,8 @@ Returns a tibble data table containing the following columns:
 }
 }
 \description{
-This function takes gene ensembl id (e.g.ENSG00000169174) or gene name (e.g.PCSK9).
+This function takes gene ENSEMBL id (e.g.ENSG00000169174) or gene name (e.g.PCSK9) and returns a table containing details about the
+input gene.
 }
 \examples{
 \dontrun{

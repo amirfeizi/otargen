@@ -46,7 +46,9 @@ Returns a data frame containing manhattan associations for the input study id gi
 }
 }
 \description{
-Manhattan association for a given study.
+The data generated is used to plot the Manhattan association. Manhattan association is used to  graphically representat genetic association studies,
+particularly in genome-wide association studies (GWAS). It displays the results of statistical associations between genetic variants and a trait or
+disease of interest across the genome.
 }
 \examples{
 \dontrun{

@@ -80,7 +80,7 @@ functional prediction (functionalpred) table consists of following columns:
 }
 }
 \description{
-This function gets variant ID formated as CHR_POSITION_REFALLELE_ALT_ALLELE or canonical SNPs ID as an input and returns a list of
+This function gets variant ID formatted as CHR_POSITION_REF, ALLELE_ALT_ALLELE or canonical SNPs ID as an input and returns a list of
 tibble data tables including ranked gene table and corresponding functional genomics data tables that are functionally implicated by this variant.
 }
 \examples{

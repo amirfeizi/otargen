@@ -1,6 +1,8 @@
-#' Phenome Wide Association Studies
+#' Retrieves Phenome Wide Association Studies for a variant.
 #'
-#' Fetches the phenome-wide association study for a variant.
+#' PheWAS (Phenome-wide association study) is a method that investigates the relationships
+#' between genetic variants and a traits or phenotypes. It helps in the study of their
+#' potential influence on multiple traits or diseases concurrently.
 #'
 #' @param variantid is the Open Target Genetics generated id for each variants
 #' @returns Returns a data frame with PheWAS associations consisting of the following columns:

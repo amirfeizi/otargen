@@ -1,6 +1,6 @@
 #' Retrieves variant to Gene (V2G) data.
 #'
-#' This function gets variant ID formated as CHR_POSITION_REFALLELE_ALT_ALLELE or canonical SNPs ID as an input and returns a list of
+#' This function gets variant ID formatted as CHR_POSITION_REF, ALLELE_ALT_ALLELE or canonical SNPs ID as an input and returns a list of
 #' tibble data tables including ranked gene table and corresponding functional genomics data tables that are functionally implicated by this variant.
 #'
 #' @param variantid String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).

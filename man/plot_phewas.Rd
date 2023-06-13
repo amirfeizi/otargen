@@ -21,7 +21,8 @@ plot_phewas(
 A plot to prioritize variants based on their -log10(pval).
 }
 \description{
-Plot the PheWAS function results
+Phenome wide association study results are filtered for diseases and the -log10 p-value is plotted against the traits.
+It presents the association results between genetic variants and multiple traits. The traits with p-value < 0.005 is labelled.
 }
 \examples{
 \dontrun{

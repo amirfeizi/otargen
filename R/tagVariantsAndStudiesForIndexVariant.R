@@ -1,6 +1,7 @@
 #' Retrieves tag variants and studies for a given index variant.
 #'
-#' For an input index variant id, fetches the tag variant information along with study information and scores.
+#' For an input index variant id, fetches the tag variant information
+#' along with study information and scores.
 #'
 #'
 #' @param variantid String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
@@ -42,7 +43,8 @@
 #' @examples
 #' \dontrun{
 #' otargen::tagVariantsAndStudiesForIndexVariant(variantid = "1_109274968_G_T")
-#' otargen::tagVariantsAndStudiesForIndexVariant(variantid = "1_109274968_G_T",pageindex = 1, pagesize = 50)
+#' otargen::tagVariantsAndStudiesForIndexVariant(variantid = "1_109274968_G_T"
+#'     ,pageindex = 1, pagesize = 50)
 #'}
 #' @importFrom magrittr %>%
 #' @export

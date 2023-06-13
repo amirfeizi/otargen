@@ -68,12 +68,15 @@ Returns a data frame containing the input gene id and its data for the L2G model
 }
 }
 \description{
-Retrieves L2G model summary data for a gene.
+The locus-to-gene model utilizes genetic and functional genomics features to
+obtain prioritization scores for likely causal genes at each GWAS locus.
 }
 \examples{
 \dontrun{
-otargen::studiesAndLeadVariantsForGeneByL2G(genes = list("ENSG00000163946","ENSG00000169174", "ENSG00000143001"), l2g = 0.7)
-otargen::studiesAndLeadVariantsForGeneByL2G(genes = "ENSG00000169174",l2g = 0.6, pvalue = 1e-8,vtype = c("intergenic_variant", "intron_variant"))
+otargen::studiesAndLeadVariantsForGeneByL2G(genes = list("ENSG00000163946",
+     "ENSG00000169174", "ENSG00000143001"), l2g = 0.7)
+otargen::studiesAndLeadVariantsForGeneByL2G(genes = "ENSG00000169174",
+     l2g = 0.6, pvalue = 1e-8,vtype = c("intergenic_variant", "intron_variant"))
 otargen::studiesAndLeadVariantsForGeneByL2G(genes ="TMEM61")
 }
 }

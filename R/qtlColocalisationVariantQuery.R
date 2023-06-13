@@ -1,6 +1,7 @@
 #' Retrieves colocalisation data for a variant in a study
 #'
-#' Fetches various colocalisation  data  on molecular quantitative trait locus (QTL) analysis for a variant in a specific study.
+#' Fetches various colocalisation data  on molecular quantitative trait locus
+#' (QTL) analysis for a variant in a specific study.
 #'
 #' @param studyid String: Open Target Genetics generated id for gwas studies.
 #' @param variantid String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).

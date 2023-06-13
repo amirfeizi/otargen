@@ -1,10 +1,14 @@
 #' Plot the the scores obtained from the L2G model results
 #'
+#' A radar plot showing the scores, important for prioritising the causal genes, obtained
+#' from the studiesAndLeadVariantsForGeneByL2G function and filter it for a specific disease.
+#'
 #' @param data Data frame: result of studiesAndLeadVariantsForGeneByL2G function.
 #' @param disease_efo String: input efo id to filter the L2G data for a particular disease.
 #'
-#' @return A radar plot for the input disease and the genes associated with that disease. The variables shown include L2G score, chromatin interaction, variant
-#' pathogenicity and distance.
+#' @return A radar plot for the input disease and the genes associated with that disease.
+#' The variables shown include L2G score, chromatin interaction, variant pathogenicity and distance.
+#'
 #' @import dplyr
 #' @import ggplot2
 #' @importFrom magrittr %>%
@@ -13,7 +17,8 @@
 #'
 #' @examples
 #' \dontrun{
-#' otargen::studiesAndLeadVariantsForGeneByL2G(list("ENSG00000167207","ENSG00000096968","ENSG00000138821", "ENSG00000125255")) %>% otargen::plot_l2g(disease = "EFO_0003767")
+#' otargen::studiesAndLeadVariantsForGeneByL2G(list("ENSG00000167207","ENSG00000096968",
+#'   "ENSG00000138821", "ENSG00000125255")) %>% otargen::plot_l2g(disease = "EFO_0003767")
 #'}
 #'
 
