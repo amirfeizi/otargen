@@ -4,7 +4,8 @@
 #' between genetic variants and a traits or phenotypes. It helps in the study of their
 #' potential influence on multiple traits or diseases concurrently.
 #'
-#' @param variantid is the Open Target Genetics generated id for each variants
+#' @param \emph{variantid} is the Open Target Genetics generated id for each variants
+#'
 #' @returns Returns a data frame with PheWAS associations consisting of the following columns:
 #'
 #' \enumerate{

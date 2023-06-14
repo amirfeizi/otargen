@@ -3,9 +3,9 @@
 #' Phenome wide association study results are filtered for diseases and the -log10 p-value is plotted against the traits.
 #' It presents the association results between genetic variants and multiple traits. The traits with p-value < 0.005 is labelled.
 #'
-#' @param data Data Frame: result of PheWAS function in data frame format, contacting the PheWAS information for a variand id
-#' @param disease Logical: a logical TRUE and FALSE variable, with the default value of TRUE to filter the PheWAS data for disease.
-#' @param source Character vector: choices for data sources of PheWAS analysis including FINNGEN, GCST, NEAL (UKBioBANK), and SAGE.
+#' @param \emph{data} Data Frame: result of PheWAS function in data frame format, contacting the PheWAS information for a variand id
+#' @param \emph{disease} Logical: a logical TRUE and FALSE variable, with the default value of TRUE to filter the PheWAS data for disease.
+#' @param \emph{source} Character vector: choices for data sources of PheWAS analysis including FINNGEN, GCST, NEAL (UKBioBANK), and SAGE.
 #'
 #' @return A plot to prioritize variants based on their -log10(pval).
 #'

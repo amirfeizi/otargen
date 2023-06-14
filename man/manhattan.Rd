@@ -7,11 +7,11 @@
 manhattan(studyid, pageindex = 0, pagesize = 100)
 }
 \arguments{
-\item{studyid}{String: Open Targets Genetics generated id for GWAS study.}
+\item{\emph{studyid}}{String: Open Targets Genetics generated id for GWAS study.}
 
-\item{pageindex}{Int: Index of the current page, pagination index >= 0.}
+\item{\emph{pageindex}}{Int: Index of the current page, pagination index >= 0.}
 
-\item{pagesize}{Int: No. of records in a page, pagination size > 0.}
+\item{\emph{pagesize}}{Int: No. of records in a page, pagination size > 0.}
 }
 \value{
 Returns a data frame containing manhattan associations for the input study id given. The table consists of the following columns:

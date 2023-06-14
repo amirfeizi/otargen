@@ -7,13 +7,13 @@
 qtlCredibleSet(studyid, variantid, gene, biofeature)
 }
 \arguments{
-\item{studyid}{String: Open Target Genetics generated id for GWAS study.}
+\item{\emph{studyid}}{String: Open Target Genetics generated id for GWAS study.}
 
-\item{variantid}{String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).}
+\item{\emph{variantid}}{String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).}
 
-\item{gene}{String: a gene ENSEMBL id or a gene name.}
+\item{\emph{gene}}{String: a gene ENSEMBL id or a gene name.}
 
-\item{biofeature}{String: represents either a tissue, cell type, aggregation type, protein type etc.}
+\item{\emph{biofeature}}{String: represents either a tissue, cell type, aggregation type, protein type etc.}
 }
 \value{
 Returns a data frame of results from qtl credible set of variants consisting of the following columns:

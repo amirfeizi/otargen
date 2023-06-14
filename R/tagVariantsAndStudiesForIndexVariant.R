@@ -4,9 +4,9 @@
 #' along with study information and scores.
 #'
 #'
-#' @param variantid String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
-#' @param pageindex Int: Index of the current page, pagination index >= 0.
-#' @param pagesize Int: No. of records in a page, pagination size > 0.
+#' @param \emph{variantid} String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
+#' @param \emph{pageindex} Int: Index of the current page, pagination index >= 0.
+#' @param \emph{pagesize} Int: No. of records in a page, pagination size > 0.
 #'
 #' @return Returns a data Frame containing the variant associations connected to the input index variant with the following columns:
 #'

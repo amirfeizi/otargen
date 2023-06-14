@@ -3,10 +3,10 @@
 #' For a specific gene, lead variant, study id and biofeature, the function obtains tag variant information
 #' that are considered to have a high probability of being truly associated with the trait and the corresponding scores.
 #'
-#' @param studyid String: Open Target Genetics generated id for GWAS study.
-#' @param variantid String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
-#' @param gene String: a gene ENSEMBL id or a gene name.
-#' @param biofeature String: represents either a tissue, cell type, aggregation type, protein type etc.
+#' @param \emph{studyid} String: Open Target Genetics generated id for GWAS study.
+#' @param \emph{variantid} String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
+#' @param \emph{gene} String: a gene ENSEMBL id or a gene name.
+#' @param \emph{biofeature} String: represents either a tissue, cell type, aggregation type, protein type etc.
 #'
 #' @return Returns a data frame of results from qtl credible set of variants consisting of the following columns:
 #'

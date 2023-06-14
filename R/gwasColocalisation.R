@@ -5,8 +5,8 @@
 #' colocalised index variants with the corresponding GWAS study information and colocalisation scores.
 #'
 #'
-#' @param studyid String: Open Target Genetics generated id for GWAS study.
-#' @param variantid String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
+#' @param \emph{studyid} String: Open Target Genetics generated id for GWAS study.
+#' @param \emph{variantid} String: Open Target Genetics generated id for variant (CHR_POSITION_REF, ALLELE_ALT_ALLELE or rsId).
 #'
 #' @return Returns a data frame of the studies which colocalise with the input variant and study. The table consists of the following columns:
 #'

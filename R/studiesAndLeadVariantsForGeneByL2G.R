@@ -3,10 +3,10 @@
 #' The locus-to-gene model utilizes genetic and functional genomics features to
 #' obtain prioritization scores for likely causal genes at each GWAS locus.
 #'
-#' @param genes String: one or more gene ENSEMBL id or gene names.
-#' @param l2g Float: locus to gene cut off score. (Default: 0.4)
-#' @param pvalue Float: pvalue cut off. (Default: 5e-8)
-#' @param vtype Character vector: most severe consequence to filter the variants type including c(intergenic_variant",
+#' @param \emph{genes} String: one or more gene ENSEMBL id or gene names.
+#' @param \emph{l2g} Float: locus to gene cut off score. (Default: 0.4)
+#' @param \emph{pvalue} Float: pvalue cut off. (Default: 5e-8)
+#' @param \emph{vtype} Character vector: most severe consequence to filter the variants type including c(intergenic_variant",
 #' "upstream_gene_variant", "intron_variant", "missense_variant", "5_prime_UTR_variant",
 #' "non_coding_transcript_exon_variant", "splice_region_variant"). (Default: NULL)
 #'

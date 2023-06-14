@@ -3,8 +3,8 @@
 #' Fetches the locus-to-gene (L2G) pipeline summary data table for
 #' the neighboring genes of a variant in a GWAS study.
 #'
-#' @param studyid String: Open Target Genetics generated id for GWAS study.
-#' @param variantid String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
+#' @param \emph{studyid} String: Open Target Genetics generated id for GWAS study.
+#' @param \emph{variantid} String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
 #'
 #' @return Returns a data frame with summary stats of the study and data table of the various calculated scores and features for any lead variant.
 #' The table consists of the following columns:

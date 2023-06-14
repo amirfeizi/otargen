@@ -1,6 +1,6 @@
 #' Retrieves all studies and lead variants for a gene
 #'
-#' @param genes String: one or more gene ENSEMBL id or gene name.
+#' @param \emph{genes} String: one or more gene ENSEMBL id or gene name.
 #'
 #' @return Returns a dataframe
 #'

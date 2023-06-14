@@ -7,7 +7,7 @@
 studyInfo(studyid)
 }
 \arguments{
-\item{studyid}{String: Open Targets Genetics generated id for a GWAS study.}
+\item{\emph{studyid}}{String: Open Targets Genetics generated id for a GWAS study.}
 }
 \value{
 Returns a tibble data table containing the GWAS study information. The columns in the table are as follows:

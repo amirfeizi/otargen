@@ -2,9 +2,9 @@
 #'
 #' This function gets information for a region of a specified chromosome .
 #'
-#' @param chromosome String: chromosome number as string.
-#' @param start Long: start position of the specified chromosome.
-#' @param end Long: end position of the specified chromosome.
+#' @param \emph{chromosome} String: chromosome number as string.
+#' @param \emph{start} Long: start position of the specified chromosome.
+#' @param \emph{end} Long: end position of the specified chromosome.
 #'
 #' @return Returns a tibble data table of all the overlapping genes in the specified region with following information columns:
 #'

@@ -3,8 +3,8 @@
 #' A radar plot showing the scores, important for prioritising the causal genes, obtained
 #' from the studiesAndLeadVariantsForGeneByL2G function and filter it for a specific disease.
 #'
-#' @param data Data frame: result of studiesAndLeadVariantsForGeneByL2G function.
-#' @param disease_efo String: input efo id to filter the L2G data for a particular disease.
+#' @param \emph{data} Data frame: result of studiesAndLeadVariantsForGeneByL2G function.
+#' @param \emph{disease_efo} String: input efo id to filter the L2G data for a particular disease.
 #'
 #' @return A radar plot for the input disease and the genes associated with that disease.
 #' The variables shown include L2G score, chromatin interaction, variant pathogenicity and distance.

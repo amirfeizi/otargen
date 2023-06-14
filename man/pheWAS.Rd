@@ -7,7 +7,7 @@
 pheWAS(variantid)
 }
 \arguments{
-\item{variantid}{is the Open Target Genetics generated id for each variants}
+\item{\emph{variantid}}{is the Open Target Genetics generated id for each variants}
 }
 \value{
 Returns a data frame with PheWAS associations consisting of the following columns:

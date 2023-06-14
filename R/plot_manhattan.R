@@ -4,7 +4,7 @@
 #' the manhattan function. Users can provide p-value as a parameter to obtain a plot with the significant SNPs.
 #'
 #'
-#' @param data Data frame: result of the manhattan function containing SNP information
+#' @param \emph{data} Data frame: result of the manhattan function containing SNP information
 #'
 #' @return A manhattan plot representing SNPs on the x-axis with the corresponding
 #' negative logarithm of p-value on the y-axis.

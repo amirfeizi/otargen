@@ -4,8 +4,8 @@
 #' this functions returns a data table consisting of all the associated credible
 #' set tag variants with the corresponding statistical data.
 #'
-#' @param studyid String: Open Target Genetics generated id for GWAS study.
-#' @param variantid String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
+#' @param \emph{studyid} String: Open Target Genetics generated id for GWAS study.
+#' @param \emph{variantid} String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
 #'
 #' @return Returns a data frame of results from credible set of variants for a specific lead variant with the following columns:
 #'

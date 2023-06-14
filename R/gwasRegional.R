@@ -5,10 +5,10 @@
 #' their respective p-values.
 #'
 #'
-#' @param studyid String: Open Target Genetics generated id for GWAS study.
-#' @param chromosome String: chromosome number as string.
-#' @param start Long: start position of the specified chromosome.
-#' @param end Long: end position of the specified chromosome.
+#' @param \emph{studyid} String: Open Target Genetics generated id for GWAS study.
+#' @param \emph{chromosome} String: chromosome number as string.
+#' @param \emph{start} Long: start position of the specified chromosome.
+#' @param \emph{end} Long: end position of the specified chromosome.
 #'
 #'
 #' @return Returns a data table of variant information and pvalue. The table consists of the following columns:

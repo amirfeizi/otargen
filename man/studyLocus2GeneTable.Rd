@@ -7,9 +7,9 @@
 studyLocus2GeneTable(studyid, variantid)
 }
 \arguments{
-\item{studyid}{String: Open Target Genetics generated id for GWAS study.}
+\item{\emph{studyid}}{String: Open Target Genetics generated id for GWAS study.}
 
-\item{variantid}{String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).}
+\item{\emph{variantid}}{String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).}
 }
 \value{
 Returns a data frame with summary stats of the study and data table of the various calculated scores and features for any lead variant.

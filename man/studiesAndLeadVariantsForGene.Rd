@@ -7,7 +7,7 @@
 studiesAndLeadVariantsForGene(genes)
 }
 \arguments{
-\item{genes}{String: one or more gene ENSEMBL id or gene name.}
+\item{\emph{genes}}{String: one or more gene ENSEMBL id or gene name.}
 }
 \value{
 Returns a dataframe

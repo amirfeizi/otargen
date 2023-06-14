@@ -12,13 +12,13 @@ studiesAndLeadVariantsForGeneByL2G(
 )
 }
 \arguments{
-\item{genes}{String: one or more gene ENSEMBL id or gene names.}
+\item{\emph{genes}}{String: one or more gene ENSEMBL id or gene names.}
 
-\item{l2g}{Float: locus to gene cut off score. (Default: 0.4)}
+\item{\emph{l2g}}{Float: locus to gene cut off score. (Default: 0.4)}
 
-\item{pvalue}{Float: pvalue cut off. (Default: 5e-8)}
+\item{\emph{pvalue}}{Float: pvalue cut off. (Default: 5e-8)}
 
-\item{vtype}{Character vector: most severe consequence to filter the variants type including c(intergenic_variant",
+\item{\emph{vtype}}{Character vector: most severe consequence to filter the variants type including c(intergenic_variant",
 "upstream_gene_variant", "intron_variant", "missense_variant", "5_prime_UTR_variant",
 "non_coding_transcript_exon_variant", "splice_region_variant"). (Default: NULL)}
 }

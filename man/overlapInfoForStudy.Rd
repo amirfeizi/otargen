@@ -7,9 +7,9 @@
 overlapInfoForStudy(studyid, studyids = list())
 }
 \arguments{
-\item{studyid}{String: Open Target Genetics generated id for GWAS study.}
+\item{\emph{studyid}}{String: Open Target Genetics generated id for GWAS study.}
 
-\item{studyids}{List of Strings: list of Open Target Genetics generated id for GWAS studies.}
+\item{\emph{studyids}}{List of Strings: list of Open Target Genetics generated id for GWAS studies.}
 }
 \value{
 A list containing a data frame of overlap information and the variant intersection set.

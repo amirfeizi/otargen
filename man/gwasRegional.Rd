@@ -7,13 +7,13 @@
 gwasRegional(studyid, chromosome, start, end)
 }
 \arguments{
-\item{studyid}{String: Open Target Genetics generated id for GWAS study.}
+\item{\emph{studyid}}{String: Open Target Genetics generated id for GWAS study.}
 
-\item{chromosome}{String: chromosome number as string.}
+\item{\emph{chromosome}}{String: chromosome number as string.}
 
-\item{start}{Long: start position of the specified chromosome.}
+\item{\emph{start}}{Long: start position of the specified chromosome.}
 
-\item{end}{Long: end position of the specified chromosome.}
+\item{\emph{end}}{Long: end position of the specified chromosome.}
 }
 \value{
 Returns a data table of variant information and pvalue. The table consists of the following columns:

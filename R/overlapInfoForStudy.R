@@ -4,8 +4,8 @@
 #' One contains the overlap information in a table format. The other element is the variant intersection set.
 #' It represents an overlap between two variants of the two given studies.
 #'
-#' @param studyid String: Open Target Genetics generated id for GWAS study.
-#' @param studyids List of Strings: list of Open Target Genetics generated id for GWAS studies.
+#' @param \emph{studyid} String: Open Target Genetics generated id for GWAS study.
+#' @param \emph{studyids} List of Strings: list of Open Target Genetics generated id for GWAS studies.
 #'
 #' @return A list containing a data frame of overlap information and the variant intersection set.
 #'

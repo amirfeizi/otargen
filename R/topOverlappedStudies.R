@@ -2,9 +2,9 @@
 #'
 #' Fetches the top associated studies for a given study id ordered by loci overlap.
 #'
-#' @param studyid String: Open Target Genetics generated id for GWAS study.
-#' @param pageindex Int: Index of the current page, pagination index >= 0.
-#' @param pagesize Int: No. of records in a page, pagination size > 0.
+#' @param \emph{studyid} String: Open Target Genetics generated id for GWAS study.
+#' @param \emph{pageindex} Int: Index of the current page, pagination index >= 0.
+#' @param \emph{pagesize} Int: No. of records in a page, pagination size > 0.
 #'
 #' @returns Returns a data frame with top studies containing the following columns:
 #'

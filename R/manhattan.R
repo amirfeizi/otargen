@@ -4,9 +4,9 @@
 #' particularly in genome-wide association studies (GWAS). It displays the results of statistical associations between genetic variants and a trait or
 #' disease of interest across the genome.
 #'
-#' @param studyid String: Open Targets Genetics generated id for GWAS study.
-#' @param pageindex Int: Index of the current page, pagination index >= 0.
-#' @param pagesize Int: No. of records in a page, pagination size > 0.
+#' @param \emph{studyid} String: Open Targets Genetics generated id for GWAS study.
+#' @param \emph{pageindex} Int: Index of the current page, pagination index >= 0.
+#' @param \emph{pagesize} Int: No. of records in a page, pagination size > 0.
 #'
 #' @return Returns a data frame containing manhattan associations for the input study id given. The table consists of the following columns:
 #'

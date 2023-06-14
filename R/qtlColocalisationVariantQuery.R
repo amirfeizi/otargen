@@ -3,8 +3,8 @@
 #' Fetches various colocalisation data  on molecular quantitative trait locus
 #' (QTL) analysis for a variant in a specific study.
 #'
-#' @param studyid String: Open Target Genetics generated id for gwas studies.
-#' @param variantid String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
+#' @param \emph{studyid} String: Open Target Genetics generated id for gwas studies.
+#' @param \emph{variantid} String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
 #'
 #' @return Returns a data frame of the colocalisation information for a lead variant in a specific study.
 #' The table consists of the following columns:

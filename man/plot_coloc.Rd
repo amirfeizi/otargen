@@ -7,10 +7,10 @@
 plot_coloc(data, biobank = FALSE)
 }
 \arguments{
-\item{data}{Data Frame: result of colocalisationsForGene function in data
+\item{\emph{data}}{Data Frame: result of colocalisationsForGene function in data
 frame format, contacting the phewas information for a variant id}
 
-\item{biobank}{Logical: TRUE and FALSE variable, with the default value of
+\item{\emph{biobank}}{Logical: TRUE and FALSE variable, with the default value of
 FALSE which will keep the data that are from UKbioBank beside the published GWAS data. In case,
 this parameter is set to TRUE, only UKbioBank data will be kept which  has not been published.}
 }

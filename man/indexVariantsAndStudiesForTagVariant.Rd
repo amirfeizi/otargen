@@ -7,11 +7,11 @@
 indexVariantsAndStudiesForTagVariant(variantid, pageindex = 0, pagesize = 20)
 }
 \arguments{
-\item{variantid}{String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).}
+\item{\emph{variantid}}{String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).}
 
-\item{pageindex}{Int: Index of the current page, pagination index >= 0.}
+\item{\emph{pageindex}}{Int: Index of the current page, pagination index >= 0.}
 
-\item{pagesize}{Int: No. of records in a page, pagination size > 0.}
+\item{\emph{pagesize}}{Int: No. of records in a page, pagination size > 0.}
 }
 \value{
 Returns a dataframe containing the variant associated to the input tag variant. The table consists of the following columns:

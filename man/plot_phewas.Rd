@@ -11,11 +11,11 @@ plot_phewas(
 )
 }
 \arguments{
-\item{data}{Data Frame: result of PheWAS function in data frame format, contacting the PheWAS information for a variand id}
+\item{\emph{data}}{Data Frame: result of PheWAS function in data frame format, contacting the PheWAS information for a variand id}
 
-\item{disease}{Logical: a logical TRUE and FALSE variable, with the default value of TRUE to filter the PheWAS data for disease.}
+\item{\emph{disease}}{Logical: a logical TRUE and FALSE variable, with the default value of TRUE to filter the PheWAS data for disease.}
 
-\item{source}{Character vector: choices for data sources of PheWAS analysis including FINNGEN, GCST, NEAL (UKBioBANK), and SAGE.}
+\item{\emph{source}}{Character vector: choices for data sources of PheWAS analysis including FINNGEN, GCST, NEAL (UKBioBANK), and SAGE.}
 }
 \value{
 A plot to prioritize variants based on their -log10(pval).

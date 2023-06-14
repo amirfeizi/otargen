@@ -13,7 +13,9 @@ vignette: >
 
 Due to the popularity of R in bioinformatics and genetics research, we have developed `otargen`, a R package based on graphql that offers diverse functionalities for seamless data retrieval with tidy data table outputs, plotting essential calculated information, and executing custom queries. `Otargen` simplifies the process of accessing data and facilitates systematic access to OTG data from R, which allows efficient integration of genetic evidence with the data-driven target discovery pipelines.. The data primarily revolves around 3 key components: `studyid`, `variantid` and `geneid`. Given below are a few examples on how to retrieve and plot data using the package.
 
-## Examples
+## Examples:
+
+
 
 **1. Retrieve colocalisation data for one or more `genes`:** Studies which have evidence of colocalisation of genetic variants associated with both molecular traits (such as gene expression levels or protein levels) and complex traits within the same genomic regions.
 
@@ -41,6 +43,8 @@ colocalisationsForGene(genes=list("ENSG00000163946","ENSG00000169174", "ENSG0000
 #   Journal <chr>, Pubmed_id <chr>
 ```
 
+
+
 **2. Retrieve qtl credible set data for a given `gene`, `studyid`, `variantid` and `biofeature`.**
 The function obtains tag variant information that are considered to have a high probability of being 
 truly associated with the trait and the corresponding scores.
@@ -57,6 +61,8 @@ head(qtl_cred_set)
 5 1_55248288_C_T              NA 0.000650165 0.182720  0.663849 0.001293980       conditional 2.152124 TRUE TRUE
 6 1_55248542_G_A              NA 0.000650880 0.182789  0.664035 0.001293430       conditional 2.151698 TRUE TRUE
 ```
+
+
 
 **3. Retrieves L2G model summary data for `gene(s)`.** The locus-to-gene model utilizes genetic and functional genomics features to obtain prioritization scores for likely causal genes at each GWAS locus. The output can be further filtered by providing `l2g` score, `pvalue` and `vtype`. `vtype` refers to the mostSevereConsequence of a variant on the associated gene.
 
@@ -86,6 +92,8 @@ l2g_results %>% as_tibble()
 #   variant.nearestCodingGeneDistance <int>, variant.nearestGeneDistance <int>, variant.mostSevereConsequence <chr>, …
 ```
 
+
+
 **4. Obtain detailed information about all the genes present in a given region of a specified `chromosome`.**
 
 ``` r
@@ -108,6 +116,8 @@ get_genes(chromosome = "2", start = 239634984, end = 241634984)
 # ℹ Use `print(n = ...)` to see more rows
 ```
 
+
+
 **5. Plot data obtained from the *manhattan* function.** 
 A Manhattan plot is used to represent genetic association studies. Here, the plot displays the associated p-value (-log10(P)) for genetic variants across the genome, plotted against their chromosomal regions.
 
@@ -117,6 +127,8 @@ manhattan(studyid = "GCST003044") %>% plot_manhattan()
 
 <img src="plot_manhattan.png" align="left"/>
 
+
+
 **6. Plot data obtained from the *PheWAS* function.** Phenome wide association study results are filtered for diseases and the -log10 p-value is plotted against the traits. It presents the association results between genetic variants and multiple traits. The traits with p-value \< 0.005 is labelled.
 
 ``` r
@@ -124,6 +136,8 @@ pheWAS(variantid = "14_87978408_G_A") %>% plot_phewas(disease = TRUE)
 ```
 
 <img src="plot_phewas.png" align="left"/>
+
+
 
 **7. Plot the scores obtained from the *studiesAndLeadVariantsForGeneByL2G* function and filter it for a specific `disease`.** A radar plot showing the scores important for prioritising the causal genes.
 

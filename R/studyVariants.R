@@ -3,7 +3,7 @@
 #' For an input studyid, the function gives out information for all variants for all
 #' associated loci and information about the loci genes
 #'
-#' @param studyid String: Open Targets Genetics generated id for GWAS study.
+#' @param \emph{studyid} String: Open Targets Genetics generated id for GWAS study.
 #'
 #' @return Returns a list of data frames.
 #'

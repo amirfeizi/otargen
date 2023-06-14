@@ -1,6 +1,6 @@
 # otargen
 
-`otargen` is an open-source and freely available R package that facilitates data retrieval and analysis from Open Target Genetics portal in the R programming environment. `otargen` functions cover all the GraphQL query types in Open Target Genetics schema, and return tidy data tables. It also includes several useful plotting functions to help visualize and gain insight from core complex data tables.
+`otargen` is an open-source and freely available R package that facilitates data retrieval and analysis from [Open Target Genetics](https://genetics.opentargets.org/) portal in the R programming environment. `otargen` functions cover all the [GraphQL](https://graphql.org/) query types in Open Target Genetics schema, and return tidy data tables. It also includes several useful plotting functions to help visualize and gain insight from core complex data tables.
 
 <img src="man/figures/otargen_overview_fig.png" align="center" width="600"/>
 

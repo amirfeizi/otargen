@@ -3,7 +3,8 @@
 #' This functions takes gene(s)/ensemble id(s) as an input and returns a tibble
 #' format data table of studies that have evidence of colocalisation with molecular QTLs.
 #'
-#' @param genes String: one or more gene ENSEMBL identifier or gene name.
+#' @param \emph{genes} String: one or more gene ENSEMBL identifier or gene name.
+#'
 #' @import dplyr
 #' @importFrom magrittr %>%
 #' @import rlang

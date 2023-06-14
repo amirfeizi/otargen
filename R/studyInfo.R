@@ -3,7 +3,7 @@
 #' For a given study id, this function returns all the  relevant information about
 #' GWAS study such as PubMed id, studied trait EFO id, case/control size etc.
 #'
-#' @param studyid String: Open Targets Genetics generated id for a GWAS study.
+#' @param \emph{studyid} String: Open Targets Genetics generated id for a GWAS study.
 #'
 #' @return Returns a tibble data table containing the GWAS study information. The columns in the table are as follows:
 #'

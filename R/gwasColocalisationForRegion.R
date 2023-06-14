@@ -4,9 +4,9 @@
 #' of colocalised variants to the left and right side of the provided regions including
 #' the calculated colocalization scores.
 #'
-#' @param chromosome String: chromosome number as string.
-#' @param start Long: start position of the specified chromosome.
-#' @param end Long: end position of the specified chromosome.
+#' @param \emph{chromosome} String: chromosome number as string.
+#' @param \emph{start} Long: start position of the specified chromosome.
+#' @param \emph{end} Long: end position of the specified chromosome.
 #'
 #'
 #' @returns Returns a data frame with the following columns:

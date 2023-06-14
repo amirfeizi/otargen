@@ -7,7 +7,7 @@
 colocalisationsForGene(genes)
 }
 \arguments{
-\item{genes}{String: one or more gene ENSEMBL identifier or gene name.}
+\item{\emph{genes}}{String: one or more gene ENSEMBL identifier or gene name.}
 }
 \value{
 Returns a tibble including the query gene(s) colocalisation data.

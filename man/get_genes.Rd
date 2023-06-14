@@ -7,11 +7,11 @@
 get_genes(chromosome, start, end)
 }
 \arguments{
-\item{chromosome}{String: chromosome number as string.}
+\item{\emph{chromosome}}{String: chromosome number as string.}
 
-\item{start}{Long: start position of the specified chromosome.}
+\item{\emph{start}}{Long: start position of the specified chromosome.}
 
-\item{end}{Long: end position of the specified chromosome.}
+\item{\emph{end}}{Long: end position of the specified chromosome.}
 }
 \value{
 Returns a tibble data table of all the overlapping genes in the specified region with following information columns:

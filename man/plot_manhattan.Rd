@@ -7,7 +7,7 @@
 plot_manhattan(data)
 }
 \arguments{
-\item{data}{Data frame: result of the manhattan function containing SNP information}
+\item{\emph{data}}{Data frame: result of the manhattan function containing SNP information}
 }
 \value{
 A manhattan plot representing SNPs on the x-axis with the corresponding

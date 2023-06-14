@@ -7,7 +7,7 @@
 studyVariants(studyid)
 }
 \arguments{
-\item{studyid}{String: Open Targets Genetics generated id for GWAS study.}
+\item{\emph{studyid}}{String: Open Targets Genetics generated id for GWAS study.}
 }
 \value{
 Returns a list of data frames.

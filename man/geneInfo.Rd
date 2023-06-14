@@ -7,7 +7,7 @@
 geneInfo(gene)
 }
 \arguments{
-\item{gene}{String: an ENSEMBL gene identifier or gene name (e.g.ENSG00000169174/PCSK9).}
+\item{\emph{gene}}{String: an ENSEMBL gene identifier or gene name (e.g.ENSG00000169174/PCSK9).}
 }
 \value{
 Returns a tibble data table containing the following columns:
