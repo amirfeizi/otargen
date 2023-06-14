@@ -9,7 +9,7 @@ gwasCredibleSet(studyid, variantid)
 \arguments{
 \item{\emph{studyid}}{String: Open Target Genetics generated id for GWAS study.}
 
-\item{\emph{variantid}}{String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).}
+\item{\emph{variantid}}{String: Open Target Genetics generated id for variant (CHRPOSITION_REFALLELE_ALTALLELE or rsId).}
 }
 \value{
 Returns a data frame of results from credible set of variants for a specific lead variant with the following columns:

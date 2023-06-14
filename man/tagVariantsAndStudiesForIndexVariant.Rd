@@ -7,7 +7,7 @@
 tagVariantsAndStudiesForIndexVariant(variantid, pageindex = 0, pagesize = 20)
 }
 \arguments{
-\item{\emph{variantid}}{String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).}
+\item{\emph{variantid}}{String: Open Target Genetics generated id for variant (CHRPOSITION_REFALLELE_ALTALLELE or rsId).}
 
 \item{\emph{pageindex}}{Int: Index of the current page, pagination index >= 0.}
 

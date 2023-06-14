@@ -4,7 +4,7 @@
 #' that are considered to have a high probability of being truly associated with the trait and the corresponding scores.
 #'
 #' @param \emph{studyid} String: Open Target Genetics generated id for GWAS study.
-#' @param \emph{variantid} String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
+#' @param \emph{variantid} String: Open Target Genetics generated id for variant (CHRPOSITION_REFALLELE_ALTALLELE or rsId).
 #' @param \emph{gene} String: a gene ENSEMBL id or a gene name.
 #' @param \emph{biofeature} String: represents either a tissue, cell type, aggregation type, protein type etc.
 #'

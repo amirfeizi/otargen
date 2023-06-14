@@ -4,7 +4,7 @@
 #' with population level summary stats data columns across various GWAS studies.
 #'
 #'
-#' @param \emph{variantid} String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
+#' @param \emph{variantid} String: Open Target Genetics generated id for variant (CHRPOSITION_REFALLELE_ALTALLELE or rsId).
 #' @param \emph{pageindex} Int: Index of the current page, pagination index >= 0.
 #' @param \emph{pagesize} Int: No. of records in a page, pagination size > 0.
 #'

@@ -7,7 +7,7 @@
 variantInfo(variantid)
 }
 \arguments{
-\item{\emph{variantid}}{String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).}
+\item{\emph{variantid}}{String: Open Target Genetics generated id for variant (CHRPOSITION_REFALLELE_ALTALLELE or rsId).}
 }
 \value{
 Returns a data frame containing the variant information with the following columns:

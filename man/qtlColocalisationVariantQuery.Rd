@@ -9,7 +9,7 @@ qtlColocalisationVariantQuery(studyid, variantid)
 \arguments{
 \item{\emph{studyid}}{String: Open Target Genetics generated id for gwas studies.}
 
-\item{\emph{variantid}}{String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).}
+\item{\emph{variantid}}{String: Open Target Genetics generated id for variant (CHRPOSITION_REFALLELE_ALTALLELE or rsId).}
 }
 \value{
 Returns a data frame of the colocalisation information for a lead variant in a specific study.

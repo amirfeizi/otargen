@@ -1,9 +1,9 @@
 #' Retrieves variant to Gene (V2G) data.
 #'
-#' This function gets variant ID formatted as CHR_POSITION, REF_ALLELE, ALT_ALLELE or canonical SNPs ID as an input and returns a list of
+#' This function gets variant ID formatted as CHRPOSITION_REFALLELE_ALTALLELE or canonical SNPs ID as an input and returns a list of
 #' tibble data tables including ranked gene table and corresponding functional genomics data tables that are functionally implicated by this variant.
 #'
-#' @param \emph{variantid} String: Open Target Genetics generated id for variant (CHR_POSITION, REF_ALLELE, ALT_ALLELE or rsId).
+#' @param \emph{variantid} String: Open Target Genetics generated id for variant (CHRPOSITION_REFALLELE_ALTALLELE or rsId).
 #'
 #' @return A list of tibble data tables containing variant to gene (v2g) information with
 #' individual QTL associations, intervals, distances and functional predictions.

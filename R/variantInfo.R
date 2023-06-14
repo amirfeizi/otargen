@@ -1,6 +1,6 @@
 #' Retrieves the information about the input variant id.
 #'
-#' @param \emph{variantid} String: Open Target Genetics generated id for variant (CHR_POSITION_REFALLELE_ALT_ALLELE or rsId).
+#' @param \emph{variantid} String: Open Target Genetics generated id for variant (CHRPOSITION_REFALLELE_ALTALLELE or rsId).
 #'
 #' @return Returns a data frame containing the variant information with the following columns:
 #'
