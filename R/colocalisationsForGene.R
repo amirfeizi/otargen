@@ -1,7 +1,10 @@
 #' Retrieves colocalisation data for a gene.
 #'
-#' This functions takes gene(s)/ensemble id(s) as an input and returns a tibble
-#' format data table of studies that have evidence of colocalisation with molecular QTLs.
+#' This function retrieves colocalization data for input ENSEMBL gene IDs or a gene name and
+#' it supports multiple gene IDs as a list of inputs. However, providing a limited number of
+#' genes is recommended to prevent excessive traffic on the OTG servers and ensure optimal
+#' performance.The return is a data table (tibble format) of studies that have evidence of colocalisation
+#'  with molecular QTLs for given gene(s).
 #'
 #' @param \emph{genes} String: one or more gene ENSEMBL identifier or gene name.
 #'
