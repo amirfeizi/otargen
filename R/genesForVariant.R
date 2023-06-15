@@ -1,83 +1,72 @@
-#' Retrieves variant to Gene (V2G) data.
+#' Fetches variant-to-gene information with individual QTL associations, intervals, distances, and functional predictions.
 #'
-#' This function gets variant ID formatted as CHRPOSITION_REFALLELE_ALTALLELE or canonical SNPs ID as an input and returns a list of
-#' tibble data tables including ranked gene table and corresponding functional genomics data tables that are functionally implicated by this variant.
+#' This function retrieves various information related to variants and genes, including QTL associations, distances, chromatin interactions, and functional predictions.
 #'
-#' @param \emph{variantid} String: Open Target Genetics generated id for variant (CHRPOSITION_REFALLELE_ALTALLELE or rsId).
+#' @param variantId A character string specifying the ID of the variant for which to fetch gene information.
 #'
-#' @return A list of tibble data tables containing variant to gene (v2g) information with
-#' individual QTL associations, intervals, distances and functional predictions.
+#' @return A list with the following components:
+#' \itemize{
+#'   \item \code{v2g}: Is a data frame with all variant-to-gene information with the following data structure.
+#'     - \code{gene.symbol}: character
+#'     - \code{variant}: character
+#'     - \code{overallScore}: numeric
+#'     - \code{gene.id}: character
 #'
-#' v2g table consists of following columns:
+#'   \item \code{tssd}: Is a data frame with all details on colocalization scores effect of variant
+#'    in expression of the genes across tissues with the following data structure:
+#'     - \code{gene.symbol}: character
+#'     - \code{variant}: character
+#'     - \code{typeId}: character
+#'     - \code{sourceId}: character
+#'     - \code{aggregatedScore}: numeric
+#'     - \code{tissues_distance}: integer
+#'     - \code{tissues_score}: numeric
+#'     - \code{tissues_quantile}: numeric
+#'     - \code{tissues_id}: character
+#'     - \code{tissues_name}: character
 #'
-#' \enumerate{
-#' \item gene.symbol
-#' \item variant
-#' \item overallScore
-#' \item gene.id
-#' }
+#'   \item \code{qtls}: List of QTL associations between genes and variants across analysed tissues with the
+#'    following data structure:
+#'     - \code{gene.symbol}: character
+#'     - \code{variant}: character
+#'     - \code{typeId}: character
+#'     - \code{aggregatedScore}: numeric
+#'     - \code{tissues_quantile}: numeric
+#'     - \code{tissues_beta}: numeric
+#'     - \code{tissues_pval}: numeric
+#'     - \code{tissues_id}: character
+#'     - \code{tissues_name}: character
 #'
-#' tssd (distance to TSS) table consists of following columns:
+#'   \item \code{chromatin}: Is a data frame which includes all information on chromatin interactions effect
+#'   involving genes and variants with the following data structure:
+#'     - \code{gene.symbol}: character
+#'     - \code{variant}: character
+#'     - \code{typeId}: character
+#'     - \code{sourceId}: character
+#'     - \code{aggregatedScore}: numeric
+#'     - \code{tissues_quantile}: numeric
+#'     - \code{tissues_score}: numeric
+#'     - \code{tissues_id}: character
+#'     - \code{tissues_name}: character
 #'
-#'\enumerate{
-#' \item gene.symbol
-#' \item variant
-#' \item typeId
-#' \item sourceId
-#' \item aggregatedScore
-#' \item tissues_distance
-#' \item tissues_score
-#' \item tissues_quantile
-#' \item tissues_id
-#' \item tissues_name
-#'}
-#'
-#' qtl table consists of the following columns:
-#'
-#'\enumerate{
-#' \item gene.symbol
-#' \item variant
-#' \item typeId
-#' \item aggregatedScore
-#' \item tissues_quantile
-#' \item tissues_beta
-#' \item tissues_pval
-#' \item tissues_id
-#' \item tissues_name
-#' }
-#'
-#' chromatin table consists of the following columns:
-#'
-#'\enumerate{
-#' \item gene.symbol
-#' \item variant
-#' \item typeId
-#' \item sourceId
-#' \item aggregatedScore
-#' \item tissues_quantile
-#' \item tissues_score
-#' \item tissues_id
-#' \item tissues_name
-#'}
-#'
-#' functional prediction (functionalpred) table consists of following columns:
-#'
-#' \enumerate{
-#' \item gene.symbol
-#' \item variant
-#' \item typeId
-#' \item sourceId
-#' \item aggregatedScore
-#' \item tissues_maxEffectLabel
-#' \item tissues_maxEffectScore
-#' \item tissues_id
-#' \item tissues_name
+#'   \item \code{functionalpred}: Is a data frame that includes predicted functional effect of
+#'    variants on genes across tissues with the followint data structure:
+#'     - \code{gene.symbol}: character
+#'     - \code{variant}: character
+#'     - \code{typeId}: character
+#'     - \code{sourceId}: character
+#'     - \code{aggregatedScore}: numeric
+#'     - \code{tissues_maxEffectLabel}: character
+#'     - \code{tissues_maxEffectScore}: numeric
+#'     - \code{tissues_id}: character
+#'     - \code{tissues_name}: character
 #' }
 #'
 #' @examples
 #' \dontrun{
-#' otargen::genesForVariant(variantid = "1_154453788_C_T")
-#' otargen::genesForVariant(variantid = "rs4129267")
+#'   result <- genesForVariant(variantId = "1_154453788_C_T")
+#'   print(result)
+#'
 #' }
 #' @export
 #' @import dplyr
