@@ -1,35 +1,29 @@
-#' GWAS Regional Association of a study.
+#' Retrieve all signals for a specific region of a chromosome in a GWAS .
 #'
-#' For a given study id and a chromosomal region information,
-#' this function returns a data table in a tibble format with all variants and
-#' their respective p-values.
+#' For a given study ID and chromosomal region information, this function returns a tibble data table with all variants and their respective p-values.
 #'
+#' @param \emph{studyid} String: Open Target Genetics generated ID for the GWAS study.
+#' @param \emph{chromosome} String: Chromosome number as a string.
+#' @param \emph{start} Long: Start position of the specified chromosome.
+#' @param \emph{end} Long: End position of the specified chromosome.
 #'
-#' @param \emph{studyid} String: Open Target Genetics generated id for GWAS study.
-#' @param \emph{chromosome} String: chromosome number as string.
-#' @param \emph{start} Long: start position of the specified chromosome.
-#' @param \emph{end} Long: end position of the specified chromosome.
-#'
-#'
-#' @return Returns a data table of variant information and pvalue. The table consists of the following columns:
-#'
-#' \enumerate{
-#' \item variant.id
-#' \item variant.chromosome
-#' \item variant.position
-#' \item pval
+#' @return Returns a data table of variant information and p-values with the following columns:
+#' \itemize{
+#'   \item{\code{variant.id}:} \emph{Character vector}. Variant identifier.
+#'   \item{\code{variant.chromosome}:} \emph{Character vector}. Chromosome of the variant.
+#'   \item{\code{variant.position}:} \emph{Integer vector}. Position of the variant.
+#'   \item{\code{pval}:} \emph{Numeric vector}. P-value.
 #' }
-#'
 #'
 #' @examples
 #' \dontrun{
-#' otargen::gwasRegional(studyid="GCST90002357", chromosome="1", start=153992685, end=154155116)
+#' result <- gwasRegional(studyid = "GCST90002357", chromosome = "1", start = 153992685, end = 154155116)
 #' }
 #' @import dplyr
 #' @importFrom magrittr %>%
 #' @export
 #'
-#'
+
 
 gwasRegional <- function(studyid, chromosome, start, end) {
 

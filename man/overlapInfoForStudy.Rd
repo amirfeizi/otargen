@@ -7,35 +7,35 @@
 overlapInfoForStudy(studyid, studyids = list())
 }
 \arguments{
-\item{\emph{studyid}}{String: Open Target Genetics generated id for GWAS study.}
+\item{\emph{studyid}}{String: Open Targets Genetics generated ID for GWAS study.}
 
-\item{\emph{studyids}}{List of Strings: list of Open Target Genetics generated id for GWAS studies.}
+\item{\emph{studyids}}{List of Strings: List of Open Targets Genetics generated IDs for GWAS studies.}
 }
 \value{
 A list containing a data frame of overlap information and the variant intersection set.
-
 The overlap information table (overlap_info) consists of the following columns:
-\enumerate{
-\item studyId
-\item traitReported
-\item traitCategory
-\item variantIdA
-\item variantIdB
-\item overlapAB
-\item distinctA
-\item distinctB
-\item study.studyId
-\item study.traitReported
-\item study.traitCategory
+\itemize{
+  \item{\code{studyId}:} \emph{Character vector}. Study ID.
+  \item{\code{traitReported}:} \emph{Character vector}. Reported trait.
+  \item{\code{traitCategory}:} \emph{Character vector}. Trait category.
+  \item{\code{variantIdA}:} \emph{Character vector}. Variant ID from study A.
+  \item{\code{variantIdB}:} \emph{Character vector}. Variant ID from study B.
+  \item{\code{overlapAB}:} \emph{Integer vector}. Number of overlaps between variants A and B.
+  \item{\code{distinctA}:} \emph{Integer vector}. Number of distinct variants in study A.
+  \item{\code{distinctB}:} \emph{Integer vector}. Number of distinct variants in study B.
+  \item{\code{study.studyId}:} \emph{Character vector}. Study ID from study list.
+  \item{\code{study.traitReported}:} \emph{Character vector}. Reported trait from study list.
+  \item{\code{study.traitCategory}:} \emph{Character vector}. Trait category from study list.
 }
+The variant intersection set (variant_intersection_set) is a character vector representing the intersection of variants.
 }
 \description{
-For an input study id and a list of other study ids, this function returns two elements.
-One contains the overlap information in a table format. The other element is the variant intersection set.
-It represents an overlap between two variants of the two given studies.
+For an input study ID and a list of other study IDs, this function returns two elements.
+One contains the overlap information in a table format, and the other element is the variant intersection set,
+representing an overlap between two variants of the two given studies.
 }
 \examples{
 \dontrun{
-otargen::overlapInfoForStudy(studyid="GCST90002357", studyids=list("GCST90025975","GCST90025962"))
+result <- overlapInfoForStudy(studyid = "GCST90002357", studyids = list("GCST90025975", "GCST90025962"))
 }
 }

@@ -23,7 +23,7 @@ function results.
 }
 \examples{
 \dontrun{
-otargen::colocalisationsForGene(genes = "ENSG00000169174") \%>\% otargen::plot_coloc(biobank = FALSE)
-otargen::colocalisationsForGene(genes = "PCSK9") \%>\% otargen::plot_coloc(biobank = TRUE)
+plot_out <- colocalisationsForGene(genes = "ENSG00000169174") \%>\% otargen::plot_coloc(biobank = FALSE)
+plot_out <- colocalisationsForGene(genes = "PCSK9") \%>\% otargen::plot_coloc(biobank = TRUE)
 }
 }

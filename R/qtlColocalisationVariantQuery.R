@@ -1,33 +1,32 @@
 #' Retrieves colocalisation data for a variant in a study
 #'
-#' Fetches various colocalisation data  on molecular quantitative trait locus
+#' Fetches various colocalisation data on molecular quantitative trait locus
 #' (QTL) analysis for a variant in a specific study.
 #'
-#' @param \emph{studyid} String: Open Target Genetics generated id for gwas studies.
-#' @param \emph{variantid} String: Open Target Genetics generated id for variant (CHRPOSITION_REFALLELE_ALTALLELE or rsId).
+#' @param \emph{studyid} String: Open Targets Genetics generated ID for GWAS studies.
+#' @param \emph{variantid} String: Open Targets Genetics generated ID for variant (CHRPOSITION_REFALLELE_ALTALLELE or rsId).
 #'
 #' @return Returns a data frame of the colocalisation information for a lead variant in a specific study.
 #' The table consists of the following columns:
-#'
-#' \enumerate{
-#' \item qtlStudyName
-#' \item phenotypeId
-#' \item gene.id
-#' \item gene.symbol
-#' \item name
-#' \item indexVariant.id
-#' \item indexVariant.rsId
-#' \item beta
-#' \item h4
-#' \item h3
-#' \item log2h4h3
+#' \itemize{
+#'   \item{\code{qtlStudyName}:} \emph{Character vector}. QTL study name.
+#'   \item{\code{phenotypeId}:} \emph{Character vector}. Phenotype ID.
+#'   \item{\code{gene.id}:} \emph{Character vector}. Gene ID.
+#'   \item{\code{gene.symbol}:} \emph{Character vector}. Gene symbol.
+#'   \item{\code{name}:} \emph{Character vector}. Tissue name.
+#'   \item{\code{indexVariant.id}:} \emph{Character vector}. Index variant ID.
+#'   \item{\code{indexVariant.rsId}:} \emph{Character vector}. Index variant rsID.
+#'   \item{\code{beta}:} \emph{Numeric}. Beta value.
+#'   \item{\code{h4}:} \emph{Numeric}. h4 value.
+#'   \item{\code{h3}:} \emph{Numeric}. h3 value.
+#'   \item{\code{log2h4h3}:} \emph{Numeric}. Log2(h4/h3) value.
 #' }
 #'
 #' @examples
 #' \dontrun{
-#' otargen::qtlColocalisationVariantQuery(studyid="GCST90002357",variantid="1_154119580_C_A")
-#' otargen::qtlColocalisationVariantQuery(studyid="GCST90002357",variantid="rs2494663")
-#'}
+#' result <- qtlColocalisationVariantQuery(studyid = "GCST90002357", variantid = "1_154119580_C_A")
+#' result <- qtlColocalisationVariantQuery(studyid = "GCST90002357", variantid = "rs2494663")
+#' }
 #' @import dplyr
 #' @import cli
 #' @import ghql
@@ -35,6 +34,7 @@
 #' @export
 #'
 #'
+
 
 qtlColocalisationVariantQuery <- function(studyid, variantid) {
 

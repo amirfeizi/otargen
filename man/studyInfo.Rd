@@ -7,36 +7,35 @@
 studyInfo(studyid)
 }
 \arguments{
-\item{\emph{studyid}}{String: Open Targets Genetics generated id for a GWAS study.}
+\item{\emph{studyid}}{String: Open Targets Genetics generated ID for a GWAS study.}
 }
 \value{
-Returns a tibble data table containing the GWAS study information. The columns in the table are as follows:
-
-\enumerate{
-\item studyId
-\item traitReported
-\item source
-\item traitEfos
-\item pmid
-\item pubDate
-\item pubJournal
-\item pubTitle
-\item pubAuthor
-\item hasSumstats
-\item ancestryInitial
-\item nInitial
-\item nReplication
-\item traitCategory
-\item numAssocLoci
-\item nTotal
+Returns a tibble data table containing the GWAS study information. The table consists of the following columns:
+\itemize{
+  \item{\code{studyId}:} \emph{Character}. Study ID.
+  \item{\code{traitReported}:} \emph{Character}. Reported trait.
+  \item{\code{source}:} \emph{Character}. Source.
+  \item{\code{traitEfos}:} \emph{Character}. Trait EFO ID.
+  \item{\code{pmid}:} \emph{Character}. PubMed ID.
+  \item{\code{pubDate}:} \emph{Character}. Publication date.
+  \item{\code{pubJournal}:} \emph{Character}. Publication journal.
+  \item{\code{pubTitle}:} \emph{Character}. Publication title.
+  \item{\code{pubAuthor}:} \emph{Character}. Publication author.
+  \item{\code{hasSumstats}:} \emph{Character}. Indicates if the study has summary statistics.
+  \item{\code{ancestryInitial}:} \emph{Character}. Initial ancestry.
+  \item{\code{nInitial}:} \emph{Character}. Initial sample size.
+  \item{\code{nReplication}:} \emph{Character}. Replication sample size.
+  \item{\code{traitCategory}:} \emph{Character}. Trait category.
+  \item{\code{numAssocLoci}:} \emph{Character}. Number of associated loci.
+  \item{\code{nTotal}:} \emph{Character}. Total sample size.
 }
 }
 \description{
-For a given study id, this function returns all the  relevant information about
-GWAS study such as PubMed id, studied trait EFO id, case/control size etc.
+For a given study id, this function returns all the relevant information about
+a GWAS study, such as PubMed ID, studied trait EFO ID, case/control size, etc.
 }
 \examples{
 \dontrun{
-otargen::studyInfo(studyid = "GCST90002357")
+result <- studyInfo(studyid = "GCST90002357")
 }
 }

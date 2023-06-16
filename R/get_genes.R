@@ -1,35 +1,35 @@
-#' Retrieves information about genes on an input locus
+#' Retrieves information about genes on an input locus.
 #'
-#' This function gets information for a region of a specified chromosome .
+#' This function retrieves information for a specified region on a chromosome.
 #'
-#' @param \emph{chromosome} String: chromosome number as string.
-#' @param \emph{start} Long: start position of the specified chromosome.
-#' @param \emph{end} Long: end position of the specified chromosome.
+#' @param \emph{chromosome} String: Chromosome number as a string.
+#' @param \emph{start} Integer: Start position of the specified region on the chromosome.
+#' @param \emph{end} Integer: End position of the specified region on the chromosome.
 #'
-#' @return Returns a tibble data table of all the overlapping genes in the specified region with following information columns:
-#'
-#' \enumerate{
-#' \item id
-#' \item symbol
-#' \item bioType
-#' \item description
-#' \item chromosome
-#' \item tss
-#' \item start
-#' \item end
-#' \item fwdStrand
-#' \item exons
-#'}
+#' @return Returns a tibble data frame of all the overlapping genes in the specified region with the following information columns:
+#' \itemize{
+#'   \item{\code{id}:} \emph{Character}. ID of the gene.
+#'   \item{\code{symbol}:} \emph{Character}. Symbol of the gene.
+#'   \item{\code{bioType}:} \emph{Character}. Biotype of the gene.
+#'   \item{\code{description}:} \emph{Character}. Description of the gene.
+#'   \item{\code{chromosome}:} \emph{Character}. Chromosome of the gene.
+#'   \item{\code{tss}:} \emph{Integer}. Transcription start site of the gene.
+#'   \item{\code{start}:} \emph{Integer}. Start position of the gene.
+#'   \item{\code{end}:} \emph{Integer}. End position of the gene.
+#'   \item{\code{fwdStrand}:} \emph{Logical}. Strand direction of the gene.
+#'   \item{\code{exons}:} \emph{List}. List of exons of the gene.
+#' }
 #'
 #' @examples
 #' \dontrun{
-#' otargen::get_genes(chromosome = "2", start = 239634984, end = 241634984)
+#' result <- get_genes(chromosome = "2", start = 239634984, end = 241634984)
 #' }
 #' @import dplyr
 #' @importFrom magrittr %>%
 #' @export
 #'
 #'
+
 get_genes <- function(chromosome, start, end) {
   ## Set up to query Open Targets Genetics API
   variables <- list(chromosome = chromosome, start = start, end = end)

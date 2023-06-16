@@ -1,54 +1,51 @@
 #' Manhattan association for a given study.
 #'
-#' The data generated is used to plot the Manhattan association. Manhattan association is used to  graphically representat genetic association studies,
-#' particularly in genome-wide association studies (GWAS). It displays the results of statistical associations between genetic variants and a trait or
-#' disease of interest across the genome.
+#' The data generated is used to plot the Manhattan association. Manhattan association is used to graphically represent genetic association studies, particularly in genome-wide association studies (GWAS). It displays the results of statistical associations between genetic variants and a trait or disease of interest across the genome.
 #'
-#' @param \emph{studyid} String: Open Targets Genetics generated id for GWAS study.
+#' @param \emph{studyid} String: Open Targets Genetics generated ID for GWAS study.
 #' @param \emph{pageindex} Int: Index of the current page, pagination index >= 0.
-#' @param \emph{pagesize} Int: No. of records in a page, pagination size > 0.
+#' @param \emph{pagesize} Int: Number of records in a page, pagination size > 0.
 #'
-#' @return Returns a data frame containing manhattan associations for the input study id given. The table consists of the following columns:
-#'
-#' \enumerate{
-#' \item pval_mantissa
-#' \item pval_exponent
-#' \item credible_set_size
-#' \item ld_set_size
-#' \item total_set_size
-#' \item pval
-#' \item odds_ratio
-#' \item odds_ratio_ci_lower
-#' \item odds_ratio_ci_upper
-#' \item beta
-#' \item beta_ci_lower
-#' \item beta_ci_upper
-#' \item direction
-#' \item best_genes_score
-#' \item best_genes_gene_id
-#' \item best_genes_gene_symbol
-#' \item best_coloc_genes_score
-#' \item best_coloc_genes_gene_id
-#' \item best_coloc_genes_gene_symbol
-#' \item best_locus2genes_score
-#' \item best_locus2genes_gene_id
-#' \item best_locus2genes_gene_symbol
-#' \item variant_id
-#' \item variant_position
-#' \item variant_chromosome
-#' \item variant_rs_id
+#' @return Returns a data frame containing Manhattan associations for the input study ID. The table consists of the following columns:
+#' \itemize{
+#'   \item{\code{pval_mantissa}:} \emph{Numeric vector}. Mantissa of the p-value.
+#'   \item{\code{pval_exponent}:} \emph{Integer vector}. Exponent of the p-value.
+#'   \item{\code{credible_set_size}:} \emph{Integer vector}. Size of the credible set.
+#'   \item{\code{ld_set_size}:} \emph{Integer vector}. Size of the LD set.
+#'   \item{\code{total_set_size}:} \emph{Integer vector}. Total size of the set.
+#'   \item{\code{pval}:} \emph{Numeric vector}. P-value.
+#'   \item{\code{odds_ratio}:} \emph{Logical vector}. Odds ratio.
+#'   \item{\code{odds_ratio_ci_lower}:} \emph{Logical vector}. Lower confidence interval of the odds ratio.
+#'   \item{\code{odds_ratio_ci_upper}:} \emph{Logical vector}. Upper confidence interval of the odds ratio.
+#'   \item{\code{beta}:} \emph{Numeric vector}. Beta value.
+#'   \item{\code{beta_ci_lower}:} \emph{Numeric vector}. Lower confidence interval of the beta value.
+#'   \item{\code{beta_ci_upper}:} \emph{Numeric vector}. Upper confidence interval of the beta value.
+#'   \item{\code{direction}:} \emph{Character vector}. Direction of the effect.
+#'   \item{\code{best_genes_score}:} \emph{Numeric vector}. Score of the best genes.
+#'   \item{\code{best_genes_gene_id}:} \emph{Character vector}. Gene ID of the best genes.
+#'   \item{\code{best_genes_gene_symbol}:} \emph{Character vector}. Gene symbol of the best genes.
+#'   \item{\code{best_coloc_genes_score}:} \emph{Numeric vector}. Score of the best colocated genes.
+#'   \item{\code{best_coloc_genes_gene_id}:} \emph{Character vector}. Gene ID of the best colocated genes.
+#'   \item{\code{best_coloc_genes_gene_symbol}:} \emph{Character vector}. Gene symbol of the best colocated genes.
+#'   \item{\code{best_locus2genes_score}:} \emph{Numeric vector}. Score of the best locus to genes.
+#'   \item{\code{best_locus2genes_gene_id}:} \emph{Character vector}. Gene ID of the best locus to genes.
+#'   \item{\code{best_locus2genes_gene_symbol}:} \emph{Character vector}. Gene symbol of the best locus to genes.
+#'   \item{\code{variant_id}:} \emph{Character vector}. Variant ID.
+#'   \item{\code{variant_position}:} \emph{Integer vector}. Variant position.
+#'   \item{\code{variant_chromosome}:} \emph{Character vector}. Variant chromosome.
+#'   \item{\code{variant_rs_id}:} \emph{Character vector}. Variant rsID.
 #' }
 #'
 #' @examples
 #' \dontrun{
-#' otargen::manhattan(studyid = "GCST90002357")
-#' otargen::manhattan(studyid = "GCST90002357", pageindex = 2, pagesize = 50)
+#' result <- manhattan(studyid = "GCST90002357")
+#' result <- manhattan(studyid = "GCST90002357", pageindex = 2, pagesize = 50)
 #' }
 #' @import dplyr
 #' @importFrom magrittr %>%
 #' @export
 #'
-#'
+
 manhattan <- function(studyid, pageindex = 0, pagesize = 100) {
   ## Set up to query Open Targets Genetics API
 

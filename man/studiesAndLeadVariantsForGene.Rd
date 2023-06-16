@@ -17,10 +17,10 @@ Retrieves all studies and lead variants for a gene
 }
 \examples{
 \dontrun{
-otargen::studiesAndLeadVariantsForGene(genes = list("ENSG00000163946","ENSG00000169174", "ENSG00000143001"))
-otargen::studiesAndLeadVariantsForGene(genes = "ENSG00000169174")
-otargen::studiesAndLeadVariantsForGene(genes = list("PCSK9","TASOR", "TMEM61"))
-otargen::studiesAndLeadVariantsForGene(genes = "PCSK9")
+result <- studiesAndLeadVariantsForGene(genes = list("ENSG00000163946","ENSG00000169174", "ENSG00000143001"))
+result <- studiesAndLeadVariantsForGene(genes = "ENSG00000169174")
+result <- studiesAndLeadVariantsForGene(genes = list("PCSK9","TASOR", "TMEM61"))
+result <- studiesAndLeadVariantsForGene(genes = "PCSK9")
 }
 
 }

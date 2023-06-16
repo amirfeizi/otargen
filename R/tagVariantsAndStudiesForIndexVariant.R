@@ -1,55 +1,53 @@
 #' Retrieves tag variants and studies for a given index variant.
 #'
-#' For an input index variant id, fetches the tag variant information
-#' along with study information and scores.
+#' For an input index variant ID, this function fetches information about the tag variants
+#' and associated studies, including scores.
 #'
+#' @param \emph{variantid} String: Open Targets Genetics generated ID for a variant (CHRPOSITION_REFALLELE_ALTALLELE or rsId).
+#' @param \emph{pageindex} Integer: Index of the current page for pagination (>= 0).
+#' @param \emph{pagesize} Integer: Number of records in a page for pagination (> 0).
 #'
-#' @param \emph{variantid} String: Open Target Genetics generated id for variant (CHRPOSITION_REFALLELE_ALTALLELE or rsId).
-#' @param \emph{pageindex} Int: Index of the current page, pagination index >= 0.
-#' @param \emph{pagesize} Int: No. of records in a page, pagination size > 0.
-#'
-#' @return Returns a data Frame containing the variant associations connected to the input index variant with the following columns:
-#'
-#' \enumerate{
-#' \item tagVariant.id
-#' \item tagVariant.chromosome
-#' \item tagVariant.rsId
-#' \item tagVariant.position
-#' \item study.studyId
-#' \item study.traitReported
-#' \item study.traitCategory
-#' \item pval
-#' \item pvalMantissa
-#' \item pvalExponent
-#' \item nTotal
-#' \item nCases
-#' \item overallR2
-#' \item afr1000GProp
-#' \item amr1000GProp
-#' \item eas1000GProp
-#' \item eur1000GProp
-#' \item sas1000GProp
-#' \item oddsRatio
-#' \item oddsRatioCILower
-#' \item oddsRatioCIUpper
-#' \item posteriorProbability
-#' \item beta
-#' \item betaCILower
-#' \item betaCIUpper
-#' \item direction
-#' \item log10Abf
+#' @return Returns a data frame containing the variant associations connected to the input index variant.
+#' The columns in the data frame are as follows:
+#' \itemize{
+#'   \item{\code{tagVariant.id}:} \emph{Character}. Tag variant ID.
+#'   \item{\code{tagVariant.chromosome}:} \emph{Character}. Chromosome of the tag variant.
+#'   \item{\code{tagVariant.rsId}:} \emph{Character}. rsID of the tag variant.
+#'   \item{\code{tagVariant.position}:} \emph{Integer}. Position of the tag variant.
+#'   \item{\code{study.studyId}:} \emph{Character}. Study ID.
+#'   \item{\code{study.traitReported}:} \emph{Character}. Reported trait of the study.
+#'   \item{\code{study.traitCategory}:} \emph{Character}. Category of the trait in the study.
+#'   \item{\code{pval}:} \emph{Numeric}. P-value.
+#'   \item{\code{pvalMantissa}:} \emph{Numeric}. Mantissa of the p-value.
+#'   \item{\code{pvalExponent}:} \emph{Integer}. Exponent of the p-value.
+#'   \item{\code{nTotal}:} \emph{Integer}. Total number of samples.
+#'   \item{\code{nCases}:} \emph{Integer}. Number of cases in the study.
+#'   \item{\code{overallR2}:} \emph{Numeric}. Overall R-squared value.
+#'   \item{\code{afr1000GProp}:} \emph{Numeric}. Proportion in African 1000 Genomes population.
+#'   \item{\code{amr1000GProp}:} \emph{Numeric}. Proportion in Admixed American 1000 Genomes population.
+#'   \item{\code{eas1000GProp}:} \emph{Numeric}. Proportion in East Asian 1000 Genomes population.
+#'   \item{\code{eur1000GProp}:} \emph{Numeric}. Proportion in European 1000 Genomes population.
+#'   \item{\code{sas1000GProp}:} \emph{Numeric}. Proportion in South Asian 1000 Genomes population.
+#'   \item{\code{oddsRatio}:} \emph{Numeric}. Odds ratio.
+#'   \item{\code{oddsRatioCILower}:} \emph{Numeric}. Lower bound of the odds ratio confidence interval.
+#'   \item{\code{oddsRatioCIUpper}:} \emph{Numeric}. Upper bound of the odds ratio confidence interval.
+#'   \item{\code{posteriorProbability}:} \emph{Numeric}. Posterior probability.
+#'   \item{\code{beta}:} \emph{Numeric}. Beta value.
+#'   \item{\code{betaCILower}:} \emph{Numeric}. Lower bound of the beta value confidence interval.
+#'   \item{\code{betaCIUpper}:} \emph{Numeric}. Upper bound of the beta value confidence interval.
+#'   \item{\code{direction}:} \emph{Character}. Direction of the effect.
+#'   \item{\code{log10Abf}:} \emph{Numeric}. Log base 10 of the approximate Bayes factor.
 #' }
 #'
 #' @examples
 #' \dontrun{
-#' otargen::tagVariantsAndStudiesForIndexVariant(variantid = "1_109274968_G_T")
-#' otargen::tagVariantsAndStudiesForIndexVariant(variantid = "1_109274968_G_T"
+#' result <- tagVariantsAndStudiesForIndexVariant(variantid = "1_109274968_G_T")
+#' result <- tagVariantsAndStudiesForIndexVariant(variantid = "1_109274968_G_T"
 #'     ,pageindex = 1, pagesize = 50)
-#'}
 #' @importFrom magrittr %>%
 #' @export
 #'
-#'
+
 
 tagVariantsAndStudiesForIndexVariant <- function(variantid, pageindex = 0, pagesize = 20) {
   ## Set up to query Open Targets Genetics API

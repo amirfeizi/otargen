@@ -3,37 +3,37 @@
 #' Fetches the locus-to-gene (L2G) pipeline summary data table for
 #' the neighboring genes of a variant in a GWAS study.
 #'
-#' @param \emph{studyid} String: Open Target Genetics generated id for GWAS study.
-#' @param \emph{variantid} String: Open Target Genetics generated id for variant (CHRPOSITION_REFALLELE_ALTALLELE or rsId).
+#' @param \emph{studyid} String: Open Targets Genetics generated ID for a GWAS study.
+#' @param \emph{variantid} String: Open Targets Genetics generated ID for a variant (CHRPOSITION_REFALLELE_ALTALLELE or rsId).
 #'
-#' @return Returns a data frame with summary stats of the study and data table of the various calculated scores and features for any lead variant.
+#' @return Returns a data frame with the summary statistics of the study and a data table containing various calculated scores and features for any lead variant.
 #' The table consists of the following columns:
-#'
-#' \enumerate{
-#' \item studyId
-#' \item variant.id
-#' \item variant.rsId
-#' \item yProbaDistance
-#' \item yProbaModel
-#' \item yProbaMolecularQTL
-#' \item yProbaPathogenicity
-#' \item yProbaInteraction
-#' \item hasColoc
-#' \item distanceToLocus
-#' \item gene.id
-#' \item gene.symbol
+#' \itemize{
+#'   \item{\code{studyId}:} \emph{Character}. Study ID.
+#'   \item{\code{variant.id}:} \emph{Character}. Variant ID.
+#'   \item{\code{variant.rsId}:} \emph{Character}. Variant rsID.
+#'   \item{\code{yProbaDistance}:} \emph{Numeric}. Distance score.
+#'   \item{\code{yProbaModel}:} \emph{Numeric}. Model score.
+#'   \item{\code{yProbaMolecularQTL}:} \emph{Numeric}. Molecular QTL score.
+#'   \item{\code{yProbaPathogenicity}:} \emph{Numeric}. Pathogenicity score.
+#'   \item{\code{yProbaInteraction}:} \emph{Numeric}. Interaction score.
+#'   \item{\code{hasColoc}:} \emph{Logical}. Indicates if colocalization data is available.
+#'   \item{\code{distanceToLocus}:} \emph{Numeric}. Distance to the locus.
+#'   \item{\code{gene.id}:} \emph{Character}. Gene ID.
+#'   \item{\code{gene.symbol}:} \emph{Character}. Gene symbol.
 #' }
 #'
 #' @examples
 #' \dontrun{
-#' otargen::studyLocus2GeneTable(studyid = "GCST90002357", variantid = "1_154119580_C_A")
-#' otargen::studyLocus2GeneTable(studyid = "GCST90002357", variantid = "rs2494663")
+#' result <- studyLocus2GeneTable(studyid = "GCST90002357", variantid = "1_154119580_C_A")
+#' result <- studyLocus2GeneTable(studyid = "GCST90002357", variantid = "rs2494663")
 #'}
 #' @importFrom magrittr %>%
 #' @export
 #'
 #'
 #'
+
 studyLocus2GeneTable <- function(studyid, variantid) {
   ## Set up to query Open Targets Genetics API
 

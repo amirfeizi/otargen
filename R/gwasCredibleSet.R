@@ -1,31 +1,29 @@
 #' Get GWAS credible set data for a variant in a study
 #'
-#' Provided with study id and a lead variant id parameters,
-#' this functions returns a data table consisting of all the associated credible
-#' set tag variants with the corresponding statistical data.
+#' Provided with a study ID and a lead variant ID, this function returns a
+#' data frame consisting of all the associated credible set tag variants
+#'  with the corresponding statistical data.
 #'
-#' @param \emph{studyid} String: Open Target Genetics generated id for GWAS study.
-#' @param \emph{variantid} String: Open Target Genetics generated id for variant (CHRPOSITION_REFALLELE_ALTALLELE or rsId).
+#' @param \emph{studyid} String: Open Target Genetics generated ID for the GWAS study.
+#' @param \emph{variantid} String: Open Target Genetics generated ID for the variant (CHRPOSITION_REFALLELE_ALTALLELE or rsId).
 #'
-#' @return Returns a data frame of results from credible set of variants for a specific lead variant with the following columns:
-#'
-#' \enumerate{
-#' \item tagVariant.id
-#' \item tagVariant.rsId
-#' \item beta
-#' \item postProb
-#' \item pval
-#' \item se
-#' \item MultisignalMethod
-#' \item logABF
-#' \item is95
-#' \item is99
+#' @return Returns a data frame of results from the credible set of variants for a specific lead variant with the following columns:
+#' \itemize{
+#'   \item{\code{tagVariant.id}:} \emph{Data frame}. A table of IDs of the tag variant.
+#'   \item{\code{tagVariant.rsId}:} \emph{Character vector}. rsID of the tag variant.
+#'   \item{\code{beta}:} \emph{Numeric}. Beta value.
+#'   \item{\code{postProb}:} \emph{Numeric}. Posterior probability.
+#'   \item{\code{pval}:} \emph{Numeric}. P-value.
+#'   \item{\code{se}:} \emph{Numeric}. Standard error.
+#'   \item{\code{MultisignalMethod}:} \emph{Character vector}. Multisignal method.
+#'   \item{\code{logABF}:} \emph{Numeric}. Logarithm of approximate Bayes factor.
+#'   \item{\code{is95}:} \emph{Logical}. Indicates if the variant has a 95% credible set.
+#'   \item{\code{is99}:} \emph{Logical}. Indicates if the variant has a 99% credible set.
 #' }
-#'
 #' @examples
 #' \dontrun{
-#' otargen::gwasCredibleSet(studyid="GCST90002357", variantid="1_154119580_C_A")
-#' otargen::gwasCredibleSet(studyid="GCST90002357", variantid="rs2494663")
+#' result <- gwasCredibleSet(studyid="GCST90002357", variantid="1_154119580_C_A")
+#' result <- gwasCredibleSet(studyid="GCST90002357", variantid="rs2494663")
 #' }
 #' @import dplyr
 #' @importFrom magrittr %>%

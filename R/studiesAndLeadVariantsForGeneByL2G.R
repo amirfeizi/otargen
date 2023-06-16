@@ -3,69 +3,69 @@
 #' The locus-to-gene model utilizes genetic and functional genomics features to
 #' obtain prioritization scores for likely causal genes at each GWAS locus.
 #'
-#' @param \emph{genes} String: one or more gene ENSEMBL id or gene names.
-#' @param \emph{l2g} Float: locus to gene cut off score. (Default: 0.4)
-#' @param \emph{pvalue} Float: pvalue cut off. (Default: 5e-8)
-#' @param \emph{vtype} Character vector: most severe consequence to filter the variants type including c(intergenic_variant",
+#' @param \emph{genes} String: One or more gene ENSEMBL ID or gene names.
+#' @param \emph{l2g} Float: Locus-to-gene cutoff score. (Default: 0.4)
+#' @param \emph{pvalue} Float: P-value cutoff. (Default: 5e-8)
+#' @param \emph{vtype} Character vector: Most severe consequence to filter the variant types, including "intergenic_variant",
 #' "upstream_gene_variant", "intron_variant", "missense_variant", "5_prime_UTR_variant",
-#' "non_coding_transcript_exon_variant", "splice_region_variant"). (Default: NULL)
+#' "non_coding_transcript_exon_variant", "splice_region_variant". (Default: NULL)
 #'
-#' @return Returns a data frame containing the input gene id and its data for the L2G model. The table consists of the following columns:
-#'
-#' \enumerate{
-#' \item yProbaModel (L2G score)
-#' \item yProbaDistance (Distance)
-#' \item yProbaInteraction (Chromatin interaction)
-#' \item yProbaMolecularQTL (Molecular QTL)
-#' \item yProbaPathogenicity (Pathogenicity)
-#' \item pval
-#' \item beta.direction
-#' \item beta.betaCI
-#' \item beta.betaCILower
-#' \item beta.betaCIUpper
-#' \item odds.oddsCI
-#' \item odds.oddsCILower
-#' \item odds.oddsCIUpper
-#' \item study.studyId
-#' \item study.traitReported
-#' \item study.traitCategory
-#' \item study.pubDate
-#' \item study.pubTitle
-#' \item study.pubAuthor
-#' \item study.pubJournal
-#' \item study.pmid
-#' \item study.hasSumstats
-#' \item study.nCases
-#' \item study.numAssocLoci
-#' \item study.nTotal
-#' \item study.traitEfos
-#' \item variant.id
-#' \item variant.rsId
-#' \item variant.chromosome
-#' \item variant.position
-#' \item variant.refAllele
-#' \item variant.altAllele
-#' \item variant.nearestCodingGeneDistance
-#' \item variant.nearestGeneDistance
-#' \item variant.mostSevereConsequence
-#' \item variant.nearestGene.id
-#' \item variant.nearestCodingGene.id
-#' \item ensembl_id
-#' \item gene_symbol
+#' @return Returns a data frame containing the input gene ID and its data for the L2G model. The table consists of the following columns:
+#' \itemize{
+#'   \item{\code{yProbaModel}:} \emph{Numeric}. L2G score.
+#'   \item{\code{yProbaDistance}:} \emph{Numeric}. Distance.
+#'   \item{\code{yProbaInteraction}:} \emph{Numeric}. Chromatin interaction.
+#'   \item{\code{yProbaMolecularQTL}:} \emph{Numeric}. Molecular QTL.
+#'   \item{\code{yProbaPathogenicity}:} \emph{Numeric}. Pathogenicity.
+#'   \item{\code{pval}:} \emph{Numeric}. P-value.
+#'   \item{\code{beta.direction}:} \emph{Character}. Beta direction.
+#'   \item{\code{beta.betaCI}:} \emph{Numeric}. Beta confidence interval.
+#'   \item{\code{beta.betaCILower}:} \emph{Numeric}. Lower bound of the beta confidence interval.
+#'   \item{\code{beta.betaCIUpper}:} \emph{Numeric}. Upper bound of the beta confidence interval.
+#'   \item{\code{odds.oddsCI}:} \emph{Numeric}. Odds ratio confidence interval.
+#'   \item{\code{odds.oddsCILower}:} \emph{Numeric}. Lower bound of the odds ratio confidence interval.
+#'   \item{\code{odds.oddsCIUpper}:} \emph{Numeric}. Upper bound of the odds ratio confidence interval.
+#'   \item{\code{study.studyId}:} \emph{Character}. Study ID.
+#'   \item{\code{study.traitReported}:} \emph{Character}. Reported trait.
+#'   \item{\code{study.traitCategory}:} \emph{Character}. Trait category.
+#'   \item{\code{study.pubDate}:} \emph{Character}. Publication date.
+#'   \item{\code{study.pubTitle}:} \emph{Character}. Publication title.
+#'   \item{\code{study.pubAuthor}:} \emph{Character}. Publication author.
+#'   \item{\code{study.pubJournal}:} \emph{Character}. Publication journal.
+#'   \item{\code{study.pmid}:} \emph{Character}. PubMed ID.
+#'   \item{\code{study.hasSumstats}:} \emph{Logical}. Indicates if the study has summary statistics.
+#'   \item{\code{study.nCases}:} \emph{Integer}. Number of cases in the study.
+#'   \item{\code{study.numAssocLoci}:} \emph{Integer}. Number of associated loci.
+#'   \item{\code{study.nTotal}:} \emph{Integer}. Total number of samples in the study.
+#'   \item{\code{study.traitEfos}:} \emph{Character}. Trait EFOs.
+#'   \item{\code{variant.id}:} \emph{Character}. Variant ID.
+#'   \item{\code{variant.rsId}:} \emph{Character}. Variant rsID.
+#'   \item{\code{variant.chromosome}:} \emph{Character}. Variant chromosome.
+#'   \item{\code{variant.position}:} \emph{Integer}. Variant position.
+#'   \item{\code{variant.refAllele}:} \emph{Character}. Variant reference allele.
+#'   \item{\code{variant.altAllele}:} \emph{Character}. Variant alternate allele.
+#'   \item{\code{variant.nearestCodingGeneDistance}:} \emph{Integer}. Distance to the nearest coding gene.
+#'   \item{\code{variant.nearestGeneDistance}:} \emph{Integer}. Distance to the nearest gene.
+#'   \item{\code{variant.mostSevereConsequence}:} \emph{Character}. Most severe consequence.
+#'   \item{\code{variant.nearestGene.id}:} \emph{Character}. Nearest gene ID.
+#'   \item{\code{variant.nearestCodingGene.id}:} \emph{Character}. Nearest coding gene ID.
+#'   \item{\code{ensembl_id}:} \emph{Character}. Ensembl ID.
+#'   \item{\code{gene_symbol}:} \emph{Character}. Gene symbol.
 #' }
 #'
 #' @examples
 #' \dontrun{
-#' otargen::studiesAndLeadVariantsForGeneByL2G(genes = list("ENSG00000163946",
+#' result <- studiesAndLeadVariantsForGeneByL2G(genes = list("ENSG00000163946",
 #'      "ENSG00000169174", "ENSG00000143001"), l2g = 0.7)
-#' otargen::studiesAndLeadVariantsForGeneByL2G(genes = "ENSG00000169174",
-#'      l2g = 0.6, pvalue = 1e-8,vtype = c("intergenic_variant", "intron_variant"))
-#' otargen::studiesAndLeadVariantsForGeneByL2G(genes ="TMEM61")
+#' result <- studiesAndLeadVariantsForGeneByL2G(genes = "ENSG00000169174",
+#'      l2g = 0.6, pvalue = 1e-8, vtype = c("intergenic_variant", "intron_variant"))
+#' result <- studiesAndLeadVariantsForGeneByL2G(genes = "TMEM61")
 #'}
 #' @importFrom magrittr %>%
 #' @export
 #'
 #'
+
 
 
 studiesAndLeadVariantsForGeneByL2G <- function(genes,

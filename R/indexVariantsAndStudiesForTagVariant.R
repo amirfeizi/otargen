@@ -1,50 +1,54 @@
 #' Retrieves index variants and studies for a tag variant.
 #'
-#' For an input tag variant id, this function returns a  data table in tibble format
-#' with population level summary stats data columns across various GWAS studies.
+#' For an input tag variant ID, this function returns a data table in tibble format with population-level summary statistics data across various GWAS studies.
 #'
-#'
-#' @param \emph{variantid} String: Open Target Genetics generated id for variant (CHRPOSITION_REFALLELE_ALTALLELE or rsId).
+#' @param \emph{variantid} String: Open Target Genetics generated ID for the variant (CHRPOSITION_REFALLELE_ALTALLELE or rsId).
 #' @param \emph{pageindex} Int: Index of the current page, pagination index >= 0.
-#' @param \emph{pagesize} Int: No. of records in a page, pagination size > 0.
+#' @param \emph{pagesize} Int: Number of records in a page, pagination size > 0.
 #'
-#' @return Returns a dataframe containing the variant associated to the input tag variant. The table consists of the following columns:
-#'
-#' \enumerate{
-#' \item index_variant
-#' \item study
-#' \item pval
-#' \item pval_mantissa
-#' \item pval_exponent
-#' \item n_total
-#' \item n_cases
-#' \item overall_r2
-#' \item afr1000g_prop
-#' \item amr1000g_prop
-#' \item eas1000g_prop
-#' \item eur1000g_prop
-#' \item sas1000g_prop
-#' \item log10abf
-#' \item posterior_probability
-#' \item odds_ratio
-#' \item odds_ratio_ci_lower
-#' \item odds_ratio_ci_upper
-#' \item beta
-#' \item beta_ci_lower
-#' \item beta_ci_upper
-#' \item direction
+#' @return Returns a data frame containing the variant associated with the input tag variant. The table consists of the following columns:
+#' \itemize{
+#'   \item{\code{index_variant}:} \emph{Data frame}. Data frame of index variants with the following columns:
+#'     \itemize{
+#'       \item{\code{id}:} \emph{Character vector}. Variant ID.
+#'       \item{\code{rsId}:} \emph{Character vector}. rsID of the variant.
+#'     }
+#'   \item{\code{study}:} \emph{Data frame}. Data frame of studies with the following columns:
+#'     \itemize{
+#'       \item{\code{studyId}:} \emph{Character vector}. Study identifier.
+#'       \item{\code{traitReported}:} \emph{Character vector}. Reported trait associated with the colocalisation.
+#'       \item{\code{traitCategory}:} \emph{Character vector}. Trait category.
+#'     }
+#'   \item{\code{pval}:} \emph{Numeric vector}. P-value.
+#'   \item{\code{pval_mantissa}:} \emph{Numeric vector}. Mantissa of the p-value.
+#'   \item{\code{pval_exponent}:} \emph{Integer vector}. Exponent of the p-value.
+#'   \item{\code{n_total}:} \emph{Integer vector}. Total number of samples.
+#'   \item{\code{n_cases}:} \emph{Integer vector}. Number of cases.
+#'   \item{\code{overall_r2}:} \emph{Numeric vector}. Overall R-squared value.
+#'   \item{\code{afr1000g_prop}:} \emph{Numeric vector}. Proportion in African population in 1000 Genomes.
+#'   \item{\code{amr1000g_prop}:} \emph{Numeric vector}. Proportion in Admixed American population in 1000 Genomes.
+#'   \item{\code{eas1000g_prop}:} \emph{Numeric vector}. Proportion in East Asian population in 1000 Genomes.
+#'   \item{\code{eur1000g_prop}:} \emph{Numeric vector}. Proportion in European population in 1000 Genomes.
+#'   \item{\code{sas1000g_prop}:} \emph{Numeric vector}. Proportion in South Asian population in 1000 Genomes.
+#'   \item{\code{log10abf}:} \emph{Numeric vector}. Log10 ABF (Approximate Bayes Factor).
+#'   \item{\code{posterior_probability}:} \emph{Numeric vector}. Posterior probability.
+#'   \item{\code{odds_ratio}:} \emph{Numeric vector}. Odds ratio.
+#'   \item{\code{odds_ratio_ci_lower}:} \emph{Numeric vector}. Lower confidence interval of the odds ratio.
+#'   \item{\code{odds_ratio_ci_upper}:} \emph{Numeric vector}. Upper confidence interval of the odds ratio.
+#'   \item{\code{beta}:} \emph{Numeric vector}. Beta value.
+#'   \item{\code{beta_ci_lower}:} \emph{Numeric vector}. Lower confidence interval of the beta value.
+#'   \item{\code{beta_ci_upper}:} \emph{Numeric vector}. Upper confidence interval of the beta value.
+#'   \item{\code{direction}:} \emph{Character vector}. Direction of the effect.
 #' }
 #'
 #' @examples
 #' \dontrun{
-#' indexVariantsAndStudiesForTagVariant(variantid = "1_109274968_G_T")
-#' indexVariantsAndStudiesForTagVariant(variantid = "rs12740374",
-#'  pageindex = 1, pagesize = 50)
+#' result <- indexVariantsAndStudiesForTagVariant(variantid = "1_109274968_G_T")
+#' result <- indexVariantsAndStudiesForTagVariant(variantid = "rs12740374", pageindex = 1, pagesize = 50)
 #' }
 #' @import dplyr
 #' @importFrom magrittr %>%
 #' @export
-#'
 #'
 
 indexVariantsAndStudiesForTagVariant <- function(variantid, pageindex = 0, pagesize = 20) {

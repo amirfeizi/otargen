@@ -52,8 +52,8 @@ along with study information and scores.
 }
 \examples{
 \dontrun{
-otargen::tagVariantsAndStudiesForIndexVariant(variantid = "1_109274968_G_T")
-otargen::tagVariantsAndStudiesForIndexVariant(variantid = "1_109274968_G_T"
+result <- tagVariantsAndStudiesForIndexVariant(variantid = "1_109274968_G_T")
+result <- tagVariantsAndStudiesForIndexVariant(variantid = "1_109274968_G_T"
     ,pageindex = 1, pagesize = 50)
 }
 }

@@ -1,41 +1,40 @@
-#' Retrieves the information about the input variant id.
+#' Retrieves the information about the input variant ID.
 #'
-#' @param \emph{variantid} String: Open Target Genetics generated id for variant (CHRPOSITION_REFALLELE_ALTALLELE or rsId).
+#' @param \emph{variantid} String: Open Targets Genetics generated ID for a variant (CHRPOSITION_REFALLELE_ALTALLELE or rsId).
 #'
 #' @return Returns a data frame containing the variant information with the following columns:
-#'
-#' \enumerate{
-#' \item chromosome
-#' \item position
-#' \item refAllele
-#' \item altAllele
-#' \item rsId
-#' \item chromosomeB37
-#' \item positionB37
-#' \item id
-#' \item nearestGene.id
-#' \item nearestGene.symbol
-#' \item nearestGeneDistance
-#' \item nearestCodingGene.id
-#' \item nearestCodingGene.symbol
-#' \item nearestCodingGeneDistance
-#' \item mostSevereConsequence
-#' \item caddRaw
-#' \item caddPhred
-#' \item gnomadAFR
-#' \item gnomadAMR
-#' \item gnomadASJ
-#' \item gnomadEAS
-#' \item gnomadFIN
-#' \item gnomadNFE
-#' \item gnomadNFEEST
-#' \item gnomadNFENWE
+#' \itemize{
+#'   \item{\code{chromosome}:} \emph{Character}. Chromosome of the variant.
+#'   \item{\code{position}:} \emph{Integer}. Position of the variant.
+#'   \item{\code{refAllele}:} \emph{Character}. Reference allele of the variant.
+#'   \item{\code{altAllele}:} \emph{Character}. Alternate allele of the variant.
+#'   \item{\code{rsId}:} \emph{Character}. rsID of the variant.
+#'   \item{\code{chromosomeB37}:} \emph{Character}. Chromosome of the variant in build 37.
+#'   \item{\code{positionB37}:} \emph{Integer}. Position of the variant in build 37.
+#'   \item{\code{id}:} \emph{Character}. ID of the variant.
+#'   \item{\code{nearestGene.id}:} \emph{Character}. ID of the nearest gene to the variant.
+#'   \item{\code{nearestGene.symbol}:} \emph{Character}. Symbol of the nearest gene to the variant.
+#'   \item{\code{nearestGeneDistance}:} \emph{Integer}. Distance between the variant and the nearest gene.
+#'   \item{\code{nearestCodingGene.id}:} \emph{Character}. ID of the nearest coding gene to the variant.
+#'   \item{\code{nearestCodingGene.symbol}:} \emph{Character}. Symbol of the nearest coding gene to the variant.
+#'   \item{\code{nearestCodingGeneDistance}:} \emph{Integer}. Distance between the variant and the nearest coding gene.
+#'   \item{\code{mostSevereConsequence}:} \emph{Character}. Most severe consequence of the variant.
+#'   \item{\code{caddRaw}:} \emph{Numeric}. CADD raw score of the variant.
+#'   \item{\code{caddPhred}:} \emph{Numeric}. CADD Phred score of the variant.
+#'   \item{\code{gnomadAFR}:} \emph{Numeric}. gnomAD allele frequency in African/African American population.
+#'   \item{\code{gnomadAMR}:} \emph{Numeric}. gnomAD allele frequency in Latino/Admixed American population.
+#'   \item{\code{gnomadASJ}:} \emph{Numeric}. gnomAD allele frequency in Ashkenazi Jewish population.
+#'   \item{\code{gnomadEAS}:} \emph{Integer}. gnomAD allele frequency in East Asian population.
+#'   \item{\code{gnomadFIN}:} \emph{Numeric}. gnomAD allele frequency in Finnish population.
+#'   \item{\code{gnomadNFE}:} \emph{Numeric}. gnomAD allele frequency in Non-Finnish European population.
+#'   \item{\code{gnomadNFEEST}:} \emph{Numeric}. gnomAD allele frequency in Non-Finnish European (Estonian) population.
+#'   \item{\code{gnomadNFENWE}:} \emph{Numeric}. gnomAD allele frequency in Non-Finnish European (Northwest European) population.
 #' }
 #'
 #' @examples
 #' \dontrun{
-#' otargen::variantInfo(variantid = "1_55039974_G_T")
-#' otargen::variantInfo(variantid = "rs11591147")
+#' result <- variantInfo(variantid = "1_55039974_G_T")
+#' result <- variantInfo(variantid = "rs11591147")
 #'}
 #' @importFrom magrittr %>%
 #' @import dplyr
@@ -43,7 +42,7 @@
 #' @export
 #'
 #'
-#'
+
 variantInfo <- function(variantid) {
   ## Set up to query Open Targets Genetics API
 

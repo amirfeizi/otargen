@@ -1,39 +1,37 @@
 #' Retrieves variants information for a study.
 #'
-#' For an input studyid, the function gives out information for all variants for all
-#' associated loci and information about the loci genes
+#' For an input study ID, this function provides information on all variants associated with all loci
+#' and information about the genes within the loci.
 #'
-#' @param \emph{studyid} String: Open Targets Genetics generated id for GWAS study.
+#' @param \emph{studyid} String: Open Targets Genetics generated ID for a GWAS study.
 #'
-#' @return Returns a list of data frames.
+#' @return Returns a list of two data frames.
 #'
-#' The loci data consists of the following columns:
-#'
-#' \enumerate{
-#' \item variant.id
-#' \item pval
-#' \item variant.nearestCodingGene.symbol
-#' \item variant.rsId
-#' \item variant.chromosome
-#' \item variant.position
-#' \item variant.nearestCodingGeneDistance
-#' \item credibleSetSize
-#' \item ldSetSize
-#' \item oddsRatio
-#' \item beta
+#' the first data frame (tibble format) includes the loci data frame with following data structure:
+#' \itemize{
+#'   \item{\code{variant.id}:} \emph{Character}. Variant ID.
+#'   \item{\code{pval}:} \emph{Numeric}. P-value.
+#'   \item{\code{variant.nearestCodingGene.symbol}:} \emph{Character}. Symbol of the nearest coding gene to the variant.
+#'   \item{\code{variant.rsId}:} \emph{Character}. Variant rsID.
+#'   \item{\code{variant.chromosome}:} \emph{Character}. Chromosome of the variant.
+#'   \item{\code{variant.position}:} \emph{Integer}. Position of the variant.
+#'   \item{\code{variant.nearestCodingGeneDistance}:} \emph{Integer}. Distance to the nearest coding gene.
+#'   \item{\code{credibleSetSize}:} \emph{Integer}. Size of the credible set.
+#'   \item{\code{ldSetSize}:} \emph{Integer}. Size of the LD set.
+#'   \item{\code{oddsRatio}:} \emph{Numeric}. Odds ratio.
+#'   \item{\code{beta}:} \emph{Numeric}. Beta value.
 #' }
 #'
-#' The information about the loci genes consists of the following columns:
-#'
-#' \enumerate{
-#' \item score
-#' \item gene.id
-#' \item gene.symbol
+#' The second data frame includes gene information with following data structure:
+#' \itemize{
+#'   \item{\code{score}:} \emph{Numeric}. Gene score.
+#'   \item{\code{gene.id}:} \emph{Character}. Gene ID.
+#'   \item{\code{gene.symbol}:} \emph{Character}. Gene symbol.
 #' }
 #'
 #' @examples
 #' \dontrun{
-#' otargen::studyVariants(studyid = "GCST003155")
+#' result <- studyVariants(studyid = "GCST003155")
 #'}
 #' @importFrom magrittr %>%
 #' @export

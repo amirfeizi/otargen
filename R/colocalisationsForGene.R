@@ -3,49 +3,47 @@
 #' This function retrieves colocalization data for input ENSEMBL gene IDs or a gene name and
 #' it supports multiple gene IDs as a list of inputs. However, providing a limited number of
 #' genes is recommended to prevent excessive traffic on the OTG servers and ensure optimal
-#' performance.The return is a data table (tibble format) of studies that have evidence of colocalisation
-#'  with molecular QTLs for given gene(s).
+#' performance. The return is a data table (tibble format) of studies that have evidence of colocalisation
+#' with molecular QTLs for given gene(s).
 #'
-#' @param \emph{genes} String: one or more gene ENSEMBL identifier or gene name.
+#' @param genes Character vector or list: One or more gene ENSEMBL identifiers or gene names.
 #'
 #' @import dplyr
 #' @importFrom magrittr %>%
 #' @import rlang
 #'
-#' @returns Returns a tibble including the query gene(s) colocalisation data.
+#' @return A tibble including the colocalisation data for the query gene(s).
 #'
-#' The output data frame contain the following columns:
-#'
-#' \enumerate{
-#' \item Study
-#' \item Trait_reported
-#' \item Lead_variant
-#' \item Molecular_trait
-#' \item Gene_symbol
-#' \item Tissue
-#' \item Source
-#' \item H3
-#' \item log2(H4/H3)
-#' \item Title
-#' \item Author
-#' \item Has_sumstats
-#' \item numAssocLoci
-#' \item nInitial cohort
-#' \item study_nReplication
-#' \item study_nCases
-#' \item Publication_date
-#' \item Journal
-#' \item Pubmed_id
+#' The output tibble contains the following columns:
+#' \itemize{
+#'   \item{\code{Study}:} \emph{Character vector}. Study identifier.
+#'   \item{\code{Trait_reported}:} \emph{Character vector}. Reported trait associated with the colocalisation.
+#'   \item{\code{Lead_variant}:} \emph{Character vector}. Lead variant associated with the colocalisation.
+#'   \item{\code{Molecular_trait}:} \emph{Character vector}. Molecular trait associated with the colocalisation.
+#'   \item{\code{Gene_symbol}:} \emph{Character vector}. Gene symbol associated with the colocalisation.
+#'   \item{\code{Tissue}:} \emph{Character vector}. Tissue where the colocalisation occurs.
+#'   \item{\code{Source}:} \emph{Character vector}. Source of the colocalisation data.
+#'   \item{\code{H3}:} \emph{Numeric vector}. H3 value associated with the colocalisation.
+#'   \item{\code{log2_H4_H3}:} \emph{Numeric vector}. Log2 ratio of H4 to H3 values.
+#'   \item{\code{Title}:} \emph{Character vector}. Title of the study.
+#'   \item{\code{Author}:} \emph{Character vector}. Author(s) of the study.
+#'   \item{\code{Has_sumstats}:} \emph{Logical vector}. Indicates if the study has summary statistics.
+#'   \item{\code{numAssocLoci}:} \emph{Numeric vector}. Number of associated loci in the study.
+#'   \item{\code{nInitial_cohort}:} \emph{Numeric vector}. Number of samples in the initial cohort.
+#'   \item{\code{study_nReplication}:} \emph{Numeric vector}. Number of samples in the replication cohort.
+#'   \item{\code{study_nCases}:} \emph{Numeric vector}. Number of cases in the study.
+#'   \item{\code{Publication_date}:} \emph{Character vector}. Publication date of the study.
+#'   \item{\code{Journal}:} \emph{Character vector}. Journal where the study was published.
+#'   \item{\code{Pubmed_id}:} \emph{Character vector}. PubMed identifier of the study.
 #' }
 #'
 #' @examples
 #' \dontrun{
-#' otargen::colocalisationsForGene(genes=list("ENSG00000163946",
-#' "ENSG00000169174", "ENSG00000143001"))
-#' otargen::colocalisationsForGene(genes="ENSG00000169174")
-#' otargen::colocalisationsForGene(genes=list("TP53", "TASOR"))
-#' otargen::colocalisationsForGene(genes="TP53")
-#' }
+#' colocalisationsForGene(c("ENSG00000163946", "ENSG00000169174", "ENSG00000143001"))
+#' colocalisationsForGene("ENSG00000169174")
+#' colocalisationsForGene(c("TP53", "TASOR"))
+#' colocalisationsForGene("TP53") }
+#'
 #' @export
 #'
 #'

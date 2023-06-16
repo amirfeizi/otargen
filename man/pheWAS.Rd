@@ -7,33 +7,32 @@
 pheWAS(variantid)
 }
 \arguments{
-\item{\emph{variantid}}{is the Open Target Genetics generated id for each variants}
+\item{\emph{variantid}}{String: Open Targets Genetics generated ID for each variant.}
 }
 \value{
 Returns a data frame with PheWAS associations consisting of the following columns:
-
-\enumerate{
-\item totalGWASStudies
-\item pval
-\item beta
-\item oddsRatio
-\item nTotal
-\item study.studyId
-\item study.source
-\item study.pmid
-\item study.pubDate
-\item study.traitReported
-\item study.traitCategory
+\itemize{
+  \item{\code{totalGWASStudies}:} \emph{Integer}. Total number of GWAS studies.
+  \item{\code{pval}:} \emph{Numeric}. P-value.
+  \item{\code{beta}:} \emph{Numeric}. Beta value.
+  \item{\code{oddsRatio}:} \emph{Numeric}. Odds ratio.
+  \item{\code{nTotal}:} \emph{Integer}. Total number of participants.
+  \item{\code{study.studyId}:} \emph{Character vector}. Study ID.
+  \item{\code{study.source}:} \emph{Character vector}. Source of the study.
+  \item{\code{study.pmid}:} \emph{Character vector}. PMID (PubMed ID) of the study.
+  \item{\code{study.pubDate}:} \emph{Character vector}. Publication date of the study.
+  \item{\code{study.traitReported}:} \emph{Character vector}. Reported trait.
+  \item{\code{study.traitCategory}:} \emph{Character vector}. Trait category.
 }
 }
 \description{
 PheWAS (Phenome-wide association study) is a method that investigates the relationships
-between genetic variants and a traits or phenotypes. It helps in the study of their
+between genetic variants and traits or phenotypes, helping in the study of their
 potential influence on multiple traits or diseases concurrently.
 }
 \examples{
 \dontrun{
-otargen::pheWAS(variantid ="1_154549918_C_A")
-otargen::pheWAS(variantid ="rs72698179")
+result <- pheWAS(variantid = "1_154549918_C_A")
+result <- pheWAS(variantid = "rs72698179")
 }
 }

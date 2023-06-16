@@ -1,40 +1,40 @@
 #' Retrieves QTL credible set data
 #'
-#' For a specific gene, lead variant, study id and biofeature, the function obtains tag variant information
+#' For a specific gene, lead variant, study ID, and biofeature, the function obtains tag variant information
 #' that are considered to have a high probability of being truly associated with the trait and the corresponding scores.
 #'
-#' @param \emph{studyid} String: Open Target Genetics generated id for GWAS study.
-#' @param \emph{variantid} String: Open Target Genetics generated id for variant (CHRPOSITION_REFALLELE_ALTALLELE or rsId).
-#' @param \emph{gene} String: a gene ENSEMBL id or a gene name.
-#' @param \emph{biofeature} String: represents either a tissue, cell type, aggregation type, protein type etc.
+#' @param \emph{studyid} String: Open Targets Genetics generated ID for GWAS study.
+#' @param \emph{variantid} String: Open Targets Genetics generated ID for variant (CHRPOSITION_REFALLELE_ALTALLELE or rsId).
+#' @param \emph{gene} String: Gene ENSEMBL ID or gene name.
+#' @param \emph{biofeature} String: Represents either a tissue, cell type, aggregation type, protein type, etc.
 #'
-#' @return Returns a data frame of results from qtl credible set of variants consisting of the following columns:
-#'
-#' \enumerate{
-#' \item tagVariant.id
-#' \item tagVariant.rsId
-#' \item pval
-#' \item se
-#' \item beta
-#' \item postProb
-#' \item MultisignalMethod
-#' \item logABF
-#' \item is95
-#' \item is99
+#' @return Returns a data frame of results from the QTL credible set of variants consisting of the following columns:
+#' \itemize{
+#'   \item{\code{tagVariant.id}:} \emph{Character vector}. Tag variant ID.
+#'   \item{\code{tagVariant.rsId}:} \emph{Character vector}. Tag variant rsID.
+#'   \item{\code{pval}:} \emph{Numeric}. P-value.
+#'   \item{\code{se}:} \emph{Numeric}. Standard error.
+#'   \item{\code{beta}:} \emph{Numeric}. Beta value.
+#'   \item{\code{postProb}:} \emph{Numeric}. Posterior probability.
+#'   \item{\code{MultisignalMethod}:} \emph{Character vector}. Multisignal method.
+#'   \item{\code{logABF}:} \emph{Numeric}. Logarithm of approximate Bayes factor.
+#'   \item{\code{is95}:} \emph{Logical}. Indicates if the variant has a 95% confidence.
+#'   \item{\code{is99}:} \emph{Logical}. Indicates if the variant has a 99% confidence.
 #' }
 #'
 #' @examples
 #' \dontrun{
-#' otargen::qtlCredibleSet(studyid="Braineac2", variantid="1_55053079_C_T",
-#'     gene="ENSG00000169174", biofeature="SUBSTANTIA_NIGRA")
-#' otargen::qtlCredibleSet(studyid="Braineac2", variantid="rs7552841",
-#'     gene="PCSK9", biofeature="SUBSTANTIA_NIGRA")
+#' result <- qtlCredibleSet(studyid = "Braineac2", variantid = "1_55053079_C_T",
+#'     gene = "ENSG00000169174", biofeature = "SUBSTANTIA_NIGRA")
+#' result <- qtlCredibleSet(studyid = "Braineac2", variantid = "rs7552841",
+#'     gene = "PCSK9", biofeature = "SUBSTANTIA_NIGRA")
 #'}
 #'
 #' @importFrom magrittr %>%
 #' @export
 #'
 #'
+
 qtlCredibleSet <- function(studyid, variantid, gene, biofeature) {
   ## Set up to query Open Targets Genetics API
   cli::cli_progress_step("Connecting the database...", spinner = TRUE)
