@@ -1,10 +1,15 @@
-#' Plot the the scores obtained from the L2G model results
+#' Radar plot for L2G partial scores from \code{studiesAndLeadVariantsForGeneByL2G()}
 #'
-#' A radar plot showing the scores, important for prioritising the causal genes, obtained
-#' from the studiesAndLeadVariantsForGeneByL2G function and filter it for a specific disease.
+#' This function returns a radar plot to compare the partial scores,
+#' important for prioritising the causal genes that are obtained
+#' from the \code{studiesAndLeadVariantsForGeneByL2G()} function. The user can
+#' decide to plot only for a specific disease by specifying an \code{EFO} ID
+#' for the \code{disease} argument, otherwise the returned plot will will facet
+#' based on existing traits/diseases in the outputs from \code{studiesAndLeadVariantsForGeneByL2G()}.
 #'
-#' @param \emph{data} Data frame: result of studiesAndLeadVariantsForGeneByL2G function.
-#' @param \emph{disease_efo} String: input efo id to filter the L2G data for a particular disease.
+#'
+#' @param data Data frame: result of \code{studiesAndLeadVariantsForGeneByL2G} function.
+#' @param disease_efo Character: input EFO id to filter the L2G data for a particular disease.
 #'
 #' @return A radar plot for the input disease and the genes associated with that disease.
 #' The variables shown include L2G score, chromatin interaction, variant pathogenicity and distance.
@@ -17,35 +22,68 @@
 #'
 #' @examples
 #' \dontrun{
-#' otargen::studiesAndLeadVariantsForGeneByL2G(list("ENSG00000167207","ENSG00000096968",
-#'   "ENSG00000138821", "ENSG00000125255")) %>% otargen::plot_l2g(disease = "EFO_0003767")
+#' p <- studiesAndLeadVariantsForGeneByL2G(list("ENSG00000167207","ENSG00000096968",
+#'   "ENSG00000138821", "ENSG00000125255")) %>% plot_l2g(disease = "EFO_0003767")
+#' p
 #'}
 #'
 
-plot_l2g <- function(data, disease_efo=NULL){
+plot_l2g <- function(data, disease_efo = NULL) {
+  # Exclude irrelevant trait categories
   exclude <- c("phenotype", "measurement", "Uncategorised", "biological process")
   data <- dplyr::filter(data, !study.traitCategory %in% exclude)
 
-  df <- data[,c("yProbaModel","yProbaDistance","yProbaInteraction","yProbaMolecularQTL","yProbaPathogenicity", "gene_symbol",
-                "study.traitReported", "study.traitEfos", "study.traitCategory","pval")]
+  # Select relevant columns and rename them
+  df <- data %>%
+    dplyr::select(yProbaModel, yProbaDistance, yProbaInteraction, yProbaMolecularQTL, yProbaPathogenicity, gene_symbol,
+                  study.traitReported, study.traitEfos, study.traitCategory, pval) %>%
+    dplyr::rename(L2G_score = yProbaModel,
+                  Distance = yProbaDistance,
+                  Interaction = yProbaInteraction,
+                  mQTL = yProbaMolecularQTL,
+                  Pathogenicity = yProbaPathogenicity,
+                  Gene_name = gene_symbol,
+                  Traits = study.traitReported,
+                  EFO_ID = study.traitEfos,
+                  Trait_category = study.traitCategory,
+                  pval = pval)
 
-  df <- setNames(df, c("L2G_score","Distance","Interaction", "mQTL", "Pathogenicity", "Gene_name", "Traits",
-                       "EFO_ID","Trait_category", "pval"))
-
-  #df <- df[order(df$L2G_score,decreasing=TRUE),]
-
-
-  if (!is.null(disease_efo)){
-    df <- df %>% dplyr::filter(EFO_ID == disease_efo) %>% dplyr::group_by(Gene_name) %>% dplyr::filter(L2G_score == max(L2G_score)) %>% data.frame()
+  if (!is.null(disease_efo)) {
+    # Filter by disease EFO ID and select top-scoring gene for each trait
+    df <- df %>%
+      dplyr::filter(EFO_ID == disease_efo) %>%
+      dplyr::group_by(Gene_name) %>%
+      dplyr::filter(L2G_score == max(L2G_score)) %>%
+      dplyr::ungroup() %>%
+      data.frame()
     df_data <- df[, 1:6]
-    plot <- ggiraphExtra::ggRadar(data = df_data,mapping = ggplot2::aes(colour = Gene_name), rescale = FALSE,
-                          use.label = TRUE, alpha = 0.12, size = 2, legend.position = "right") + ggplot2::labs(title = df[1,'Traits'])
-  }
-  else{
-    df <- df %>% dplyr::group_by(Traits)%>% dplyr::arrange(dplyr::desc(L2G_score)) %>% head(n=3) %>% data.frame()
+
+    # Generate radar plot with title based on the first trait
+    plot <- ggiraphExtra::ggRadar(data = df_data,
+                                  mapping = ggplot2::aes(colour = Gene_name),
+                                  rescale = FALSE,
+                                  use.label = TRUE,
+                                  alpha = 0.12,
+                                  size = 2,
+                                  legend.position = "right") +
+      ggplot2::labs(title = df[1, "Traits"])
+  } else {
+    # Select top-scoring genes for each trait and plot in separate panels
+    df <- df %>%
+      dplyr::group_by(Traits) %>%
+      dplyr::arrange(dplyr::desc(L2G_score)) %>%
+      head(n = 3) %>%
+      data.frame()
     df_data <- df[, 1:7]
-    plot <- ggiraphExtra::ggRadar(data = df_data, mapping = ggplot2::aes(colour = Gene_name, facet=Traits),
-                                   rescale = FALSE, use.label = TRUE, size = 2, alpha = 0.12, legend.position = "right")
+
+    # Generate radar plot with facetting by traits
+    plot <- ggiraphExtra::ggRadar(data = df_data,
+                                  mapping = ggplot2::aes(colour = Gene_name, facet = Traits),
+                                  rescale = FALSE,
+                                  use.label = TRUE,
+                                  size = 2,
+                                  alpha = 0.12,
+                                  legend.position = "right")
   }
-  return (plot)
+  return(plot)
 }

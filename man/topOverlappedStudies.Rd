@@ -2,37 +2,36 @@
 % Please edit documentation in R/topOverlappedStudies.R
 \name{topOverlappedStudies}
 \alias{topOverlappedStudies}
-\title{Retrieves the top studies having overlap with the given input study.}
+\title{Retrieve top studies having overlap in identified loci.}
 \usage{
-topOverlappedStudies(studyid, pageindex = 0, pagesize = 20)
+topOverlappedStudies(study_id, pageindex = 0, pagesize = 20)
 }
 \arguments{
-\item{\emph{studyid}}{String: Open Target Genetics generated id for GWAS study.}
+\item{study_id}{Character: Open Targets Genetics generated ID for a GWAS study.}
 
-\item{\emph{pageindex}}{Int: Index of the current page, pagination index >= 0.}
+\item{pageindex}{Integer: Index of the current page for pagination (>= 0).}
 
-\item{\emph{pagesize}}{Int: No. of records in a page, pagination size > 0.}
+\item{pagesize}{Integer: Number of records in a page for pagination (> 0).}
 }
 \value{
-Returns a data frame with top studies containing the following columns:
-
-\enumerate{
-\item study.studyId
-\item study.traitReported
-\item study.traitCategory
-\item topStudiesByLociOverlap.studyId
-\item topStudiesByLociOverlap.study.studyId
-\item topStudiesByLociOverlap.study.traitReported
-\item topStudiesByLociOverlap.study.traitCategory
-\item topStudiesByLociOverlap.numOverlapLoci
+Returns a data frame with the top studies containing the following columns:
+\itemize{
+  \item{\code{study.studyId}:} \emph{Character}. Study ID of the input study.
+  \item{\code{study.traitReported}:} \emph{Character}. Reported trait of the input study.
+  \item{\code{study.traitCategory}:} \emph{Character}. Category of the trait in the input study.
+  \item{\code{topStudiesByLociOverlap.studyId}:} \emph{Character}. Study ID of the top associated studies.
+  \item{\code{topStudiesByLociOverlap.study.studyId}:} \emph{Character}. Study ID of the top associated studies.
+  \item{\code{topStudiesByLociOverlap.study.traitReported}:} \emph{Character}. Reported trait of the top associated studies.
+  \item{\code{topStudiesByLociOverlap.study.traitCategory}:} \emph{Character}. Category of the trait in the top associated studies.
+  \item{\code{topStudiesByLociOverlap.numOverlapLoci}:} \emph{Integer}. Number of loci overlapped with the input study.
 }
 }
 \description{
-Fetches the top associated studies for a given study id ordered by loci overlap.
+For a provided study ID, the function, retrieves top studies with overlap in their identified loci with the queried study loci.
 }
 \examples{
 \dontrun{
-otargen::topOverlappedStudies(studyid = "GCST006614_3")
-otargen::topOverlappedStudies(studyid = "NEALE2_6177_1", pageindex = 1, pagesize = 50)
+result <- topOverlappedStudies(study_id = "GCST006614_3")
+result <- topOverlappedStudies(study_id = "NEALE2_6177_1", pageindex = 1, pagesize = 50)
 }
 }

@@ -2,54 +2,58 @@
 % Please edit documentation in R/manhattan.R
 \name{manhattan}
 \alias{manhattan}
-\title{Manhattan association for a given study.}
+\title{Retrieve GWAS summary statistics to create a Manhattan plot}
 \usage{
-manhattan(studyid, pageindex = 0, pagesize = 100)
+manhattan(study_id, pageindex = 0, pagesize = 100)
 }
 \arguments{
-\item{\emph{studyid}}{String: Open Targets Genetics generated ID for GWAS study.}
+\item{study_id}{Character: Open Targets Genetics generated ID for the GWAS study.}
 
-\item{\emph{pageindex}}{Int: Index of the current page, pagination index >= 0.}
+\item{pageindex}{Int: Index of the current page (pagination index >= 0).}
 
-\item{\emph{pagesize}}{Int: Number of records in a page, pagination size > 0.}
+\item{pagesize}{Int: Number of records in a page (pagination size > 0).}
 }
 \value{
-Returns a data frame containing Manhattan associations for the input study ID. The table consists of the following columns:
+Returns a data frame containing the Manhattan associations for the input study ID. The table consists of the following columns:
 \itemize{
-  \item{\code{pval_mantissa}:} \emph{Numeric vector}. Mantissa of the p-value.
-  \item{\code{pval_exponent}:} \emph{Integer vector}. Exponent of the p-value.
-  \item{\code{credible_set_size}:} \emph{Integer vector}. Size of the credible set.
-  \item{\code{ld_set_size}:} \emph{Integer vector}. Size of the LD set.
-  \item{\code{total_set_size}:} \emph{Integer vector}. Total size of the set.
-  \item{\code{pval}:} \emph{Numeric vector}. P-value.
-  \item{\code{odds_ratio}:} \emph{Logical vector}. Odds ratio.
-  \item{\code{odds_ratio_ci_lower}:} \emph{Logical vector}. Lower confidence interval of the odds ratio.
-  \item{\code{odds_ratio_ci_upper}:} \emph{Logical vector}. Upper confidence interval of the odds ratio.
-  \item{\code{beta}:} \emph{Numeric vector}. Beta value.
-  \item{\code{beta_ci_lower}:} \emph{Numeric vector}. Lower confidence interval of the beta value.
-  \item{\code{beta_ci_upper}:} \emph{Numeric vector}. Upper confidence interval of the beta value.
-  \item{\code{direction}:} \emph{Character vector}. Direction of the effect.
-  \item{\code{best_genes_score}:} \emph{Numeric vector}. Score of the best genes.
-  \item{\code{best_genes_gene_id}:} \emph{Character vector}. Gene ID of the best genes.
-  \item{\code{best_genes_gene_symbol}:} \emph{Character vector}. Gene symbol of the best genes.
-  \item{\code{best_coloc_genes_score}:} \emph{Numeric vector}. Score of the best colocated genes.
-  \item{\code{best_coloc_genes_gene_id}:} \emph{Character vector}. Gene ID of the best colocated genes.
-  \item{\code{best_coloc_genes_gene_symbol}:} \emph{Character vector}. Gene symbol of the best colocated genes.
-  \item{\code{best_locus2genes_score}:} \emph{Numeric vector}. Score of the best locus to genes.
-  \item{\code{best_locus2genes_gene_id}:} \emph{Character vector}. Gene ID of the best locus to genes.
-  \item{\code{best_locus2genes_gene_symbol}:} \emph{Character vector}. Gene symbol of the best locus to genes.
-  \item{\code{variant_id}:} \emph{Character vector}. Variant ID.
-  \item{\code{variant_position}:} \emph{Integer vector}. Variant position.
-  \item{\code{variant_chromosome}:} \emph{Character vector}. Variant chromosome.
-  \item{\code{variant_rs_id}:} \emph{Character vector}. Variant rsID.
+  \item{\code{pval_mantissa}:} Numeric vector. Mantissa of the p-value.
+  \item{\code{pval_exponent}:} Integer vector. Exponent of the p-value.
+  \item{\code{credible_set_size}:} Integer vector. Size of the credible set.
+  \item{\code{ld_set_size}:} Integer vector. Size of the LD set.
+  \item{\code{total_set_size}:} Integer vector. Total size of the set.
+  \item{\code{pval}:} Numeric vector. P-value.
+  \item{\code{odds_ratio}:} Logical vector. Odds ratio.
+  \item{\code{odds_ratio_ci_lower}:} Logical vector. Lower confidence interval of the odds ratio.
+  \item{\code{odds_ratio_ci_upper}:} Logical vector. Upper confidence interval of the odds ratio.
+  \item{\code{beta}:} Numeric vector. Beta value.
+  \item{\code{beta_ci_lower}:} Numeric vector. Lower confidence interval of the beta value.
+  \item{\code{beta_ci_upper}:} Numeric vector. Upper confidence interval of the beta value.
+  \item{\code{direction}:} Character vector. Direction of the effect.
+  \item{\code{best_genes_score}:} Numeric vector. Score of the best genes.
+  \item{\code{best_genes_gene_id}:} Character vector. Gene ID of the best genes.
+  \item{\code{best_genes_gene_symbol}:} Character vector. Gene symbol of the best genes.
+  \item{\code{best_coloc_genes_score}:} Numeric vector. Score of the best colocated genes.
+  \item{\code{best_coloc_genes_gene_id}:} Character vector. Gene ID of the best colocated genes.
+  \item{\code{best_coloc_genes_gene_symbol}:} Character vector. Gene symbol of the best colocated genes.
+  \item{\code{best_locus2genes_score}:} Numeric vector. Score of the best locus-to-genes.
+  \item{\code{best_locus2genes_gene_id}:} Character vector. Gene ID of the best locus-to-genes.
+  \item{\code{best_locus2genes_gene_symbol}:} Character vector. Gene symbol of the best locus-to-genes.
+  \item{\code{variant_id}:} Character vector. Variant ID.
+  \item{\code{variant_position}:} Integer vector. Variant position.
+  \item{\code{variant_chromosome}:} Character vector. Variant chromosome.
+  \item{\code{variant_rs_id}:} Character vector. Variant rsID.
 }
 }
 \description{
-The data generated is used to plot the Manhattan association. Manhattan association is used to graphically represent genetic association studies, particularly in genome-wide association studies (GWAS). It displays the results of statistical associations between genetic variants and a trait or disease of interest across the genome.
+This function retrieves summary statistics for a given GWAS study ID, which are used to generate a Manhattan plot.
+The Manhattan plot is a graphical representation of genetic association studies, particularly in genome-wide association studies (GWAS).
+It displays the results of statistical associations between genetic variants and a trait or disease of interest across the genome.
+This function returns a data frame of the underlying data, which can be used to recreate the Manhattan plot using the \code{plot_manhattan()} function,
+or for custom plots and downstream analysis.
 }
 \examples{
 \dontrun{
-result <- manhattan(studyid = "GCST90002357")
-result <- manhattan(studyid = "GCST90002357", pageindex = 2, pagesize = 50)
+result <- manhattan(study_id = "GCST90002357")
+result <- manhattan(study_id = "GCST90002357", pageindex = 2, pagesize = 50)
 }
 }

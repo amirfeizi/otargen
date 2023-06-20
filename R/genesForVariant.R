@@ -1,8 +1,12 @@
-#' Fetches variant-to-gene information with individual QTL associations, intervals, distances, and functional predictions.
+#' Retrieves variant-surrounding genes with calculated statistics for causal gene prioritization.
 #'
-#' This function retrieves various information related to variants and genes, including QTL associations, distances, chromatin interactions, and functional predictions.
+#' This function retrieves all calculated prioritizing scores for surrounding genes of a specific variant based on the Open Target Genetics  locus-to-gene (L2G) ML scoring pipeline.,
+#' including QTL associations, distances, chromatin interactions, and functional predictions.
+#' It provides detailed insights into the relationship between genetic variants and genes,
+#' allowing users to explore the impact of variants on gene expression, colocalization scores,
+#' chromatin interactions, and predicted functional effects. The function returns the information in a structured format, making it easier to analyze and interpret the results.
 #'
-#' @param variantId A character string specifying the ID of the variant for which to fetch gene information.
+#' @param variant_id A character string specifying the ID of the variant for which to fetch gene information.
 #'
 #' @return A list with the following components:
 #' \itemize{
@@ -64,17 +68,25 @@
 #'
 #' @examples
 #' \dontrun{
-#'   result <- genesForVariant(variantId = "1_154453788_C_T")
+#'   result <- genesForVariant(variant_id = "1_154453788_C_T")
+#'   result <- genesForVariant(variant_id = "rs4129267")
 #'   print(result)
 #'
 #' }
 #' @export
 #' @import dplyr
 #' @importFrom magrittr %>%
+#' @importFrom magrittr %>%
+#' @importFrom tidyr unnest
 #'
+#' @importFrom stringr str_replace_all
+#'
+#' @importFrom jsonlite fromJSON
+#' @importFrom cli cli_progress_step cli_progress_update
+#' @importFrom ghql GraphqlClient Query
 #'
 
-genesForVariant <- function(variantid) {
+genesForVariant <- function(variant_id) {
   ## Set up to query Open Targets Genetics API
   cli::cli_progress_step("Connecting to database..", spinner = TRUE)
   otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
@@ -82,7 +94,7 @@ genesForVariant <- function(variantid) {
 
 
   # Check variant id format
-  if (grepl(pattern = "rs\\d+", variantid)) {
+  if (grepl(pattern = "rs\\d+", variant_id)) {
     # Convert rs id to variant id
     query_searchid <- "query ConvertRSIDtoVID($queryString:String!) {
     search(queryString:$queryString){
@@ -93,13 +105,13 @@ genesForVariant <- function(variantid) {
       }
     }"
 
-    variables <- list(queryString = variantid)
+    variables <- list(queryString = variant_id)
 
     otg_qry$query(name = "convertid", x = query_searchid)
     id_result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$convertid, variables), flatten = TRUE)$data
-    input_variantid <- id_result$search$variants$id
-  } else if (grepl(pattern = "\\d+_\\d+_[a-zA-Z]+_[a-zA-Z]+", variantid)) {
-    input_variantid <- variantid
+    input_variant_id <- id_result$search$variants$id
+  } else if (grepl(pattern = "\\d+_\\d+_[a-zA-Z]+_[a-zA-Z]+", variant_id)) {
+    input_variant_id <- variant_id
   } else {
     stop("\n Please provide a variant Id")
   }
@@ -173,11 +185,11 @@ genesForVariant <- function(variantid) {
 
   result_pkg = list()
 
-  variables <- list(variantId = input_variantid)
+  variables <- list(variantId = input_variant_id)
 
 
   otg_qry$query(name = "v2g_query", x = query)
-  cli::cli_progress_step(paste0("Downloading data for ", variantid, " ..."), spinner = TRUE)
+  cli::cli_progress_step(paste0("Downloading data for ", variant_id, " ..."), spinner = TRUE)
 
   result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$v2g_query, variables), flatten = TRUE)$data
   result_df <- as.data.frame(result$genesForVariant) %>%

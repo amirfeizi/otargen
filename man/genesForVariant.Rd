@@ -2,12 +2,12 @@
 % Please edit documentation in R/genesForVariant.R
 \name{genesForVariant}
 \alias{genesForVariant}
-\title{Fetches variant-to-gene information with individual QTL associations, intervals, distances, and functional predictions.}
+\title{Retrieves variant-surrounding genes with calculated statistics for causal gene prioritization.}
 \usage{
-genesForVariant(variantid)
+genesForVariant(variant_id)
 }
 \arguments{
-\item{variantId}{A character string specifying the ID of the variant for which to fetch gene information.}
+\item{variant_id}{A character string specifying the ID of the variant for which to fetch gene information.}
 }
 \value{
 A list with the following components:
@@ -69,11 +69,16 @@ A list with the following components:
 }
 }
 \description{
-This function retrieves various information related to variants and genes, including QTL associations, distances, chromatin interactions, and functional predictions.
+This function retrieves all calculated prioritizing scores for surrounding genes of a specific variant based on the Open Target Genetics  locus-to-gene (L2G) ML scoring pipeline.,
+including QTL associations, distances, chromatin interactions, and functional predictions.
+It provides detailed insights into the relationship between genetic variants and genes,
+allowing users to explore the impact of variants on gene expression, colocalization scores,
+chromatin interactions, and predicted functional effects. The function returns the information in a structured format, making it easier to analyze and interpret the results.
 }
 \examples{
 \dontrun{
-  result <- genesForVariant(variantId = "1_154453788_C_T")
+  result <- genesForVariant(variant_id = "1_154453788_C_T")
+  result <- genesForVariant(variant_id = "rs4129267")
   print(result)
 
 }

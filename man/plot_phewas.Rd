@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_phewas.R
 \name{plot_phewas}
 \alias{plot_phewas}
-\title{Plot the PheWAS function results}
+\title{Plot \code{PheWAS()} results.}
 \usage{
 plot_phewas(
   data,
@@ -11,21 +11,26 @@ plot_phewas(
 )
 }
 \arguments{
-\item{\emph{data}}{Data Frame: result of PheWAS function in data frame format, contacting the PheWAS information for a variand id}
+\item{data}{Data Frame: The result of the \code{PheWAS()} function in data frame format, containing the PheWAS information for a selected variant ID.}
 
-\item{\emph{disease}}{Logical: a logical TRUE and FALSE variable, with the default value of TRUE to filter the PheWAS data for disease.}
+\item{disease}{Logical: A logical variable indicating whether to filter the PheWAS data for disease (default: TRUE).}
 
-\item{\emph{source}}{Character vector: choices for data sources of PheWAS analysis including FINNGEN, GCST, NEAL (UKBioBANK), and SAGE.}
+\item{source}{Character vector: Choices for the data sources of PheWAS analysis, including FINNGEN, GCST, NEALE (UKBiobank), and SAIGE.}
 }
 \value{
-A plot to prioritize variants based on their -log10(pval).
+A plot to prioritize variants based on their -log10(p-value).
 }
 \description{
-Phenome wide association study results are filtered for diseases and the -log10 p-value is plotted against the traits.
-It presents the association results between genetic variants and multiple traits. The traits with p-value < 0.005 is labelled.
+This plot visualizes which traits are associated with the user's selected variant in the UK Biobank,
+FinnGen, and/or GWAS Catalog summary statistics repository based on PheWAS analysis.
+The associated traits are mapped onto the \emph{x-axis}, and their corresponding -log10(p-value) values are plotted on the \emph{y-axis}.
+A horizontal line is shown at a p-value cutoff of 0.005 to indicate significant associations.
+Associations above this cutoff are labeled with the trait's name, and the sources of the associations are color-coded as points.
 }
 \examples{
 \dontrun{
-otargen::pheWAS(variantid = "14_87978408_G_A") \%>\% otargen::plot_phewas(disease = TRUE)
+p <- pheWAS(variant_id = "14_87978408_G_A") \%>\%
+     plot_phewas(disease = TRUE)
+p
 }
 }

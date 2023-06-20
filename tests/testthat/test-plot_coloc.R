@@ -1,9 +1,9 @@
 test_that("test plot_coloc works", {
-  expected_1 <- otargen::colocalisationsForGene(genes="ENSG00000169174") %>% otargen::plot_coloc(biobank = TRUE)
-  expected_2 <- otargen::colocalisationsForGene(genes=list("ENSG00000167207","ENSG00000096968","ENSG00000138821", "ENSG00000125255")) %>%
+  expected_1 <- otargen::colocalisationsForGene(gene = "ENSG00000169174") %>% otargen::plot_coloc(biobank = TRUE)
+  expected_2 <- otargen::colocalisationsForGene(gene = c("ENSG00000167207","ENSG00000096968","ENSG00000138821", "ENSG00000125255")) %>%
                 otargen::plot_coloc()
-  expected_3 <- otargen::colocalisationsForGene(genes="PCSK9") %>% otargen::plot_coloc(biobank = TRUE)
-  expected_4 <- otargen::colocalisationsForGene(genes=list("PCSK9", "TASOR", "TP53")) %>% otargen::plot_coloc(biobank = FALSE)
+  expected_3 <- otargen::colocalisationsForGene(gene = "TP53") %>% otargen::plot_coloc(biobank = TRUE)
+  expected_4 <- otargen::colocalisationsForGene(gene = c("PCSK9", "TASOR", "TP53")) %>% otargen::plot_coloc(biobank = FALSE)
   expect_s3_class(expected_1, "ggplot")
   expect_s3_class(expected_2, "ggplot")
   expect_s3_class(expected_3, "ggplot")

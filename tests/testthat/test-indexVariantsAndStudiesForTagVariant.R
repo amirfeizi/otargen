@@ -1,5 +1,5 @@
 test_that("test indexVariantsAndStudiesForTagVariant works", {
-  expected <- otargen::indexVariantsAndStudiesForTagVariant(variantid = "1_109274968_G_T", pageindex = 1, pagesize = 50)
+  expected <- otargen::indexVariantsAndStudiesForTagVariant(variant_id = "1_109274968_G_T", pageindex = 1, pagesize = 50)
   expect_s3_class(expected, "data.frame")
   expect_false(is.null(dim(expected)))
 })

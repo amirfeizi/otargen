@@ -1,65 +1,64 @@
-#' Plot the PheWAS function results
+#' Plot \code{PheWAS()} results.
 #'
-#' Phenome wide association study results are filtered for diseases and the -log10 p-value is plotted against the traits.
-#' It presents the association results between genetic variants and multiple traits. The traits with p-value < 0.005 is labelled.
+#' This plot visualizes which traits are associated with the user's selected variant in the UK Biobank,
+#' FinnGen, and/or GWAS Catalog summary statistics repository based on PheWAS analysis.
+#' The associated traits are mapped onto the \emph{x-axis}, and their corresponding -log10(p-value) values are plotted on the \emph{y-axis}.
+#' A horizontal line is shown at a p-value cutoff of 0.005 to indicate significant associations.
+#' Associations above this cutoff are labeled with the trait's name, and the sources of the associations are color-coded as points.
 #'
-#' @param \emph{data} Data Frame: result of PheWAS function in data frame format, contacting the PheWAS information for a variand id
-#' @param \emph{disease} Logical: a logical TRUE and FALSE variable, with the default value of TRUE to filter the PheWAS data for disease.
-#' @param \emph{source} Character vector: choices for data sources of PheWAS analysis including FINNGEN, GCST, NEAL (UKBioBANK), and SAGE.
+#' @param data Data Frame: The result of the \code{PheWAS()} function in data frame format, containing the PheWAS information for a selected variant ID.
+#' @param disease Logical: A logical variable indicating whether to filter the PheWAS data for disease (default: TRUE).
+#' @param source Character vector: Choices for the data sources of PheWAS analysis, including FINNGEN, GCST, NEALE (UKBiobank), and SAIGE.
 #'
-#' @return A plot to prioritize variants based on their -log10(pval).
+#' @return A plot to prioritize variants based on their -log10(p-value).
 #'
 #' @examples
 #' \dontrun{
-#' otargen::pheWAS(variantid = "14_87978408_G_A") %>% otargen::plot_phewas(disease = TRUE)
-#'}
+#' p <- pheWAS(variant_id = "14_87978408_G_A") %>%
+#'      plot_phewas(disease = TRUE)
+#' p
+#' }
 #' @import dplyr
 #' @import ggplot2
 #' @importFrom magrittr %>%
 #' @export
 #'
 plot_phewas <- function(data, disease = TRUE, source = c("GCST", "FINNGEN", "NEALE", "SAIGE")) {
+  # Prepare the data
   dt0 <- data
-  dt0$study.traitCategory <- base::tolower(dt0$study.traitCategory)
+  dt0$study.traitCategory <- tolower(dt0$study.traitCategory)
   dt1 <- dt0 %>%
-    dplyr::mutate(study.traitReported_trimmed = stringr::str_replace_all(study.traitReported, pattern = "[:punct:]|[:symbol:]", replacement = "")) %>%
-    dplyr::mutate(study.traitReported_trimmed = stringr::str_trunc(study.traitReported_trimmed, width = 35, side = "right"))
+    mutate(study.traitReported_trimmed = stringr::str_replace_all(study.traitReported, pattern = "[:punct:]|[:symbol:]", replacement = "")) %>%
+    mutate(study.traitReported_trimmed = stringr::str_trunc(study.traitReported_trimmed, width = 35, side = "right"))
 
-
-  # source <- match.arg(source)
-  # type <- match.arg(type)
-
+  # Filter and categorize the data
   if (disease) {
     dt2 <- dt1 %>%
-      dplyr::filter(study.source %in% source) %>%
-      dplyr::filter(!study.traitCategory %in% c("measurement", "phenotype", "biological process", "uncategorised")) %>%
-      dplyr::mutate(beta_shape = ifelse(beta > 0, "positive", "negetive"))
+      filter(study.source %in% source) %>%
+      filter(!study.traitCategory %in% c("measurement", "phenotype", "biological process", "uncategorized")) %>%
+      mutate(beta_shape = ifelse(beta > 0, "positive", "negative"))
   } else {
     dt2 <- dt1 %>%
-      dplyr::filter(study.source %in% source) %>%
-      dplyr::filter(study.traitCategory %in% c("measurement", "phenotype", "biological process", "uncategorised")) %>%
-      dplyr::mutate(beta_shape = ifelse(beta > 0, "positive", "negetive"))
+      filter(study.source %in% source) %>%
+      filter(study.traitCategory %in% c("measurement", "phenotype", "biological process", "uncategorized")) %>%
+      mutate(beta_shape = ifelse(beta > 0, "positive", "negative"))
   }
 
-  p <- ggplot2::ggplot(data = dt2, ggplot2::aes(study.traitCategory,
-    -log10(pval),
-    color = study.source, shape = beta_shape
-  )) +
-    ggplot2::geom_point() +
-    ggplot2::geom_jitter(width = 0.3, height = 0.3) +
-    ggplot2::geom_label(
-      ggplot2::aes(study.traitCategory, -log10(pval),
-        label = study.traitReported_trimmed
-      ),
+  # Create the plot
+  p <- ggplot(data = dt2, aes(study.traitCategory, -log10(pval), color = study.source, shape = beta_shape)) +
+    geom_point() +
+    geom_jitter(width = 0.3, height = 0.3) +
+    geom_label(
+      aes(study.traitCategory, -log10(pval), label = study.traitReported_trimmed),
       data = dt2[-log10(dt2$pval) > 5, ],
       vjust = "inward", hjust = "inward"
     ) +
-    ggplot2::scale_shape_manual(name = "beta direction", values = c(6, 2)) +
-    ggplot2::scale_color_discrete(name = "Data source") +
-    ggplot2::geom_hline(yintercept = 5, color = "grey", linetype = 2) +
-    ggplot2::xlab("") +
-    ggplot2::theme_classic() +
-    ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1))
+    scale_shape_manual(name = "beta direction", values = c(6, 2)) +
+    scale_color_discrete(name = "Data source") +
+    geom_hline(yintercept = 5, color = "grey", linetype = 2) +
+    xlab("") +
+    theme_classic() +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
   return(p)
 }

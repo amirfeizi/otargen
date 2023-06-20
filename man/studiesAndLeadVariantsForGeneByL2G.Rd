@@ -2,23 +2,23 @@
 % Please edit documentation in R/studiesAndLeadVariantsForGeneByL2G.R
 \name{studiesAndLeadVariantsForGeneByL2G}
 \alias{studiesAndLeadVariantsForGeneByL2G}
-\title{Retrieves L2G model summary data for a gene.}
+\title{Retrieve "locus-to-gene" (L2G) model summary data for a gene.}
 \usage{
 studiesAndLeadVariantsForGeneByL2G(
-  genes,
+  gene,
   l2g = 0.4,
   pvalue = 5e-08,
   vtype = NULL
 )
 }
 \arguments{
-\item{\emph{genes}}{String: One or more gene ENSEMBL ID or gene names.}
+\item{gene}{Character: Gene ENSEMBL ID (e.g. ENSG00000169174) or gene symbol (e.g. PCSK9). This argument can take a list of genes too.}
 
-\item{\emph{l2g}}{Float: Locus-to-gene cutoff score. (Default: 0.4)}
+\item{l2g}{Numeric: Locus-to-gene (L2G) cutoff score. (Default: 0.4)}
 
-\item{\emph{pvalue}}{Float: P-value cutoff. (Default: 5e-8)}
+\item{pvalue}{Character: P-value cutoff. (Default: 5e-8)}
 
-\item{\emph{vtype}}{Character vector: Most severe consequence to filter the variant types, including "intergenic_variant",
+\item{vtype}{Character: Most severe consequence to filter the variant types, including "intergenic_variant",
 "upstream_gene_variant", "intron_variant", "missense_variant", "5_prime_UTR_variant",
 "non_coding_transcript_exon_variant", "splice_region_variant". (Default: NULL)}
 }
@@ -67,8 +67,17 @@ Returns a data frame containing the input gene ID and its data for the L2G model
 }
 }
 \description{
-The locus-to-gene model utilizes genetic and functional genomics features to
-obtain prioritization scores for likely causal genes at each GWAS locus.
+The "locus-to-gene" (L2G) model derives features to prioritize likely causal genes at each GWAS
+locus based on genetic and functional genomics features. The main categories of predictive features are:
+\itemize{
+\item Distance: Distance from credible set variants to the gene.
+\item Molecular QTL colocalization: Colocalization with molecular QTLs.
+\item Chromatin interaction: Interactions, such as promoter-capture Hi-C.
+\item Variant pathogenicity: Pathogenicity scores from VEP (Variant Effect Predictor).
+}
+}
+\details{
+The function also provides additional filtering parameters to narrow the results based following parameters (see below)
 }
 \examples{
 \dontrun{

@@ -1,11 +1,11 @@
-#' Retrieves gene information for a gene ENSEMBL identifier or a gene name.
+#' Retrieve gene summary information.
 #'
-#' This function takes gene ENSEMBL id (e.g.ENSG00000169174) or gene name (e.g.PCSK9) and returns a table containing details about the
-#' input gene.
+#' This function takes a gene ENSEMBL id (e.g.ENSG00000169174) or a gene name (e.g.PCSK9) and returns a table containing details about
+#' input genes , such as genomic location, gene structure and its BioType.
 #'
-#' @param \emph{gene} String: an ENSEMBL gene identifier or gene name (e.g.ENSG00000169174/PCSK9).
+#' @param gene Character: an ENSEMBL gene identifier (e.g.ENSG00000169174) or gene name (e.g. PCSK9).
 #'
-#' @return Returns a tibble data table containing the following columns:
+#' @return Returns a data frame (tibble format) with the following data structure:
 #'
 #' \enumerate{
 #' \item id
@@ -22,8 +22,8 @@
 
 #' @examples
 #' \dontrun{
-#' otargen::geneInfo(gene="ENSG00000169174")
-#' otargen::geneInfo(gene="PCSK9")
+#' result <- geneInfo(gene="ENSG00000169174")
+#' result <- geneInfo(gene="PCSK9")
 #' }
 #' @import dplyr
 #' @importFrom magrittr %>%
@@ -38,48 +38,46 @@ geneInfo <- function(gene) {
   otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
   otg_qry <- ghql::Query$new()
 
-  #Query for gene name search
-  # check for gene name:
+  # Query for gene name search
   query_search <- "query convertnametoid($queryString:String!) {
     search(queryString:$queryString){
       genes{
         id
         symbol
       }
-      }
-    }"
+    }
+  }"
 
-  if (!grepl(pattern = "ENSG\\d{11}", gene)){
+  # Check gene format
+  if (!grepl(pattern = "ENSG\\d{11}", gene)) {
     variables <- list(queryString = gene)
     otg_qry$query(name = "convertnametoid", x = query_search)
     id_result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$convertnametoid, variables), flatten = TRUE)$data
     id <- as.data.frame(id_result$search$genes)
-    if (nrow(id)!=0){
+    if (nrow(id) != 0) {
       name_match <- id[id$symbol == gene, ]
       gene_input <- name_match$id
-    } else{
+    } else {
       stop ("\nPlease provide Ensemble gene ID or gene name")
     }
-
-  } else{
-   gene_input <- gene
+  } else {
+    gene_input <- gene
   }
 
   query <- "query geneInfoQuery($geneId: String!){
-  geneInfo(geneId:$geneId){
-    id
-    symbol
-    bioType
-    description
-    chromosome
-    tss
-    start
-    end
-    fwdStrand
-    exons
-  }
+    geneInfo(geneId:$geneId){
+      id
+      symbol
+      bioType
+      description
+      chromosome
+      tss
+      start
+      end
+      fwdStrand
+      exons
+    }
   }"
-
 
   variables <- list(geneId = gene_input)
 
@@ -88,14 +86,16 @@ geneInfo <- function(gene) {
   otg_qry$query(name = "geneInfoQuery", x = query)
 
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
-  # executing the query
+  # Executing the query
   gene_info <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$geneInfoQuery, variables), flatten = TRUE)$data
 
   output <- gene_info$geneInfo %>% as.data.frame() %>%
-    dplyr::distinct(symbol, .keep_all = TRUE) %>% dplyr::tibble() # converting to tibble format
+    dplyr::distinct(symbol, .keep_all = TRUE) %>%
+    dplyr::tibble() # Converting to tibble format
 
   if (nrow(output) == 0) {
     output <- data.frame()
   }
   return(output)
 }
+

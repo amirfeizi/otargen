@@ -2,37 +2,47 @@
 % Please edit documentation in R/pheWAS.R
 \name{pheWAS}
 \alias{pheWAS}
-\title{Retrieves Phenome Wide Association Studies for a variant.}
+\title{Retrieve PheWAS (Phenome Wide Association Studies) data for a variant.}
 \usage{
-pheWAS(variantid)
+pheWAS(variant_id)
 }
 \arguments{
-\item{\emph{variantid}}{String: Open Targets Genetics generated ID for each variant.}
+\item{variant_id}{Character: generated ID for variants by Open Targets Genetics (e.g. 1_154119580_C_A) or rsId (rs2494663).}
 }
 \value{
-Returns a data frame with PheWAS associations consisting of the following columns:
+A data frame with PheWAS associations.
+
+The output data frame contains the following columns:
 \itemize{
-  \item{\code{totalGWASStudies}:} \emph{Integer}. Total number of GWAS studies.
-  \item{\code{pval}:} \emph{Numeric}. P-value.
-  \item{\code{beta}:} \emph{Numeric}. Beta value.
-  \item{\code{oddsRatio}:} \emph{Numeric}. Odds ratio.
-  \item{\code{nTotal}:} \emph{Integer}. Total number of participants.
-  \item{\code{study.studyId}:} \emph{Character vector}. Study ID.
-  \item{\code{study.source}:} \emph{Character vector}. Source of the study.
-  \item{\code{study.pmid}:} \emph{Character vector}. PMID (PubMed ID) of the study.
-  \item{\code{study.pubDate}:} \emph{Character vector}. Publication date of the study.
-  \item{\code{study.traitReported}:} \emph{Character vector}. Reported trait.
-  \item{\code{study.traitCategory}:} \emph{Character vector}. Trait category.
+  \item{\code{totalGWASStudies}:} An integer indicating the total number of GWAS studies where the variant is associated.
+  \item{\code{pval}:} A numeric value representing the p-value of the association between the variant and the trait.
+  \item{\code{beta}:} A numeric value representing the beta value, which represents the effect size of the variant on the trait.
+  \item{\code{oddsRatio}:} A numeric value representing the odds ratio, measuring the association between the variant and the trait.
+  \item{\code{nTotal}:} An integer indicating the total number of participants in the study.
+  \item{\code{study.studyId}:} A character vector representing the study ID.
+  \item{\code{study.source}:} A character vector representing the source of the study.
+  \item{\code{study.pmid}:} A character vector representing the PubMed ID (PMID) of the study.
+  \item{\code{study.pubDate}:} A character vector representing the publication date of the study.
+  \item{\code{study.traitReported}:} A character vector representing the reported trait associated with the variant.
+  \item{\code{study.traitCategory}:} A character vector representing the category of the trait.
 }
 }
 \description{
-PheWAS (Phenome-wide association study) is a method that investigates the relationships
+PheWAS (\emph{Phenome-wide association study}) is a method that investigates the relationships
 between genetic variants and traits or phenotypes, helping in the study of their
-potential influence on multiple traits or diseases concurrently.
+potential influence on multiple traits or diseases concurrently. This function retrieves
+the traits associated with a given variant in the \emph{UK Biobank}, \emph{FinnGen},
+and/or \emph{GWAS Catalog} summary statistics repository (only traits with a p-value
+less than 0.005 are returned).
 }
 \examples{
 \dontrun{
-result <- pheWAS(variantid = "1_154549918_C_A")
-result <- pheWAS(variantid = "rs72698179")
+result <- pheWAS(variant_id = "1_154549918_C_A")
+result <- pheWAS(variant_id = "rs72698179")
 }
+
+}
+\references{
+Pendergrass, S A et al. “The use of phenome-wide association studies (PheWAS) for exploration of
+novel genotype-phenotype relationships and pleiotropy discovery.” Genetic epidemiology vol. 35,5 (2011): 410-22. doi:10.1002/gepi.20589
 }

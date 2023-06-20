@@ -2,15 +2,15 @@
 % Please edit documentation in R/geneInfo.R
 \name{geneInfo}
 \alias{geneInfo}
-\title{Retrieves gene information for a gene ENSEMBL identifier or a gene name.}
+\title{Retrieve gene summary information.}
 \usage{
 geneInfo(gene)
 }
 \arguments{
-\item{\emph{gene}}{String: an ENSEMBL gene identifier or gene name (e.g.ENSG00000169174/PCSK9).}
+\item{gene}{Character: an ENSEMBL gene identifier (e.g.ENSG00000169174) or gene name (e.g. PCSK9).}
 }
 \value{
-Returns a tibble data table containing the following columns:
+Returns a data frame (tibble format) with the following data structure:
 
 \enumerate{
 \item id
@@ -26,12 +26,12 @@ Returns a tibble data table containing the following columns:
 }
 }
 \description{
-This function takes gene ENSEMBL id (e.g.ENSG00000169174) or gene name (e.g.PCSK9) and returns a table containing details about the
-input gene.
+This function takes a gene ENSEMBL id (e.g.ENSG00000169174) or a gene name (e.g.PCSK9) and returns a table containing details about
+input genes , such as genomic location, gene structure and its BioType.
 }
 \examples{
 \dontrun{
-otargen::geneInfo(gene="ENSG00000169174")
-otargen::geneInfo(gene="PCSK9")
+result <- geneInfo(gene="ENSG00000169174")
+result <- geneInfo(gene="PCSK9")
 }
 }

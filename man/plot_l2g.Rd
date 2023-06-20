@@ -2,27 +2,32 @@
 % Please edit documentation in R/plot_l2g.R
 \name{plot_l2g}
 \alias{plot_l2g}
-\title{Plot the the scores obtained from the L2G model results}
+\title{Radar plot for L2G partial scores from \code{studiesAndLeadVariantsForGeneByL2G()}}
 \usage{
 plot_l2g(data, disease_efo = NULL)
 }
 \arguments{
-\item{\emph{data}}{Data frame: result of studiesAndLeadVariantsForGeneByL2G function.}
+\item{data}{Data frame: result of \code{studiesAndLeadVariantsForGeneByL2G} function.}
 
-\item{\emph{disease_efo}}{String: input efo id to filter the L2G data for a particular disease.}
+\item{disease_efo}{Character: input EFO id to filter the L2G data for a particular disease.}
 }
 \value{
 A radar plot for the input disease and the genes associated with that disease.
 The variables shown include L2G score, chromatin interaction, variant pathogenicity and distance.
 }
 \description{
-A radar plot showing the scores, important for prioritising the causal genes, obtained
-from the studiesAndLeadVariantsForGeneByL2G function and filter it for a specific disease.
+This function returns a radar plot to compare the partial scores,
+important for prioritising the causal genes that are obtained
+from the \code{studiesAndLeadVariantsForGeneByL2G()} function. The user can
+decide to plot only for a specific disease by specifying an \code{EFO} ID
+for the \code{disease} argument, otherwise the returned plot will will facet
+based on existing traits/diseases in the outputs from \code{studiesAndLeadVariantsForGeneByL2G()}.
 }
 \examples{
 \dontrun{
-otargen::studiesAndLeadVariantsForGeneByL2G(list("ENSG00000167207","ENSG00000096968",
-  "ENSG00000138821", "ENSG00000125255")) \%>\% otargen::plot_l2g(disease = "EFO_0003767")
+p <- studiesAndLeadVariantsForGeneByL2G(list("ENSG00000167207","ENSG00000096968",
+  "ENSG00000138821", "ENSG00000125255")) \%>\% plot_l2g(disease = "EFO_0003767")
+p
 }
 
 }

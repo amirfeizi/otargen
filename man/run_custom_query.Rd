@@ -7,11 +7,11 @@
 run_custom_query(variableList, query, query_name)
 }
 \arguments{
-\item{\emph{variableList}}{is a list format which includes the key value pair list of genes/variants/study ids to be queries.}
+\item{variableList}{is a list format which includes the key value pair list of genes/variants/study ids to be queries.}
 
-\item{\emph{query}}{is a GraphQL desired query body to be run.}
+\item{query}{is a GraphQL desired query body to be run.}
 
-\item{\emph{query_name}}{is a string format of the query name}
+\item{query_name}{is a string format of the query name}
 }
 \value{
 a flatten json file format

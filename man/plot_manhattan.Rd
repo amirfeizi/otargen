@@ -2,23 +2,30 @@
 % Please edit documentation in R/plot_manhattan.R
 \name{plot_manhattan}
 \alias{plot_manhattan}
-\title{Plot the data obtained from the manhattan associations.}
+\title{Plot results from \code{manhattan()}}
 \usage{
 plot_manhattan(data)
 }
 \arguments{
-\item{\emph{data}}{Data frame: result of the manhattan function containing SNP information}
+\item{data}{Data frame containing the necessary columns from \code{manhattan()} output for plotting:
+- \code{variant_position}: Variant position
+- \code{variant_chromosome}: Variant chromosome
+- \code{pval}: P-value
+- \code{variant_id}: Variant ID
+- \code{best_locus2genes_score}: Best locus2genes score
+- \code{best_locus2genes_gene_symbol}: Best locus2genes gene symbol}
 }
 \value{
-A manhattan plot representing SNPs on the x-axis with the corresponding
-negative logarithm of p-value on the y-axis.
+A Manhattan plot visualizing the GWAS results.
 }
 \description{
-The plot is generated using the p-value and variant information obtained from
-the manhattan function. Users can provide p-value as a parameter to obtain a plot with the significant SNPs.
+This function generates a Manhattan plot using the statistical summary data
+obtained from the \code{manhattan()} function. Top 3 genes (based on p-value) are annotated per chromosome.
 }
 \examples{
 \dontrun{
-otargen::manhattan(studyid = "GCST003044") \%>\% otargen::plot_manhattan()
+p <- manhattan(study_id = "GCST003044") \%>\% plot_manhattan()
+
+p
 }
 }

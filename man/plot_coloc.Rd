@@ -2,28 +2,37 @@
 % Please edit documentation in R/plot_coloc.R
 \name{plot_coloc}
 \alias{plot_coloc}
-\title{Plot the colocalisation function results}
+\title{Scatter plot of colocalisations for gene and reported traits.}
 \usage{
 plot_coloc(data, biobank = FALSE)
 }
 \arguments{
-\item{\emph{data}}{Data Frame: result of colocalisationsForGene function in data
+\item{data}{Data Frame: result of colocalisationsForGene function in data
 frame format, contacting the phewas information for a variant id}
 
-\item{\emph{biobank}}{Logical: TRUE and FALSE variable, with the default value of
-FALSE which will keep the data that are from UKbioBank beside the published GWAS data. In case,
-this parameter is set to TRUE, only UKbioBank data will be kept which  has not been published.}
+\item{biobank}{Logical: \code{TRUE} and \code{FALSE} variable, with the default value of
+FALSE which will keep the data that are from UKbioBank beside the published GWAS
+data. In case, this parameter is set to \code{TRUE}, only UKbioBank data will be kept
+which has not been published.}
 }
 \value{
 A horizontal bar plot for colocalisation of information.
 }
 \description{
-Generates a plot of the data obtained from colocalisationsForGene
-function results.
+Generates a scatter plot using the results from \code{colocalisationsForGene()}
+function as an input. The reported trait in each study are shown on the
+\emph{x-axis} and plotted against their corresponding \code{-log2(H4/H3)}
+values on the \emph{y-axis}, indicating the evidence of colocalisation between
+the molecular QTLs reported in each study and the explored gene. The molecular
+QTLs are mapped to the colors of the points. If the results of
+\code{colocalisationsForGene()} includes the data for multiple genes, they will
+be plotted in separate panels.
 }
 \examples{
 \dontrun{
-plot_out <- colocalisationsForGene(genes = "ENSG00000169174") \%>\% otargen::plot_coloc(biobank = FALSE)
-plot_out <- colocalisationsForGene(genes = "PCSK9") \%>\% otargen::plot_coloc(biobank = TRUE)
+plot_out <- colocalisationsForGene(genes = "ENSG00000169174") \%>\%
+          plot_coloc(biobank = FALSE)
+plot_out <- colocalisationsForGene(genes = "PCSK9") \%>\%
+          plot_coloc(biobank = TRUE)
 }
 }

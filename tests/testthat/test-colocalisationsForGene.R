@@ -1,8 +1,8 @@
 test_that("test colocalisationsForGene works", {
-  expected_1 <- otargen::colocalisationsForGene(genes="ENSG00000169174")
-  expected_2 <- otargen::colocalisationsForGene(genes=list("ENSG00000163946", "ENSG00000169174", "ENSG00000143001"))
-  expected_3 <- otargen::colocalisationsForGene(genes=list("TP53", "TASOR", "PCSK9"))
-  expected_4 <- otargen::colocalisationsForGene(genes="PCSK9")
+  expected_1 <- otargen::colocalisationsForGene(genes = "ENSG00000169174")
+  expected_2 <- otargen::colocalisationsForGene(genes = c("ENSG00000163946", "ENSG00000169174", "ENSG00000143001"))
+  expected_3 <- otargen::colocalisationsForGene(genes = c("TP53", "TASOR", "PCSK9"))
+  expected_4 <- otargen::colocalisationsForGene(genes = "PCSK9")
   expect_s3_class(expected_1, "data.frame")
   expect_s3_class(expected_2, "data.frame")
   expect_s3_class(expected_3, "data.frame")

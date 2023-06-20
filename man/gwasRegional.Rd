@@ -2,18 +2,18 @@
 % Please edit documentation in R/gwasRegional.R
 \name{gwasRegional}
 \alias{gwasRegional}
-\title{Retrieve all signals for a specific region of a chromosome in a GWAS .}
+\title{Retrieve GWAS summary statistics for a genomic region.}
 \usage{
-gwasRegional(studyid, chromosome, start, end)
+gwasRegional(study_id, chromosome, start, end)
 }
 \arguments{
-\item{\emph{studyid}}{String: Open Target Genetics generated ID for the GWAS study.}
+\item{study_id}{Character: Open Target Genetics generated ID for the GWAS study.}
 
-\item{\emph{chromosome}}{String: Chromosome number as a string.}
+\item{chromosome}{Character: Chromosome number as a string.}
 
-\item{\emph{start}}{Long: Start position of the specified chromosome.}
+\item{start}{Integer: Start position of the specified chromosome.}
 
-\item{\emph{end}}{Long: End position of the specified chromosome.}
+\item{end}{Integer: End position of the specified chromosome.}
 }
 \value{
 Returns a data table of variant information and p-values with the following columns:
@@ -25,10 +25,11 @@ Returns a data table of variant information and p-values with the following colu
 }
 }
 \description{
-For a given study ID and chromosomal region information, this function returns a tibble data table with all variants and their respective p-values.
+For a given study ID and chromosomal region information, this function returns  data frame(tibble format) with all variants and their GWAS summary statistics.
 }
 \examples{
 \dontrun{
-result <- gwasRegional(studyid = "GCST90002357", chromosome = "1", start = 153992685, end = 154155116)
+result <- gwasRegional(study_id = "GCST90002357",
+chromosome = "1", start = 153992685, end = 154155116)
 }
 }

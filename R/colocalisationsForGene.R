@@ -1,51 +1,51 @@
-#' Retrieves colocalisation data for a gene.
+#' Retrieves Colocalisation Statistics for a Given Gene
 #'
-#' This function retrieves colocalization data for input ENSEMBL gene IDs or a gene name and
-#' it supports multiple gene IDs as a list of inputs. However, providing a limited number of
-#' genes is recommended to prevent excessive traffic on the OTG servers and ensure optimal
-#' performance. The return is a data table (tibble format) of studies that have evidence of colocalisation
-#' with molecular QTLs for given gene(s).
+#' Retrieves Colocalisation statistics for a gene using ENSEMBL gene IDs or gene symbol.
+#' Colocalisation analysis is performed between all studies in the Portal with at least one overlapping
+#' associated locus. This analysis tests whether two independent associations at the same locus are
+#' consistent with having a shared causal variant. The function supports multiple gene IDs as a list.
+#' The returned data frame (tibble format) includes studies that have evidence of colocalisation
+#' with molecular QTLs for the selected gene(s).
 #'
-#' @param genes Character vector or list: One or more gene ENSEMBL identifiers or gene names.
+#' @param genes Character: Gene ENSEMBL ID (e.g. ENSG00000169174) or gene symbol (e.g. PCSK9). Multiple gene IDs are supported as a character vector.
+#'
+#' @return A data frame (tibble format) including the colocalisation data for the query gene(s).
+#'
+#' The output tibble contains the following columns:
+#' \itemize{
+#'   \item{\code{Study}:} Character vector. Study identifier.
+#'   \item{\code{Trait_reported}:} Character vector. Reported trait associated with the colocalisation.
+#'   \item{\code{Lead_variant}:} Character vector. Lead variant associated with the colocalisation.
+#'   \item{\code{Molecular_trait}:} Character vector. Molecular trait associated with the colocalisation.
+#'   \item{\code{Gene_symbol}:} Character vector. Gene symbol associated with the colocalisation.
+#'   \item{\code{Tissue}:} Character vector. Tissue where the colocalisation occurs.
+#'   \item{\code{Source}:} Character vector. Source of the colocalisation data.
+#'   \item{\code{H3}:} Numeric vector. H3 value associated with the colocalisation.
+#'   \item{\code{log2_H4_H3}:} Numeric vector. Log2 ratio of H4 to H3 values.
+#'   \item{\code{Title}:} Character vector. Title of the study.
+#'   \item{\code{Author}:} Character vector. Author(s) of the study.
+#'   \item{\code{Has_sumstats}:} Logical vector. Indicates if the study has summary statistics.
+#'   \item{\code{numAssocLoci}:} Numeric vector. Number of associated loci in the study.
+#'   \item{\code{nInitial_cohort}:} Numeric vector. Number of samples in the initial cohort.
+#'   \item{\code{study_nReplication}:} Numeric vector. Number of samples in the replication cohort.
+#'   \item{\code{study_nCases}:} Numeric vector. Number of cases in the study.
+#'   \item{\code{Publication_date}:} Character vector. Publication date of the study.
+#'   \item{\code{Journal}:} Character vector. Journal where the study was published.
+#'   \item{\code{Pubmed_id}:} Character vector. PubMed identifier of the study.
+#' }
 #'
 #' @import dplyr
 #' @importFrom magrittr %>%
 #' @import rlang
 #'
-#' @return A tibble including the colocalisation data for the query gene(s).
-#'
-#' The output tibble contains the following columns:
-#' \itemize{
-#'   \item{\code{Study}:} \emph{Character vector}. Study identifier.
-#'   \item{\code{Trait_reported}:} \emph{Character vector}. Reported trait associated with the colocalisation.
-#'   \item{\code{Lead_variant}:} \emph{Character vector}. Lead variant associated with the colocalisation.
-#'   \item{\code{Molecular_trait}:} \emph{Character vector}. Molecular trait associated with the colocalisation.
-#'   \item{\code{Gene_symbol}:} \emph{Character vector}. Gene symbol associated with the colocalisation.
-#'   \item{\code{Tissue}:} \emph{Character vector}. Tissue where the colocalisation occurs.
-#'   \item{\code{Source}:} \emph{Character vector}. Source of the colocalisation data.
-#'   \item{\code{H3}:} \emph{Numeric vector}. H3 value associated with the colocalisation.
-#'   \item{\code{log2_H4_H3}:} \emph{Numeric vector}. Log2 ratio of H4 to H3 values.
-#'   \item{\code{Title}:} \emph{Character vector}. Title of the study.
-#'   \item{\code{Author}:} \emph{Character vector}. Author(s) of the study.
-#'   \item{\code{Has_sumstats}:} \emph{Logical vector}. Indicates if the study has summary statistics.
-#'   \item{\code{numAssocLoci}:} \emph{Numeric vector}. Number of associated loci in the study.
-#'   \item{\code{nInitial_cohort}:} \emph{Numeric vector}. Number of samples in the initial cohort.
-#'   \item{\code{study_nReplication}:} \emph{Numeric vector}. Number of samples in the replication cohort.
-#'   \item{\code{study_nCases}:} \emph{Numeric vector}. Number of cases in the study.
-#'   \item{\code{Publication_date}:} \emph{Character vector}. Publication date of the study.
-#'   \item{\code{Journal}:} \emph{Character vector}. Journal where the study was published.
-#'   \item{\code{Pubmed_id}:} \emph{Character vector}. PubMed identifier of the study.
-#' }
-#'
 #' @examples
 #' \dontrun{
-#' colocalisationsForGene(c("ENSG00000163946", "ENSG00000169174", "ENSG00000143001"))
-#' colocalisationsForGene("ENSG00000169174")
-#' colocalisationsForGene(c("TP53", "TASOR"))
-#' colocalisationsForGene("TP53") }
+#' result1 <- colocalisationsForGene(gene = c("ENSG00000163946", "ENSG00000169174", "ENSG00000143001"))
+#' result2 <- colocalisationsForGene(gene = "ENSG00000169174")
+#' result3 <- colocalisationsForGene(gene = c("TP53", "TASOR"))
+#' result4 <- colocalisationsForGene(gene = "TP53") }
 #'
 #' @export
-#'
 #'
 colocalisationsForGene <- function(genes) {
 
@@ -70,23 +70,23 @@ colocalisationsForGene <- function(genes) {
 
   if (all(match_result) == FALSE){
     for (g in genes) {
-    variables <- list(queryString = g)
-    qry$query(name = "convertnametoid", x = query_search)
-    id_result <- jsonlite::fromJSON(con$exec(qry$queries$convertnametoid, variables), flatten = TRUE)$data
-    id <- as.data.frame(id_result$search$genes)
-    if (nrow(id)!=0){
+      variables <- list(queryString = g)
+      qry$query(name = "convertnametoid", x = query_search)
+      id_result <- jsonlite::fromJSON(con$exec(qry$queries$convertnametoid, variables), flatten = TRUE)$data
+      id <- as.data.frame(id_result$search$genes)
+      if (nrow(id)!=0){
         name_match <- id[id$symbol == g, ]
         ensembl_ids <- name_match$id
         df_id <- dplyr::bind_rows(df_id, as.data.frame(ensembl_ids))
-    }
+      }
     }
     if (nrow(df_id)==0){
-        stop("\nPlease provide Ensemble gene ID or gene name")
+      stop("\nPlease provide Ensemble gene ID or gene name")
     } else {
       ensembl_ids <- as.list(df_id$ensembl_ids)
     }
   } else {
-      ensembl_ids <- genes
+    ensembl_ids <- genes
   }
 
   colocal2 <- data.frame()

@@ -1,42 +1,67 @@
-#' Plot the data obtained from the manhattan associations.
+#' Plot results from \code{manhattan()}
 #'
-#' The plot is generated using the p-value and variant information obtained from
-#' the manhattan function. Users can provide p-value as a parameter to obtain a plot with the significant SNPs.
+#' This function generates a Manhattan plot using the statistical summary data
+#' obtained from the \code{manhattan()} function. Top 3 genes (based on p-value) are annotated per chromosome.
 #'
+#' @param data Data frame containing the necessary columns from \code{manhattan()} output for plotting:
+#'   - \code{variant_position}: Variant position
+#'   - \code{variant_chromosome}: Variant chromosome
+#'   - \code{pval}: P-value
+#'   - \code{variant_id}: Variant ID
+#'   - \code{best_locus2genes_score}: Best locus2genes score
+#'   - \code{best_locus2genes_gene_symbol}: Best locus2genes gene symbol
 #'
-#' @param \emph{data} Data frame: result of the manhattan function containing SNP information
-#'
-#' @return A manhattan plot representing SNPs on the x-axis with the corresponding
-#' negative logarithm of p-value on the y-axis.
+#' @return A Manhattan plot visualizing the GWAS results.
 #'
 #' @examples
 #' \dontrun{
-#' otargen::manhattan(studyid = "GCST003044") %>% otargen::plot_manhattan()
+#' p <- manhattan(study_id = "GCST003044") %>% plot_manhattan()
+#'
+#' p
 #'}
 #' @import dplyr
 #' @import ggplot2
 #' @importFrom magrittr %>%
 #' @export
-#'
 
-plot_manhattan <- function(data){
 
-  gwasResults <- data[c('variant_position', 'variant_chromosome', 'pval', 'variant_id',
-                        'best_locus2genes_score', 'best_locus2genes_gene_symbol')] %>% unique() %>%
-                         dplyr::rename("BP"="variant_position", "CHR"="variant_chromosome",
-                                               "P"="pval", "SNP"="variant_id")
 
-  gwasResults$CHR = as.integer(gwasResults$CHR)
+plot_manhattan <- function(data) {
+  # Extract relevant columns and rename them
+  gwasResults <- data %>%
+    select(variant_position, variant_chromosome, pval, variant_id,
+           best_locus2genes_score, best_locus2genes_gene_symbol) %>%
+    unique() %>%
+    rename(BP = variant_position, CHR = variant_chromosome,
+           P = pval, SNP = variant_id)
 
-  gwasResults <- gwasResults %>% dplyr::group_by(CHR) %>% dplyr::summarise(chr_len=max(BP)) %>%
-                 dplyr::mutate(tot=cumsum(as.numeric(chr_len))-chr_len) %>%
-                 dplyr::select(-chr_len) %>% dplyr::left_join(gwasResults, ., by=c("CHR"="CHR")) %>%
-                 dplyr::arrange(CHR, BP) %>% dplyr::mutate(BPcum=BP+tot)
+  # Convert CHR column to integer
+  gwasResults$CHR <- as.integer(gwasResults$CHR)
 
-  df_axis <- gwasResults %>% dplyr::group_by(CHR) %>% dplyr::summarize(center=( max(BPcum) + min(BPcum))/2)
+  # Calculate cumulative positions for each chromosome
+  gwasResults <- gwasResults %>%
+    group_by(CHR) %>%
+    summarise(chr_len = max(BP)) %>%
+    mutate(tot = cumsum(as.numeric(chr_len)) - chr_len) %>%
+    select(-chr_len) %>%
+    left_join(gwasResults, ., by = c("CHR" = "CHR")) %>%
+    arrange(CHR, BP) %>%
+    mutate(BPcum = BP + tot)
 
-  l2g_annot <- gwasResults  %>% dplyr::group_by(CHR)%>% dplyr::arrange(dplyr::desc(best_locus2genes_score)) %>%
-    dplyr::slice(1:3)%>% as.data.frame()
+  # Calculate center positions for each chromosome for axis labels
+  df_axis <- gwasResults %>%
+    group_by(CHR) %>%
+    summarize(center = (max(BPcum) + min(BPcum)) / 2)
+
+  # Select top 3 annotations per chromosome based on locus2genes scores
+  l2g_annot <- gwasResults %>%
+    group_by(CHR) %>%
+    arrange(desc(best_locus2genes_score)) %>%
+    slice(1:3) %>%
+    as.data.frame()
+
+  # Set p-value cutoff
+  p_cutoff <- 10e-8
 
   p_cutoff <- 10e-8
   # Make the plot
@@ -57,4 +82,5 @@ plot_manhattan <- function(data){
       panel.grid.minor.x = ggplot2::element_blank()
     )
   return (plt)
+
 }

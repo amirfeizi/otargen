@@ -2,16 +2,16 @@
 % Please edit documentation in R/indexVariantsAndStudiesForTagVariant.R
 \name{indexVariantsAndStudiesForTagVariant}
 \alias{indexVariantsAndStudiesForTagVariant}
-\title{Retrieves index variants and studies for a tag variant.}
+\title{Retrieve population-level summary GWAS statistics.}
 \usage{
-indexVariantsAndStudiesForTagVariant(variantid, pageindex = 0, pagesize = 20)
+indexVariantsAndStudiesForTagVariant(variant_id, pageindex = 0, pagesize = 20)
 }
 \arguments{
-\item{\emph{variantid}}{String: Open Target Genetics generated ID for the variant (CHRPOSITION_REFALLELE_ALTALLELE or rsId).}
+\item{variant_id}{Character: generated ID for variants by Open Targets Genetics (e.g. 1_154119580_C_A) or rsId (rs2494663).}
 
-\item{\emph{pageindex}}{Int: Index of the current page, pagination index >= 0.}
+\item{pageindex}{Integer: Index of the current page, pagination index >= 0.}
 
-\item{\emph{pagesize}}{Int: Number of records in a page, pagination size > 0.}
+\item{pagesize}{Integer: Number of records in a page, pagination size > 0.}
 }
 \value{
 Returns a data frame containing the variant associated with the input tag variant. The table consists of the following columns:
@@ -50,11 +50,12 @@ Returns a data frame containing the variant associated with the input tag varian
 }
 }
 \description{
-For an input tag variant ID, this function returns a data table in tibble format with population-level summary statistics data across various GWAS studies.
+For an input tag variant ID, this function returns a data frame(tibble format) with population-level summary statistics data across various GWAS studies.
 }
 \examples{
 \dontrun{
-result <- indexVariantsAndStudiesForTagVariant(variantid = "1_109274968_G_T")
-result <- indexVariantsAndStudiesForTagVariant(variantid = "rs12740374", pageindex = 1, pagesize = 50)
+result <- indexVariantsAndStudiesForTagVariant(variant_id = "1_109274968_G_T")
+result <- indexVariantsAndStudiesForTagVariant(variant_id = "rs12740374",
+ pageindex = 1, pagesize = 50)
 }
 }
