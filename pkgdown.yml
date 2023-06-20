@@ -1,0 +1,11 @@
+pandoc: 2.19.2
+pkgdown: 2.0.7
+pkgdown_sha: ~
+articles:
+  Contributingguidelines: Contributingguidelines.html
+  otargen: otargen.html
+last_built: 2023-06-20T22:52Z
+urls:
+  reference: https://amirfeizi.github.io/otargen/reference
+  article: https://amirfeizi.github.io/otargen/articles
+
