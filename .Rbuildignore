@@ -6,3 +6,11 @@
 ^docs$
 ^pkgdown$
 ^\.github$
+^img/*$
+^figures/*$
+^vignettes/Contributingguidelines\.Rmd$
+^vignettes/otargen\.Rmd$
+^vignettes/plot_l2g\.png$
+^vignettes/plot_manhattan\.png$
+^vignettes/plot_phewas\.png$
+^derby.log$

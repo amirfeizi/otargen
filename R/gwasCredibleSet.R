@@ -51,10 +51,10 @@ gwasCredibleSet <- function(study_id, variant_id) {
       }
     }"
 
-    variables <- list(queryString = variantid)
+    variables <- list(queryString = variant_id)
     otg_qry$query(name = "convertid", x = query_searchid)
     id_result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$convertid, variables), flatten = TRUE)$data
-    input_variantid <- id_result$search$variants$id
+    input_variant_id <- id_result$search$variants$id
   }
   else if (grepl(pattern = "\\d+_\\d+_[a-zA-Z]+_[a-zA-Z]+", variant_id)) {
     input_variant_id <- variant_id

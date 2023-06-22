@@ -1,5 +1,5 @@
 ---
-title: "Introduction to otargen"
+title: "Examples"
 description: >
   Get started with the otargen
 output: rmarkdown::html_vignette
@@ -9,20 +9,28 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-[Open Targets Genetics](https://genetics.opentargets.org/) offers a [GraphQL](https://graphql.org/) interface to access different variant-centred statistical summary data types. To query the genetic portal using GraphQL, users can send web requests by command line tools such as curl and wget, execute queries from provided browser endpoint, or connect from R and Python environment. Although these APIs help with data access, there are several existing challenges with each approach which makes the data retrieval non-efficient. Moreover, GraphQL queries return data in json format which are often complex and nested, converting the return data into tidy data tables is another shared complaint among the users. 
-
-Due to the popularity of R in bioinformatics and genetics research, we have developed `otargen`, a R package based on graphql that offers diverse functionalities for seamless data retrieval with tidy data table outputs, plotting essential calculated information, and executing custom queries. `Otargen` simplifies the process of accessing data and facilitates systematic access to OTG data from R, which allows efficient integration of genetic evidence with the data-driven target discovery pipelines.. The data primarily revolves around 3 key components: `studyid`, `variantid` and `geneid`. Given below are a few examples on how to retrieve and plot data using the package.
-
-## Examples:
 
 
 
-**1. Retrieve colocalisation data for one or more `genes`:** Studies which have evidence of colocalisation of genetic variants associated with both molecular traits (such as gene expression levels or protein levels) and complex traits within the same genomic regions.
+
+**1. Retrieve colocalisation data for one or more `genes`:** 
+
+In this example, we retrieve colocalization data for one or more genes of interest. The data provides evidence that if 
+genetic variants which are linked to both molecular traits and  traits within shared genomic regions are identical. 
+By utilizing the otargen \code{colocalisationsForGene()}, we can investigate these colocalization patterns and gain 
+valuable insights for further analysis and interpretation.
 
 ``` r
 library(otargen)
 
-colocalisationsForGene(genes=list("ENSG00000163946","ENSG00000169174", "ENSG00000143001"))
+
+# Specify the genes of interest
+genes_of_interest <- c("ENSG00000163946", "ENSG00000169174", "ENSG00000143001")
+
+# Retrieve colocalization data
+coloc_data <- colocalisationsForGene(genes = genes_of_interest)
+
+head(coloc_data)
 
 # A tibble: 668 × 20
    Study    Trait_reported Lead_variant Molecular_trait Gene_symbol Tissue Source    H3    H4   `log2(H4/H3)`
@@ -45,13 +53,21 @@ colocalisationsForGene(genes=list("ENSG00000163946","ENSG00000169174", "ENSG0000
 
 
 
-**2. Retrieve qtl credible set data for a given `gene`, `studyid`, `variantid` and `biofeature`.**
-The function obtains tag variant information that are considered to have a high probability of being 
-truly associated with the trait and the corresponding scores.
+**2. Retrieve QTL credible set data **
+
+In this example, we utilize the `qtlCredibleSet()` function to fetch the credible set of tag variants. 
+By specifying the `study ID`, `variant ID`, `gene`, and `biofeature`, we extract valuable
+information about the tag variants with a high probability of being associated with the trait of interest. 
+
 
 ``` r
-qtl_cred_set <- qtlCredibleSet(studyid="Braineac2", variantid="rs7552841", gene="PCSK9", biofeature="SUBSTANTIA_NIGRA")
+# Retrieve QTL credible set data
+qtl_cred_set <- qtlCredibleSet(studyid = "Braineac2", variantid = "rs7552841",
+                              gene = "PCSK9", biofeature = "SUBSTANTIA_NIGRA")
+
+# Display the first few rows of the QTL credible set data
 head(qtl_cred_set)
+
 
    tagVariant.id tagVariant.rsId        pval       se      beta    postProb MultisignalMethod   logABF is95 is99
 1 1_55052794_A_G              NA 0.000151568 0.166373 -0.681090 0.002299181       conditional 2.726953 TRUE TRUE
@@ -64,10 +80,32 @@ head(qtl_cred_set)
 
 
 
-**3. Retrieves L2G model summary data for `gene(s)`.** The locus-to-gene model utilizes genetic and functional genomics features to obtain prioritization scores for likely causal genes at each GWAS locus. The output can be further filtered by providing `l2g` score, `pvalue` and `vtype`. `vtype` refers to the mostSevereConsequence of a variant on the associated gene.
+**3. Retrieves L2G model summary data for `gene(s)`.** 
+
+In this exemplary usage, we demonstrate the application of the
+`studiesAndLeadVariantsForGeneByL2G()` function to obtain one of the core
+data tables provided by Open Target Genetics. The function utilizes the
+powerful "locus-to-gene" (L2G) model, which leverages genetic and functional
+genomics features to prioritize likely causal genes at each GWAS locus. By
+specifying the gene of interest and applying customized filters, we retrieve
+prioritization scores for the lead variants associated with our specified
+genes, as well as other genes sharing the same loci. The resulting data table
+is presented in the tidy and comprehensive tibble format, encompassing a
+wealth of scores and information pertaining to the L2G model, genetic
+variants, associated studies, and more. By conducting further analysis on
+these results, we can delve deeper into the intricate relationships between
+genes and traits, leading to groundbreaking insights and discoveries.
 
 ``` r
-l2g_results <- studiesAndLeadVariantsForGeneByL2G(genes = "PCSK9", l2g = 0.6, pvalue = 1e-8, vtype = c("intergenic_variant", "intron_variant"))
+# Retrieve L2G results for the gene PCSK9 with specified filters
+l2g_results <- studiesAndLeadVariantsForGeneByL2G(
+  genes = "PCSK9",
+  l2g = 0.6,
+  pvalue = 1e-8,
+  vtype = c("intergenic_variant", "intron_variant")
+)
+
+# Display the results as a tibble for easier analysis
 l2g_results %>% as_tibble()
 
 # A tibble: 40 × 39
@@ -91,13 +129,29 @@ l2g_results %>% as_tibble()
 #   variant.chromosome <chr>, variant.position <int>, variant.refAllele <chr>, variant.altAllele <chr>,
 #   variant.nearestCodingGeneDistance <int>, variant.nearestGeneDistance <int>, variant.mostSevereConsequence <chr>, …
 ```
+*from Open Target Genetics portal* 
+
+> Interpreting the L2G score
+> The L2G model produces a score, ranging from 0 to 1, which reflects the approximate fraction of GSP genes among all genes near a given threshold. This can be interpreted to say that genes with an L2G score of 0.5 have a 50% chance of being the causal gene at the locus, under the assumption that the model is correct and the locus itself is similar to those in our gold-standard training data.
+> *Note*: Because models don't generalize perfectly, the true fraction of causal genes at an L2G score of 0.5 is likely to be less than 50%.
+> A key strength of the L2G score is that it aggregates information over all credible set variants, rather than looking only at the distance from the lead GWAS variant to genes.
+
 
 
 
 **4. Obtain detailed information about all the genes present in a given region of a specified `chromosome`.**
 
+The `genes` query type in the Open Target Genetics `GraphQL` schema provides a convenient way to retrieve all the
+genes within a specific genomic region by supplying positional information. The wrapper function `getLociGenes()` in
+the `otargen` package allows you to execute this query and obtain a tidy table to gain insights
+into the genes located within the specified genomic region.
 ``` r
-get_genes(chromosome = "2", start = 239634984, end = 241634984)
+# Retrieve genes within a genomic region on chromosome 2
+genes_table <- getLociGenes(chromosome = "2", start = 239634984, end = 241634984)
+
+# Display the resulting table
+genes_table
+
 
 # A tibble: 27 × 10
    id              symbol  bioType        description                                   chromosome    tss  start    end fwdStrand exons
@@ -118,8 +172,19 @@ get_genes(chromosome = "2", start = 239634984, end = 241634984)
 
 
 
-**5. Plot data obtained from the *manhattan* function.** 
-A Manhattan plot is used to represent genetic association studies. Here, the plot displays the associated p-value (-log10(P)) for genetic variants across the genome, plotted against their chromosomal regions.
+**5. Plot data obtained from the *manhattan()* function.** 
+
+A Manhattan plot is commonly used to visualize GWAS summary data. It displays 
+the p-values (-log10(P)) of genetic variants across the genome, typically plotted against their respective chromosomal positions.
+`manhattan()` is the wrapper function 
+in `otargen` to retrieve variants summary statistics for a GWAS study. Now, it is not easy to go through 
+the large table of variants and see which variants has the most significant association, on the other hand, writing
+a nice looking code to render a Manhatan plot can be time consuming. `plot_manhatan()` in `otargen` dose the job 
+and all you need is to pipe the `manhatan()` output to it.
+
+
+Here's an example code snippet:
+
 
 ``` r
 manhattan(studyid = "GCST003044") %>% plot_manhattan()
@@ -129,7 +194,16 @@ manhattan(studyid = "GCST003044") %>% plot_manhattan()
 
 
 
-**6. Plot data obtained from the *PheWAS* function.** Phenome wide association study results are filtered for diseases and the -log10 p-value is plotted against the traits. It presents the association results between genetic variants and multiple traits. The traits with p-value \< 0.005 is labelled.
+**6. Plot data obtained from the *PheWAS()* function.** 
+
+A Phenome-Wide Association Study (PheWAS) analyzes the association between genetic variants and a wide range of phenotypic traits.
+To retrieve PheWAS analysis results for a variant, you can use `pheWAS()` function in `otargen` which returns a tidy data table
+of all calculated statistics for association of the specified variant across many traits in *UK Biobank*, *FinnGen*,
+' and or *GWAS Catalog*. Now, as shown in below example snippet piping, output of `pheWAS()` to `plot_phewas()` will 
+return you a nice scatter plot with useful color codes to interpret those associations! It is even more fun, that the plot allows
+to choose if you are only interested to keep disease associated variants in the plot. 
+
+
 
 ``` r
 pheWAS(variantid = "14_87978408_G_A") %>% plot_phewas(disease = TRUE)
@@ -139,10 +213,18 @@ pheWAS(variantid = "14_87978408_G_A") %>% plot_phewas(disease = TRUE)
 
 
 
-**7. Plot the scores obtained from the *studiesAndLeadVariantsForGeneByL2G* function and filter it for a specific `disease`.** A radar plot showing the scores important for prioritising the causal genes.
+**7. Plot the scores obtained from the *studiesAndLeadVariantsForGeneByL2G()**
+
+In Example 3 we talked about `studiesAndLeadVariantsForGeneByL2G()` that returns a comprehensive data tables of L2G model statistics.
+Now using `plot_l2g()` allows you to generate pretty radar plots to compare the partial scores from L2G model between the list of genes
+that you are interested to priotise using these scores. In addition, `plot_l2g()` allows to plot only for specific disease by specifying
+a corresponding EFO id for `disease` parameter.
 
 ``` r
-studiesAndLeadVariantsForGeneByL2G(list("ENSG00000167207","ENSG00000096968","ENSG00000138821", "ENSG00000125255")) %>% plot_l2g(disease = "EFO_0003767")
-```
+# Retrieve L2G model statistics for a list of genes
+l2g_results <- studiesAndLeadVariantsForGeneByL2G(list("ENSG00000167207","ENSG00000096968","ENSG00000138821", "ENSG00000125255"))
+
+# Generate radar plot of L2G scores
+plot_l2g(l2g_results, disease = "EFO_0003767")```
 
 <img src="plot_l2g.png" align="left"/>
