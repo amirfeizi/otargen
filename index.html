@@ -5,14 +5,14 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="This is an R package that uses Graph QL query languages to search and retrieve datatables from Open Target Genetics GraphQL end points. ">
-<title>R package to access Open Target Genetics  • otargen</title>
+<meta name="description" content="This R package provides functionalities to search and retrieve data tables from Open Target Genetics using GraphQL queries. It offers an interface to interact with the Open Target Genetics GraphQL endpoints, making it easier to access and analyze genetic data.">
+<title>R package to access Open Target Genetics • otargen</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="R package to access Open Target Genetics ">
-<meta property="og:description" content="This is an R package that uses Graph QL query languages to search and retrieve datatables from Open Target Genetics GraphQL end points. ">
+<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="R package to access Open Target Genetics">
+<meta property="og:description" content="This R package provides functionalities to search and retrieve data tables from Open Target Genetics using GraphQL queries. It offers an interface to interact with the Open Target Genetics GraphQL endpoints, making it easier to access and analyze genetic data.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -62,56 +62,43 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header"><h1 id="otargen">otargen<a class="anchor" aria-label="anchor" href="#otargen"></a>
-</h1></div>
-<p><code>otargen</code> is an open-source and freely available R package that facilitates data retrieval and analysis from <a href="https://genetics.opentargets.org/" class="external-link">Open Target Genetics</a> portal in the R programming environment. <code>otargen</code> functions cover all the <a href="https://graphql.org/" class="external-link">GraphQL</a> query types in Open Target Genetics schema, and return tidy data tables. It also includes several useful plotting functions to help visualize and gain insight from core complex data tables.</p>
-<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD <img src="reference/figures/otargen_overview_fig.png" align="center" width="600"></p>
-<div class="section level2">
-<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+  <main id="main" class="col-md-9"><div class="section level2">
+<h2 id="simplify-your-data-retrieval-and-analysis-from-open-target-genetics-">Simplify Your Data Retrieval and Analysis from Open Target Genetics ✨<a class="anchor" aria-label="anchor" href="#simplify-your-data-retrieval-and-analysis-from-open-target-genetics-"></a>
 </h2>
-<p>You can install the development version of <code>otargen</code> as follows:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"amirfeizi/otargen"</span><span class="op">)</span></span></code></pre></div>
-<ul>
-<li>Install latest development version from GitHub (requires <a href="https://github.com/hadley/devtools" class="external-link">devtools</a> package):</li>
-</ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"devtools"</span>)) {</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"devtools"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"https://github.com/amirfeizi/otargen.git"</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="sc">==</span><span class="er">=====</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">otargen</span><span class="st">`</span> is an open<span class="sc">-</span>source and freely available R package that facilitates data retrieval</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>and analysis from Open Target Genetics portal <span class="cf">in</span> the R programming environment. <span class="st">`</span><span class="at">otargen</span><span class="st">`</span> functions</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>cover all the GraphQL query types <span class="cf">in</span> Open Target Genetics schema, and return tidy data tables. It </span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>also includes several useful plotting functions to help visualize and gain insight from core complex</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>data tables.</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span>[alt text](https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>amirfeizi<span class="sc">/</span>otargen<span class="sc">/</span>img<span class="sc">/</span>otargen_overview_fig.png?<span class="at">raw=</span>true)</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="do">## Installation</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>You can install the development version of otargen as follows<span class="sc">:</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="st">```</span><span class="at"> r</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="at">install.packages("otargen")</span></span></code></pre></div>
+<p><code>otargen</code> is an innovative and open-source R package designed to streamline data retrieval and analysis from the renowned <a href="https://genetics.opentargets.org/" class="external-link">Open Target Genetics</a> portal. With <code>otargen</code>, harnessing the power of Open Target Genetics becomes effortless within the familiar R programming environment.</p>
+<div class="section level3">
+<h3 id="effortless-data-retrieval-">Effortless Data Retrieval 🚀<a class="anchor" aria-label="anchor" href="#effortless-data-retrieval-"></a>
+</h3>
+<p>Retrieve data effortlessly with a comprehensive suite of functions that cover all <a href="https://graphql.org/" class="external-link">GraphQL</a> query types in the Open Target Genetics schema. Say goodbye to complex queries with nested output and hello to clean, tidy data tables ready for analysis.</p>
 </div>
-<div class="section level2">
-<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
-</h2>
-<p>Given below are a few examples on how to use the functions in the package:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(otargen)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colocalisationsForGene</span>(<span class="at">genes=</span><span class="fu">list</span>(<span class="st">"ENSG00000163946"</span>,<span class="st">"ENSG00000169174"</span>, <span class="st">"ENSG00000143001"</span>))</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">studiesAndLeadVariantsForGeneByL2G</span>(<span class="at">genes =</span> <span class="st">"PCSK9"</span>, <span class="at">l2g =</span> <span class="fl">0.6</span>, <span class="at">pvalue =</span> <span class="fl">1e-8</span>, <span class="at">vtype =</span> <span class="fu">c</span>(<span class="st">"intergenic_variant"</span>, <span class="st">"intron_variant"</span>))</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">gwasCredibleSet</span>(<span class="at">studyid=</span><span class="st">"GCST90002357"</span>, <span class="at">variantid=</span><span class="st">"1_154119580_C_A"</span>)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">get_genes</span>(<span class="at">chromosome =</span> <span class="st">"2"</span>, <span class="at">start =</span> <span class="dv">239634984</span>, <span class="at">end =</span> <span class="dv">241634984</span>)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">topOverlappedStudies</span>(<span class="at">studyid =</span> <span class="st">"NEALE2_6177_1"</span>, <span class="at">pageindex =</span> <span class="dv">1</span>, <span class="at">pagesize =</span> <span class="dv">50</span>)</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">qtlCredibleSet</span>(<span class="at">studyid=</span><span class="st">"Braineac2"</span>, <span class="at">variantid=</span><span class="st">"rs7552841"</span>, <span class="at">gene=</span><span class="st">"PCSK9"</span>, <span class="at">biofeature=</span><span class="st">"SUBSTANTIA_NIGRA"</span>)</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">manhattan</span>(<span class="at">studyid =</span> <span class="st">"GCST003044"</span>) <span class="sc">%&gt;%</span> otargen<span class="sc">::</span><span class="fu">plot_manhattan</span>()</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">pheWAS</span>(<span class="at">variantid =</span> <span class="st">"14_87978408_G_A"</span>) <span class="sc">%&gt;%</span> otargen<span class="sc">::</span><span class="fu">plot_phewas</span>(<span class="at">disease =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;&gt;&gt;&gt;&gt;&gt;</span> e29a866ac4c36c9abaf6fa30b55ebaa1443d4bc0</span></code></pre></div>
+<div class="section level3">
+<h3 id="insightful-visualizations-">Insightful Visualizations 📈<a class="anchor" aria-label="anchor" href="#insightful-visualizations-"></a>
+</h3>
+<p>Use several intuitive plotting functions for multiple important and complex outputs from <code>otargen</code>’s data retrieval functions. This allows to visualize and explore these complex data tables effortlessly, gaining valuable insights and uncovering patterns that matter.</p>
+</div>
+<div class="section level3">
+<h3 id="detailed-documentation-">Detailed Documentation 📖<a class="anchor" aria-label="anchor" href="#detailed-documentation-"></a>
+</h3>
+<p>Each function in <code>otargen</code> comes with detailed documentation, providing insights into the underlying GraphQL query and the structure of the returned data. You’ll have a clear understanding of how to use each function and how to interpret the results, making integration with your analysis seamless and straightforward.</p>
+</div>
+<div class="section level3">
+<h3 id="continuous-development-">Continuous Development 👨‍💻<a class="anchor" aria-label="anchor" href="#continuous-development-"></a>
+</h3>
+<p>Open Target Genetics is continuously upgrading its data and functionalities, and <code>otargen</code> is committed to keeping up with these changes. We strive to provide regular updates and improvements to ensure that you always have access to the latest features and data.</p>
+<p>We welcome contributions from the community to enhance and expand <code>otargen</code>. Whether it’s submitting bug reports, suggesting new features, or contributing code, your contributions are valuable and appreciated. Please check <code>otargen</code> on <a href="https://github.com/amirfeizi/otargen" class="external-link">GitHub</a>.</p>
+</div>
+<div class="section level3">
+<h3 id="get-started-with-otargen">Get Started with <code>otargen</code>!<a class="anchor" aria-label="anchor" href="#get-started-with-otargen"></a>
+</h3>
+<p>Install <code>otargen</code> from CRAN:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"otargen"</span><span class="op">)</span></span></code></pre></div>
+<p>Or install the latest development version from GitHub (requires devtools package):</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://devtools.r-lib.org/" class="external-link">"devtools"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"https://github.com/amirfeizi/otargen.git"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="license">
