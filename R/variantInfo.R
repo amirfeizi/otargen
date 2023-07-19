@@ -92,7 +92,7 @@ variantInfo <- function(variantid) {
   otg_qry$query(name = "variantInfoquery", x =  query)
 
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
-  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$variantInfoquery, variables), flatten = TRUE)$data
-  result <- as.data.frame(result$variantInfo)
+  result <- lapply(result$variantInfo, function(x) if (is.null(x)) "NA" else x)
+  result <- as.data.frame(result)
   return (result)
 }
