@@ -196,59 +196,83 @@ genesForVariant <- function(variant_id) {
     dplyr::arrange(desc(overallScore))
 
   if (nrow(result_df)!=0){
- # parsing the nested json output in tidy data table format
+    # parsing the nested json output in tidy data table format
 
-  result_core <- result_df %>% dplyr::select(gene.symbol, variant, overallScore, gene.id )
-
-
-  #qtl
-  result_qtl <- result_df %>% dplyr::select(gene.symbol, variant, qtls) %>%
-                tidyr::unnest(qtls, names_sep='.', keep_empty=TRUE) %>% dplyr::rename("typeId"="qtls.typeId", "aggregatedScore"
-                                                                                                 ="qtls.aggregatedScore")
-  if ("qtls.tissues" %in% colnames(result_qtl)){
-    result_qtl <- result_qtl %>% tidyr::unnest(qtls.tissues, names_sep='_',keep_empty=TRUE ) %>%
-                  dplyr::rename("tissues_id"="qtls.tissues_tissue.id", "tissues_name"="qtls.tissues_tissue.name")
-    base::colnames(result_qtl) <- stringr::str_replace_all(colnames(result_qtl),"qtls.","")
-  }
+    result_core <- result_df %>% dplyr::select(gene.symbol, variant, overallScore, gene.id )
 
 
-  #intervals
-  result_intervals <- result_df %>% dplyr::select(gene.symbol, variant, intervals) %>%
-                      tidyr::unnest(intervals, names_sep='.', keep_empty=TRUE) %>% dplyr::rename("typeId"="intervals.typeId", "aggregatedScore"
-                                                                          ="intervals.aggregatedScore")
-  if ("intervals.tissues" %in% colnames(result_intervals)){
-    result_intervals <- result_intervals %>% tidyr::unnest(intervals.tissues, names_sep='_',keep_empty=TRUE )%>%
-                        dplyr::rename("tissues_id"="intervals.tissues_tissue.id", "tissues_name"="intervals.tissues_tissue.name")
-    base::colnames(result_intervals) <- stringr::str_replace_all(colnames(result_intervals),"intervals.","")
-  }
+    #qtl
+    qtls_is_empty <-  all(sapply(result_df$qtls, function(x) length(x) == 0))
+
+    if (qtls_is_empty){
+      result_qtl <- result_df %>% dplyr::select(gene.symbol, variant, qtls)
+    }
+    else{
+      result_qtl <- result_df %>% dplyr::select(gene.symbol, variant, qtls) %>%
+        tidyr::unnest(qtls, names_sep='.', keep_empty=TRUE) %>% dplyr::rename("typeId"="qtls.typeId", "aggregatedScore"
+                                                                              ="qtls.aggregatedScore")
+      if ("qtls.tissues" %in% colnames(result_qtl)){
+        result_qtl <- result_qtl %>% tidyr::unnest(qtls.tissues, names_sep='_',keep_empty=TRUE ) %>%
+          dplyr::rename("tissues_id"="qtls.tissues_tissue.id", "tissues_name"="qtls.tissues_tissue.name")
+        base::colnames(result_qtl) <- stringr::str_replace_all(colnames(result_qtl),"qtls.","")
+      }
+    }
+
+    #intervals
+    ints_is_empty <-  all(sapply(result_df$intervals, function(x) length(x) == 0))
+
+    if (ints_is_empty){
+      result_intervals <- result_df %>% dplyr::select(gene.symbol, variant, intervals)
+    }
+    else{
+      result_intervals <- result_df %>% dplyr::select(gene.symbol, variant, intervals) %>%
+        tidyr::unnest(intervals, names_sep='.', keep_empty=TRUE) %>% dplyr::rename("typeId"="intervals.typeId", "aggregatedScore"
+                                                                                   ="intervals.aggregatedScore")
+      if ("intervals.tissues" %in% colnames(result_intervals)){
+        result_intervals <- result_intervals %>% tidyr::unnest(intervals.tissues, names_sep='_',keep_empty=TRUE )%>%
+          dplyr::rename("tissues_id"="intervals.tissues_tissue.id", "tissues_name"="intervals.tissues_tissue.name")
+        base::colnames(result_intervals) <- stringr::str_replace_all(colnames(result_intervals),"intervals.","")
+      }
+    }
+
+    #distances
+    dists_is_empty <-  all(sapply(result_df$distances, function(x) length(x) == 0))
+
+    if (dists_is_empty){
+      result_distances <- result_df %>% dplyr::select(gene.symbol, variant, distances)
+    }
+    else{
+      result_distances <- result_df %>% dplyr::select(gene.symbol, variant, distances) %>%
+        tidyr::unnest(distances, names_sep='.', keep_empty=TRUE) %>% dplyr::rename("typeId"="distances.typeId", "aggregatedScore"
+                                                                                   ="distances.aggregatedScore")
+      if ("distances.tissues" %in% colnames(result_distances)){
+        result_distances <- result_distances %>% tidyr::unnest(distances.tissues, names_sep='_',keep_empty=TRUE )%>%
+          dplyr::rename("tissues_id"="distances.tissues_tissue.id", "tissues_name"="distances.tissues_tissue.name")
+        base::colnames(result_distances) <- stringr::str_replace_all(colnames(result_distances),"distances.","")
+      }
+    }
+
+    #result_functionalPredictions
+    funcPreds_is_empty <-  all(sapply(result_df$functionalPredictions, function(x) length(x) == 0))
+
+    if (funcPreds_is_empty){
+      result_functionalPredictions <- result_df %>% dplyr::select(gene.symbol, variant, functionalPredictions)
+    }
+    else{
+      result_functionalPredictions <- result_df %>% dplyr::select(gene.symbol, variant, functionalPredictions) %>%
+        tidyr::unnest(functionalPredictions, names_sep='.', keep_empty=TRUE) %>% dplyr::rename("typeId"="functionalPredictions.typeId", "aggregatedScore"
+                                                                                               ="functionalPredictions.aggregatedScore")
+      if ("functionalPredictions.tissues" %in% colnames(result_functionalPredictions)){
+        result_functionalPredictions <- result_functionalPredictions %>% tidyr::unnest(functionalPredictions.tissues, names_sep='_',keep_empty=TRUE )%>%
+          dplyr::rename("tissues_id"="functionalPredictions.tissues_tissue.id", "tissues_name"="functionalPredictions.tissues_tissue.name")
+        base::colnames(result_functionalPredictions) <- stringr::str_replace_all(colnames(result_functionalPredictions),"functionalPredictions.","")
+      }
+    }
 
 
-  #distances
-  result_distances <- result_df %>% dplyr::select(gene.symbol, variant, distances) %>%
-                      tidyr::unnest(distances, names_sep='.', keep_empty=TRUE) %>% dplyr::rename("typeId"="distances.typeId", "aggregatedScore"
-                                                                               ="distances.aggregatedScore")
-  if ("distances.tissues" %in% colnames(result_distances)){
-    result_distances <- result_distances %>% tidyr::unnest(distances.tissues, names_sep='_',keep_empty=TRUE )%>%
-                        dplyr::rename("tissues_id"="distances.tissues_tissue.id", "tissues_name"="distances.tissues_tissue.name")
-    base::colnames(result_distances) <- stringr::str_replace_all(colnames(result_distances),"distances.","")
-  }
-
-
-  #result_functionalPredictions
-  result_functionalPredictions <- result_df %>% dplyr::select(gene.symbol, variant, functionalPredictions) %>%
-    tidyr::unnest(functionalPredictions, names_sep='.', keep_empty=TRUE) %>% dplyr::rename("typeId"="functionalPredictions.typeId", "aggregatedScore"
-                                                                               ="functionalPredictions.aggregatedScore")
-  if ("functionalPredictions.tissues" %in% colnames(result_functionalPredictions)){
-    result_functionalPredictions <- result_functionalPredictions %>% tidyr::unnest(functionalPredictions.tissues, names_sep='_',keep_empty=TRUE )%>%
-                                    dplyr::rename("tissues_id"="functionalPredictions.tissues_tissue.id", "tissues_name"="functionalPredictions.tissues_tissue.name")
-    base::colnames(result_functionalPredictions) <- stringr::str_replace_all(colnames(result_functionalPredictions),"functionalPredictions.","")
-  }
-
-
-
-  result_pkg <- list(v2g = result_core, tssd= result_distances,
-                     qtls = result_qtl, chromatin = result_intervals,
-                     functionalpred = result_functionalPredictions)
+    result_pkg <- list(v2g = result_core, tssd= result_distances,
+                       qtls = result_qtl, chromatin = result_intervals,
+                       functionalpred = result_functionalPredictions)
 
   }
   cli::cli_progress_update()
