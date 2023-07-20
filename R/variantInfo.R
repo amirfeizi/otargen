@@ -1,7 +1,7 @@
 #' Gets the information about the input variant id.
 #'
 #'
-#' @param variantid is the Open Target Genetics generated id for each variant in the database.
+#' @param variant_id is the Open Target Genetics generated id for each variant in the database.
 #' @return A dataframe containing the variant information.
 #' @examples
 #' variantInfo("1_55039974_G_T")
@@ -9,7 +9,7 @@
 #' @export
 #'
 
-variantInfo <- function(variantid) {
+variantInfo <- function(variant_id) {
 
   ## Set up to query Open Targets Genetics API
 
@@ -19,7 +19,7 @@ variantInfo <- function(variantid) {
   otg_qry <- ghql::Query$new()
 
   # Check variant id format
-  if (grepl(pattern = "rs\\d+", variantid)) {
+  if (grepl(pattern = "rs\\d+", variant_id)) {
 
     # Convert rs id to variant id
     query_searchid <- "query ConvertRSIDtoVID($queryString:String!) {
@@ -31,15 +31,15 @@ variantInfo <- function(variantid) {
       }
     }"
 
-    variables <- list(queryString = variantid)
+    variables <- list(queryString = variant_id)
     otg_qry$query(name = "convertid", x = query_searchid)
     id_result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$convertid, variables), flatten=TRUE)$data
-    input_variantid <- id_result$search$variants$id
+    input_variant_id <- id_result$search$variants$id
   }
 
-  else if (grepl(pattern = "\\d+_\\d+_[a-zA-Z]+_[a-zA-Z]+", variantid))
+  else if (grepl(pattern = "\\d+_\\d+_[a-zA-Z]+_[a-zA-Z]+", variant_id))
   {
-    input_variantid <- variantid
+    input_variant_id <- variant_id
   }
   else
   {
@@ -87,7 +87,7 @@ variantInfo <- function(variantid) {
 
   ## Execute the query
 
-  variables <- list(variantId = input_variantid)
+  variables <- list(variantId = input_variant_id)
 
   otg_qry$query(name = "variantInfoquery", x =  query)
 
