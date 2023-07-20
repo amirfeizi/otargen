@@ -135,4 +135,4 @@ variantInfo <- function(variant_id) {
 
   return(as.data.frame(var_info))
 }
-:q
+
