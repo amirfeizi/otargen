@@ -3,10 +3,6 @@
 </p>
 
 
-![CRAN Downloads](https://cranlogs.r-pkg.org/badges/grand-total/otargen)
-
-
-
 ## Simplify Your Data Retrieval and Analysis from Open Target Genetics ✨
 `otargen` is an innovative and open-source R package designed to streamline data retrieval
 and analysis from the renowned [Open Target Genetics](https://genetics.opentargets.org/) portal.
