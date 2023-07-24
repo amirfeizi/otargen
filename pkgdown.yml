@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   Contributingguidelines: Contributingguidelines.html
   otargen: otargen.html
-last_built: 2023-07-24T14:50Z
+last_built: 2023-07-24T14:52Z
 urls:
   reference: https://amirfeizi.github.io/otargen/reference
   article: https://amirfeizi.github.io/otargen/articles
