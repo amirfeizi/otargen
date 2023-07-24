@@ -1,8 +1,9 @@
 <p align="left">
   <img src="man/figures/logo.jpg" alt="otargen" width="200px">
 </p>
-[![](https://cranlogs.r-pkg.org/badges/otargen)](https://cran.r-project.org/package=otargen)
 
+
+![CRAN Downloads](https://cranlogs.r-pkg.org/badges/grand-total/otargen)
 
 
 
