@@ -1,7 +1,7 @@
 <p align="left">
   <img src="man/figures/logo.jpg" alt="otargen" width="200px">
 </p>
-
+https://cranlogs.r-pkg.org/badges/ggplot2)](https://cran.rstudio.com/web/packages/ggplot2/index.html)
 
 ## Simplify Your Data Retrieval and Analysis from Open Target Genetics ✨
 `otargen` is an innovative and open-source R package designed to streamline data retrieval
