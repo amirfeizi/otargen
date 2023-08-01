@@ -1,8 +1,5 @@
-<p align="left">
-  <img src="man/figures/logo.jpg" alt="otargen" width="200px">
-</p>
 
-[![CRAN Downloads](https://cranlogs.r-pkg.org/badges/otargen)](https://cran.r-project.org/otargen)
+# otargen <img src="man/figures/logo.jpg" align="right" width="120" />
 
 
 <!-- badges: start -->
