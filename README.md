@@ -4,9 +4,7 @@
 
 <!-- badges: start -->
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/otargen?color=blue)](https://cran.r-project.org/web/packages/otargen)
-[![Downloads](https://cranlogs.r-pkg.org/badges/otargen?color=blue)](https://cran.rstudio.com/package=otargen)
-[![R-CMD-check](https://github.com/amirfeizi/otargen/workflows/R-CMD-check/badge.svg)](https://github.com/amirfeizi/otargen/actions)
-[![codecov](https://github.com/amirfeizi/otargen//branch/main/graph/badge.svg)](https://codecov.io/gh/amirfeizi/otargen)
+[![Downloads](https://cranlogs.r-pkg.org/badges/otargen?color=blue)](https://cran.rstudio.com/package=otargen) change
 <!-- badges: end -->
 
 ## Simplify Your Data Retrieval and Analysis from Open Target Genetics ✨
