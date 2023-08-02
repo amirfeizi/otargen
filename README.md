@@ -58,3 +58,27 @@ if (!require("devtools")) {
 }
 devtools::install_github("https://github.com/amirfeizi/otargen.git")
 ```
+
+## Citing this work
+
+`otargen` was published on 19th July 2023 in Bioinformatics:
+<https://doi.org/10.1093/bioinformatics/btad441>.
+
+To generate a citation for this publication from within R:
+
+``` r
+citation("otargen")
+To cite package ‘otargen’ in publications use:
+
+  Feizi A, Ray K (2023). _otargen: Access Open Target Genetics_. R package version 1.0.0,
+  <https://CRAN.R-project.org/package=otargen>.
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {otargen: Access Open Target Genetics},
+    author = {Amir Feizi and Kamalika Ray},
+    year = {2023},
+    note = {R package version 1.0.0},
+    url = {https://CRAN.R-project.org/package=otargen},}
+```
