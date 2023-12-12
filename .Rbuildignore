@@ -10,3 +10,5 @@
 ^figures/*$
 ^vignettes/web_only/*$
 ^derby.log$
+^CRAN-SUBMISSION$
+^cran-comments\.md$
