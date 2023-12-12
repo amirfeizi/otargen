@@ -28,9 +28,9 @@ Returns a data frame of the studies that colocalise with the input variant and s
 }
 }
 \description{
-This function retrieves information about colocalisation between two independent associations from GWAS studies.
- It returns a data frame of the studies that colocalise with the input variant and study,
-  including details on the study and reported trait, index variant, and calculated coloc method (see Ref. below) outputs.
+This function retrieves colocalisation data for a specific variant from a study with other GWAS studies.
+It returns a data frame of the studies that colocalise with the input variant and study,
+including details on the study and reported trait, index variant, and calculated coloc method (see Ref. below) outputs.
 }
 \examples{
 \dontrun{

@@ -3,8 +3,8 @@
 
 
 <!-- badges: start -->
-[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/otargen?color=blue)](https://cran.r-project.org/web/packages/otargen)
-[![Downloads](https://cranlogs.r-pkg.org/badges/otargen?color=yellow)](https://cran.rstudio.com/package=otargen) 
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/otargen?color=blue)]( https://CRAN.R-project.org/package=otargen)
+[![Downloads](https://cranlogs.r-pkg.org/badges/otargen?color=yellow)](https://CRAN.R-project.org/package=otargen) 
 <!-- badges: end -->
 
 ## Simplify Your Data Retrieval and Analysis from Open Target Genetics ✨

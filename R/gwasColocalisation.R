@@ -38,7 +38,7 @@
 gwasColocalisation <- function(study_id, variant_id) {
   ## Set up to query Open Targets Genetics API
 
-  cli::cli_progress_step("Connecting the database...", spinner = TRUE)
+  cli::cli_progress_step("Connecting to the Open Targets Genetics GrpahQL API...", spinner = TRUE)
   otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
   otg_qry <- ghql::Query$new()
 

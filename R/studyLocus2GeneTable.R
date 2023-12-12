@@ -7,7 +7,7 @@
 #' @param variant_id Character: generated ID for variants by Open Targets Genetics (e.g. 1_154119580_C_A) or rsId (rs2494663).
 #'
 #' @return Returns a data frame with the summary statistics of the study and a data table containing various
-#'  calculated scores and features for any lead variant. The output table has the following data structure:
+#' calculated scores and features for any lead variant. The output table has the following data structure:
 #'
 #' \itemize{
 #'   \item{\code{studyId}:} \emph{Character}. Study ID.
@@ -32,86 +32,90 @@
 #' @importFrom magrittr %>%
 #' @export
 #'
-#'
-#'
 
 studyLocus2GeneTable <- function(study_id, variant_id) {
   ## Set up to query Open Targets Genetics API
+  tryCatch({
+    cli::cli_progress_step("Connecting to the Open Targets Genetics GraphQL API...", spinner = TRUE)
+    otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
+    otg_qry <- ghql::Query$new()
 
-  cli::cli_progress_step("Connecting the database...", spinner = TRUE)
-  otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
-  otg_qry <- ghql::Query$new()
+    # Check variant id format
+    if (grepl(pattern = "rs\\d+", variant_id)) {
+      # Convert rs id to variant id
+      query_searchid <- "query rsi2vid($queryString:String!) {
+        search(queryString:$queryString){
+          totalVariants
+          variants{
+            id
+          }
+        }
+      }"
 
+      variables <- list(queryString = variant_id)
+      otg_qry$query(name = "rsi2vid", x = query_searchid)
+      id_result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$rsi2vid, variables), flatten = TRUE)$data
+      input_variant_id <- id_result$search$variants$id
+    } else if (grepl(pattern = "\\d+_\\d+_[a-zA-Z]+_[a-zA-Z]+", variant_id)) {
+      input_variant_id <- variant_id
+    } else {
+      stop("\n Please provide a variant Id")
+    }
 
-  # Check variant id format
-  if (grepl(pattern = "rs\\d+", variant_id)) {
-    # Convert rs id to variant id
-    query_searchid <- "query ConvertRSIDtoVID($queryString:String!) {
-    search(queryString:$queryString){
-      totalVariants
-      variants{
-        id
+    ## Query for GWAS study locus details
+    query <- "query l2gQuery($studyId: String!, $variantId: String!){
+      studyLocus2GeneTable(studyId: $studyId, variantId: $variantId){
+        study{
+          studyId
+          traitReported
+        }
+        variant {
+          id
+          rsId
+        }
+        rows {
+          gene {
+            id
+            symbol
+          }
+          yProbaDistance
+          yProbaModel
+          yProbaMolecularQTL
+          yProbaPathogenicity
+          yProbaInteraction
+          hasColoc
+          distanceToLocus
         }
       }
     }"
 
-    variables <- list(queryString = variant_id)
-    otg_qry$query(name = "convertid", x = query_searchid)
-    id_result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$convertid, variables), flatten = TRUE)$data
-    input_variant_id <- id_result$search$variants$id
-  } else if (grepl(pattern = "\\d+_\\d+_[a-zA-Z]+_[a-zA-Z]+", variant_id)) {
-    input_variant_id <- variant_id
-  } else {
-    stop("\n Please provide a variant Id")
-  }
+    ## Execute the query
 
-  ## Query for GWAS study locus details
-  query <- "query l2gQuery($studyId: String!, $variantId: String!){
-  studyLocus2GeneTable(studyId: $studyId, variantId: $variantId){
-    study{
-    studyId
-    traitReported
-  }
-    variant {
-      id
-      rsId
-    }
-    rows {
-      gene {
-        id
-        symbol
+    variables <- list(studyId = study_id, variantId = input_variant_id)
+
+    otg_qry$query(name = "l2g_query", x = query)
+
+    cli::cli_progress_step(paste("Downloading data for ", study_id, ",", variant_id, "..."), spinner = TRUE)
+
+    study_l2g <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$l2g_query, variables), flatten = TRUE)$data
+    df_l2g <- data.frame()
+    df_rows <- as.data.frame(study_l2g$studyLocus2GeneTable$rows)
+    if (nrow(df_rows) != 0) {
+      if (is.null(study_l2g$studyLocus2GeneTable$variant$rsId)) {
+        study_l2g$studyLocus2GeneTable$variant$rsId <- NA
       }
-    yProbaDistance
-    yProbaModel
-    yProbaMolecularQTL
-    yProbaPathogenicity
-    yProbaInteraction
-    hasColoc
-    distanceToLocus
-}
-  }
-}"
-
-
-  ## Execute the query
-
-  variables <- list(studyId = study_id, variantId = input_variant_id)
-
-  otg_qry$query(name = "l2g_query", x = query)
-
-  cli::cli_progress_step(paste("Downloading data for ", study_id, ",", variant_id, "..."), spinner = TRUE)
-
-  study_l2g <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$l2g_query, variables), flatten = TRUE)$data
-  df_l2g <- data.frame()
-  df_rows <- as.data.frame(study_l2g$studyLocus2GeneTable$rows)
-  if (nrow(df_rows) != 0) {
-    if (is.null(study_l2g$studyLocus2GeneTable$variant$rsId)) {
-      study_l2g$studyLocus2GeneTable$variant$rsId <- NA
+      df_l2g <- as.data.frame(study_l2g$studyLocus2GeneTable)
+      df_l2g <- df_l2g %>% dplyr::mutate(across(where(is.numeric), ~ round(., 2)))
+      base::colnames(df_l2g) <- stringr::str_replace_all(colnames(df_l2g), "rows.", "")
     }
-    df_l2g <- as.data.frame(study_l2g$studyLocus2GeneTable)
-    df_l2g <- df_l2g %>% dplyr::mutate(across(where(is.numeric), ~ round(., 2)))
-    base::colnames(df_l2g) <- stringr::str_replace_all(colnames(df_l2g), "rows.", "")
-  }
-  df_l2g <- df_l2g %>% dplyr::as_tibble()
-  return(df_l2g)
+    df_l2g <- df_l2g %>% dplyr::as_tibble()
+    return(df_l2g)
+  }, error = function(e) {
+    # Handling connection timeout
+    if(grepl("Timeout was reached", e$message)) {
+      stop("Connection timeout reached while connecting to the Open Targets Genetics GraphQL API.")
+    } else {
+      stop(e) # Handle other types of errors
+    }
+  })
 }

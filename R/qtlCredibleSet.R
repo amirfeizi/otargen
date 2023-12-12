@@ -48,6 +48,8 @@ qtlCredibleSet <- function(study_id, variant_id, gene, biofeature) {
   }
 
   ## Set up to query Open Targets Genetics API
+
+tryCatch({
   cli::cli_progress_step("Connecting the database...", spinner = TRUE)
   otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
   otg_qry <- ghql::Query$new()
@@ -136,4 +138,13 @@ df_qtl_cred <- as.data.frame(qtl_cred_set)
 base::colnames(df_qtl_cred) <- stringr::str_replace_all(colnames(df_qtl_cred),"qtlCredibleSet.","")
 
 return(df_qtl_cred)
+
+}, error = function(e) {
+  # Handling connection timeout
+  if(grepl("Timeout was reached", e$message)) {
+    stop("Connection timeout reached while connecting to the Open Targets Genetics GraphQL API.")
+  } else {
+    stop(e) # Handle other types of errors
+  }
+})
 }

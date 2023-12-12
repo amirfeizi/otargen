@@ -4,19 +4,14 @@
 \alias{studiesAndLeadVariantsForGeneByL2G}
 \title{Retrieve "locus-to-gene" (L2G) model summary data for a gene.}
 \usage{
-studiesAndLeadVariantsForGeneByL2G(
-  gene,
-  l2g = 0.4,
-  pvalue = 5e-08,
-  vtype = NULL
-)
+studiesAndLeadVariantsForGeneByL2G(gene, l2g = NA, pvalue = NA, vtype = NULL)
 }
 \arguments{
 \item{gene}{Character: Gene ENSEMBL ID (e.g. ENSG00000169174) or gene symbol (e.g. PCSK9). This argument can take a list of genes too.}
 
-\item{l2g}{Numeric: Locus-to-gene (L2G) cutoff score. (Default: 0.4)}
+\item{l2g}{Numeric: Locus-to-gene (L2G) cutoff score. (Default: NA)}
 
-\item{pvalue}{Character: P-value cutoff. (Default: 5e-8)}
+\item{pvalue}{Character: P-value cutoff. (Default: NA)}
 
 \item{vtype}{Character: Most severe consequence to filter the variant types, including "intergenic_variant",
 "upstream_gene_variant", "intron_variant", "missense_variant", "5_prime_UTR_variant",
@@ -81,7 +76,7 @@ The function also provides additional filtering parameters to narrow the results
 }
 \examples{
 \dontrun{
-result <- studiesAndLeadVariantsForGeneByL2G(genes = list("ENSG00000163946",
+result <- studiesAndLeadVariantsForGeneByL2G(genes = c("ENSG00000163946",
      "ENSG00000169174", "ENSG00000143001"), l2g = 0.7)
 result <- studiesAndLeadVariantsForGeneByL2G(genes = "ENSG00000169174",
      l2g = 0.6, pvalue = 1e-8, vtype = c("intergenic_variant", "intron_variant"))

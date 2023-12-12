@@ -12,14 +12,12 @@ genesForVariant(variant_id)
 \value{
 A list with the following components:
 \itemize{
-  \item \code{v2g}: Is a data frame with all variant-to-gene information with the following data structure.
+  \item \code{v2g}: A data frame with all variant-to-gene information with the following data structure:
     - \code{gene.symbol}: character
     - \code{variant}: character
     - \code{overallScore}: numeric
     - \code{gene.id}: character
-
-  \item \code{tssd}: Is a data frame with all details on colocalization scores effect of variant
-   in expression of the genes across tissues with the following data structure:
+  \item \code{tssd}: A data frame with all details on colocalization scores effect of variant in expression of the genes across tissues with the following data structure:
     - \code{gene.symbol}: character
     - \code{variant}: character
     - \code{typeId}: character
@@ -30,9 +28,7 @@ A list with the following components:
     - \code{tissues_quantile}: numeric
     - \code{tissues_id}: character
     - \code{tissues_name}: character
-
-  \item \code{qtls}: List of QTL associations between genes and variants across analysed tissues with the
-   following data structure:
+  \item \code{qtls}: List of QTL associations between genes and variants across analyzed tissues with the following data structure:
     - \code{gene.symbol}: character
     - \code{variant}: character
     - \code{typeId}: character
@@ -42,9 +38,7 @@ A list with the following components:
     - \code{tissues_pval}: numeric
     - \code{tissues_id}: character
     - \code{tissues_name}: character
-
-  \item \code{chromatin}: Is a data frame which includes all information on chromatin interactions effect
-  involving genes and variants with the following data structure:
+  \item \code{chromatin}: A data frame including all information on chromatin interactions effect involving genes and variants with the following data structure:
     - \code{gene.symbol}: character
     - \code{variant}: character
     - \code{typeId}: character
@@ -54,9 +48,7 @@ A list with the following components:
     - \code{tissues_score}: numeric
     - \code{tissues_id}: character
     - \code{tissues_name}: character
-
-  \item \code{functionalpred}: Is a data frame that includes predicted functional effect of
-   variants on genes across tissues with the followint data structure:
+  \item \code{functionalpred}: A data frame including predicted functional effects of variants on genes across tissues with the following data structure:
     - \code{gene.symbol}: character
     - \code{variant}: character
     - \code{typeId}: character
@@ -69,17 +61,14 @@ A list with the following components:
 }
 }
 \description{
-This function retrieves all calculated prioritizing scores for surrounding genes of a specific variant based on the Open Target Genetics  locus-to-gene (L2G) ML scoring pipeline.,
-including QTL associations, distances, chromatin interactions, and functional predictions.
-It provides detailed insights into the relationship between genetic variants and genes,
-allowing users to explore the impact of variants on gene expression, colocalization scores,
-chromatin interactions, and predicted functional effects. The function returns the information in a structured format, making it easier to analyze and interpret the results.
+This function retrieves all calculated prioritizing scores for surrounding genes of a specific variant based on the Open Target Genetics locus-to-gene (L2G) ML scoring pipeline.
+It provides detailed insights into the relationship between genetic variants and genes, allowing users to explore the impact of variants on gene expression, colocalization scores, chromatin interactions, and predicted functional effects.
+The function returns the information in a structured format, making it easier to analyze and interpret the results.
 }
 \examples{
 \dontrun{
   result <- genesForVariant(variant_id = "1_154453788_C_T")
   result <- genesForVariant(variant_id = "rs4129267")
   print(result)
-
 }
 }

@@ -49,13 +49,13 @@
 #'
 colocalisationsForGene <- function(genes) {
 
-  cli::cli_progress_step("Connecting the database...", spinner = TRUE)
+  cli::cli_progress_step("Connecting to the Open Targets Genetics GrpahQL API...", spinner = TRUE)
   con <- ghql::GraphqlClient$new("https://api.genetics.opentargets.org/graphql")
   qry <- ghql::Query$new()
 
   #Query for gene name search
   # check for gene name:
-  query_search <- "query convertnametoid($queryString:String!) {
+  query_search <- "query gene2ensembl($queryString:String!) {
     search(queryString:$queryString){
       genes{
         id
@@ -71,8 +71,8 @@ colocalisationsForGene <- function(genes) {
   if (all(match_result) == FALSE){
     for (g in genes) {
       variables <- list(queryString = g)
-      qry$query(name = "convertnametoid", x = query_search)
-      id_result <- jsonlite::fromJSON(con$exec(qry$queries$convertnametoid, variables), flatten = TRUE)$data
+      qry$query(name = "gene2ensembl", x = query_search)
+      id_result <- jsonlite::fromJSON(con$exec(qry$queries$gene2ensembl, variables), flatten = TRUE)$data
       id <- as.data.frame(id_result$search$genes)
       if (nrow(id)!=0){
         name_match <- id[id$symbol == g, ]

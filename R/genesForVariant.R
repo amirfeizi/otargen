@@ -76,34 +76,35 @@
 
 genesForVariant <- function(variant_id) {
   ## Set up to query Open Targets Genetics API
-  cli::cli_progress_step("Connecting to the database...", spinner = TRUE)
-  otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
-  otg_qry <- ghql::Query$new()
+  tryCatch({
+    cli::cli_progress_step("Connecting to the Open Targets Genetics GraphQL API...", spinner = TRUE)
+    otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
+    otg_qry <- ghql::Query$new()
 
-  # Check variant id format
-  if (grepl(pattern = "rs\\d+", variant_id)) {
-    # Convert rs id to variant id
-    query_searchid <- "query ConvertRSIDtoVID($queryString:String!) {
-    search(queryString:$queryString){
-      totalVariants
-      variants{
-        id
+    # Check variant id format
+    if (grepl(pattern = "rs\\d+", variant_id)) {
+      # Convert rs id to variant id
+      query_searchid <- "query ConvertRSIDtoVID($queryString:String!) {
+        search(queryString:$queryString){
+          totalVariants
+          variants{
+            id
+          }
         }
-      }
-    }"
+      }"
 
-    variables <- list(queryString = variant_id)
+      variables <- list(queryString = variant_id)
 
-    otg_qry$query(name = "convertid", x = query_searchid)
-    id_result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$convertid, variables), flatten = TRUE)$data
-    input_variant_id <- id_result$search$variants$id
-  } else if (grepl(pattern = "\\d+_\\d+_[a-zA-Z]+_[a-zA-Z]+", variant_id)) {
-    input_variant_id <- variant_id
-  } else {
-    stop("\nPlease provide a variant ID.")
-  }
+      otg_qry$query(name = "convertid", x = query_searchid)
+      id_result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$convertid, variables), flatten = TRUE)$data
+      input_variant_id <- id_result$search$variants$id
+    } else if (grepl(pattern = "\\d+_\\d+_[a-zA-Z]+_[a-zA-Z]+", variant_id)) {
+      input_variant_id <- variant_id
+    } else {
+      stop("\nPlease provide a variant ID.")
+    }
 
-  query <- "query v2gquery($variantId: String!){
+    query <- "query v2gquery($variantId: String!){
   genesForVariant(variantId: $variantId) {
     gene{
     id
@@ -167,125 +168,133 @@ genesForVariant <- function(variant_id) {
   }
 }"
 
-  ## Execute the query
+    ## Execute the query
 
-  result_pkg <- list()
+    result_pkg <- list()
 
-  variables <- list(variantId = input_variant_id)
+    variables <- list(variantId = input_variant_id)
 
-  otg_qry$query(name = "v2g_query", x = query)
-  cli::cli_progress_step(paste0("Downloading data for ", variant_id, " ..."), spinner = TRUE)
+    otg_qry$query(name = "v2g_query", x = query)
+    cli::cli_progress_step(paste0("Downloading data for ", variant_id, " ..."), spinner = TRUE)
 
-  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$v2g_query, variables), flatten = TRUE)$data
-  result_df <- as.data.frame(result$genesForVariant)
+    result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$v2g_query, variables), flatten = TRUE)$data
+    result_df <- as.data.frame(result$genesForVariant)
 
-  if (nrow(result_df) != 0) {
-    # parsing the nested JSON output in tidy data table format
-    result_core <- result_df %>%
-      dplyr::select(gene.symbol, variant, overallScore, gene.id) %>%
-      dplyr::arrange(desc(overallScore))
+    if (nrow(result_df) != 0) {
+      # parsing the nested JSON output in tidy data table format
+      result_core <- result_df %>%
+        dplyr::select(gene.symbol, variant, overallScore, gene.id) %>%
+        dplyr::arrange(desc(overallScore))
 
-    # qtl
-    qtls_is_empty <-  all(sapply(result_df$qtls, function(x) length(x) == 0))
+      # qtl
+      qtls_is_empty <-  all(sapply(result_df$qtls, function(x) length(x) == 0))
 
-    if (qtls_is_empty) {
-      result_qtl <- result_df %>%
-        dplyr::select(gene.symbol, variant, qtls)
-      result_qtl <- result_qtl %>%
-        mutate(qtls = ifelse(sapply(qtls, length) == 0, NA_character_, toString(qtls)))
-    } else {
-      result_qtl <- result_df %>%
-        dplyr::select(gene.symbol, variant, qtls) %>%
-        tidyr::unnest(qtls, names_sep = '.', keep_empty = TRUE) %>%
-        dplyr::rename("typeId" = "qtls.typeId",
-                      "aggregatedScore" = "qtls.aggregatedScore")
-
-      if ("qtls.tissues" %in% colnames(result_qtl)) {
+      if (qtls_is_empty) {
+        result_qtl <- result_df %>%
+          dplyr::select(gene.symbol, variant, qtls)
         result_qtl <- result_qtl %>%
-          tidyr::unnest(qtls.tissues, names_sep = '_', keep_empty = TRUE ) %>%
-          dplyr::rename("tissues_id" = "qtls.tissues_tissue.id",
-                        "tissues_name" = "qtls.tissues_tissue.name")
-        base::colnames(result_qtl) <- stringr::str_replace_all(colnames(result_qtl), "qtls.", "")
+          mutate(qtls = ifelse(sapply(qtls, length) == 0, NA_character_, toString(qtls)))
+      } else {
+        result_qtl <- result_df %>%
+          dplyr::select(gene.symbol, variant, qtls) %>%
+          tidyr::unnest(qtls, names_sep = '.', keep_empty = TRUE) %>%
+          dplyr::rename("typeId" = "qtls.typeId",
+                        "aggregatedScore" = "qtls.aggregatedScore")
+
+        if ("qtls.tissues" %in% colnames(result_qtl)) {
+          result_qtl <- result_qtl %>%
+            tidyr::unnest(qtls.tissues, names_sep = '_', keep_empty = TRUE ) %>%
+            dplyr::rename("tissues_id" = "qtls.tissues_tissue.id",
+                          "tissues_name" = "qtls.tissues_tissue.name")
+          base::colnames(result_qtl) <- stringr::str_replace_all(colnames(result_qtl), "qtls.", "")
+        }
       }
-    }
 
-    # intervals
-    ints_is_empty <-  all(sapply(result_df$intervals, function(x) length(x) == 0))
+      # intervals
+      ints_is_empty <-  all(sapply(result_df$intervals, function(x) length(x) == 0))
 
-    if (ints_is_empty) {
-      result_intervals <- result_df %>%
-        dplyr::select(gene.symbol, variant, intervals)
-      result_intervals <- result_intervals %>%
-        mutate(intervals = ifelse(sapply(intervals, length) == 0, NA_character_, toString(intervals)))
-    } else {
-      result_intervals <- result_df %>%
-        dplyr::select(gene.symbol, variant, intervals) %>%
-        tidyr::unnest(intervals, names_sep = '.', keep_empty = TRUE) %>%
-        dplyr::rename("typeId" = "intervals.typeId",
-                      "aggregatedScore" = "intervals.aggregatedScore")
-
-      if ("intervals.tissues" %in% colnames(result_intervals)) {
+      if (ints_is_empty) {
+        result_intervals <- result_df %>%
+          dplyr::select(gene.symbol, variant, intervals)
         result_intervals <- result_intervals %>%
-          tidyr::unnest(intervals.tissues, names_sep = '_', keep_empty = TRUE) %>%
-          dplyr::rename("tissues_id" = "intervals.tissues_tissue.id",
-                        "tissues_name" = "intervals.tissues_tissue.name")
-        base::colnames(result_intervals) <- stringr::str_replace_all(colnames(result_intervals), "intervals.", "")
+          mutate(intervals = ifelse(sapply(intervals, length) == 0, NA_character_, toString(intervals)))
+      } else {
+        result_intervals <- result_df %>%
+          dplyr::select(gene.symbol, variant, intervals) %>%
+          tidyr::unnest(intervals, names_sep = '.', keep_empty = TRUE) %>%
+          dplyr::rename("typeId" = "intervals.typeId",
+                        "aggregatedScore" = "intervals.aggregatedScore")
+
+        if ("intervals.tissues" %in% colnames(result_intervals)) {
+          result_intervals <- result_intervals %>%
+            tidyr::unnest(intervals.tissues, names_sep = '_', keep_empty = TRUE) %>%
+            dplyr::rename("tissues_id" = "intervals.tissues_tissue.id",
+                          "tissues_name" = "intervals.tissues_tissue.name")
+          base::colnames(result_intervals) <- stringr::str_replace_all(colnames(result_intervals), "intervals.", "")
+        }
       }
-    }
 
-    # distances
-    dists_is_empty <- all(sapply(result_df$distances, function(x) length(x) == 0))
+      # distances
+      dists_is_empty <- all(sapply(result_df$distances, function(x) length(x) == 0))
 
-    if (dists_is_empty) {
-      result_distances <- result_df %>%
-        dplyr::select(gene.symbol, variant, distances)
-      result_distances <- result_distances %>%
-        mutate(distances = ifelse(sapply(distances, length) == 0, NA_character_, toString(distances)))
-    } else {
-      result_distances <- result_df %>%
-        dplyr::select(gene.symbol, variant, distances) %>%
-        tidyr::unnest(distances, names_sep = '.', keep_empty = TRUE) %>%
-        dplyr::rename("typeId" = "distances.typeId",
-                      "aggregatedScore" = "distances.aggregatedScore")
-
-      if ("distances.tissues" %in% colnames(result_distances)) {
+      if (dists_is_empty) {
+        result_distances <- result_df %>%
+          dplyr::select(gene.symbol, variant, distances)
         result_distances <- result_distances %>%
-          tidyr::unnest(distances.tissues, names_sep = '_', keep_empty = TRUE) %>%
-          dplyr::rename("tissues_id" = "distances.tissues_tissue.id",
-                        "tissues_name" = "distances.tissues_tissue.name")
-        base::colnames(result_distances) <- stringr::str_replace_all(colnames(result_distances), "distances.", "")
+          mutate(distances = ifelse(sapply(distances, length) == 0, NA_character_, toString(distances)))
+      } else {
+        result_distances <- result_df %>%
+          dplyr::select(gene.symbol, variant, distances) %>%
+          tidyr::unnest(distances, names_sep = '.', keep_empty = TRUE) %>%
+          dplyr::rename("typeId" = "distances.typeId",
+                        "aggregatedScore" = "distances.aggregatedScore")
+
+        if ("distances.tissues" %in% colnames(result_distances)) {
+          result_distances <- result_distances %>%
+            tidyr::unnest(distances.tissues, names_sep = '_', keep_empty = TRUE) %>%
+            dplyr::rename("tissues_id" = "distances.tissues_tissue.id",
+                          "tissues_name" = "distances.tissues_tissue.name")
+          base::colnames(result_distances) <- stringr::str_replace_all(colnames(result_distances), "distances.", "")
+        }
       }
-    }
 
-    # result_functionalPredictions
-    funcPreds_is_empty <- all(sapply(result_df$functionalPredictions, function(x) length(x) == 0))
+      # result_functionalPredictions
+      funcPreds_is_empty <- all(sapply(result_df$functionalPredictions, function(x) length(x) == 0))
 
-    if (funcPreds_is_empty) {
-      result_functionalPredictions <- result_df %>%
-        dplyr::select(gene.symbol, variant, functionalPredictions)
-      result_functionalPredictions <- result_functionalPredictions %>%
-        mutate(functionalPredictions = ifelse(sapply(functionalPredictions, length) == 0, NA_character_, toString(functionalPredictions)))
-    } else {
-      result_functionalPredictions <- result_df %>%
-        dplyr::select(gene.symbol, variant, functionalPredictions) %>%
-        tidyr::unnest(functionalPredictions, names_sep = '.', keep_empty = TRUE) %>%
-        dplyr::rename("typeId" = "functionalPredictions.typeId",
-                      "aggregatedScore" = "functionalPredictions.aggregatedScore")
-
-      if ("functionalPredictions.tissues" %in% colnames(result_functionalPredictions)) {
+      if (funcPreds_is_empty) {
+        result_functionalPredictions <- result_df %>%
+          dplyr::select(gene.symbol, variant, functionalPredictions)
         result_functionalPredictions <- result_functionalPredictions %>%
-          tidyr::unnest(functionalPredictions.tissues, names_sep = '_', keep_empty = TRUE) %>%
-          dplyr::rename("tissues_id" = "functionalPredictions.tissues_tissue.id",
-                        "tissues_name" = "functionalPredictions.tissues_tissue.name")
-        base::colnames(result_functionalPredictions) <- stringr::str_replace_all(colnames(result_functionalPredictions), "functionalPredictions.", "")
+          mutate(functionalPredictions = ifelse(sapply(functionalPredictions, length) == 0, NA_character_, toString(functionalPredictions)))
+      } else {
+        result_functionalPredictions <- result_df %>%
+          dplyr::select(gene.symbol, variant, functionalPredictions) %>%
+          tidyr::unnest(functionalPredictions, names_sep = '.', keep_empty = TRUE) %>%
+          dplyr::rename("typeId" = "functionalPredictions.typeId",
+                        "aggregatedScore" = "functionalPredictions.aggregatedScore")
+
+        if ("functionalPredictions.tissues" %in% colnames(result_functionalPredictions)) {
+          result_functionalPredictions <- result_functionalPredictions %>%
+            tidyr::unnest(functionalPredictions.tissues, names_sep = '_', keep_empty = TRUE) %>%
+            dplyr::rename("tissues_id" = "functionalPredictions.tissues_tissue.id",
+                          "tissues_name" = "functionalPredictions.tissues_tissue.name")
+          base::colnames(result_functionalPredictions) <- stringr::str_replace_all(colnames(result_functionalPredictions), "functionalPredictions.", "")
+        }
       }
+
+      result_pkg <- list(v2g = result_core, tssd = result_distances,
+                         qtls = result_qtl, chromatin = result_intervals,
+                         functionalpred = result_functionalPredictions)
     }
+    cli::cli_progress_update()
+    return(result_pkg)
 
-    result_pkg <- list(v2g = result_core, tssd = result_distances,
-                       qtls = result_qtl, chromatin = result_intervals,
-                       functionalpred = result_functionalPredictions)
-
-  }
-  cli::cli_progress_update()
-  return(result_pkg)
+  }, error = function(e) {
+    # Handling connection timeout
+    if(grepl("Timeout was reached", e$message)) {
+      stop("Connection timeout reached while connecting to the Open Targets Genetics GraphQL API.")
+    } else {
+      stop(e) # Handle other types of errors
+    }
+  })
 }

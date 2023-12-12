@@ -11,8 +11,6 @@ vignette: >
 
 
 
-
-
 **1. Retrieve colocalisation data for one or more `genes`:** 
 
 In this example, we retrieve colocalization data for one or more genes of interest. The data provides evidence that if 

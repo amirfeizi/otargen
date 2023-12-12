@@ -63,7 +63,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' result <- studiesAndLeadVariantsForGeneByL2G(genes = list("ENSG00000163946",
+#' result <- studiesAndLeadVariantsForGeneByL2G(genes = c("ENSG00000163946",
 #'      "ENSG00000169174", "ENSG00000143001"), l2g = 0.7)
 #' result <- studiesAndLeadVariantsForGeneByL2G(genes = "ENSG00000169174",
 #'      l2g = 0.6, pvalue = 1e-8, vtype = c("intergenic_variant", "intron_variant"))
@@ -80,7 +80,9 @@ studiesAndLeadVariantsForGeneByL2G <- function(gene, l2g = NA, pvalue = NA, vtyp
   }
 
   # Set up to query Open Targets Genetics API
-  cli::cli_progress_step("Connecting the database...", spinner = TRUE)
+
+tryCatch({
+  cli::cli_progress_step("Connecting to the Open Targets Genetics GrpahQL API...", spinner = TRUE)
   con <- ghql::GraphqlClient$new("https://api.genetics.opentargets.org/graphql")
   qry <- ghql::Query$new()
 
@@ -202,17 +204,17 @@ studiesAndLeadVariantsForGeneByL2G <- function(gene, l2g = NA, pvalue = NA, vtyp
                                                                          length(output1$data$studiesAndLeadVariantsForGeneByL2G$yProbaModel))
 
      final_output <- dplyr::bind_rows(final_output, output1$data$studiesAndLeadVariantsForGeneByL2G)
-      
+
       if (!is.na(l2g)) {
         final_output <- final_output %>% dplyr::filter(yProbaModel >= l2g)
       }
-      
+
       if (!is.na(pvalue)) {
         final_output <- final_output %>% dplyr::filter(pval <= pvalue)
       }
-      
+
       final_output <- final_output %>% dplyr::mutate(across((yProbaModel:yProbaPathogenicity), ~ round(., 3)))
-      
+
       if (!is.null(vtype)) {
         final_output <- final_output %>%
           dplyr::filter(variant.mostSevereConsequence %in% vtype)
@@ -225,4 +227,13 @@ studiesAndLeadVariantsForGeneByL2G <- function(gene, l2g = NA, pvalue = NA, vtyp
   }
 
   return(final_output)
+
+}, error = function(e) {
+  # Handling connection timeout
+  if(grepl("Timeout was reached", e$message)) {
+    stop("Connection timeout reached while connecting to the Open Targets Genetics GraphQL API.")
+  } else {
+    stop(e) # Handle other types of errors
+  }
+})
 }

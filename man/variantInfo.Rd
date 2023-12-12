@@ -53,7 +53,7 @@ and making summary data available for the wider scientific community (see the re
 }
 \examples{
 \dontrun{
-result <- variantInfo(variant_id = "rs123456")
+result <- variantInfo(variant_id = "rs2494663")
 }
 
 }

@@ -44,7 +44,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' result <- variantInfo(variant_id = "rs123456")
+#' result <- variantInfo(variant_id = "rs2494663")
 #'}
 #'
 #'@references https://gnomad.broadinstitute.org/
@@ -59,32 +59,39 @@ variantInfo <- function(variant_id) {
     return(NULL)
   }
 
-  # Set up to query Open Targets Genetics API
-  cli::cli_progress_step("Connecting the database...", spinner = TRUE)
-  otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
-  otg_qry <- ghql::Query$new()
+  # Try-catch block for handling connection timeout
+  tryCatch({
+    # Set up to query Open Targets Genetics API
+    cli::cli_progress_step("Connecting to the Open Targets Genetics GraphQL API...", spinner = TRUE)
+    otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
+    otg_qry <- ghql::Query$new()
 
-  # Check variant ID format
-  if (grepl(pattern = "rs\\d+", variant_id)) {
-    # Convert rs id to variant id
-    query_searchid <- "query ConvertRSIDtoVID($queryString:String!) {
+    # Check variant id format
+    if (grepl(pattern = "rs\\d+", variant_id)) {
+      # Convert rs id to variant id
+      query_searchid <- "query rsi2vid($queryString:String!) {
       search(queryString:$queryString){
         totalVariants
         variants{
           id
+          }
         }
-      }
-    }"
+      }"
 
-    variables <- list(queryString = variant_id)
-    otg_qry$query(name = "convertid", x = query_searchid)
-    id_result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$convertid, variables), flatten = TRUE)$data
-    input_variant_id <- id_result$search$variants$id
-  } else if (grepl(pattern = "\\d+_\\d+_[a-zA-Z]+_[a-zA-Z]+", variant_id)) {
-    input_variant_id <- variant_id
-  } else {
-    stop("\nPlease provide a valid variant ID.")
-  }
+      variables <- list(queryString = variant_id)
+      otg_qry$query(name = "rsi2vid", x = query_searchid)
+      id_result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$rsi2vid, variables), flatten = TRUE)$data
+      input_variant_id <- id_result$search$variants$id
+    } else if (grepl(pattern = "\\d+_\\d+_[a-zA-Z]+_[a-zA-Z]+", variant_id)) {
+      input_variant_id <- variant_id
+    } else {
+      stop("\nPlease provide a variant ID")
+    }
+
+    # Check if the input_variant_id is null or empty
+    if (is.null(input_variant_id) || input_variant_id == "") {
+      stop("There is no variant ID defined for this rsID by Open Target Genetics")
+    }
 
   # Define the query
   query <- "query variantInfoquery($variantId: String!){
@@ -114,6 +121,7 @@ variantInfo <- function(variant_id) {
       gnomadAMR
       gnomadASJ
       gnomadEAS
+
       gnomadFIN
       gnomadNFE
       gnomadNFEEST
@@ -126,13 +134,22 @@ variantInfo <- function(variant_id) {
 
   # Execute the query
   variables <- list(variantId = input_variant_id)
-
   otg_qry$query(name = "variantInfoquery", x = query)
-
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
   var_info <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$variantInfoquery, variables), flatten = TRUE)$data
-  var_info <-lapply(result$variantInfo, function(x) if (is.null(x)) "NA" else x)
 
-  return(as.data.frame(var_info))
+  # Flatten and return data frame
+  flat_var_info <- unlist(var_info$variantInfo)
+  df_var_info <- as.data.frame(t(flat_var_info))
+  names(df_var_info) <- names(flat_var_info)
+  return(df_var_info)
+
+  }, error = function(e) {
+    # Handling connection timeout
+    if(grepl("Timeout was reached", e$message)) {
+      stop("Connection timeout reached while connecting to the Open Targets Genetics GraphQL API.")
+    } else {
+      stop(e) # Handle other types of errors
+    }
+  })
 }
-

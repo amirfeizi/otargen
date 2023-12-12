@@ -38,7 +38,8 @@
 
 overlapInfoForStudy <- function(study_id, study_ids = list()) {
   ## Set up to query Open Targets Genetics API
-  cli::cli_progress_step("Connecting the database...", spinner = TRUE)
+tryCatch({
+  cli::cli_progress_step("Connecting to the Open Targets Genetics GrpahQL API...", spinner = TRUE)
   otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
   otg_qry <- ghql::Query$new()
 
@@ -100,4 +101,13 @@ overlapInfoForStudy <- function(study_id, study_ids = list()) {
   final_output <- list(overlap_info = new_df, variant_intersection_set = var_int_set)
 
   return(final_output)
+
+}, error = function(e) {
+  # Handling connection timeout
+  if(grepl("Timeout was reached", e$message)) {
+    stop("Connection timeout reached while connecting to the Open Targets Genetics GraphQL API.")
+  } else {
+    stop(e) # Handle other types of errors
+  }
+})
 }

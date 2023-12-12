@@ -2,7 +2,7 @@
 % Please edit documentation in R/studyLocus2GeneTable.R
 \name{studyLocus2GeneTable}
 \alias{studyLocus2GeneTable}
-\title{Retrieve the locus-to-gene (L2G) data  in a loci}
+\title{Retrieve the locus-to-gene (L2G) data table for loci genes.}
 \usage{
 studyLocus2GeneTable(study_id, variant_id)
 }
@@ -12,8 +12,9 @@ studyLocus2GeneTable(study_id, variant_id)
 \item{variant_id}{Character: generated ID for variants by Open Targets Genetics (e.g. 1_154119580_C_A) or rsId (rs2494663).}
 }
 \value{
-Returns a data frame with the summary statistics of the study and a data table containing various calculated scores and features for any lead variant.
-The table consists of the following columns:
+Returns a data frame with the summary statistics of the study and a data table containing various
+calculated scores and features for any lead variant. The output table has the following data structure:
+
 \itemize{
   \item{\code{studyId}:} \emph{Character}. Study ID.
   \item{\code{variant.id}:} \emph{Character}. Variant ID.
@@ -30,7 +31,7 @@ The table consists of the following columns:
 }
 }
 \description{
-Fetches the locus-to-gene (L2G) pipeline summary data table for
+This function fetches the locus-to-gene (L2G) pipeline summary data table for
 the neighboring genes of a variant in a GWAS study.
 }
 \examples{

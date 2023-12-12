@@ -58,6 +58,7 @@ tagVariantsAndStudiesForIndexVariant <- function(variant_id, pageindex = 0, page
   }
 
   ## Set up to query Open Targets Genetics API
+tryCatch({
   cli::cli_progress_step("Connecting the database...", spinner = TRUE)
   otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
   otg_qry <- ghql::Query$new()
@@ -132,4 +133,13 @@ tagVariantsAndStudiesForIndexVariant <- function(variant_id, pageindex = 0, page
   tag_var_studies <- tag_var_studies$tagVariantsAndStudiesForIndexVariant$associations %>% as.data.frame()
 
   return(tag_var_studies)
+
+}, error = function(e) {
+  # Handling connection timeout
+  if(grepl("Timeout was reached", e$message)) {
+    stop("Connection timeout reached while connecting to the Open Targets Genetics GraphQL API.")
+  } else {
+    stop(e) # Handle other types of errors
+  }
+})
 }
