@@ -30,13 +30,4 @@ If you use `otargen` in your research, please cite our work. Published in [Bioin
 ```
 Feizi, Amir, and Kamalika Ray. "otargen: GraphQL-based R package for tidy data accessing and processing from Open Targets Genetics." Bioinformatics 39.8 (2023): btad441.
 ```
-A BibTeX entry for LaTeX users is
-```
-  @Manual{,
-    title = {otargen: Access Open Target Genetics},
-    author = {Amir Feizi and Kamalika Ray},
-    year = {2023},
-    note = {R package version 1.0.0},
-    url = {https://CRAN.R-project.org/package=otargen},}
-```
 
