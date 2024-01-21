@@ -1,13 +1,9 @@
-<table>
-<tr>
-<td valign="top" width="50%">
-
-#  <img src="man/figures/logo.jpg" align="right" width="120" />
+# otargen <img src="man/figures/logo.jpg" align="right" width="120" />
 
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/otargen?color=blue)](https://CRAN.R-project.org/package=otargen)
 [![Downloads](https://cranlogs.r-pkg.org/badges/otargen?color=yellow)](https://CRAN.R-project.org/package=otargen)
 
-## Streamline Data Access to Open Target Genetics GrapQL API 🔍
+## Streamline Data Analysis with Open Target Genetics 🔍
 `otargen` is an innovative, open-source R package designed for easy data retrieval and analysis from [Open Target Genetics](https://genetics.opentargets.org). It brings simplicity and power to your R environment, enhancing your research with advanced data handling and visualization tools.
 
 ### Key Features
@@ -16,9 +12,6 @@
 - **Comprehensive Documentation**: Each function is thoroughly documented, ensuring a smooth integration into your workflow and a clear understanding of the results.
 - **Regular Updates**: Stay abreast of the latest in Open Target Genetics with our commitment to continuous improvement and feature expansion.
 
-</td>
-<td valign="top" width="50%">
-
 ### Community and Contributions
 Join the `otargen` community on [GitHub](https://github.com/amirfeizi/otargen) and contribute to its growth. We welcome bug reports, feature suggestions, and code contributions.
 
@@ -26,6 +19,7 @@ Join the `otargen` community on [GitHub](https://github.com/amirfeizi/otargen) a
 Get started with `otargen` from CRAN:
 ```r
 install.packages("otargen")
+
 ```
 Or install the latest development version from GitHub (requires devtools package):
 
