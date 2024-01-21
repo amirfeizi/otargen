@@ -1,3 +1,7 @@
+<table>
+<tr>
+<td valign="top" width="50%">
+
 #  <img src="man/figures/logo.jpg" align="right" width="120" />
 
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/otargen?color=blue)](https://CRAN.R-project.org/package=otargen)
@@ -12,6 +16,9 @@
 - **Comprehensive Documentation**: Each function is thoroughly documented, ensuring a smooth integration into your workflow and a clear understanding of the results.
 - **Regular Updates**: Stay abreast of the latest in Open Target Genetics with our commitment to continuous improvement and feature expansion.
 
+</td>
+<td valign="top" width="50%">
+
 ### Community and Contributions
 Join the `otargen` community on [GitHub](https://github.com/amirfeizi/otargen) and contribute to its growth. We welcome bug reports, feature suggestions, and code contributions.
 
@@ -19,7 +26,6 @@ Join the `otargen` community on [GitHub](https://github.com/amirfeizi/otargen) a
 Get started with `otargen` from CRAN:
 ```r
 install.packages("otargen")
-
 ```
 Or install the latest development version from GitHub (requires devtools package):
 
