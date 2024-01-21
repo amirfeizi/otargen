@@ -68,48 +68,41 @@
 </nav><div class="container template-home">
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header"><h1 id="otargenpy">otargenpy<a class="anchor" aria-label="anchor" href="#otargenpy"></a>
+<div class="page-header"><h1 id="section">
+<img src="reference/figures/logo.jpg" align="right" width="120"><a class="anchor" aria-label="anchor" href="#section"></a>
 </h1></div>
-<p>.. image:: <a href="https://img.shields.io/pypi/v/otargenpy.svg" class="external-link uri">https://img.shields.io/pypi/v/otargenpy.svg</a> :target: <a href="https://pypi.python.org/pypi/otargenpy" class="external-link uri">https://pypi.python.org/pypi/otargenpy</a></p>
-<p>.. image:: <a href="https://img.shields.io/travis/amir.feizi/otargenpy.svg" class="external-link uri">https://img.shields.io/travis/amir.feizi/otargenpy.svg</a> :target: <a href="https://travis-ci.com/amir.feizi/otargenpy" class="external-link uri">https://travis-ci.com/amir.feizi/otargenpy</a></p>
-<p>.. image:: <a href="https://readthedocs.org/projects/otargenpy/badge/?version=latest" class="external-link uri">https://readthedocs.org/projects/otargenpy/badge/?version=latest</a> :target: <a href="https://otargenpy.readthedocs.io/en/latest/?version=latest" class="external-link uri">https://otargenpy.readthedocs.io/en/latest/?version=latest</a> :alt: Documentation Status</p>
-<p><code>otargenpy</code> is an open-source Python package for easy data retrieval and analysis from <code>Open Target Genetics &lt;https://genetics.opentargets.org&gt;</code>_. It brings simplicity and power to your Python environment, enhancing your research with advanced data handling and visualization tools.</p>
+<p><a href="https://CRAN.R-project.org/package=otargen" class="external-link"><img src="https://www.r-pkg.org/badges/version/otargen?color=blue" alt="CRAN_Status_Badge"></a> <a href="https://CRAN.R-project.org/package=otargen" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/otargen?color=yellow" alt="Downloads"></a></p>
 <div class="section level2">
-<h2 id="features">Features<a class="anchor" aria-label="anchor" href="#features"></a>
+<h2 id="streamline-data-analysis-with-open-target-genetics-">Streamline Data Analysis with Open Target Genetics 🔍<a class="anchor" aria-label="anchor" href="#streamline-data-analysis-with-open-target-genetics-"></a>
 </h2>
-<p>🚀 <strong>Effortless Data Retrieval</strong>: Access comprehensive GraphQL query types with user-friendly functions, transforming complex queries into tidy, analysis-ready data tables.</p>
-<p>📈 <strong>Insightful Visualizations</strong>: Deploy intuitive plotting functions for a clear view of complex datasets, uncovering hidden patterns and insights.</p>
-<p>📖 <strong>Comprehensive Documentation</strong>: Each function is thoroughly documented, ensuring a smooth integration into your workflow and a clear understanding of the results.</p>
-<p>👨‍💻 <strong>Regular Updates</strong>: Stay abreast of the latest in Open Target Genetics with our commitment to continuous improvement and feature expansion.</p>
+<p><code>otargen</code> is an innovative, open-source R package designed for easy data retrieval and analysis from <a href="https://genetics.opentargets.org" class="external-link">Open Target Genetics</a>. It brings simplicity and power to your R environment, enhancing your research with advanced data handling and visualization tools.</p>
+<div class="section level3">
+<h3 id="key-features">Key Features<a class="anchor" aria-label="anchor" href="#key-features"></a>
+</h3>
+<p>🚀 <strong>Effortless Data Retrieval</strong>: Access comprehensive GraphQL query types with user-friendly functions, transforming complex queries into tidy, analysis-ready data tables. 📈 <strong>Insightful Visualizations</strong>: Deploy intuitive plotting functions for a clear view of complex datasets, uncovering hidden patterns and insights. 📖 <strong>Comprehensive Documentation</strong>: Each function is thoroughly documented, ensuring a smooth integration into your workflow and a clear understanding of the results. 👨‍💻 <strong>Regular Updates</strong>: Stay abreast of the latest in Open Target Genetics with our commitment to continuous improvement and feature expansion.</p>
 </div>
-<div class="section level2">
-<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
-</h2>
-<p>Get started with <code>otargenpy</code> from PyPI:</p>
-<p>.. code-block:: bash</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pip install otargenpy</span></code></pre></div>
+<div class="section level3">
+<h3 id="community-and-contributions">Community and Contributions<a class="anchor" aria-label="anchor" href="#community-and-contributions"></a>
+</h3>
+<p>Join the <code>otargen</code> community on <a href="https://github.com/amirfeizi/otargen" class="external-link">GitHub</a> and contribute to its growth. We welcome bug reports, feature suggestions, and code contributions.</p>
+</div>
+<div class="section level3">
+<h3 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h3>
+<p>Get started with <code>otargen</code> from CRAN:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"otargen"</span><span class="op">)</span></span></code></pre></div>
 <p>Or install the latest development version from GitHub:</p>
-<p>.. code-block:: bash</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pip install git<span class="sc">+</span>https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>amirfeizi<span class="sc">/</span>otargenpy.git</span></code></pre></div>
+<pre><code><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://devtools.r-lib.org/" class="external-link">"devtools"</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"https://github.com/amirfeizi/otargen.git"</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="section level2">
-<h2 id="citing-otargenpy">Citing otargenpy<a class="anchor" aria-label="anchor" href="#citing-otargenpy"></a>
-</h2>
-<p><code>otargenpy</code> was published on 19th July 2023 in Bioinformatics. For citation information, please visit: <code>&lt;https://doi.org/10.1093/bioinformatics/btad441&gt;</code>_.</p>
+<div class="section level3">
+<h3 id="citing-otargen">Citing otargen<a class="anchor" aria-label="anchor" href="#citing-otargen"></a>
+</h3>
+<p>If you use <code>otargen</code> in your research, please cite our work. Published in Bioinformatics on 19th July 2023: DOI.</p>
+<p>A BibTeX entry for LaTeX users is</p>
+<p>@Manual{, title = {otargen: Access Open Target Genetics}, author = {Amir Feizi and Kamalika Ray}, year = {2023}, note = {R package version 1.0.0}, url = {<a href="https://CRAN.R-project.org/package=otargen" class="external-link uri">https://CRAN.R-project.org/package=otargen</a>},} ```</p>
 </div>
-<div class="section level2">
-<h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
-</h2>
-<p>Join the <code>otargenpy</code> community on GitHub and contribute to its improvement. We welcome bug reports, feature suggestions, and code contributions.</p>
-<ul>
-<li>Free software: MIT license</li>
-<li>Documentation: <code>https://otargenpy.readthedocs.io &lt;https://otargenpy.readthedocs.io&gt;</code>_.</li>
-</ul>
-</div>
-<div class="section level2">
-<h2 id="credits">Credits<a class="anchor" aria-label="anchor" href="#credits"></a>
-</h2>
-<p>This package was created with <code>Cookiecutter &lt;https://github.com/audreyr/cookiecutter&gt;</code>_ and the <code>audreyr/cookiecutter-pypackage &lt;https://github.com/audreyr/cookiecutter-pypackage&gt;</code>_ project template.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
