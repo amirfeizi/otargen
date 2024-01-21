@@ -6,10 +6,10 @@
 `otargen` is an innovative, open-source R package for easy data retrieval and analysis from [Open Target Genetics](https://genetics.opentargets.org). It brings simplicity and power to your R environment, enhancing your research with advanced data handling and visualization tools.
 
 ### Key Features
-- **Effortless Data Retrieval**: Access comprehensive GraphQL query types with user-friendly functions, transforming complex queries into tidy, analysis-ready data tables.
-- **Insightful Visualizations**: Deploy intuitive plotting functions for a clear view of complex datasets, uncovering hidden patterns and insights.
-- **Comprehensive Documentation**: Each function is thoroughly documented, ensuring a smooth integration into your workflow and a clear understanding of the results.
-- **Regular Updates**: Stay abreast of the latest in Open Target Genetics with our commitment to continuous improvement and feature expansion.
+- 🚀**Effortless Data Retrieval**: Access comprehensive GraphQL query types with user-friendly functions, transforming complex queries into tidy, analysis-ready data tables.
+- 📈**Insightful Visualizations**: Deploy intuitive plotting functions for a clear view of complex datasets, uncovering hidden patterns and insights.
+- 📖**Comprehensive Documentation**: Each function is thoroughly documented, ensuring a smooth integration into your workflow and a clear understanding of the results.
+- 👨‍💻**Regular Updates**: Stay abreast of the latest in Open Target Genetics with our commitment to continuous improvement and feature expansion.
 
 ### Community and Contributions
 Join the `otargen` community on [GitHub](https://github.com/amirfeizi/otargen) and contribute to its growth. We welcome bug reports, feature suggestions, and code contributions.
