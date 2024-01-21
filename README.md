@@ -3,8 +3,8 @@
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/otargen?color=blue)](https://CRAN.R-project.org/package=otargen)
 [![Downloads](https://cranlogs.r-pkg.org/badges/otargen?color=yellow)](https://CRAN.R-project.org/package=otargen)
 
-## Streamline Data Analysis with Open Target Genetics 🔍
-`otargen` is an innovative, open-source R package designed for easy data retrieval and analysis from [Open Target Genetics](https://genetics.opentargets.org). It brings simplicity and power to your R environment, enhancing your research with advanced data handling and visualization tools.
+## Streamline Tidy Data Access to Open Target Genetics GraphQL API🔍
+`otargen` is an innovative, open-source R package for easy data retrieval and analysis from [Open Target Genetics](https://genetics.opentargets.org). It brings simplicity and power to your R environment, enhancing your research with advanced data handling and visualization tools.
 
 ### Key Features
 🚀 **Effortless Data Retrieval**: Access comprehensive GraphQL query types with user-friendly functions, transforming complex queries into tidy, analysis-ready data tables.
@@ -26,10 +26,10 @@ if (!require("devtools")) install.packages("devtools")
 devtools::install_github("https://github.com/amirfeizi/otargen.git")
 ```
 ### Citing otargen
-If you use `otargen` in your research, please cite our work. Published in Bioinformatics on 19th July 2023: DOI.
+If you use `otargen` in your research, please cite our work. Published in [Bioinformatics](https://academic.oup.com/bioinformatics/article/39/8/btad441/7226507) on 19th July 2023: DOI.
 
 A BibTeX entry for LaTeX users is
-
+```
   @Manual{,
     title = {otargen: Access Open Target Genetics},
     author = {Amir Feizi and Kamalika Ray},
