@@ -14,24 +14,18 @@
 
 👨‍💻**Regular Updates**: Stay abreast of the latest in Open Target Genetics with our commitment to continuous improvement and feature expansion.
 
-### Community and Contributions
-Join the `otargen` community on [GitHub](https://github.com/amirfeizi/otargen) and contribute to its growth. We welcome bug reports, feature suggestions, and code contributions.
-
 ### Installation
 Get started with `otargen` from CRAN:
 ```r
 install.packages("otargen")
-
 ```
 Or install the latest development version from GitHub (requires devtools package):
-
 ```r
 if (!require("devtools")) {
   install.packages("devtools")
 }
 devtools::install_github("https://github.com/amirfeizi/otargen.git")
 ```
-
 ## Citing this work
 
 `otargen` was published on 19th July 2023 in Bioinformatics:
@@ -55,3 +49,6 @@ A BibTeX entry for LaTeX users is
     note = {R package version 1.0.0},
     url = {https://CRAN.R-project.org/package=otargen},}
 ```
+
+### Community and Contributions
+Join the `otargen` community on [GitHub](https://github.com/amirfeizi/otargen) and contribute to its growth. We welcome bug reports, feature suggestions, and code contributions.
