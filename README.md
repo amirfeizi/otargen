@@ -1,10 +1,9 @@
-# otargen <img src="man/figures/logo.jpg" align="right" width="120" />
-
+# <img src="man/figures/logo.jpg" align="right" width="120" />
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/otargen?color=blue)](https://CRAN.R-project.org/package=otargen)
 [![Downloads](https://cranlogs.r-pkg.org/badges/otargen?color=yellow)](https://CRAN.R-project.org/package=otargen)
 
-## Streamline Data Analysis with Open Target Genetics 🔍
-`otargen` is an innovative, open-source R package designed for easy data retrieval and analysis from [Open Target Genetics](https://genetics.opentargets.org). It brings simplicity and power to your R environment, enhancing your research with advanced data handling and visualization tools.
+## Streamline Tidy Data Access to Open Target Genetics GraphQL AP 🔍
+`otargen` is an innovative, open-source R package for easy data retrieval and analysis from [Open Target Genetics](https://genetics.opentargets.org). It brings simplicity and power to your R environment, enhancing your research with advanced data handling and visualization tools.
 
 ### Key Features
 - **Effortless Data Retrieval**: Access comprehensive GraphQL query types with user-friendly functions, transforming complex queries into tidy, analysis-ready data tables.
