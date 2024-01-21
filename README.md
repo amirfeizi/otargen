@@ -26,8 +26,10 @@ if (!require("devtools")) install.packages("devtools")
 devtools::install_github("https://github.com/amirfeizi/otargen.git")
 ```
 ### Citing otargen
-If you use `otargen` in your research, please cite our work. Published in [Bioinformatics](https://academic.oup.com/bioinformatics/article/39/8/btad441/7226507) on 19th July 2023: DOI.
-
+If you use `otargen` in your research, please cite our work. Published in [Bioinformatics](https://academic.oup.com/bioinformatics/article/39/8/btad441/7226507).
+```
+Feizi, Amir, and Kamalika Ray. "otargen: GraphQL-based R package for tidy data accessing and processing from Open Targets Genetics." Bioinformatics 39.8 (2023): btad441.
+```
 A BibTeX entry for LaTeX users is
 ```
   @Manual{,
