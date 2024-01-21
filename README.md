@@ -1,54 +1,63 @@
-# <img src="man/figures/logo.jpg" align="right" width="120" />
-[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/otargen?color=blue)](https://CRAN.R-project.org/package=otargen)
-[![Downloads](https://cranlogs.r-pkg.org/badges/otargen?color=yellow)](https://CRAN.R-project.org/package=otargen)
+otargenpy
+=========
 
-## Streamline Tidy Data Access to Open Target Genetics GraphQL AP 🔍
-`otargen` is an open-source R package for easy data retrieval and analysis from [Open Target Genetics](https://genetics.opentargets.org). It brings simplicity and power to your R environment, enhancing your research with advanced data handling and visualization tools.
+.. image:: https://img.shields.io/pypi/v/otargenpy.svg
+    :target: https://pypi.python.org/pypi/otargenpy
 
-### Key Features
-🚀**Effortless Data Retrieval**: Access comprehensive GraphQL query types with user-friendly functions, transforming complex queries into tidy, analysis-ready data tables.
+.. image:: https://img.shields.io/travis/amir.feizi/otargenpy.svg
+    :target: https://travis-ci.com/amir.feizi/otargenpy
 
-📈**Insightful Visualizations**: Deploy intuitive plotting functions for a clear view of complex datasets, uncovering hidden patterns and insights.
+.. image:: https://readthedocs.org/projects/otargenpy/badge/?version=latest
+    :target: https://otargenpy.readthedocs.io/en/latest/?version=latest
+    :alt: Documentation Status
 
-📖**Comprehensive Documentation**: Each function is thoroughly documented, ensuring a smooth integration into your workflow and a clear understanding of the results.
+`otargenpy` is an open-source Python package for easy data retrieval and analysis 
+from `Open Target Genetics <https://genetics.opentargets.org>`_. 
+It brings simplicity and power to your Python environment, enhancing your research with advanced data
+handling and visualization tools.
 
-👨‍💻**Regular Updates**: Stay abreast of the latest in Open Target Genetics with our commitment to continuous improvement and feature expansion.
+Features
+--------
 
-### Installation
-Get started with `otargen` from CRAN:
-```r
-install.packages("otargen")
-```
-Or install the latest development version from GitHub (requires devtools package):
-```r
-if (!require("devtools")) {
-  install.packages("devtools")
-}
-devtools::install_github("https://github.com/amirfeizi/otargen.git")
-```
-## Citing otargen
+🚀 **Effortless Data Retrieval**: Access comprehensive GraphQL query types with user-friendly functions, transforming complex queries into tidy, analysis-ready data tables.
 
-`otargen` was published on 19th July 2023 in Bioinformatics:
-<https://doi.org/10.1093/bioinformatics/btad441>.
+📈 **Insightful Visualizations**: Deploy intuitive plotting functions for a clear view of complex datasets, uncovering hidden patterns and insights.
 
-To generate a citation for this publication from within R:
+📖 **Comprehensive Documentation**: Each function is thoroughly documented, ensuring a smooth integration into your workflow and a clear understanding of the results.
 
-``` r
-citation("otargen")
-To cite package ‘otargen’ in publications use:
+👨‍💻 **Regular Updates**: Stay abreast of the latest in Open Target Genetics with our commitment to continuous improvement and feature expansion.
 
-  Feizi A, Ray K (2023). _otargen: Access Open Target Genetics_. R package version 1.0.0,
-  <https://CRAN.R-project.org/package=otargen>.
+Installation
+------------
 
-A BibTeX entry for LaTeX users is
+Get started with `otargenpy` from PyPI:
 
-  @Manual{,
-    title = {otargen: Access Open Target Genetics},
-    author = {Amir Feizi and Kamalika Ray},
-    year = {2023},
-    note = {R package version 1.0.0},
-    url = {https://CRAN.R-project.org/package=otargen},}
-```
+.. code-block:: bash
 
-### Community and Contributions
-Join the `otargen` community on [GitHub](https://github.com/amirfeizi/otargen) and contribute to its growth. We welcome bug reports, feature suggestions, and code contributions.
+    pip install otargenpy
+
+Or install the latest development version from GitHub:
+
+.. code-block:: bash
+
+    pip install git+https://github.com/amirfeizi/otargenpy.git
+
+Citing otargenpy
+----------------
+
+`otargenpy` was published on 19th July 2023 in Bioinformatics. For citation information, please visit:
+`<https://doi.org/10.1093/bioinformatics/btad441>`_.
+
+Contributing
+------------
+
+Join the `otargenpy` community on GitHub and contribute to its improvement.
+We welcome bug reports, feature suggestions, and code contributions.
+
+- Free software: MIT license
+- Documentation: `https://otargenpy.readthedocs.io <https://otargenpy.readthedocs.io>`_.
+
+Credits
+-------
+
+This package was created with `Cookiecutter <https://github.com/audreyr/cookiecutter>`_ and the `audreyr/cookiecutter-pypackage <https://github.com/audreyr/cookiecutter-pypackage>`_ project template.
