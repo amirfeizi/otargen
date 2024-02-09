@@ -1,7 +1,7 @@
 Package: otargen
 Type: Package
 Title: Access Open Target Genetics
-Version: 1.1.0
+Version: 1.1.1
 Authors@R: c(
     person("Amir", "Feizi", role = c("aut", "cre"), email = "afeizi@gmail.com"),
     person("Kamalika", "Ray", role = "aut"))
@@ -30,20 +30,3 @@ Suggests:
 Config/testthat/edition: 3
 RoxygenNote: 7.2.3
 URL: https://amirfeizi.github.io/otargen/
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
