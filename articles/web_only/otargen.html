@@ -355,22 +355,24 @@ disease associated variants in the plot.</p>
 <h2 id="example-7-navigating-genetic-insights-with-radar-plots">Example 7: Navigating Genetic Insights with Radar Plots<a class="anchor" aria-label="anchor" href="#example-7-navigating-genetic-insights-with-radar-plots"></a>
 </h2>
 <ul>
-<li><p><strong>Objective</strong>: 🌐 Use the radar plot as your
+<li>
+<strong>Objective</strong>: 🌐 Use the radar plot as your
 navigational compass to interpret the complex output of
 <code><a href="../../reference/studiesAndLeadVariantsForGeneByL2G.html">studiesAndLeadVariantsForGeneByL2G()</a></code> by
 <code><a href="../../reference/plot_l2g.html">plot_l2g()</a></code>. This visualization helps you to chart a course
 through all partial scores from L2G model to prioritizing gene-trait
 associations like waypoints on a radar screen guiding you for further
-exploration.</p></li>
-<li><p><strong>Function</strong>:
-<code><a href="../../reference/studiesAndLeadVariantsForGeneByL2G.html">studiesAndLeadVariantsForGeneByL2G()</a></code> followed by
-<code><a href="../../reference/plot_l2g.html">plot_l2g()</a></code></p></li>
+exploration.</li>
 <li>
-<p><strong>Parameters</strong>:</p>
-<ul>
-<li>List of <code>gene</code>: Identifiers for genes of interest.</li>
-</ul>
+<strong>Function</strong>:
+<code><a href="../../reference/studiesAndLeadVariantsForGeneByL2G.html">studiesAndLeadVariantsForGeneByL2G()</a></code> followed by
+<code><a href="../../reference/plot_l2g.html">plot_l2g()</a></code>
 </li>
+<li>
+<strong>Parameters</strong>:
+<ul>
+<li><p>List of <code>gene</code>: Identifiers for genes of
+interest.</p></li>
 <li><p><code>disease</code> (optional): If specified, focuses the
 analysis on a single disease. Leave this parameter empty if you wish to
 be disease-agnostic and prioritize diseases for each gene based on their
@@ -384,6 +386,8 @@ diseases for each gene.</p></li>
 minimum L2G score threshold for diseases to be considered in the plot.
 Increasing this value can help reduce plot clutter by focusing on
 higher-confidence associations.</p></li>
+</ul>
+</li>
 </ul>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Retrieve L2G model statistics for a list of genes</span></span>
