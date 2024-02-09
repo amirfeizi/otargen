@@ -12,6 +12,14 @@
 - **Comprehensive Documentation**: Each function is thoroughly documented, ensuring a smooth integration into your workflow and a clear understanding of the results.
 - **Regular Updates**: Stay abreast of the latest in Open Target Genetics with our commitment to continuous improvement and feature expansion.
 
+## Announcement :loudspeaker:
+
+For Python users, we're excited to announce that a Python version of our package is now available! :snake: :rocket: 
+
+Check out the repository here: [otargenpy on GitHub](https://github.com/amirfeizi/otargenpy)
+
+This version brings the capabilities of `otargen` to the Python community, We encourage you to try it out and provide feedback!
+
 ### Community and Contributions
 Join the `otargen` community on [GitHub](https://github.com/amirfeizi/otargen) and contribute to its growth. We welcome bug reports, feature suggestions, and code contributions.
 
