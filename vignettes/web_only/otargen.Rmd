@@ -11,12 +11,12 @@ vignette: >
 
 
 
-**1. Retrieve colocalisation data for one or more `genes`:** 
+## Example 1: Unveiling Colocalisation Secrets
 
-In this example, we retrieve colocalization data for one or more genes of interest. The data provides evidence that if 
-genetic variants which are linked to both molecular traits and  traits within shared genomic regions are identical. 
-By utilizing the otargen \code{colocalisationsForGene()}, we can investigate these colocalization patterns and gain 
-valuable insights for further analysis and interpretation.
+- **Objective**: 🕵️‍♂️ Explore shared genetic territories with `colocalisationsForGene()`. Peek into the genetic overlap that may influence multiple traits within the same genomic neighborhood.
+- **Function**: `colocalisationsForGene()`
+- **Parameters**: 
+  - `genes`: A vector of intriguing gene identifiers.
 
 ``` r
 library(otargen)
@@ -50,12 +50,12 @@ head(coloc_data)
 ```
 
 
+## Example 2: Quest for QTL Credible Set Data
 
-**2. Retrieve QTL credible set data **
-
-In this example, we utilize the `qtlCredibleSet()` function to fetch the credible set of tag variants. 
-By specifying the `study ID`, `variant ID`, `gene`, and `biofeature`, we extract valuable
-information about the tag variants with a high probability of being associated with the trait of interest. 
+- **Objective**: 🔍 Delve into QTLs data with `qtlCredibleSet()`. Unravel all tag variants and their connection to traits, one credible set at a time.
+- **Function**: `qtlCredibleSet()`
+- **Parameters**:
+  - `study_id`, `variant_id`, `gene`, `biofeature`: Keys to unlock the treasure trove of QTL data.
 
 
 ``` r
@@ -78,26 +78,19 @@ head(qtl_cred_set)
 
 
 
-**3. Retrieves L2G model summary data for `gene(s)`.** 
+## Example 3: L2G Model Data Odyssey
 
-In this exemplary usage, we demonstrate the application of the
-`studiesAndLeadVariantsForGeneByL2G()` function to obtain one of the core
-data tables provided by Open Target Genetics. The function utilizes the
-powerful "locus-to-gene" (L2G) model, which leverages genetic and functional
-genomics features to prioritize likely causal genes at each GWAS locus. By
-specifying the gene of interest and applying customized filters, we retrieve
-prioritization scores for the lead variants associated with our specified
-genes, as well as other genes sharing the same loci. The resulting data table
-is presented in the tidy and comprehensive tibble format, encompassing a
-wealth of scores and information pertaining to the L2G model, genetic
-variants, associated studies, and more. By conducting further analysis on
-these results, we can delve deeper into the intricate relationships between
-genes and traits, leading to groundbreaking insights and discoveries.
+- **Objective**: 🚀 Navigate through the genetic cosmos with `studiesAndLeadVariantsForGeneByL2G()`. L2G model is the core development of Open Target Genetics platform and it is your star map to identify potential causal genes across the GWAS universe.
+
+- **Function**: `studiesAndLeadVariantsForGeneByL2G()`
+- **Parameters**:
+  - `gene`, `l2g`, `pvalue`, `vtype`: parameters to guide your exploration.
+
 
 ``` r
 # Retrieve L2G results for the gene PCSK9 with specified filters
 l2g_results <- studiesAndLeadVariantsForGeneByL2G(
-  genes = "PCSK9",
+  gene = "PCSK9",
   l2g = 0.6,
   pvalue = 1e-8,
   vtype = c("intergenic_variant", "intron_variant")
@@ -135,14 +128,14 @@ l2g_results %>% as_tibble()
 > A key strength of the L2G score is that it aggregates information over all credible set variants, rather than looking only at the distance from the lead GWAS variant to genes.
 
 
+## Example 4: Chromosomal Expedition
+
+- **Objective**: 🌌 Traverse the genomic landscape with `getLociGenes()`. Chart the composition of genes within any specified chromosomal region and obtain detailed information on each gene in a tidy dataframe.
+- **Function**: `getLociGenes()`
+- **Parameters**:
+  - `chromosome`, `start`, `end`: The geographic coordinates of your genomic exploration.
 
 
-**4. Obtain detailed information about all the genes present in a given region of a specified `chromosome`.**
-
-The `genes` query type in the Open Target Genetics `GraphQL` schema provides a convenient way to retrieve all the
-genes within a specific genomic region by supplying positional information. The wrapper function `getLociGenes()` in
-the `otargen` package allows you to execute this query and obtain a tidy table to gain insights
-into the genes located within the specified genomic region.
 ``` r
 # Retrieve genes within a genomic region on chromosome 2
 genes_table <- getLociGenes(chromosome = "2", start = 239634984, end = 241634984)
@@ -168,28 +161,28 @@ genes_table
 # ℹ Use `print(n = ...)` to see more rows
 ```
 
+## Example 5: ️Manhattan Plot Skylines
 
+- **Objective**: 🏙️ Construct manahatan plot from GWAS data combining two functions `manhattan()` and `plot_manhattan()`. As it is designed *manhatan plot* visualize the p-value peaks that rise from the genomic plains, marking the locations of significant associations.
+- **Function**: `manhattan()` followed by `plot_manhattan()`
+- **Parameters**:
+  - `study_id`: The identifier for the GWAS study of interest.
 
-**5. Plot data obtained from the *manhattan()* function.** 
-
-A Manhattan plot is commonly used to visualize GWAS summary data. It displays 
-the p-values (-log10(P)) of genetic variants across the genome, typically plotted against their respective chromosomal positions.
-`manhattan()` is the wrapper function 
-in `otargen` to retrieve variants summary statistics for a GWAS study. Now, it is not easy to go through 
-the large table of variants and see which variants has the most significant association, on the other hand, writing
-a nice looking code to render a Manhatan plot can be time consuming. `plot_manhatan()` in `otargen` dose the job 
-and all you need is to pipe the `manhatan()` output to it.
-
-
-Here's an example code snippet:
 
 
 ``` r
-manhattan(studyid = "GCST003044") %>% plot_manhattan()
+manhattan(study_id = "GCST003044") %>% plot_manhattan()
 ```
 
 <img src="plot_manhattan.png" align="left"/>
 
+## Example 6: PheWAS Plot Panorama
+
+- **Objective**: 🌍  Exploration associations of a specific variant across myriads of phenotype combining `pheWAS()` and `plot_phewas()`functions. `plot_phewas` allows to survey the landscape of trait associations with color-coded insights into disease relevance.
+- **Function**: `pheWAS()` followed by `plot_phewas()`
+- **Parameters**:
+  - `variant_id`: Identifier for the variant of interest.
+  - `disease`: A logical flag to filter for disease-associated traits.
 
 
 **6. Plot data obtained from the *PheWAS()* function.** 
@@ -204,25 +197,40 @@ to choose if you are only interested to keep disease associated variants in the 
 
 
 ``` r
-pheWAS(variantid = "14_87978408_G_A") %>% plot_phewas(disease = TRUE)
+pheWAS(variant_id = "14_87978408_G_A") %>% plot_phewas(disease = TRUE)
 ```
 
 <img src="plot_phewas.png" align="left"/>
 
+## Example 7: Navigating Genetic Insights with Radar Plots
 
+- **Objective**: 🌐 Use the radar plot as your navigational compass to interpret the complex output of  `studiesAndLeadVariantsForGeneByL2G()` by `plot_l2g()`. This visualization helps you to chart a course through all partial scores from L2G model to prioritizing gene-trait associations like waypoints on a radar screen guiding you for further exploration.
+- **Function**: `studiesAndLeadVariantsForGeneByL2G()` followed by `plot_l2g()`
+- **Parameters**:
+  - List of `gene`: Identifiers for genes of interest.
+- `disease` (optional): If specified, focuses the analysis on a single disease. Leave this parameter empty if you wish to be disease-agnostic and prioritize diseases for each gene based on their L2G model score associations.
 
-**7. Plot the scores obtained from the *studiesAndLeadVariantsForGeneByL2G()**
+- `top_n_disease` (default: `1`): Determines the number of top diseases to plot for each gene, ranked by L2G score. Increase this value to include more diseases in the analysis. Use in conjunction with being disease-agnostic to dynamically select the top diseases for each gene.
 
-In Example 3 we talked about `studiesAndLeadVariantsForGeneByL2G()` that returns a comprehensive data tables of L2G model statistics.
-Now using `plot_l2g()` allows you to generate pretty radar plots to compare the partial scores from L2G model between the list of genes
-that you are interested to priotise using these scores. In addition, `plot_l2g()` allows to plot only for specific disease by specifying
-a corresponding EFO id for `disease` parameter.
+- `l2g_cutoff` (default: `0.5`): Sets the minimum L2G score threshold for diseases to be considered in the plot. Increasing this value can help reduce plot clutter by focusing on higher-confidence associations.
 
 ``` r
 # Retrieve L2G model statistics for a list of genes
-l2g_results <- studiesAndLeadVariantsForGeneByL2G(list("ENSG00000167207","ENSG00000096968","ENSG00000138821", "ENSG00000125255"))
 
-# Generate radar plot of L2G scores
-plot_l2g(l2g_results, disease = "EFO_0003767")```
-
+genes = list("ENSG00000167207","ENSG00000096968","ENSG00000138821", "ENSG00000125255")
+l2g_results <- studiesAndLeadVariantsForGeneByL2G()
+```
+```r
+# Generate radar plot of L2G scores for Iflammatory bowel disease with EFO ID: "EFO_0003767"
+plot_l2g(l2g_results, disease = "EFO_0003767")
+```
 <img src="plot_l2g.png" align="left"/>
+
+```r
+
+# Generate radar plot of L2G scores (l2g score >0.8), without disease parameters specified. 
+plot_l2g(l2g_results,l2g_cutoff = 0.8)
+```
+<img src="plot_l2g_n.png" align="left"/>
+
+

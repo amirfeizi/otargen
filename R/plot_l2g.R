@@ -9,8 +9,9 @@
 #'
 #'
 #' @param data Data frame: result of \code{studiesAndLeadVariantsForGeneByL2G} function.
-#' @param disease_efo Character: input EFO id to filter the L2G data for a particular disease.
-#'
+#' @param disease_efo Character: Input EFO id to filter the L2G data for a particular disease.
+#' @param l2g_cutoff Numeric: Sets the minimum L2G score threshold for diseases to be considered in the plot.
+#' @param top_n_disease Numeric: Determines the number of top diseases to plot for each gene, ranked by L2G score.
 #' @return A radar plot for the input disease and the genes associated with that disease.
 #' The variables shown include L2G score, chromatin interaction, variant pathogenicity and distance.
 #'
@@ -28,7 +29,7 @@
 #'}
 #'
 
-plot_l2g <- function(data, disease_efo = NULL) {
+plot_l2g <- function(data, disease_efo = NULL, l2g_cutoff= 0.5, top_n_disease = 1) {
   # Exclude irrelevant trait categories
   exclude <- c("phenotype", "measurement", "Uncategorised", "biological process")
   data <- dplyr::filter(data, !study.traitCategory %in% exclude)
@@ -70,9 +71,11 @@ plot_l2g <- function(data, disease_efo = NULL) {
   } else {
     # Select top-scoring genes for each trait and plot in separate panels
     df <- df %>%
-      dplyr::group_by(Traits) %>%
+      dplyr::group_by(Gene_name) %>%
+      dplyr::filter(L2G_score >= l2g_cutoff) %>%
       dplyr::arrange(dplyr::desc(L2G_score)) %>%
-      head(n = 3) %>%
+      dplyr::slice_head(n=top_n_disease) %>%
+      dplyr::ungroup() %>%
       data.frame()
     df_data <- df[, 1:7]
 

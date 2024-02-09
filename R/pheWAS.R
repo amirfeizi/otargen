@@ -44,6 +44,7 @@
 #' novel genotype-phenotype relationships and pleiotropy discovery.” Genetic epidemiology vol. 35,5 (2011): 410-22. doi:10.1002/gepi.20589
 #'
 #'
+
 pheWAS <- function(variant_id) {
   # make connection to the endpoint
 
