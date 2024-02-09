@@ -232,7 +232,7 @@ pheWAS(variant_id = "14_87978408_G_A") %>% plot_phewas(disease = TRUE)
 # Retrieve L2G model statistics for a list of genes
 
 genes = list("ENSG00000167207","ENSG00000096968","ENSG00000138821", "ENSG00000125255")
-l2g_results <- studiesAndLeadVariantsForGeneByL2G()
+l2g_results <- studiesAndLeadVariantsForGeneByL2G(gene = genes)
 ```
 ```r
 # Generate radar plot of L2G scores for Iflammatory bowel disease with EFO ID: "EFO_0003767"
