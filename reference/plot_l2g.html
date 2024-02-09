@@ -20,7 +20,7 @@ based on existing traits/diseases in the outputs from studiesAndLeadVariantsForG
     
     <a class="navbar-brand me-2" href="../index.html">otargen</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -73,7 +73,7 @@ based on existing traits/diseases in the outputs from <code><a href="studiesAndL
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_l2g</span><span class="op">(</span><span class="va">data</span>, disease_efo <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_l2g</span><span class="op">(</span><span class="va">data</span>, disease_efo <span class="op">=</span> <span class="cn">NULL</span>, l2g_cutoff <span class="op">=</span> <span class="fl">0.5</span>, top_n_disease <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -83,7 +83,15 @@ based on existing traits/diseases in the outputs from <code><a href="studiesAndL
 
 
 <dt>disease_efo</dt>
-<dd><p>Character: input EFO id to filter the L2G data for a particular disease.</p></dd>
+<dd><p>Character: Input EFO id to filter the L2G data for a particular disease.</p></dd>
+
+
+<dt>l2g_cutoff</dt>
+<dd><p>Numeric: Sets the minimum L2G score threshold for diseases to be considered in the plot.</p></dd>
+
+
+<dt>top_n_disease</dt>
+<dd><p>Numeric: Determines the number of top diseases to plot for each gene, ranked by L2G score.</p></dd>
 
 </dl></div>
     <div class="section level2">

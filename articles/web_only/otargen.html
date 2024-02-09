@@ -28,7 +28,7 @@
     
     <a class="navbar-brand me-2" href="../../index.html">otargen</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -83,14 +83,27 @@
 
     
     
-<p><strong>1. Retrieve colocalisation data for one or more
-<code>genes</code>:</strong></p>
-<p>In this example, we retrieve colocalization data for one or more
-genes of interest. The data provides evidence that if genetic variants
-which are linked to both molecular traits and traits within shared
-genomic regions are identical. By utilizing the otargen , we can
-investigate these colocalization patterns and gain valuable insights for
-further analysis and interpretation.</p>
+<div class="section level2">
+<h2 id="example-1-unveiling-colocalisation-secrets">Example 1: Unveiling Colocalisation Secrets<a class="anchor" aria-label="anchor" href="#example-1-unveiling-colocalisation-secrets"></a>
+</h2>
+<ul>
+<li>
+<strong>Objective</strong>: 🕵️‍♂️ Explore shared genetic territories
+with <code><a href="../../reference/colocalisationsForGene.html">colocalisationsForGene()</a></code>. Peek into the genetic
+overlap that may influence multiple traits within the same genomic
+neighborhood.</li>
+<li>
+<strong>Function</strong>:
+<code><a href="../../reference/colocalisationsForGene.html">colocalisationsForGene()</a></code>
+</li>
+<li>
+<strong>Parameters</strong>:
+<ul>
+<li>
+<code>genes</code>: A vector of intriguing gene identifiers.</li>
+</ul>
+</li>
+</ul>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(otargen)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -119,13 +132,28 @@ further analysis and interpretation.</p>
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co"># ℹ 10 more variables: Title &lt;chr&gt;, Author &lt;chr&gt;, Has_sumstats &lt;lgl&gt;, numAssocLoci &lt;dbl&gt;,</span></span>
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">#   `nInitial cohort` &lt;dbl&gt;, study_nReplication &lt;dbl&gt;, study_nCases &lt;dbl&gt;, Publication_date &lt;chr&gt;,</span></span>
 <span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co">#   Journal &lt;chr&gt;, Pubmed_id &lt;chr&gt;</span></span></code></pre></div>
-<p><strong>2. Retrieve QTL credible set data </strong></p>
-<p>In this example, we utilize the <code><a href="../../reference/qtlCredibleSet.html">qtlCredibleSet()</a></code>
-function to fetch the credible set of tag variants. By specifying the
-<code>study ID</code>, <code>variant ID</code>, <code>gene</code>, and
-<code>biofeature</code>, we extract valuable information about the tag
-variants with a high probability of being associated with the trait of
-interest.</p>
+</div>
+<div class="section level2">
+<h2 id="example-2-quest-for-qtl-credible-set-data">Example 2: Quest for QTL Credible Set Data<a class="anchor" aria-label="anchor" href="#example-2-quest-for-qtl-credible-set-data"></a>
+</h2>
+<ul>
+<li>
+<strong>Objective</strong>: 🔍 Delve into QTLs data with
+<code><a href="../../reference/qtlCredibleSet.html">qtlCredibleSet()</a></code>. Unravel all tag variants and their
+connection to traits, one credible set at a time.</li>
+<li>
+<strong>Function</strong>: <code><a href="../../reference/qtlCredibleSet.html">qtlCredibleSet()</a></code>
+</li>
+<li>
+<strong>Parameters</strong>:
+<ul>
+<li>
+<code>study_id</code>, <code>variant_id</code>, <code>gene</code>,
+<code>biofeature</code>: Keys to unlock the treasure trove of QTL
+data.</li>
+</ul>
+</li>
+</ul>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve QTL credible set data</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>qtl_cred_set <span class="ot">&lt;-</span> <span class="fu">qtlCredibleSet</span>(<span class="at">studyid =</span> <span class="st">"Braineac2"</span>, <span class="at">variantid =</span> <span class="st">"rs7552841"</span>,</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                              <span class="at">gene =</span> <span class="st">"PCSK9"</span>, <span class="at">biofeature =</span> <span class="st">"SUBSTANTIA_NIGRA"</span>)</span>
@@ -141,26 +169,30 @@ interest.</p>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> 1_55246294_A_G              <span class="cn">NA</span> <span class="fl">0.000527554</span> <span class="fl">0.181065</span>  <span class="fl">0.670092</span> <span class="fl">0.001424974</span>       conditional <span class="fl">2.248554</span> <span class="cn">TRUE</span> <span class="cn">TRUE</span></span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> 1_55248288_C_T              <span class="cn">NA</span> <span class="fl">0.000650165</span> <span class="fl">0.182720</span>  <span class="fl">0.663849</span> <span class="fl">0.001293980</span>       conditional <span class="fl">2.152124</span> <span class="cn">TRUE</span> <span class="cn">TRUE</span></span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> 1_55248542_G_A              <span class="cn">NA</span> <span class="fl">0.000650880</span> <span class="fl">0.182789</span>  <span class="fl">0.664035</span> <span class="fl">0.001293430</span>       conditional <span class="fl">2.151698</span> <span class="cn">TRUE</span> <span class="cn">TRUE</span></span></code></pre></div>
-<p><strong>3. Retrieves L2G model summary data for
-<code>gene(s)</code>.</strong></p>
-<p>In this exemplary usage, we demonstrate the application of the
-<code><a href="../../reference/studiesAndLeadVariantsForGeneByL2G.html">studiesAndLeadVariantsForGeneByL2G()</a></code> function to obtain one
-of the core data tables provided by Open Target Genetics. The function
-utilizes the powerful “locus-to-gene” (L2G) model, which leverages
-genetic and functional genomics features to prioritize likely causal
-genes at each GWAS locus. By specifying the gene of interest and
-applying customized filters, we retrieve prioritization scores for the
-lead variants associated with our specified genes, as well as other
-genes sharing the same loci. The resulting data table is presented in
-the tidy and comprehensive tibble format, encompassing a wealth of
-scores and information pertaining to the L2G model, genetic variants,
-associated studies, and more. By conducting further analysis on these
-results, we can delve deeper into the intricate relationships between
-genes and traits, leading to groundbreaking insights and
-discoveries.</p>
+</div>
+<div class="section level2">
+<h2 id="example-3-l2g-model-data-odyssey">Example 3: L2G Model Data Odyssey<a class="anchor" aria-label="anchor" href="#example-3-l2g-model-data-odyssey"></a>
+</h2>
+<ul>
+<li><p><strong>Objective</strong>: 🚀 Navigate through the genetic
+cosmos with <code><a href="../../reference/studiesAndLeadVariantsForGeneByL2G.html">studiesAndLeadVariantsForGeneByL2G()</a></code>. L2G model
+is the core development of Open Target Genetics platform and it is your
+star map to identify potential causal genes across the GWAS
+universe.</p></li>
+<li><p><strong>Function</strong>:
+<code><a href="../../reference/studiesAndLeadVariantsForGeneByL2G.html">studiesAndLeadVariantsForGeneByL2G()</a></code></p></li>
+<li>
+<p><strong>Parameters</strong>:</p>
+<ul>
+<li>
+<code>gene</code>, <code>l2g</code>, <code>pvalue</code>,
+<code>vtype</code>: parameters to guide your exploration.</li>
+</ul>
+</li>
+</ul>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve L2G results for the gene PCSK9 with specified filters</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>l2g_results <span class="ot">&lt;-</span> <span class="fu">studiesAndLeadVariantsForGeneByL2G</span>(</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">genes =</span> <span class="st">"PCSK9"</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">gene =</span> <span class="st">"PCSK9"</span>,</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">l2g =</span> <span class="fl">0.6</span>,</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">pvalue =</span> <span class="fl">1e-8</span>,</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">vtype =</span> <span class="fu">c</span>(<span class="st">"intergenic_variant"</span>, <span class="st">"intron_variant"</span>)</span>
@@ -203,15 +235,28 @@ than 50%. A key strength of the L2G score is that it aggregates
 information over all credible set variants, rather than looking only at
 the distance from the lead GWAS variant to genes.</p>
 </blockquote>
-<p><strong>4. Obtain detailed information about all the genes present in
-a given region of a specified <code>chromosome</code>.</strong></p>
-<p>The <code>genes</code> query type in the Open Target Genetics
-<code>GraphQL</code> schema provides a convenient way to retrieve all
-the genes within a specific genomic region by supplying positional
-information. The wrapper function <code>getLociGenes()</code> in the
-<code>otargen</code> package allows you to execute this query and obtain
-a tidy table to gain insights into the genes located within the
-specified genomic region.</p>
+</div>
+<div class="section level2">
+<h2 id="example-4-chromosomal-expedition">Example 4: Chromosomal Expedition<a class="anchor" aria-label="anchor" href="#example-4-chromosomal-expedition"></a>
+</h2>
+<ul>
+<li>
+<strong>Objective</strong>: 🌌 Traverse the genomic landscape with
+<code><a href="../../reference/getLociGenes.html">getLociGenes()</a></code>. Chart the composition of genes within any
+specified chromosomal region and obtain detailed information on each
+gene in a tidy dataframe.</li>
+<li>
+<strong>Function</strong>: <code><a href="../../reference/getLociGenes.html">getLociGenes()</a></code>
+</li>
+<li>
+<strong>Parameters</strong>:
+<ul>
+<li>
+<code>chromosome</code>, <code>start</code>, <code>end</code>: The
+geographic coordinates of your genomic exploration.</li>
+</ul>
+</li>
+</ul>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve genes within a genomic region on chromosome 2</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>genes_table <span class="ot">&lt;-</span> <span class="fu">getLociGenes</span>(<span class="at">chromosome =</span> <span class="st">"2"</span>, <span class="at">start =</span> <span class="dv">239634984</span>, <span class="at">end =</span> <span class="dv">241634984</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -234,22 +279,60 @@ specified genomic region.</p>
 <span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> ENSG00000142327 RNPEPL1 protein_coding arginyl aminopeptidase like <span class="dv">1</span> [Source<span class="sc">:</span>HGNC S… <span class="dv">2</span>          <span class="fl">2.41e8</span> <span class="fl">2.41e8</span> <span class="fl">2.41e8</span> <span class="cn">TRUE</span>      <span class="sc">&lt;</span>int<span class="sc">&gt;</span></span>
 <span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co"># ℹ 17 more rows</span></span>
 <span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="co"># ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
-<p><strong>5. Plot data obtained from the <em>manhattan()</em>
-function.</strong></p>
-<p>A Manhattan plot is commonly used to visualize GWAS summary data. It
-displays the p-values (-log10(P)) of genetic variants across the genome,
-typically plotted against their respective chromosomal positions.
-<code><a href="../../reference/manhattan.html">manhattan()</a></code> is the wrapper function in <code>otargen</code>
-to retrieve variants summary statistics for a GWAS study. Now, it is not
-easy to go through the large table of variants and see which variants
-has the most significant association, on the other hand, writing a nice
-looking code to render a Manhatan plot can be time consuming.
-<code>plot_manhatan()</code> in <code>otargen</code> dose the job and
-all you need is to pipe the <code>manhatan()</code> output to it.</p>
-<p>Here’s an example code snippet:</p>
+</div>
+<div class="section level2">
+<h2 id="example-5-manhattan-plot-skylines">Example 5: ️Manhattan Plot Skylines<a class="anchor" aria-label="anchor" href="#example-5-manhattan-plot-skylines"></a>
+</h2>
+<ul>
+<li>
+<strong>Objective</strong>: 🏙️ Construct manahatan plot from GWAS
+data combining two functions <code><a href="../../reference/manhattan.html">manhattan()</a></code> and
+<code><a href="../../reference/plot_manhattan.html">plot_manhattan()</a></code>. As it is designed <em>manhatan plot</em>
+visualize the p-value peaks that rise from the genomic plains, marking
+the locations of significant associations.</li>
+<li>
+<strong>Function</strong>: <code><a href="../../reference/manhattan.html">manhattan()</a></code> followed by
+<code><a href="../../reference/plot_manhattan.html">plot_manhattan()</a></code>
+</li>
+<li>
+<strong>Parameters</strong>:
+<ul>
+<li>
+<code>study_id</code>: The identifier for the GWAS study of
+interest.</li>
+</ul>
+</li>
+</ul>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/manhattan.html">manhattan</a></span><span class="op">(</span>studyid <span class="op">=</span> <span class="st">"GCST003044"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../../reference/plot_manhattan.html">plot_manhattan</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/manhattan.html">manhattan</a></span><span class="op">(</span>study_id <span class="op">=</span> <span class="st">"GCST003044"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../../reference/plot_manhattan.html">plot_manhattan</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="plot_manhattan.png" align="left"></p>
+</div>
+<div class="section level2">
+<h2 id="example-6-phewas-plot-panorama">Example 6: PheWAS Plot Panorama<a class="anchor" aria-label="anchor" href="#example-6-phewas-plot-panorama"></a>
+</h2>
+<ul>
+<li>
+<strong>Objective</strong>: 🌍 Exploration associations of a
+specific variant across myriads of phenotype combining
+<code><a href="../../reference/pheWAS.html">pheWAS()</a></code> and <code><a href="../../reference/plot_phewas.html">plot_phewas()</a></code>functions.
+<code>plot_phewas</code> allows to survey the landscape of trait
+associations with color-coded insights into disease relevance.</li>
+<li>
+<strong>Function</strong>: <code><a href="../../reference/pheWAS.html">pheWAS()</a></code> followed by
+<code><a href="../../reference/plot_phewas.html">plot_phewas()</a></code>
+</li>
+<li>
+<strong>Parameters</strong>:
+<ul>
+<li>
+<code>variant_id</code>: Identifier for the variant of
+interest.</li>
+<li>
+<code>disease</code>: A logical flag to filter for
+disease-associated traits.</li>
+</ul>
+</li>
+</ul>
 <p><strong>6. Plot data obtained from the <em>PheWAS()</em>
 function.</strong></p>
 <p>A Phenome-Wide Association Study (PheWAS) analyzes the association
@@ -265,30 +348,60 @@ useful color codes to interpret those associations! It is even more fun,
 that the plot allows to choose if you are only interested to keep
 disease associated variants in the plot.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/pheWAS.html">pheWAS</a></span><span class="op">(</span>variantid <span class="op">=</span> <span class="st">"14_87978408_G_A"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../../reference/plot_phewas.html">plot_phewas</a></span><span class="op">(</span>disease <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/pheWAS.html">pheWAS</a></span><span class="op">(</span>variant_id <span class="op">=</span> <span class="st">"14_87978408_G_A"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../../reference/plot_phewas.html">plot_phewas</a></span><span class="op">(</span>disease <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="plot_phewas.png" align="left"></p>
-<p>**7. Plot the scores obtained from the
-*studiesAndLeadVariantsForGeneByL2G()**</p>
-<p>In Example 3 we talked about
-<code><a href="../../reference/studiesAndLeadVariantsForGeneByL2G.html">studiesAndLeadVariantsForGeneByL2G()</a></code> that returns a
-comprehensive data tables of L2G model statistics. Now using
-<code><a href="../../reference/plot_l2g.html">plot_l2g()</a></code> allows you to generate pretty radar plots to
-compare the partial scores from L2G model between the list of genes that
-you are interested to priotise using these scores. In addition,
-<code><a href="../../reference/plot_l2g.html">plot_l2g()</a></code> allows to plot only for specific disease by
-specifying a corresponding EFO id for <code>disease</code>
-parameter.</p>
-<p>``` r # Retrieve L2G model statistics for a list of genes l2g_results
-&lt;-
-studiesAndLeadVariantsForGeneByL2G(list(“ENSG00000167207”,“ENSG00000096968”,“ENSG00000138821”,
-“ENSG00000125255”))</p>
-<div class="section level2">
-<h2 id="generate-radar-plot-of-l2g-scores">Generate radar plot of L2G scores<a class="anchor" aria-label="anchor" href="#generate-radar-plot-of-l2g-scores"></a>
-</h2>
-<p>plot_l2g(l2g_results, disease = “EFO_0003767”)```</p>
-<p><img src="plot_l2g.png" align="left"></p>
 </div>
-  </main>
+<div class="section level2">
+<h2 id="example-7-navigating-genetic-insights-with-radar-plots">Example 7: Navigating Genetic Insights with Radar Plots<a class="anchor" aria-label="anchor" href="#example-7-navigating-genetic-insights-with-radar-plots"></a>
+</h2>
+<ul>
+<li><p><strong>Objective</strong>: 🌐 Use the radar plot as your
+navigational compass to interpret the complex output of
+<code><a href="../../reference/studiesAndLeadVariantsForGeneByL2G.html">studiesAndLeadVariantsForGeneByL2G()</a></code> by
+<code><a href="../../reference/plot_l2g.html">plot_l2g()</a></code>. This visualization helps you to chart a course
+through all partial scores from L2G model to prioritizing gene-trait
+associations like waypoints on a radar screen guiding you for further
+exploration.</p></li>
+<li><p><strong>Function</strong>:
+<code><a href="../../reference/studiesAndLeadVariantsForGeneByL2G.html">studiesAndLeadVariantsForGeneByL2G()</a></code> followed by
+<code><a href="../../reference/plot_l2g.html">plot_l2g()</a></code></p></li>
+<li>
+<p><strong>Parameters</strong>:</p>
+<ul>
+<li>List of <code>gene</code>: Identifiers for genes of interest.</li>
+</ul>
+</li>
+<li><p><code>disease</code> (optional): If specified, focuses the
+analysis on a single disease. Leave this parameter empty if you wish to
+be disease-agnostic and prioritize diseases for each gene based on their
+L2G model score associations.</p></li>
+<li><p><code>top_n_disease</code> (default: <code>1</code>): Determines
+the number of top diseases to plot for each gene, ranked by L2G score.
+Increase this value to include more diseases in the analysis. Use in
+conjunction with being disease-agnostic to dynamically select the top
+diseases for each gene.</p></li>
+<li><p><code>l2g_cutoff</code> (default: <code>0.5</code>): Sets the
+minimum L2G score threshold for diseases to be considered in the plot.
+Increasing this value can help reduce plot clutter by focusing on
+higher-confidence associations.</p></li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Retrieve L2G model statistics for a list of genes</span></span>
+<span></span>
+<span><span class="va">genes</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"ENSG00000167207"</span>,<span class="st">"ENSG00000096968"</span>,<span class="st">"ENSG00000138821"</span>, <span class="st">"ENSG00000125255"</span><span class="op">)</span></span>
+<span><span class="va">l2g_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/studiesAndLeadVariantsForGeneByL2G.html">studiesAndLeadVariantsForGeneByL2G</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Generate radar plot of L2G scores for Iflammatory bowel disease with EFO ID: "EFO_0003767"</span></span>
+<span><span class="fu"><a href="../../reference/plot_l2g.html">plot_l2g</a></span><span class="op">(</span><span class="va">l2g_results</span>, disease <span class="op">=</span> <span class="st">"EFO_0003767"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="plot_l2g.png" align="left"></p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Generate radar plot of L2G scores (l2g score &gt;0.8), without disease parameters specified. </span></span>
+<span><span class="fu"><a href="../../reference/plot_l2g.html">plot_l2g</a></span><span class="op">(</span><span class="va">l2g_results</span>,l2g_cutoff <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></span></code></pre></div>
+<p><img src="plot_l2g_n.png" align="left"></p>
+</div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 

@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">otargen</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,6 +51,21 @@
       
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.1.1" id="otargen-111">otargen 1.1.1<a class="anchor" aria-label="anchor" href="#otargen-111"></a></h2>
+<div class="section level4">
+<h4 id="updated-the-examples-article-1-1-1">Updated the examples article<a class="anchor" aria-label="anchor" href="#updated-the-examples-article-1-1-1"></a></h4>
+<ul><li>Fixed several inconsistencies between parameters naming in the functions used in the examples article and the main function in the package.</li>
+<li>Streamline the examples description to be short and organized.</li>
+<li>Added additional plotting case for example 7 for the additional parameters that has been added in the current version to the <code>plot_l2g</code> function.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="bug-fixes-1-1-1">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-1-1-1"></a></h4>
+<ul><li><p>Fixed and issue with the <code><a href="../reference/plot_l2g.html">plot_l2g()</a></code> function for the cases when the <code>disease</code> parameter were not selected. The previous function were plotting only top disease for one gene. The function now updated with two more parameters to expand the <code><a href="../reference/plot_l2g.html">plot_l2g()</a></code> functionality for plotting disease agnostic scenario. These two parameters are:</p></li>
+<li><p><code>top_n_disease</code> (default: <code>1</code>): Determines the number of top diseases to plot for each gene, ranked by L2G score. Increase this value to include more diseases in the analysis. Use in conjunction with being disease-agnostic to dynamically select the top diseases for each gene.</p></li>
+<li><p><code>l2g_cutoff</code> (default: <code>0.5</code>): Sets the minimum L2G score threshold for diseases to be considered in the plot. Increasing this value can help reduce plot clutter by focusing on higher-confidence associations.</p></li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.1.0" id="otargen-110">otargen 1.1.0<a class="anchor" aria-label="anchor" href="#otargen-110"></a></h2><p class="text-muted">CRAN release: 2023-12-12</p>
 <div class="section level4">
