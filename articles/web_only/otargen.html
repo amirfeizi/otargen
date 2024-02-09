@@ -393,7 +393,7 @@ higher-confidence associations.</p></li>
 <code class="sourceCode R"><span><span class="co"># Retrieve L2G model statistics for a list of genes</span></span>
 <span></span>
 <span><span class="va">genes</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"ENSG00000167207"</span>,<span class="st">"ENSG00000096968"</span>,<span class="st">"ENSG00000138821"</span>, <span class="st">"ENSG00000125255"</span><span class="op">)</span></span>
-<span><span class="va">l2g_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/studiesAndLeadVariantsForGeneByL2G.html">studiesAndLeadVariantsForGeneByL2G</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">l2g_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/studiesAndLeadVariantsForGeneByL2G.html">studiesAndLeadVariantsForGeneByL2G</a></span><span class="op">(</span>gene <span class="op">=</span> <span class="va">genes</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Generate radar plot of L2G scores for Iflammatory bowel disease with EFO ID: "EFO_0003767"</span></span>
 <span><span class="fu"><a href="../../reference/plot_l2g.html">plot_l2g</a></span><span class="op">(</span><span class="va">l2g_results</span>, disease <span class="op">=</span> <span class="st">"EFO_0003767"</span><span class="op">)</span></span></code></pre></div>
