@@ -11,78 +11,42 @@ vignette: >
 
 
 
-## Example 1: Unveiling Colocalisation Secrets
+## Example 1: Chromosomal Expedition
 
-- **Objective**: 🕵️‍♂️ Explore shared genetic territories with `colocalisationsForGene()`. Peek into the genetic overlap that may influence multiple traits within the same genomic neighborhood.
-- **Function**: `colocalisationsForGene()`
-- **Parameters**: 
-  - `genes`: A vector of intriguing gene identifiers.
-
-``` r
-library(otargen)
-
-
-# Specify the genes of interest
-genes_of_interest <- c("ENSG00000163946", "ENSG00000169174", "ENSG00000143001")
-
-# Retrieve colocalization data
-coloc_data <- colocalisationsForGene(genes = genes_of_interest)
-
-head(coloc_data)
-
-# A tibble: 668 × 20
-   Study    Trait_reported Lead_variant Molecular_trait Gene_symbol Tissue Source    H3    H4   `log2(H4/H3)`
-   <chr>    <chr>          <chr>        <chr>           <chr>       <chr>  <chr>  <dbl> <dbl>         <dbl>
- 1 GCST900… Mean platelet… 3_56619974_… TASOR           ENSG000001… blood  Lepik…     0     1         17.3 
- 2 GCST900… Direct low de… 1_55029009_… PCSK9           ENSG000001… iPSC   PhLiPS     0     1         11.4 
- 3 GCST900… Direct low de… 1_55029009_… PCSK9           ENSG000001… iPSC   iPSCO…     0     1         11.3 
- 4 GCST900… Direct low de… 1_55029009_… PCSK9           ENSG000001… iPSC   HipSci     0     1         11.3 
- 5 GCST900… High choleste… 1_55025188_… PCSK9           ENSG000001… tibia… GTEx-…     0     1         10.7 
- 6 NEALE2_… Yes, because … 1_55026242_… PCSK9           ENSG000001… tibia… GTEx-…     0     1         10.4 
- 7 SAIGE_2… Hyperlipidemia 1_55023869_… PCSK9           ENSG000001… lung   GTEx-…     0     1          9.82
- 8 SAIGE_2… Hypercholeste… 1_55023869_… PCSK9           ENSG000001… lung   GTEx-…     0     1          9.79
- 9 SAIGE_2… Disorders of … 1_55023869_… PCSK9           ENSG000001… lung   GTEx-…     0     1          9.77
-10 SAIGE_2… Hyperlipidemia 1_55023869_… PCSK9           ENSG000001… tibia… GTEx-…     0     1          9.77
-# ℹ 658 more rows
-# ℹ 10 more variables: Title <chr>, Author <chr>, Has_sumstats <lgl>, numAssocLoci <dbl>,
-#   `nInitial cohort` <dbl>, study_nReplication <dbl>, study_nCases <dbl>, Publication_date <chr>,
-#   Journal <chr>, Pubmed_id <chr>
-```
-
-
-
-
-## Example 2: Quest for QTL Credible Set Data
-
-- **Objective**: 🔍 Delve into QTLs data with `qtlCredibleSet()`. Unravel all tag variants and their connection to traits, one credible set at a time.
-- **Function**: `qtlCredibleSet()`
+- **Objective**: 🌌 Traverse the genomic landscape with `getLociGenes()`. Chart the composition of genes within any specified chromosomal region and obtain detailed information on each gene in a tidy dataframe.
+- **Function**: `getLociGenes()`
 - **Parameters**:
-  - `study_id`, `variant_id`, `gene`, `biofeature`: Keys to unlock the treasure trove of QTL data.
+  - `chromosome`, `start`, `end`: The geographic coordinates of your genomic exploration.
 
 
 ``` r
-# Retrieve QTL credible set data
-qtl_cred_set <- qtlCredibleSet(studyid = "Braineac2", variantid = "rs7552841",
-                              gene = "PCSK9", biofeature = "SUBSTANTIA_NIGRA")
+# Retrieve genes within a genomic region on chromosome 2
+genes_table <- getLociGenes(chromosome = "2", start = 239634984, end = 241634984)
 
-# Display the first few rows of the QTL credible set data
-head(qtl_cred_set)
+# Display the resulting table
+genes_table
 
 
-   tagVariant.id tagVariant.rsId        pval       se      beta    postProb MultisignalMethod   logABF is95 is99
-1 1_55052794_A_G              NA 0.000151568 0.166373 -0.681090 0.002299181       conditional 2.726953 TRUE TRUE
-2 1_55054539_G_A              NA 0.000482125 0.193346  0.721143 0.001422319       conditional 2.246689 TRUE TRUE
-3 1_55241800_A_G              NA 0.000634235 0.181505  0.660898 0.001326061       conditional 2.176614 TRUE TRUE
-4 1_55246294_A_G              NA 0.000527554 0.181065  0.670092 0.001424974       conditional 2.248554 TRUE TRUE
-5 1_55248288_C_T              NA 0.000650165 0.182720  0.663849 0.001293980       conditional 2.152124 TRUE TRUE
-6 1_55248542_G_A              NA 0.000650880 0.182789  0.664035 0.001293430       conditional 2.151698 TRUE TRUE
+# A tibble: 27 × 10
+   id              symbol  bioType        description                                   chromosome    tss  start    end fwdStrand exons
+   <chr>           <chr>   <chr>          <chr>                                         <chr>       <int>  <int>  <int> <lgl>     <lis>
+ 1 ENSG00000006607 FARP2   protein_coding FERM, ARH/RhoGEF and pleckstrin domain prote… 2          2.41e8 2.41e8 2.41e8 TRUE      <int>
+ 2 ENSG00000063660 GPC1    protein_coding glypican 1 [Source:HGNC Symbol;Acc:HGNC:4449] 2          2.40e8 2.40e8 2.40e8 TRUE      <int>
+ 3 ENSG00000115677 HDLBP   protein_coding high density lipoprotein binding protein [So… 2          2.41e8 2.41e8 2.41e8 FALSE     <int>
+ 4 ENSG00000115685 PPP1R7  protein_coding protein phosphatase 1 regulatory subunit 7 [… 2          2.41e8 2.41e8 2.41e8 TRUE      <int>
+ 5 ENSG00000115687 PASK    protein_coding PAS domain containing serine/threonine kinas… 2          2.41e8 2.41e8 2.41e8 FALSE     <int>
+ 6 ENSG00000115694 STK25   protein_coding serine/threonine kinase 25 [Source:HGNC Symb… 2          2.42e8 2.41e8 2.42e8 FALSE     <int>
+ 7 ENSG00000122085 MTERF4  protein_coding mitochondrial transcription termination fact… 2          2.41e8 2.41e8 2.41e8 FALSE     <int>
+ 8 ENSG00000130294 KIF1A   protein_coding kinesin family member 1A [Source:HGNC Symbol… 2          2.41e8 2.41e8 2.41e8 FALSE     <int>
+ 9 ENSG00000130414 NDUFA10 protein_coding NADH:ubiquinone oxidoreductase subunit A10 [… 2          2.40e8 2.40e8 2.40e8 FALSE     <int>
+10 ENSG00000142327 RNPEPL1 protein_coding arginyl aminopeptidase like 1 [Source:HGNC S… 2          2.41e8 2.41e8 2.41e8 TRUE      <int>
+# ℹ 17 more rows
+# ℹ Use `print(n = ...)` to see more rows
 ```
 
 
 
-
-
-## Example 3: L2G Model Data Odyssey
+## Example 2: L2G Model Data Odyssey
 
 - **Objective**: 🚀 Navigate through the genetic cosmos with `studiesAndLeadVariantsForGeneByL2G()`. L2G model is the core development of Open Target Genetics platform and it is your star map to identify potential causal genes across the GWAS universe.
 
@@ -133,40 +97,75 @@ l2g_results %>% as_tibble()
 
 
 
+## Example 3: Retrieving Colocalisation Data
+
+- **Objective**: 🕵️‍ Explore colocalization data for specified gene  with `colocalisationsForGene()`. Peek into the genetic overlap that may influence multiple traits within the same genomic neighborhood.
+- **Function**: `colocalisationsForGene()`
+- **Parameters**: 
+  - `genes`: A vector of intriguing gene identifiers.
+
+``` r
+library(otargen)
 
 
-## Example 4: Chromosomal Expedition
+# Specify the genes of interest
+genes_of_interest <- c("ENSG00000163946", "ENSG00000169174", "ENSG00000143001")
 
-- **Objective**: 🌌 Traverse the genomic landscape with `getLociGenes()`. Chart the composition of genes within any specified chromosomal region and obtain detailed information on each gene in a tidy dataframe.
-- **Function**: `getLociGenes()`
+# Retrieve colocalization data
+coloc_data <- colocalisationsForGene(genes = genes_of_interest)
+
+head(coloc_data)
+
+# A tibble: 668 × 20
+   Study    Trait_reported Lead_variant Molecular_trait Gene_symbol Tissue Source    H3    H4   `log2(H4/H3)`
+   <chr>    <chr>          <chr>        <chr>           <chr>       <chr>  <chr>  <dbl> <dbl>         <dbl>
+ 1 GCST900… Mean platelet… 3_56619974_… TASOR           ENSG000001… blood  Lepik…     0     1         17.3 
+ 2 GCST900… Direct low de… 1_55029009_… PCSK9           ENSG000001… iPSC   PhLiPS     0     1         11.4 
+ 3 GCST900… Direct low de… 1_55029009_… PCSK9           ENSG000001… iPSC   iPSCO…     0     1         11.3 
+ 4 GCST900… Direct low de… 1_55029009_… PCSK9           ENSG000001… iPSC   HipSci     0     1         11.3 
+ 5 GCST900… High choleste… 1_55025188_… PCSK9           ENSG000001… tibia… GTEx-…     0     1         10.7 
+ 6 NEALE2_… Yes, because … 1_55026242_… PCSK9           ENSG000001… tibia… GTEx-…     0     1         10.4 
+ 7 SAIGE_2… Hyperlipidemia 1_55023869_… PCSK9           ENSG000001… lung   GTEx-…     0     1          9.82
+ 8 SAIGE_2… Hypercholeste… 1_55023869_… PCSK9           ENSG000001… lung   GTEx-…     0     1          9.79
+ 9 SAIGE_2… Disorders of … 1_55023869_… PCSK9           ENSG000001… lung   GTEx-…     0     1          9.77
+10 SAIGE_2… Hyperlipidemia 1_55023869_… PCSK9           ENSG000001… tibia… GTEx-…     0     1          9.77
+# ℹ 658 more rows
+# ℹ 10 more variables: Title <chr>, Author <chr>, Has_sumstats <lgl>, numAssocLoci <dbl>,
+#   `nInitial cohort` <dbl>, study_nReplication <dbl>, study_nCases <dbl>, Publication_date <chr>,
+#   Journal <chr>, Pubmed_id <chr>
+```
+
+
+
+## Example 4: Quest for QTL Credible Set Data
+
+- **Objective**: 🔍 Delve into QTLs data with `qtlCredibleSet()`. Unravel all tag variants and their connection to traits, one credible set at a time.
+- **Function**: `qtlCredibleSet()`
 - **Parameters**:
-  - `chromosome`, `start`, `end`: The geographic coordinates of your genomic exploration.
+  - `study_id`, `variant_id`, `gene`, `biofeature`: Keys to unlock the treasure trove of QTL data.
 
 
 ``` r
-# Retrieve genes within a genomic region on chromosome 2
-genes_table <- getLociGenes(chromosome = "2", start = 239634984, end = 241634984)
+# Retrieve QTL credible set data
+qtl_cred_set <- qtlCredibleSet(studyid = "Braineac2", variantid = "rs7552841",
+                              gene = "PCSK9", biofeature = "SUBSTANTIA_NIGRA")
 
-# Display the resulting table
-genes_table
+# Display the first few rows of the QTL credible set data
+head(qtl_cred_set)
 
 
-# A tibble: 27 × 10
-   id              symbol  bioType        description                                   chromosome    tss  start    end fwdStrand exons
-   <chr>           <chr>   <chr>          <chr>                                         <chr>       <int>  <int>  <int> <lgl>     <lis>
- 1 ENSG00000006607 FARP2   protein_coding FERM, ARH/RhoGEF and pleckstrin domain prote… 2          2.41e8 2.41e8 2.41e8 TRUE      <int>
- 2 ENSG00000063660 GPC1    protein_coding glypican 1 [Source:HGNC Symbol;Acc:HGNC:4449] 2          2.40e8 2.40e8 2.40e8 TRUE      <int>
- 3 ENSG00000115677 HDLBP   protein_coding high density lipoprotein binding protein [So… 2          2.41e8 2.41e8 2.41e8 FALSE     <int>
- 4 ENSG00000115685 PPP1R7  protein_coding protein phosphatase 1 regulatory subunit 7 [… 2          2.41e8 2.41e8 2.41e8 TRUE      <int>
- 5 ENSG00000115687 PASK    protein_coding PAS domain containing serine/threonine kinas… 2          2.41e8 2.41e8 2.41e8 FALSE     <int>
- 6 ENSG00000115694 STK25   protein_coding serine/threonine kinase 25 [Source:HGNC Symb… 2          2.42e8 2.41e8 2.42e8 FALSE     <int>
- 7 ENSG00000122085 MTERF4  protein_coding mitochondrial transcription termination fact… 2          2.41e8 2.41e8 2.41e8 FALSE     <int>
- 8 ENSG00000130294 KIF1A   protein_coding kinesin family member 1A [Source:HGNC Symbol… 2          2.41e8 2.41e8 2.41e8 FALSE     <int>
- 9 ENSG00000130414 NDUFA10 protein_coding NADH:ubiquinone oxidoreductase subunit A10 [… 2          2.40e8 2.40e8 2.40e8 FALSE     <int>
-10 ENSG00000142327 RNPEPL1 protein_coding arginyl aminopeptidase like 1 [Source:HGNC S… 2          2.41e8 2.41e8 2.41e8 TRUE      <int>
-# ℹ 17 more rows
-# ℹ Use `print(n = ...)` to see more rows
+   tagVariant.id tagVariant.rsId        pval       se      beta    postProb MultisignalMethod   logABF is95 is99
+1 1_55052794_A_G              NA 0.000151568 0.166373 -0.681090 0.002299181       conditional 2.726953 TRUE TRUE
+2 1_55054539_G_A              NA 0.000482125 0.193346  0.721143 0.001422319       conditional 2.246689 TRUE TRUE
+3 1_55241800_A_G              NA 0.000634235 0.181505  0.660898 0.001326061       conditional 2.176614 TRUE TRUE
+4 1_55246294_A_G              NA 0.000527554 0.181065  0.670092 0.001424974       conditional 2.248554 TRUE TRUE
+5 1_55248288_C_T              NA 0.000650165 0.182720  0.663849 0.001293980       conditional 2.152124 TRUE TRUE
+6 1_55248542_G_A              NA 0.000650880 0.182789  0.664035 0.001293430       conditional 2.151698 TRUE TRUE
 ```
+
+
+
+
 
 
 
