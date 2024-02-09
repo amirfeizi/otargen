@@ -17,7 +17,7 @@
 
 ## Announcement :loudspeaker:
 
-For Python users, we're excited to announce that a Python version of our package is now available! :snake: :rocket: 
+For Python users, we're excited to announce that a Python version of our package is now available! :snake:
 
 Check out the repository here: [otargenpy on GitHub](https://github.com/amirfeizi/otargenpy)
 
