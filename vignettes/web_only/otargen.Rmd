@@ -50,6 +50,8 @@ head(coloc_data)
 ```
 
 
+
+
 ## Example 2: Quest for QTL Credible Set Data
 
 - **Objective**: 🔍 Delve into QTLs data with `qtlCredibleSet()`. Unravel all tag variants and their connection to traits, one credible set at a time.
@@ -75,6 +77,8 @@ head(qtl_cred_set)
 5 1_55248288_C_T              NA 0.000650165 0.182720  0.663849 0.001293980       conditional 2.152124 TRUE TRUE
 6 1_55248542_G_A              NA 0.000650880 0.182789  0.664035 0.001293430       conditional 2.151698 TRUE TRUE
 ```
+
+
 
 
 
@@ -128,6 +132,9 @@ l2g_results %>% as_tibble()
 > A key strength of the L2G score is that it aggregates information over all credible set variants, rather than looking only at the distance from the lead GWAS variant to genes.
 
 
+
+
+
 ## Example 4: Chromosomal Expedition
 
 - **Objective**: 🌌 Traverse the genomic landscape with `getLociGenes()`. Chart the composition of genes within any specified chromosomal region and obtain detailed information on each gene in a tidy dataframe.
@@ -161,6 +168,8 @@ genes_table
 # ℹ Use `print(n = ...)` to see more rows
 ```
 
+
+
 ## Example 5: ️Manhattan Plot Skylines
 
 - **Objective**: 🏙️ Construct manahatan plot from GWAS data combining two functions `manhattan()` and `plot_manhattan()`. As it is designed *manhatan plot* visualize the p-value peaks that rise from the genomic plains, marking the locations of significant associations.
@@ -175,6 +184,9 @@ manhattan(study_id = "GCST003044") %>% plot_manhattan()
 ```
 
 <img src="plot_manhattan.png" align="left"/>
+
+
+
 
 ## Example 6: PheWAS Plot Panorama
 
@@ -202,17 +214,19 @@ pheWAS(variant_id = "14_87978408_G_A") %>% plot_phewas(disease = TRUE)
 
 <img src="plot_phewas.png" align="left"/>
 
+
+
 ## Example 7: Navigating Genetic Insights with Radar Plots
 
 - **Objective**: 🌐 Use the radar plot as your navigational compass to interpret the complex output of  `studiesAndLeadVariantsForGeneByL2G()` by `plot_l2g()`. This visualization helps you to chart a course through all partial scores from L2G model to prioritizing gene-trait associations like waypoints on a radar screen guiding you for further exploration.
 - **Function**: `studiesAndLeadVariantsForGeneByL2G()` followed by `plot_l2g()`
 - **Parameters**:
   - List of `gene`: Identifiers for genes of interest.
-- `disease` (optional): If specified, focuses the analysis on a single disease. Leave this parameter empty if you wish to be disease-agnostic and prioritize diseases for each gene based on their L2G model score associations.
+  - `disease` (optional): If specified, focuses the analysis on a single disease. Leave this parameter empty if you wish to be disease-agnostic and prioritize diseases for each gene based on their L2G model score associations.
 
-- `top_n_disease` (default: `1`): Determines the number of top diseases to plot for each gene, ranked by L2G score. Increase this value to include more diseases in the analysis. Use in conjunction with being disease-agnostic to dynamically select the top diseases for each gene.
+  - `top_n_disease` (default: `1`): Determines the number of top diseases to plot for each gene, ranked by L2G score. Increase this value to include more diseases in the analysis. Use in conjunction with being disease-agnostic to dynamically select the top diseases for each gene.
 
-- `l2g_cutoff` (default: `0.5`): Sets the minimum L2G score threshold for diseases to be considered in the plot. Increasing this value can help reduce plot clutter by focusing on higher-confidence associations.
+  - `l2g_cutoff` (default: `0.5`): Sets the minimum L2G score threshold for diseases to be considered in the plot. Increasing this value can help reduce plot clutter by focusing on higher-confidence associations.
 
 ``` r
 # Retrieve L2G model statistics for a list of genes
