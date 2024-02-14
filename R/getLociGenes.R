@@ -33,7 +33,7 @@
 #'
 
 
-get_genes <- function(chromosome, start, end) {
+getLociGenes <- function(chromosome, start, end) {
   ## Set up to query Open Targets Genetics API
   variables <- list(chromosome = chromosome, start = start, end = end)
 tryCatch({

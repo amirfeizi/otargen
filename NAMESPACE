@@ -3,7 +3,7 @@
 export(colocalisationsForGene)
 export(geneInfo)
 export(genesForVariant)
-export(get_genes)
+export(getLociGenes)
 export(gwasColocalisation)
 export(gwasColocalisationForRegion)
 export(gwasCredibleSet)

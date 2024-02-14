@@ -23,6 +23,7 @@
 #' @importFrom magrittr %>%
 #' @export
 #'
+#'
 plot_phewas <- function(data, disease = TRUE, source = c("GCST", "FINNGEN", "NEALE", "SAIGE")) {
   # Prepare the data
   dt0 <- data

@@ -63,7 +63,6 @@ plot_manhattan <- function(data) {
   # Set p-value cutoff
   p_cutoff <- 10e-8
 
-  p_cutoff <- 10e-8
   # Make the plot
   plt <- ggplot2::ggplot(gwasResults, ggplot2::aes(x=BPcum, y=-log10(P))) +
 

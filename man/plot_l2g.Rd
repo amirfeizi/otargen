@@ -4,12 +4,16 @@
 \alias{plot_l2g}
 \title{Radar plot for L2G partial scores from \code{studiesAndLeadVariantsForGeneByL2G()}}
 \usage{
-plot_l2g(data, disease_efo = NULL)
+plot_l2g(data, disease_efo = NULL, l2g_cutoff = 0.5, top_n_disease = 1)
 }
 \arguments{
 \item{data}{Data frame: result of \code{studiesAndLeadVariantsForGeneByL2G} function.}
 
-\item{disease_efo}{Character: input EFO id to filter the L2G data for a particular disease.}
+\item{disease_efo}{Character: Input EFO id to filter the L2G data for a particular disease.}
+
+\item{l2g_cutoff}{Numeric: Sets the minimum L2G score threshold for diseases to be considered in the plot.}
+
+\item{top_n_disease}{Numeric: Determines the number of top diseases to plot for each gene, ranked by L2G score.}
 }
 \value{
 A radar plot for the input disease and the genes associated with that disease.

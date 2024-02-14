@@ -1,3 +1,18 @@
+# otargen 1.1.1
+
+### Updated the examples article
+  * Fixed several inconsistencies between parameters naming in the functions used in the examples article and the
+  main function in the package.
+  * Streamline the examples description to be short and organized.
+  * Added additional plotting case for example 7 for the additional parameters that has been added in the current version to the `plot_l2g` function. 
+  
+### Bug Fixes
+  * Fixed and issue with the `plot_l2g()` function for the cases when the `disease` parameter were not selected. 
+  The previous function were plotting only top disease for one gene. The function now updated with two more parameters to expand the `plot_l2g()` functionality for plotting disease agnostic scenario. These two parameters are:
+  - `top_n_disease` (default: `1`): Determines the number of top diseases to plot for each gene, ranked by L2G score. Increase this value to include more diseases in the analysis. Use in conjunction with being disease-agnostic to dynamically select the top diseases for each gene.
+
+- `l2g_cutoff` (default: `0.5`): Sets the minimum L2G score threshold for diseases to be considered in the plot. Increasing this value can help reduce plot clutter by focusing on higher-confidence associations.
+
 # otargen 1.1.0
 
 ### Bug Fixes
