@@ -13,11 +13,12 @@ jobs:
 
       - name: Update CRAN Download Badge
         run: |
-          cran_url="https://cranlogs.r-pkg.org/badges/grand-total/otargen"
-          downloads=$(curl -s "$cran_url")
-          sed -i -e "s#CRAN Downloads.*#CRAN Downloads ![CRAN Downloads]($cran_url) (${downloads})#g" README.md
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-          git commit -m "Update CRAN download badge" README.md || true
-          git push origin HEAD:main
+              cran_url="https://cranlogs.r-pkg.org/badges/grand-total/otargen"
+              downloads=$(curl -s "$cran_url")
+              sed -i -e "s#CRAN Downloads.*#CRAN Downloads [![CRAN Downloads]($cran_url) ($downloads)]#g" README.md
+              git config --global user.name "GitHub Actions"
+              git config --global user.email "actions@github.com"
+              git commit -m "Update CRAN download badge" README.md || true
+              git push origin HEAD:main
+
 
