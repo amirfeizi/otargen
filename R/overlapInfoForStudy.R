@@ -44,7 +44,6 @@ tryCatch({
   otg_qry <- ghql::Query$new()
 
   variables <- list(studyId = study_id, studyIds = study_ids)
-  variables <- list(studyId = "GCST90002357", studyIds = list("GCST90025975", "GCST90025962"))
 
   query <- "query overlapinfostudyquery($studyId: String!, $studyIds: [String!]!) {
     overlapInfoForStudy(studyId: $studyId, studyIds: $studyIds) {

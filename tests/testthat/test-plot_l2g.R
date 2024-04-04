@@ -23,3 +23,4 @@ test_that("test plot_l2g works", {
     expect_true(FALSE, "An error occurred in plotting.")
   })
 })
+
