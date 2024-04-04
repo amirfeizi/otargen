@@ -1,3 +1,5 @@
+# otargen 1.1.3
+
 # otargen 1.1.2
 
 ### Bug fixed for `overlapInfoForStudy()` function.
