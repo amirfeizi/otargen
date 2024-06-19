@@ -23,7 +23,6 @@ Check out the repository here: [otargenpy on GitHub](https://github.com/amirfeiz
 
 👨‍💻 **Regular Updates**: Stay abreast of the latest in Open Target Genetics with our commitment to continuous improvement and feature expansion.
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,6 +59,9 @@ Check out the repository here: [otargenpy on GitHub](https://github.com/amirfeiz
     </div>
 </body>
 </html>
+
+
+
 
 ### Installation
 Get started with `otargen` from CRAN:
