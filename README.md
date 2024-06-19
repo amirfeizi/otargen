@@ -15,13 +15,13 @@
 Check out the repository here: [otargenpy on GitHub](https://github.com/amirfeizi/otargenpy). `otargenpy` has all the capabilities of `otargen`, We encourage you to try it out and provide us with feedback!
 
 ### Key Features
-🚀 Effortless Data Retrieval: Easily access and transform complex GraphQL queries.
+🚀 **Effortless Data Retrieval**: Easily access and transform complex GraphQL queries.
 
-📈 Insightful Visualizations: Clearly visualize complex datasets with intuitive plots.
+📈 **Insightful Visualizations**: Clearly visualize complex datasets with intuitive plots.
 
-📖 Comprehensive Documentation: Well-documented functions for easy integration.
+📖 **Comprehensive Documentation**: Well-documented functions for easy integration.
 
-👨‍💻 Regular Updates: Stay updated with new features and improvements.
+👨‍💻 **Regular Updates**: Stay updated with new features and improvements.
 
 
 
