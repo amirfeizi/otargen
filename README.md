@@ -8,7 +8,7 @@
 
 
 ## Streamlined Tidy Data Access to Open Target Genetics GraphQL API🔍
-`otargen` is an innovative, open-source R package for easy data retrieval and analysis from [Open Target Genetics](https://genetics.opentargets.org). It brings simplicity and power to your R environment, enhancing your research with advanced data handling and visualization tools.
+`otargen` is an open-source R package for easy data retrieval and analysis from [Open Target Genetics](https://genetics.opentargets.org). It brings simplicity and power to your R environment, enhancing your research with advanced data handling and visualization tools.
 
 :loudspeaker: `otargenpy`  is available for python users :snake: `pip install otargenpy`
 
