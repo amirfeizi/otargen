@@ -11,7 +11,8 @@
 `otargen` is an innovative, open-source R package for easy data retrieval and analysis from [Open Target Genetics](https://genetics.opentargets.org). It brings simplicity and power to your R environment, enhancing your research with advanced data handling and visualization tools.
 
 :loudspeaker: `otargenpy`  is available for python users :snake: `pip install otargenpy`
-Check out the repository here: [otargenpy on GitHub](https://github.com/amirfeizi/otargenpy). This version brings the capabilities of `otargen` to the Python community, We encourage you to try it out and provide feedback!
+
+Check out the repository here: [otargenpy on GitHub](https://github.com/amirfeizi/otargenpy). `otargenpy` has all the capabilities of `otargen`, We encourage you to try it out and provide us with feedback!
 
 ### Key Features
 🚀 **Effortless Data Retrieval**: Access comprehensive GraphQL query types with user-friendly functions, transforming complex queries into tidy, analysis-ready data tables.
