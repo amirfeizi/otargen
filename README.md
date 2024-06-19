@@ -15,51 +15,13 @@
 Check out the repository here: [otargenpy on GitHub](https://github.com/amirfeizi/otargenpy). `otargenpy` has all the capabilities of `otargen`, We encourage you to try it out and provide us with feedback!
 
 ### Key Features
-🚀 **Effortless Data Retrieval**: Access comprehensive GraphQL query types with user-friendly functions, transforming complex queries into tidy, analysis-ready data tables.
+🚀 Effortless Data Retrieval: Easily access and transform complex GraphQL queries.
 
-📈 **Insightful Visualizations**: Deploy intuitive plotting functions for a clear view of complex datasets, uncovering hidden patterns and insights.
+📈 Insightful Visualizations: Clearly visualize complex datasets with intuitive plots.
 
-📖 **Comprehensive Documentation**: Each function is thoroughly documented, ensuring a smooth integration into your workflow and a clear understanding of the results.
+📖 Comprehensive Documentation: Well-documented functions for easy integration.
 
-👨‍💻 **Regular Updates**: Stay abreast of the latest in Open Target Genetics with our commitment to continuous improvement and feature expansion.
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        .feature-box {
-            background-color: lightgray;
-            padding: 20px;
-            margin: 10px;
-            border-radius: 5px;
-        }
-        .feature-title {
-            font-weight: bold;
-        }
-    </style>
-</head>
-<body>
-    <div class="feature-box">
-        <div class="feature-title">🚀 Effortless Data Retrieval</div>
-        <!-- Additional content can be added here if needed -->
-    </div>
-    <div class="feature-box">
-        <div class="feature-title">📈 Insightful Visualizations</div>
-        <!-- Additional content can be added here if needed -->
-    </div>
-    <div class="feature-box">
-        <div class="feature-title">📖 Comprehensive Documentation</div>
-        <!-- Additional content can be added here if needed -->
-    </div>
-    <div class="feature-box">
-        <div class="feature-title">👨‍💻 Regular Updates</div>
-        <!-- Additional content can be added here if needed -->
-    </div>
-</body>
-</html>
-
+👨‍💻 Regular Updates: Stay updated with new features and improvements.
 
 
 
