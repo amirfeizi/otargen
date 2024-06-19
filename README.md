@@ -23,6 +23,44 @@ Check out the repository here: [otargenpy on GitHub](https://github.com/amirfeiz
 
 👨‍💻 **Regular Updates**: Stay abreast of the latest in Open Target Genetics with our commitment to continuous improvement and feature expansion.
 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .feature-box {
+            background-color: lightgray;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 5px;
+        }
+        .feature-title {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="feature-box">
+        <div class="feature-title">🚀 Effortless Data Retrieval</div>
+        <!-- Additional content can be added here if needed -->
+    </div>
+    <div class="feature-box">
+        <div class="feature-title">📈 Insightful Visualizations</div>
+        <!-- Additional content can be added here if needed -->
+    </div>
+    <div class="feature-box">
+        <div class="feature-title">📖 Comprehensive Documentation</div>
+        <!-- Additional content can be added here if needed -->
+    </div>
+    <div class="feature-box">
+        <div class="feature-title">👨‍💻 Regular Updates</div>
+        <!-- Additional content can be added here if needed -->
+    </div>
+</body>
+</html>
+
 ### Installation
 Get started with `otargen` from CRAN:
 
