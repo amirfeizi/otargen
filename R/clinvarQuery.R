@@ -11,8 +11,10 @@
 #' @return Returns a data frame containing ClinVar data for the specified gene and disease.
 #' @examples
 #' \dontrun{
-#' result <- clinvarQuery(ensemblId = "ENSG00000130164", efoId = "EFO_0004911", size = 10)
-#' result <- clinvarQuery(ensemblId = "ENSG00000130164", efoId = "EFO_0004911", size = 10, cursor = "WzAuOTcsIjE3MTY5MTRjM2Y0NmVmMTY0ZjFmY2YxY2VmY2U3Zjg2YzMyNDFmMmEiXQ==")
+#' result <- clinvarQuery(ensemblId = "ENSG00000130164",
+#'  efoId = "EFO_0004911", size = 10)
+#' result <- clinvarQuery(ensemblId = "ENSG00000130164",
+#'  efoId = "EFO_0004911", size = 10, cursor = NULL)
 #' }
 #' @importFrom magrittr %>%
 #' @export

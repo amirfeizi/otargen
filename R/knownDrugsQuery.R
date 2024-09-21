@@ -12,7 +12,8 @@
 #' @examples
 #' \dontrun{
 #' result <- knownDrugsQuery(ensgId = "ENSG00000169174", size = 10)
-#' result <- knownDrugsQuery(ensgId = "ENSG00000169174", cursor = NULL, freeTextQuery = NULL, size = 10)
+#' result <- knownDrugsQuery(ensgId = "ENSG00000169174",
+#'  cursor = NULL, freeTextQuery = NULL, size = 10)
 #' }
 #' @importFrom magrittr %>%
 #' @export
