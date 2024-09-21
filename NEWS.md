@@ -1,4 +1,16 @@
 # otargen 1.1.5
+### Resubmission to CRAN 
+### Added frequently requested query functions from Open Target to the package
+  * chemblQuery(): This function queries the Open Targets GraphQL API to retrieve ChEMBL data
+for a specified gene and disease, including evidence from the ChEMBL datasource.
+  * clinvarQuery(): #' This function queries the Open Targets  GraphQL API to retrieve ClinVar data
+for a specified gene and disease, including evidence from the NCBI datasource.
+  * knownDrugsQuery(): This function queries the Open Targets  GraphQL API to retrieve known drugs data
+for a specified gene.
+  *  This function queries the Open Targets  GraphQL API to retrieve mouse phenotypes data
+for a specified gene.
+  *  compGenomicsQuery() This function queries the Open Targets  GraphQL API to retrieve comparative genomics data
+for a specified gene.
 
 # otargen 1.1.4
 
