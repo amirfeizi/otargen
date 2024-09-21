@@ -30,6 +30,12 @@ reference:
   - studyInfo
   - variantInfo
   - studyVariants
+  - chemblQuery
+  - clinvarQuery
+  - compGenomicsQuery
+  - geneticConstraintQuery
+  - knownDrugsQuery
+  - mousePhenotypesQuery
 
 - title: Plotting functions
   contents:
