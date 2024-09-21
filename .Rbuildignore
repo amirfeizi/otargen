@@ -12,3 +12,7 @@
 ^derby.log$
 ^CRAN-SUBMISSION$
 ^cran-comments\.md$
+^.Rhistory$
+^.Rprofile$
+^.Renviron$
+^.*gitcreds.*

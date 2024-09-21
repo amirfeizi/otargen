@@ -24,7 +24,9 @@ for a specified gene and disease, including evidence from the ChEMBL datasource.
 }
 \examples{
 \dontrun{
-result <- chemblQuery(ensemblId = "ENSG00000169174", efoId = "EFO_0004911", size = 10)
-result <- chemblQuery(ensemblId = "ENSG00000169174", efoId = "EFO_0004911", size = 10, cursor = NULL)
+result <- chemblQuery(ensemblId = "ENSG00000169174",
+ efoId = "EFO_0004911", size = 10)
+result <- chemblQuery(ensemblId = "ENSG00000169174",
+ efoId = "EFO_0004911", size = 10, cursor = NULL)
 }
 }

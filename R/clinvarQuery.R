@@ -1,7 +1,7 @@
 #' Retrieve ClinVar data for a specified gene and disease.
 #'
 #' This function queries the Open Targets Genetics GraphQL API to retrieve ClinVar data
-#' for a specified gene and disease, including evidence from the EVA datasource.
+#' for a specified gene and disease, including evidence from the NCBI datasource.
 #'
 #' @param ensemblId Character: ENSEMBL ID of the target gene (e.g., ENSG00000130164).
 #' @param efoId Character: EFO ID of the disease (e.g., EFO_0004911).

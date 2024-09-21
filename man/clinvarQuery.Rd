@@ -20,11 +20,13 @@ Returns a data frame containing ClinVar data for the specified gene and disease.
 }
 \description{
 This function queries the Open Targets Genetics GraphQL API to retrieve ClinVar data
-for a specified gene and disease, including evidence from the EVA datasource.
+for a specified gene and disease, including evidence from the NCBI datasource.
 }
 \examples{
 \dontrun{
-result <- clinvarQuery(ensemblId = "ENSG00000130164", efoId = "EFO_0004911", size = 10)
-result <- clinvarQuery(ensemblId = "ENSG00000130164", efoId = "EFO_0004911", size = 10, cursor = "WzAuOTcsIjE3MTY5MTRjM2Y0NmVmMTY0ZjFmY2YxY2VmY2U3Zjg2YzMyNDFmMmEiXQ==")
+result <- clinvarQuery(ensemblId = "ENSG00000130164",
+ efoId = "EFO_0004911", size = 10)
+result <- clinvarQuery(ensemblId = "ENSG00000130164",
+ efoId = "EFO_0004911", size = 10, cursor = NULL)
 }
 }
