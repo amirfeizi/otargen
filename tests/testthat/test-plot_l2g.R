@@ -1,4 +1,5 @@
 test_that("test plot_l2g works", {
+  skip_on_cran()
   # Try-Catch Block to Handle Errors Gracefully
   tryCatch({
     # Perform the operations and store the results

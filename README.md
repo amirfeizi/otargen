@@ -3,7 +3,7 @@
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/otargen?color=blue)](https://CRAN.R-project.org/package=otargen)
 [![Downloads](https://cranlogs.r-pkg.org/badges/otargen?color=yellow)](https://CRAN.R-project.org/package=otargen)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg?color=green)](https://opensource.org/licenses/MIT)
-[![Build Status](https://travis-ci.org/your-username/your-repository.svg?branch=master)](https://travis-ci.org/your-username/your-repository)
+[![Build Status](https://app.travis-ci.com/your-username/your-repository.svg?branch=master)](https://app.travis-ci.com/your-username/your-repository)
 
 
 
@@ -38,7 +38,8 @@ devtools::install_github("https://github.com/amirfeizi/otargen.git")
 ```
 
 ### Citing otargen :raising_hand_man:
-Please cite `otargen` if you use it in your research. [Bioinformatics](https://academic.oup.com/bioinformatics/article/39/8/btad441/7226507).
+Please cite `otargen` if you use it in your research. [Bioinformatics](https://doi.org/10.1093/bioinformatics/btad441).
+
 ```
 Feizi, Amir, and Kamalika Ray. "otargen: GraphQL-based R package for tidy data accessing and processing from Open Targets Genetics." Bioinformatics 39.8 (2023): btad441.
 ```

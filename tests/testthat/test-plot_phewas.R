@@ -1,4 +1,5 @@
 test_that("test plot_phewas works", {
+  skip_on_cran()
   expected_1 <- otargen::pheWAS(variant_id = "14_87978408_G_A") %>% otargen::plot_phewas(disease = TRUE)
   expected_2 <- otargen::pheWAS(variant_id = "rs55808324") %>% otargen::plot_phewas()
   expect_s3_class(expected_1, "ggplot")

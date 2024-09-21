@@ -2,7 +2,7 @@ Package: otargen
 Type: Package
 Title: Access Open Target Genetics
 Version: 1.1.5
-Date: 2024-02-09
+Date: 2024-09-21
 Authors@R: c(
     person("Amir", "Feizi", role = c("aut", "cre"), email = "afeizi@gmail.com"),
     person("Kamalika", "Ray", role = "aut"))

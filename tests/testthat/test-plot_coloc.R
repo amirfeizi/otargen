@@ -1,4 +1,5 @@
 test_that("test plot_coloc works", {
+  skip_on_cran()
   expected_1 <- otargen::colocalisationsForGene(gene = "ENSG00000169174") %>% otargen::plot_coloc(biobank = TRUE)
   expected_2 <- otargen::colocalisationsForGene(gene = c("ENSG00000167207","ENSG00000096968","ENSG00000138821", "ENSG00000125255")) %>%
                 otargen::plot_coloc()

@@ -1,4 +1,5 @@
 test_that("test studiesAndLeadVariantsForGeneByL2G works", {
+  skip_on_cran()
   expected_1 <- otargen::studiesAndLeadVariantsForGeneByL2G(gene="ENSG00000169174")
   expected_2 <- otargen::studiesAndLeadVariantsForGeneByL2G(gene=list("PCSK9", "TASOR"))
   expect_s3_class(expected_1, "data.frame")

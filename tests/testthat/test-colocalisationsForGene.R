@@ -1,4 +1,5 @@
 test_that("test colocalisationsForGene works", {
+  skip_on_cran()
   expected_1 <- otargen::colocalisationsForGene(genes = "ENSG00000169174")
   expected_2 <- otargen::colocalisationsForGene(genes = c("ENSG00000163946", "ENSG00000169174", "ENSG00000143001"))
   expected_3 <- otargen::colocalisationsForGene(genes = c("TP53", "TASOR", "PCSK9"))

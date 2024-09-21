@@ -1,4 +1,5 @@
 test_that("test geneInfo works", {
+  skip_on_cran()
   expected_1 <- otargen::geneInfo(gene="ENSG00000004864")
   expected_2 <- otargen::geneInfo(gene="PCSK9")
   expect_s3_class(expected_1, "data.frame")

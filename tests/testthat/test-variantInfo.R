@@ -1,4 +1,5 @@
 test_that("test variantInfo works", {
+  skip_on_cran()
   expected_1 <- otargen::variantInfo(variant_id = "1_55039974_G_T")
   expected_2 <- otargen::variantInfo(variant_id = "rs11591147")
   expect_s3_class(expected_1, "data.frame")
