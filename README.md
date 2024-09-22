@@ -16,21 +16,26 @@ In this new release, several frequently requested query functions from Open Targ
 
 
 - `chemblQuery()`: Queries the Open Targets GraphQL API to retrieve ChEMBL data for a specified gene and disease, including evidence from the ChEMBL datasource. 
+
 ▶️ _These data are key in evaluating the tractability of a target._
 
 
 - `clinvarQuery()`: Queries the Open Targets GraphQL API to retrieve ClinVar data for a specified gene and disease, including evidence from the NCBI datasource. 
+
 ▶️ _These data are key to evaluating the target's mechanism of action (MoA) and disease biology._
 
 
 - `knownDrugsQuery()`: Queries the Open Targets GraphQL API to retrieve known drug data for a specified gene.
+
 ▶️ _These data are key to evaluating the competitive landscape of a target._
 
 - `mousePhenotypesQuery()`: Queries the Open Targets GraphQL API to retrieve mouse phenotypes data for a specified gene.
+
 ▶️ _These data are key in target validation._
 
 
 - `compGenomicsQuery()`: Queries the Open Targets GraphQL API to retrieve comparative genomics data for a specified gene.
+
 ▶️ _These data are key in evaluating the safety of a target._
 
 
