@@ -45,7 +45,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
 </form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/amirfeizi/otargen"><span class="fa fa-github"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/amirfeizi/otargen" aria-label="GitHub repository"><span class="fa fa-github"></span></a></li>
       </ul>
 </div>
 
@@ -59,11 +59,27 @@
 </h1></div>
 <p><a href="https://CRAN.R-project.org/package=otargen" class="external-link"><img src="https://www.r-pkg.org/badges/version/otargen?color=blue" alt="CRAN_Status_Badge"></a> <a href="https://CRAN.R-project.org/package=otargen" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/otargen?color=yellow" alt="Downloads"></a> <a href="https://opensource.org/licenses/MIT" class="external-link"><img src="https://img.shields.io/badge/License-MIT-blue.svg?color=green" alt="License"></a> <a href="https://app.travis-ci.com/your-username/your-repository" class="external-link"><img src="https://app.travis-ci.com/your-username/your-repository.svg?branch=master" alt="Build Status"></a></p>
 <div class="section level2">
-<h2 id="streamlined-tidy-data-access-to-open-target-genetics-graphql-api">Streamlined Tidy Data Access to Open Target Genetics GraphQL API🔍<a class="anchor" aria-label="anchor" href="#streamlined-tidy-data-access-to-open-target-genetics-graphql-api"></a>
+<h2 id="streamlined-tidy-data-access-to-open-targets-genetics-graphql-api-">Streamlined Tidy Data Access to Open Targets Genetics GraphQL API 🔍<a class="anchor" aria-label="anchor" href="#streamlined-tidy-data-access-to-open-targets-genetics-graphql-api-"></a>
 </h2>
-<p><code>otargen</code> is an open-source R package for easy data retrieval and analysis from <a href="https://genetics.opentargets.org" class="external-link">Open Target Genetics</a>. It brings simplicity in scale to analsye human genetic evidances for gene-trait/diseases associations from R environment, enhancing your research with advanced data handling and visualization tools.</p>
-<p><span class="emoji" data-emoji="loudspeaker">📢</span> <code>otargenpy</code> is available for python users <span class="emoji" data-emoji="snake">🐍</span> <code>pip install otargenpy</code></p>
-<p>Check out the repository here: <a href="https://github.com/amirfeizi/otargenpy" class="external-link">otargenpy on GitHub</a>. <code>otargenpy</code> has all the capabilities of <code>otargen</code>, We encourage you to try it out and provide us with feedback!</p>
+<p><code>otargen</code> is an open-source R package for easy data retrieval and analysis from <a href="https://genetics.opentargets.org" class="external-link">Open Targets Genetics</a>. It simplifies the analysis of human genetic evidence for gene-trait/disease associations within the R environment, enhancing your research with advanced data handling and visualization tools.</p>
+<hr>
+<p><span class="emoji" data-emoji="loudspeaker">📢</span> <strong>otargen 1.1.5</strong></p>
+<p>In this new release, several frequently requested query functions from Open Targets’ GraphQL API have been added to expand the package’s functionality in accessing key data for drug target evaluation. Additionally, multiple technical bugs have been fixed to improve the efficiency of data retrieval from previous query functions. The newly added query functions include:</p>
+<p>▶️ <em>These data are key in evaluating the tractability of a target.</em> - <code><a href="reference/chemblQuery.html">chemblQuery()</a></code>: Queries the Open Targets GraphQL API to retrieve ChEMBL data for a specified gene and disease, including evidence from the ChEMBL datasource.</p>
+<p>▶️ <em>These data are key to evaluating the target’s mechanism of action (MoA) and disease biology.</em> - <code><a href="reference/clinvarQuery.html">clinvarQuery()</a></code>: Queries the Open Targets GraphQL API to retrieve ClinVar data for a specified gene and disease, including evidence from the NCBI datasource.</p>
+<p>▶️ <em>These data are key to evaluating the competitive landscape of a target.</em> - <code><a href="reference/knownDrugsQuery.html">knownDrugsQuery()</a></code>: Queries the Open Targets GraphQL API to retrieve known drug data for a specified gene.</p>
+<p>▶️ <em>These data are key in target validation.</em> - <code><a href="reference/mousePhenotypesQuery.html">mousePhenotypesQuery()</a></code>: Queries the Open Targets GraphQL API to retrieve mouse phenotypes data for a specified gene.</p>
+<p>▶️ <em>These data are key in evaluating the safety of a target.</em> - <code><a href="reference/compGenomicsQuery.html">compGenomicsQuery()</a></code>: Queries the Open Targets GraphQL API to retrieve comparative genomics data for a specified gene.</p>
+<hr>
+<div class="section level3">
+<h3 id="citing-otargen-is-important-for-us-️">Citing <code>otargen</code> is important for us 🙋‍♂️<a class="anchor" aria-label="anchor" href="#citing-otargen-is-important-for-us-%EF%B8%8F"></a>
+</h3>
+<p>Please cite <code>otargen</code> if you use it in your research 🙏. <a href="https://doi.org/10.1093/bioinformatics/btad441" class="external-link">Bioinformatics</a>.</p>
+<hr>
+<p><span class="emoji" data-emoji="loudspeaker">📢</span> <strong><code>otargenpy</code> is available for Python users</strong> 🐍<br>
+Install via pip: <code>pip install otargenpy</code></p>
+<p>Check out the repository here: <a href="https://github.com/amirfeizi/otargenpy" class="external-link">otargenpy on GitHub</a>. <code>otargenpy</code> has all the capabilities of <code>otargen</code>. We encourage you to try it out and provide us with feedback!</p>
+</div>
 <div class="section level3">
 <h3 id="key-features">Key Features<a class="anchor" aria-label="anchor" href="#key-features"></a>
 </h3>
@@ -81,13 +97,6 @@
 <p>Or install the latest development version from GitHub:</p>
 <pre><code><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://devtools.r-lib.org/" class="external-link">"devtools"</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"https://github.com/amirfeizi/otargen.git"</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="section level3">
-<h3 id="citing-otargen-raising_hand_man">Citing otargen <span class="emoji" data-emoji="raising_hand_man">🙋‍♂️</span>
-<a class="anchor" aria-label="anchor" href="#citing-otargen-raising_hand_man"></a>
-</h3>
-<p>Please cite <code>otargen</code> if you use it in your research. <a href="https://doi.org/10.1093/bioinformatics/btad441" class="external-link">Bioinformatics</a>.</p>
-<pre><code>Feizi, Amir, and Kamalika Ray. "otargen: GraphQL-based R package for tidy data accessing and processing from Open Targets Genetics." Bioinformatics 39.8 (2023): btad441.</code></pre>
 </div>
 <div class="section level3">
 <h3 id="community-and-contributions">Community and Contributions<a class="anchor" aria-label="anchor" href="#community-and-contributions"></a>
