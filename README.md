@@ -15,30 +15,26 @@
 
 In this new release, several frequently requested query functions from Open Target are added to the package to expand the package functionality in accessing data that are key in evaluating drug targets. In addition, multiple technical bugs has been fixed to increase the efficiency of the previous  query functions data retrieval. The added new query functions include:
 
+▶️ _These data are key in evaluating the tractability of a target._
 -  ` chemblQuery()`: This function queries the Open Targets GraphQL API to retrieve ChEMBL data
 for a specified gene and disease, including evidence from the ChEMBL datasource. 
 
-▶️ _These data are key in evaluating the tractability of a target._
-  
+▶️ _These data are key in evaluating the target MoA and disease biology._
 -  `clinvarQuery()`:  This function queries the Open Targets  GraphQL API to retrieve ClinVar data
 for a specified gene and disease, including evidence from the NCBI datasource. 
 
-▶️ _These data are key in evaluating the target MoA and disease biology._
-  
+▶️ _These data are key to evaluate the competitive landscape of a target._
 - `knownDrugsQuery()`: This function queries the Open Targets  GraphQL API to retrieve known drugs data
 for a specified gene. 
 
-▶️ _These data are key to evaluate the competitive landscape of a target._
- 
+▶️ _These data are key in evaluating the target validation._
 - `mousePhenotypesQuery()`: This function queries the Open Targets  GraphQL API to retrieve mouse phenotypes data
 for a specified gene. 
 
-▶️ _These data are key in evaluating the target validation._
- 
+▶️ _These data are key in evaluating the safety of a target._ 
 -  `compGenomicsQuery()`: This function queries the Open Targets  GraphQL API to retrieve comparative genomics data
 for a specified gene. 
 
-▶️ _These data are key in evaluating the safety of a target._ 
 
 **Citing otargen in important for us** :raising_hand_man:
 Please cite `otargen` if you use it in your research 🙏🏻 : . [Bioinformatics](https://doi.org/10.1093/bioinformatics/btad441).
