@@ -5,50 +5,44 @@ template:
 development:
   mode: auto
 
-
 reference:
-- title: Query functions
-  contents:
-  - colocalisationsForGene
-  - genesForVariant
-  - gwasColocalisation
-  - gwasColocalisationForRegion
-  - gwasCredibleSet
-  - gwasRegional
-  - manhattan
-  - overlapInfoForStudy
-  - pheWAS
-  - qtlColocalisationVariantQuery
-  - qtlCredibleSet
-  - studiesAndLeadVariantsForGeneByL2G
-  - studyLocus2GeneTable
-  - tagVariantsAndStudiesForIndexVariant
-  - indexVariantsAndStudiesForTagVariant
-  - topOverlappedStudies
-  - getLociGenes
-  - geneInfo
-  - studyInfo
-  - variantInfo
-  - studyVariants
-  - chemblQuery
-  - clinvarQuery
-  - compGenomicsQuery
-  - geneticConstraintQuery
-  - knownDrugsQuery
-  - mousePhenotypesQuery
+  - title: Query functions
+    contents:
+      - colocalisationsForGene
+      - genesForVariant
+      - gwasColocalisation
+      - gwasColocalisationForRegion
+      - gwasCredibleSet
+      - gwasRegional
+      - manhattan
+      - overlapInfoForStudy
+      - pheWAS
+      - qtlColocalisationVariantQuery
+      - qtlCredibleSet
+      - studiesAndLeadVariantsForGeneByL2G
+      - studyLocus2GeneTable
+      - tagVariantsAndStudiesForIndexVariant
+      - indexVariantsAndStudiesForTagVariant
+      - topOverlappedStudies
+      - getLociGenes
+      - geneInfo
+      - studyInfo
+      - variantInfo
+      - studyVariants
+      - chemblQuery
+      - clinvarQuery
+      - compGenomicsQuery
+      - geneticConstraintQuery
+      - knownDrugsQuery
+      - mousePhenotypesQuery
 
-- title: Plotting functions
-  contents:
-  - starts_with("plot")
+  - title: Plotting functions
+    contents:
+      - starts_with("plot")
 
-- title: Custom query function
-  contents:
-  - run_custom_query
-
-- name: Upload coverage reports to Codecov
-  uses: codecov/codecov-action@v3
-  env:
-    CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+  - title: Custom query function
+    contents:
+      - run_custom_query
 
 news:
   text: Changelog
@@ -56,7 +50,7 @@ news:
 
 navbar:
   structure:
-    left:  [intro, reference, articles, news]
+    left: [intro, reference, articles, news]
   components:
     reference:
       text: Functions
@@ -64,7 +58,4 @@ navbar:
     github:
       icon: fa-github
       href: https://github.com/amirfeizi/otargen
-
-
-
-
+      aria-label: "GitHub repository"

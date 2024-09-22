@@ -7,7 +7,7 @@ for a specified gene and disease, including evidence from the ChEMBL datasource.
 for a specified gene and disease, including evidence from the NCBI datasource.
   * knownDrugsQuery(): This function queries the Open Targets  GraphQL API to retrieve known drugs data
 for a specified gene.
-  *  This function queries the Open Targets  GraphQL API to retrieve mouse phenotypes data
+  *  mousePhenotypesQuery(): This function queries the Open Targets  GraphQL API to retrieve mouse phenotypes data
 for a specified gene.
   *  compGenomicsQuery() This function queries the Open Targets  GraphQL API to retrieve comparative genomics data
 for a specified gene.
