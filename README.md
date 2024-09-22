@@ -14,24 +14,29 @@
 
 In this new release, several frequently requested query functions from Open Targets' GraphQL API have been added to expand the package's functionality in accessing key data for drug target evaluation. Additionally, multiple technical bugs have been fixed to improve the efficiency of data retrieval from previous query functions. The newly added query functions include:
 
+
+- `chemblQuery()`: Queries the Open Targets GraphQL API to retrieve ChEMBL data for a specified gene and disease, including evidence from the ChEMBL datasource. 
 ▶️ _These data are key in evaluating the tractability of a target._
-- `chemblQuery()`: Queries the Open Targets GraphQL API to retrieve ChEMBL data for a specified gene and disease, including evidence from the ChEMBL datasource.
 
+
+- `clinvarQuery()`: Queries the Open Targets GraphQL API to retrieve ClinVar data for a specified gene and disease, including evidence from the NCBI datasource. 
 ▶️ _These data are key to evaluating the target's mechanism of action (MoA) and disease biology._
-- `clinvarQuery()`: Queries the Open Targets GraphQL API to retrieve ClinVar data for a specified gene and disease, including evidence from the NCBI datasource.
 
-▶️ _These data are key to evaluating the competitive landscape of a target._
+
 - `knownDrugsQuery()`: Queries the Open Targets GraphQL API to retrieve known drug data for a specified gene.
+▶️ _These data are key to evaluating the competitive landscape of a target._
 
-▶️ _These data are key in target validation._
 - `mousePhenotypesQuery()`: Queries the Open Targets GraphQL API to retrieve mouse phenotypes data for a specified gene.
+▶️ _These data are key in target validation._
 
-▶️ _These data are key in evaluating the safety of a target._
+
 - `compGenomicsQuery()`: Queries the Open Targets GraphQL API to retrieve comparative genomics data for a specified gene.
+▶️ _These data are key in evaluating the safety of a target._
+
 
 ---
 
-### Citing `otargen` is important for us 🙋‍♂️
+### Citing `otargen` is important for us 🙋‍
 Please cite `otargen` if you use it in your research 🙏. [Bioinformatics](https://doi.org/10.1093/bioinformatics/btad441).
 
 ---
