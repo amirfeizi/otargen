@@ -17,22 +17,27 @@ In this new release, several frequently requested query functions from Open Targ
 
 -  ` chemblQuery()`: This function queries the Open Targets GraphQL API to retrieve ChEMBL data
 for a specified gene and disease, including evidence from the ChEMBL datasource. 
+
 ▶️ _These data are key in evaluating the tractability of a target._
   
 -  `clinvarQuery()`:  This function queries the Open Targets  GraphQL API to retrieve ClinVar data
 for a specified gene and disease, including evidence from the NCBI datasource. 
+
 ▶️ _These data are key in evaluating the target MoA and disease biology._
   
 - `knownDrugsQuery()`: This function queries the Open Targets  GraphQL API to retrieve known drugs data
 for a specified gene. 
+
 ▶️ _These data are key to evaluate the competitive landscape of a target._
  
 - `mousePhenotypesQuery()`: This function queries the Open Targets  GraphQL API to retrieve mouse phenotypes data
 for a specified gene. 
+
 ▶️ _These data are key in evaluating the target validation._
  
 -  `compGenomicsQuery()`: This function queries the Open Targets  GraphQL API to retrieve comparative genomics data
 for a specified gene. 
+
 ▶️ _These data are key in evaluating the safety of a target._ 
 
 **Citing otargen in important for us** :raising_hand_man:
@@ -67,13 +72,6 @@ Or install the latest development version from GitHub:
 ```
 if (!require("devtools")) install.packages("devtools")
 devtools::install_github("https://github.com/amirfeizi/otargen.git")
-```
-
-### Citing otargen :raising_hand_man:
-Please cite `otargen` if you use it in your research. [Bioinformatics](https://doi.org/10.1093/bioinformatics/btad441).
-
-```
-Feizi, Amir, and Kamalika Ray. "otargen: GraphQL-based R package for tidy data accessing and processing from Open Targets Genetics." Bioinformatics 39.8 (2023): btad441.
 ```
 
 ### Community and Contributions
