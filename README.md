@@ -20,16 +20,16 @@ In this new release, several frequently requested query functions from Open Targ
 ▶️ _These data are key in evaluating the tractability of a target._
 
 
-- `clinvarQuery()`: Queries the Open Targets GraphQL API to retrieve ClinVar data for a specified gene and disease, including evidence from the NCBI datasource. 
+- `clinvarQuery()`: Queries the Open Targets GraphQL API to retrieve ClinVar data for a specified gene and disease from the NCBI datasource. 
 
-▶️ _These data are key to evaluating the target's mechanism of action (MoA) and disease biology._
+▶️ _These data are key to evaluate the target's mechanism of action (MoA) and disease biology._
 
 
-- `knownDrugsQuery()`: Queries the Open Targets GraphQL API to retrieve known drug data for a specified gene.
+- `knownDrugsQuery()`: Queries the Open Target's GraphQL API to retrieve information of known drug for a specified gene.
 
-▶️ _These data are key to evaluating the competitive landscape of a target._
+▶️ _These data are key to evaluate the competitive landscape of a target._
 
-- `mousePhenotypesQuery()`: Queries the Open Targets GraphQL API to retrieve mouse phenotypes data for a specified gene.
+- `mousePhenotypesQuery()`: Queries the Open Target's GraphQL API to retrieve mouse phenotypes data for a specified gene.
 
 ▶️ _These data are key in target validation._
 
@@ -41,7 +41,7 @@ In this new release, several frequently requested query functions from Open Targ
 
 ---
 
-### Citing `otargen` is important for us 🙋‍
+### Support `otargen` by citing it 🙋‍
 Please cite `otargen` if you use it in your research 🙏. [Bioinformatics](https://doi.org/10.1093/bioinformatics/btad441).
 
 ---
