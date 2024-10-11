@@ -3,7 +3,7 @@
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/otargen?color=blue)](https://CRAN.R-project.org/package=otargen)
 [![Downloads](https://cranlogs.r-pkg.org/badges/otargen?color=yellow)](https://CRAN.R-project.org/package=otargen)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg?color=green)](https://opensource.org/licenses/MIT)
-[![Build Status](https://app.travis-ci.com/your-username/your-repository.svg?branch=master)](https://app.travis-ci.com/your-username/your-repository)
+
 
 ## Streamlined Tidy Data Access to Open Targets Genetics GraphQL API 🔍
 `otargen` is an open-source R package for easy data retrieval and analysis from [Open Targets Genetics](https://genetics.opentargets.org). It simplifies the analysis of human genetic evidence for gene-trait/disease associations within the R environment, enhancing your research with advanced data handling and visualization tools.
