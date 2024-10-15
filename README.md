@@ -38,7 +38,7 @@ In this new release, several frequently requested query functions from Open Targ
 
 ▶️ _These data are key in evaluating the safety of a target._
 
-
+---
 ### Installation
 Get started with `otargen` from CRAN:
 
