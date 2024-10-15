@@ -39,6 +39,19 @@ In this new release, several frequently requested query functions from Open Targ
 ▶️ _These data are key in evaluating the safety of a target._
 
 
+### Installation
+Get started with `otargen` from CRAN:
+
+```r
+install.packages("otargen")
+```
+
+Or install the latest development version from GitHub:
+```
+if (!require("devtools")) install.packages("devtools")
+devtools::install_github("https://github.com/amirfeizi/otargen.git")
+```
+
 ---
 
 ### Citing `otargen` is important for us 🙋‍
@@ -59,19 +72,6 @@ Check out the repository here: [otargenpy on GitHub](https://github.com/amirfeiz
 📖 **Comprehensive Documentation**: Well-documented functions for easy integration.
 
 👨‍💻 **Regular Updates**: Stay updated with new features and improvements.
-
-### Installation
-Get started with `otargen` from CRAN:
-
-```r
-install.packages("otargen")
-```
-
-Or install the latest development version from GitHub:
-```
-if (!require("devtools")) install.packages("devtools")
-devtools::install_github("https://github.com/amirfeizi/otargen.git")
-```
 
 ### Community and Contributions
 Join the `otargen` community on [GitHub](https://github.com/amirfeizi/otargen) and contribute to its growth. We welcome bug reports, feature suggestions, and code contributions.
