@@ -1,24 +1,22 @@
-#' Retrieve ClinVar data for a specified gene and disease.
+#' Retrieve Orphanet data for a specified gene and disease.
 #'
-#' This function queries the Open Targets Genetics GraphQL API to retrieve ClinVar evidence data
+#' This function queries the Open Targets Genetics GraphQL API to retrieve Orphanet evidence data
 #' for a specified gene and disease.
 #'
 #' @param ensemblId Character: ENSEMBL ID of the target gene (e.g., "ENSG00000080815").
 #' @param efoId Character: EFO ID of the target disease (e.g., "MONDO_0004975").
-#' @param cursor Character: Cursor for pagination (default: NULL).
-#' @param size Integer: Number of records to retrieve (default: 10).
+#' @param size Integer: Number of records to retrieve (default: 3500).
 #'
-#' @return Returns a tibble containing ClinVar evidence data for the specified gene and disease.
+#' @return Returns a tibble containing Orphanet evidence data for the specified gene and disease.
 #' @examples
 #' \dontrun{
-#' result <- clinVarQuery(ensemblId = "ENSG00000080815", efoId = "MONDO_0004975", size = 10)
-#' result <- clinVarQuery(ensemblId = "ENSG00000080815", efoId = "MONDO_0004975", cursor = NULL, size = 10)
+#' result <- orphanetQuery(ensemblId = "ENSG00000080815", efoId = "MONDO_0004975", size = 3500)
 #' }
 #' @importFrom magrittr %>%
 #' @importFrom tibble as_tibble
 #' @export
 #'
-clinVarQuery <- function(ensemblId, efoId, cursor = NULL, size = 10) {
+orphanetQuery <- function(ensemblId, efoId, size = 3500) {
   if (missing(ensemblId) || is.null(ensemblId)) {
     stop("Please provide a value for the 'ensemblId' argument.")
   }
@@ -32,88 +30,67 @@ clinVarQuery <- function(ensemblId, efoId, cursor = NULL, size = 10) {
     con <- ghql::GraphqlClient$new("https://api.platform.opentargets.org/api/v4/graphql")
     qry <- ghql::Query$new()
     
-    # Define base query with placeholders
-    query <- "query ClinvarQuery($ensemblId: String!, $efoId: String!, $size: Int!{optional_cursor}) {
+    query <- "query OrphanetQuery($ensemblId: String!, $efoId: String!, $size: Int!) {
       target(ensemblId: $ensemblId) {
         approvedSymbol
       }
       disease(efoId: $efoId) {
         id
-        name
-        eva: evidences(
+        orphanetSummary: evidences(
           ensemblIds: [$ensemblId]
           enableIndirect: true
-          datasourceIds: [\"eva\"]
+          datasourceIds: [\"orphanet\"]
           size: $size
-          {cursor_param}
         ) {
-          cursor
           count
           rows {
+            target {
+              id
+              approvedSymbol
+            }
             disease {
               id
               name
             }
-            variant {
-              id
-              hgvsId
-              referenceAllele
-              alternateAllele
-            }
             variantEffect
             directionOnTrait
             diseaseFromSource
-            variantRsId
-            studyId
+            diseaseFromSourceId
+            diseaseFromSourceMappedId
+            targetFromSource
+            targetFromSourceId
+            alleleOrigins
+            confidence
+            literature
             variantFunctionalConsequence {
               id
               label
             }
-            clinicalSignificances
-            allelicRequirements
-            alleleOrigins
-            confidence
-            literature
-            cohortPhenotypes
           }
         }
       }
     }"
-    
-    # Conditionally include cursor in query and variables
-    if (!is.null(cursor)) {
-      query <- sub("\\{optional_cursor\\}", ", $cursor: String", query)
-      query <- sub("\\{cursor_param\\}", "cursor: $cursor", query)
-    } else {
-      query <- sub("\\{optional_cursor\\}", "", query)
-      query <- sub("\\{cursor_param\\}", "", query)
-    }
     
     variables <- list(
       ensemblId = ensemblId,
       efoId = efoId,
       size = size
     )
-    if (!is.null(cursor)) {
-      variables$cursor <- cursor
-    }
     
-    qry$query(name = "getClinvarData", x = query)
+    qry$query(name = "getOrphanetData", x = query)
     
     cli::cli_progress_step(paste0("Downloading data for ENSEMBL ID: ", ensemblId, " and EFO ID: ", efoId, " ..."), spinner = TRUE)
     
     # Execute the query
-    output0 <- con$exec(qry$queries$getClinvarData, variables)
+    output0 <- con$exec(qry$queries$getOrphanetData, variables)
     output1 <- jsonlite::fromJSON(output0, flatten = TRUE)
     
-    if (length(output1$data$disease$eva$rows) != 0) {
-      final_output <- tibble::as_tibble(output1$data$disease$eva$rows) %>%
+    if (length(output1$data$disease$orphanetSummary$rows) != 0) {
+      final_output <- tibble::as_tibble(output1$data$disease$orphanetSummary$rows) %>%
         dplyr::mutate(
           approvedSymbol = output1$data$target$approvedSymbol,
           diseaseId = output1$data$disease$id,
-          diseaseName = output1$data$disease$name,
-          evaCount = output1$data$disease$eva$count,
-          cursor = output1$data$disease$eva$cursor
+          orphanetCount = output1$data$disease$orphanetSummary$count
         )
       return(final_output)
     } else {

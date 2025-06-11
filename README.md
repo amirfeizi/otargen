@@ -1,79 +1,114 @@
+Sure! Here's the updated `README.md` content for **`otargen 2.0.0`** in one complete code block:
+
+````markdown
 # <img src="man/figures/logo.jpg" align="right" width="120" />
 
-[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/otargen?color=blue)](https://CRAN.R-project.org/package=otargen)
-[![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/otargen?color=yellow)](https://CRAN.R-project.org/package=otargen)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/otargen?color=blue)](https://CRAN.R-project.org/package=otargen)  
+[![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/otargen?color=yellow)](https://CRAN.R-project.org/package=otargen)  
 [![License](https://img.shields.io/badge/License-MIT-blue.svg?color=green)](https://opensource.org/licenses/MIT)
 
+---
 
-## Streamlined Tidy Data Access to Open Targets Genetics GraphQL API 🔍
-`otargen` is an open-source R package for easy data retrieval and analysis from [Open Targets Genetics](https://genetics.opentargets.org). It simplifies the analysis of human genetic evidence for gene-trait/disease associations within the R environment, enhancing your research with advanced data handling and visualization tools.
+## Unified Access to Open Targets Platform Data 🔍  
+`otargen` is an open-source R package that provides a streamlined and tidy interface for retrieving and analyzing drug target data from [Open Targets Platform](https://platform.opentargets.org). It enables researchers to access gene-disease associations, target safety, tractability, evidence types, and more — all within the R environment.
 
 ---
 
-:loudspeaker: **otargen 1.1.5**
+### :mega: **otargen 2.0.0 — Major Release**
 
-In this new release, several frequently requested query functions from Open Targets' GraphQL API have been added to expand the package's functionality in accessing key data for drug target evaluation. Additionally, multiple technical bugs have been fixed to improve the efficiency of data retrieval from previous query functions. The newly added query functions include:
-
-
-- `chemblQuery()`: Queries the Open Targets GraphQL API to retrieve ChEMBL data for a specified gene and disease, including evidence from the ChEMBL datasource. 
-
-▶️ _These data are key in evaluating the tractability of a target._
-
-
-- `clinvarQuery()`: Queries the Open Targets GraphQL API to retrieve ClinVar data for a specified gene and disease, including evidence from the NCBI datasource. 
-
-▶️ _These data are key to evaluating the target's mechanism of action (MoA) and disease biology._
-
-
-- `knownDrugsQuery()`: Queries the Open Targets GraphQL API to retrieve known drug data for a specified gene.
-
-▶️ _These data are key to evaluating the competitive landscape of a target._
-
-- `mousePhenotypesQuery()`: Queries the Open Targets GraphQL API to retrieve mouse phenotypes data for a specified gene.
-
-▶️ _These data are key in target validation._
-
-
-- `compGenomicsQuery()`: Queries the Open Targets GraphQL API to retrieve comparative genomics data for a specified gene.
-
-▶️ _These data are key in evaluating the safety of a target._
+🚨 **Important Notice**: Following [Open Targets' announcement](https://community.opentargets.org/t/open-targets-genetics-will-be-deprecated-on-9-july-2025/1796), Open Targets Genetics has been officially merged into the Open Targets Platform API. Consequently, **`otargen 2.0.0` represents a complete overhaul** of the package’s functionality to support this unified API endpoint and schema.
 
 ---
+
+### 🆕 What's New in 2.0.0
+
+- 🔁 **Unified API Integration**: Full migration from the deprecated Open Targets Genetics GraphQL API to the new Platform GraphQL API.
+- 🔍 **Expanded Query Support**: Includes all major data types now available in the merged schema.
+- 📘 **Updated Documentation**: All help files and vignettes have been rewritten to reflect new function usage.
+- 📄 **New Example Articles**: Learn to use the new API queries with fresh, practical use cases.
+
+---
+
+⚠️ **Deprecated**:  
+All query functions from version `1.1.5` are **deprecated** in `2.0.0`. They are no longer supported due to changes in the backend API.  
+👉 We **highly recommend** upgrading to `2.0.0` by installing it from CRAN or GitHub.
+
+---
+
 ### Installation
-Get started with `otargen` from CRAN:
 
+**From CRAN:**
 ```r
 install.packages("otargen")
-```
+````
 
-Or install the latest development version from GitHub:
-```
+**From GitHub (development version):**
+
+```r
 if (!require("devtools")) install.packages("devtools")
-devtools::install_github("https://github.com/amirfeizi/otargen.git")
+devtools::install_github("amirfeizi/otargen")
 ```
 
 ---
 
-### Citing `otargen` is important for us 🙋‍
-Please cite `otargen` if you use it in your research 🙏. [Bioinformatics](https://doi.org/10.1093/bioinformatics/btad441).
+### 🧪 Examples of New Queries
+
+Here are a few examples of the new query functions in `otargen 2.0.0`:
+
+```r
+# Retrieve GWAS credible set data
+disease_associations <- gene_disease_associations_query(geneId = "ENSG00000157764")
+
+# Retrieve Pharmacogenomics data for a specified drug.
+result <- pharmacogenomicsChemblQuery(chemblId = "CHEMBL1016")
+
+# Retrieve ClinVar data for a specified gene and disease.
+result <- clinVarQuery(ensemblId = "ENSG00000080815", efoId = "MONDO_0004975", size = 10)
+
+# Retrieve Safety Liabilities data for a specified gene
+result <- safetyQuery(ensgId = "ENSG00000141510")
+
+# Retrieve UniProt Variants data for a specified variant.
+result <- uniProtVariantsQuery(variantId = "4_1804392_G_A")
+
+# Retrieve ChEMBL data for a specified gene and disease.
+result <- chemblQuery(ensemblId = "ENSG00000080815", efoId = "MONDO_0004975", size = 10)
+```
+
+(Refer to `?gene_disease_associations_query` and other help files for full parameter lists and example outputs.)
 
 ---
 
-:loudspeaker: **`otargenpy` is available for Python users** 🐍  
-Install via pip: `pip install otargenpy`
+### Citing `otargen`
 
-Check out the repository here: [otargenpy on GitHub](https://github.com/amirfeizi/otargenpy). `otargenpy` has all the capabilities of `otargen`. We encourage you to try it out and provide us with feedback!
+Please cite `otargen` if you use it in your research:
+📄 [Feizi & Ray, *Bioinformatics*](https://doi.org/10.1093/bioinformatics/btad441)
 
-### Key Features
-🚀 **Effortless Data Retrieval**: Easily access and transform complex GraphQL queries.
+---
 
-📈 **Insightful Visualizations**: Clearly visualize complex datasets with intuitive plots.
+### 🐍 Also Available for Python: `otargenpy`
 
-📖 **Comprehensive Documentation**: Well-documented functions for easy integration.
+For Python users, a fully compatible package is available:
 
-👨‍💻 **Regular Updates**: Stay updated with new features and improvements.
+```bash
+pip install otargenpy
+```
 
-### Community and Contributions
-Join the `otargen` community on [GitHub](https://github.com/amirfeizi/otargen) and contribute to its growth. We welcome bug reports, feature suggestions, and code contributions.
+GitHub: [otargenpy on GitHub](https://github.com/amirfeizi/otargenpy)
 
+---
+
+### Features
+
+* ⚡ **Fast, declarative API querying**
+* 🧭 **Schema-aware helpers** for key data types
+* 📊 **Built-in visualizations**
+* 📚 **Example vignettes and reproducible workflows**
+
+---
+
+### Join the Community
+
+Visit the GitHub repo: [https://github.com/amirfeizi/otargen](https://github.com/amirfeizi/otargen)
+We welcome contributions, issue reports, and feedback!
 
