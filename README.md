@@ -1,6 +1,4 @@
-Sure! Here's the updated `README.md` content for **`otargen 2.0.0`** in one complete code block:
 
-````markdown
 # <img src="man/figures/logo.jpg" align="right" width="120" />
 
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/otargen?color=blue)](https://CRAN.R-project.org/package=otargen)  
@@ -40,10 +38,9 @@ All query functions from version `1.1.5` are **deprecated** in `2.0.0`. They are
 **From CRAN:**
 ```r
 install.packages("otargen")
-````
+```
 
 **From GitHub (development version):**
-
 ```r
 if (!require("devtools")) install.packages("devtools")
 devtools::install_github("amirfeizi/otargen")
@@ -81,15 +78,14 @@ result <- chemblQuery(ensemblId = "ENSG00000080815", efoId = "MONDO_0004975", si
 
 ### Citing `otargen`
 
-Please cite `otargen` if you use it in your research:
+Please cite `otargen` if you use it in your research:  
 📄 [Feizi & Ray, *Bioinformatics*](https://doi.org/10.1093/bioinformatics/btad441)
 
 ---
 
 ### 🐍 Also Available for Python: `otargenpy`
 
-For Python users, a fully compatible package is available:
-
+For Python users, a fully compatible package is available:  
 ```bash
 pip install otargenpy
 ```
@@ -100,15 +96,14 @@ GitHub: [otargenpy on GitHub](https://github.com/amirfeizi/otargenpy)
 
 ### Features
 
-* ⚡ **Fast, declarative API querying**
-* 🧭 **Schema-aware helpers** for key data types
-* 📊 **Built-in visualizations**
-* 📚 **Example vignettes and reproducible workflows**
+- ⚡ **Fast, declarative API querying**
+- 🧭 **Schema-aware helpers** for key data types
+- 📊 **Built-in visualizations**
+- 📚 **Example vignettes and reproducible workflows**
 
 ---
 
 ### Join the Community
 
-Visit the GitHub repo: [https://github.com/amirfeizi/otargen](https://github.com/amirfeizi/otargen)
+Visit the GitHub repo: [https://github.com/amirfeizi/otargen](https://github.com/amirfeizi/otargen)  
 We welcome contributions, issue reports, and feedback!
-
