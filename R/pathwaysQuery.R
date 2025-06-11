@@ -1,20 +1,20 @@
-#' Retrieve Genetic Constraint data for a specified gene.
+#' Retrieve Pathways data for a specified gene.
 #'
-#' This function queries the Open Targets Genetics GraphQL API to retrieve genetic constraint data
+#' This function queries the Open Targets Genetics GraphQL API to retrieve pathways data
 #' for a specified gene.
 #'
-#' @param ensgId Character: ENSEMBL ID of the target gene (e.g., ENSG00000141510).
+#' @param ensgId Character: ENSEMBL ID of the target gene (e.g., ENSG00000105397).
 #'
-#' @return Returns a tibble containing genetic constraint data for the specified gene.
+#' @return Returns a tibble containing pathways data for the specified gene.
 #' @examples
 #' \dontrun{
-#' result <- geneticConstraintQuery(ensgId = "ENSG00000141510")
+#' result <- pathwaysQuery(ensgId = "ENSG00000105397")
 #' }
 #' @importFrom magrittr %>%
 #' @importFrom tibble as_tibble
 #' @export
 #'
-geneticConstraintQuery <- function(ensgId) {
+pathwaysQuery <- function(ensgId) {
   if (missing(ensgId) || is.null(ensgId)) {
     stop("Please provide a value for the 'ensgId' argument.")
   }
@@ -25,18 +25,14 @@ geneticConstraintQuery <- function(ensgId) {
     con <- ghql::GraphqlClient$new("https://api.platform.opentargets.org/api/v4/graphql")
     qry <- ghql::Query$new()
     
-    query <- "query GeneticConstraintQuery($ensgId: String!) {
+    query <- "query PathwaysQuery($ensgId: String!) {
       target(ensemblId: $ensgId) {
         id
-        geneticConstraint {
-          constraintType
-          exp
-          obs
-          score
-          oe
-          oeLower
-          oeUpper
-          upperBin6
+        approvedSymbol
+        pathways {
+          pathwayId
+          pathway
+          topLevelTerm
         }
       }
     }"
@@ -45,16 +41,16 @@ geneticConstraintQuery <- function(ensgId) {
       ensgId = ensgId
     )
     
-    qry$query(name = "getGeneticConstraintData", x = query)
+    qry$query(name = "getPathwaysData", x = query)
     
     cli::cli_progress_step(paste0("Downloading data for ENSEMBL ID: ", ensgId, " ..."), spinner = TRUE)
     
     # Execute the query
-    output0 <- con$exec(qry$queries$getGeneticConstraintData, variables)
+    output0 <- con$exec(qry$queries$getPathwaysData, variables)
     output1 <- jsonlite::fromJSON(output0, flatten = TRUE)
     
-    if (length(output1$data$target$geneticConstraint) != 0) {
-      final_output <- tibble::as_tibble(output1$data$target$geneticConstraint)
+    if (length(output1$data$target$pathways) != 0) {
+      final_output <- tibble::as_tibble(output1$data$target$pathways)
       return(final_output)
     } else {
       message("No data found for the given parameters.")
