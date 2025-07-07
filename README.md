@@ -1,5 +1,5 @@
 
-# <img src="man/figures/logo.jpg" align="right" width="120" />
+# <img src="man/figures/logo.png" align="right" width="120" />
 
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/otargen?color=blue)](https://CRAN.R-project.org/package=otargen)  
 [![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/otargen?color=yellow)](https://CRAN.R-project.org/package=otargen)  
