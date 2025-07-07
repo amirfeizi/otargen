@@ -27,8 +27,8 @@
 
 ---
 
-⚠️ **Deprecated**:  
-All query functions from version `1.1.5` are **deprecated** in `2.0.0`. They are no longer supported due to changes in the backend API.  
+⚠️ **Deprecation process**:  
+The redanndant query functions from version `1.1.5` are **deprecated** in `2.0.0`. However, we will keep the queries and plotting functions that still provide useful data as long as supported in the backend API.  
 👉 We **highly recommend** upgrading to `2.0.0` by installing it from CRAN or GitHub.
 
 ---
