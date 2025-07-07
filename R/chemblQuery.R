@@ -1,6 +1,6 @@
 #' Retrieve ChEMBL data for a specified gene and disease.
 #'
-#' This function queries the Open Targets Genetics GraphQL API to retrieve ChEMBL evidence data
+#' This function queries the Open Targets GraphQL API to retrieve ChEMBL evidence data
 #' for a specified gene and disease.
 #'
 #' @param ensemblId Character: ENSEMBL ID of the target gene (e.g., "ENSG00000080815").
@@ -28,7 +28,7 @@ chemblQuery <- function(ensemblId, efoId, cursor = NULL, size = 10) {
   
   # Set up to query Open Targets Genetics API
   tryCatch({
-    cli::cli_progress_step("Connecting to the Open Targets Genetics GraphQL API...", spinner = TRUE)
+    cli::cli_progress_step("Connecting to the Open Targets GraphQL API...", spinner = TRUE)
     con <- ghql::GraphqlClient$new("https://api.platform.opentargets.org/api/v4/graphql")
     qry <- ghql::Query$new()
     
