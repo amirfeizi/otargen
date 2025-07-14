@@ -4,29 +4,31 @@
 \alias{chemblQuery}
 \title{Retrieve ChEMBL data for a specified gene and disease.}
 \usage{
-chemblQuery(ensemblId, efoId, size = 10, cursor = NULL)
+chemblQuery(ensemblId, efoId, cursor = NULL, size = 10)
 }
 \arguments{
-\item{ensemblId}{Character: ENSEMBL ID of the target gene (e.g., ENSG00000169174).}
+\item{ensemblId}{Character: ENSEMBL ID of the target gene (e.g., "ENSG00000080815").}
 
-\item{efoId}{Character: EFO ID of the disease (e.g., EFO_0004911).}
-
-\item{size}{Integer: Number of records to retrieve (default: 10).}
+\item{efoId}{Character: EFO ID of the target disease (e.g., "MONDO_0004975").}
 
 \item{cursor}{Character: Cursor for pagination (default: NULL).}
+
+\item{size}{Integer: Number of records to retrieve (default: 10).}
 }
 \value{
-Returns a data frame containing ChEMBL data for the specified gene and disease.
+Returns a tibble containing ChEMBL evidence data for the specified gene and disease.
 }
 \description{
-This function queries the Open Targets Genetics GraphQL API to retrieve ChEMBL data
-for a specified gene and disease, including evidence from the ChEMBL datasource.
+This function queries the Open Targets GraphQL API to retrieve ChEMBL evidence data
+for a specified gene and disease.
 }
 \examples{
 \dontrun{
-result <- chemblQuery(ensemblId = "ENSG00000169174",
- efoId = "EFO_0004911", size = 10)
-result <- chemblQuery(ensemblId = "ENSG00000169174",
- efoId = "EFO_0004911", size = 10, cursor = NULL)
+result <- chemblQuery(ensemblId = "ENSG00000080815", efoId = 
+"MONDO_0004975",
+ size = 10)
+result <- chemblQuery(ensemblId = "ENSG00000080815", efoId = 
+"MONDO_0004975",
+ cursor = NULL, size = 10)
 }
 }

@@ -7,7 +7,7 @@
 topOverlappedStudies(study_id, pageindex = 0, pagesize = 20)
 }
 \arguments{
-\item{study_id}{Character: Open Targets Genetics generated ID for a GWAS study.}
+\item{study_id}{Character: Open Targets generated ID for a GWAS study.}
 
 \item{pageindex}{Integer: Index of the current page for pagination (>= 0).}
 
@@ -32,6 +32,7 @@ For a provided study ID, the function, retrieves top studies with overlap in the
 \examples{
 \dontrun{
 result <- topOverlappedStudies(study_id = "GCST006614_3")
-result <- topOverlappedStudies(study_id = "NEALE2_6177_1", pageindex = 1, pagesize = 50)
+result <- topOverlappedStudies(study_id = "NEALE2_6177_1", pageindex = 1, 
+pagesize = 50)
 }
 }

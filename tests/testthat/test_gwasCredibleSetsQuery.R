@@ -1,17 +1,27 @@
-test_that("test gwasCredibleSetsQuery works", {
-  skip_on_cran()
+test_that("gwasCredibleSetsQuery returns expected results", {
   
-  result <- gwasCredibleSetsQuery(variantId = "19_10352442_G_C", size = 5, index = 0)
+  # Example Ensembl ID and EFO ID known to exist in Open Targets
+  # (replace with real IDs you know exist in the API)
+  ensemblId <- "ENSG00000105397" # Example: APOE
+  efoId <- "EFO_0000685"         # Example: Alzheimer's disease
+  size <- 5
   
+  # Call the function
+  result <- gwasCredibleSetsQuery(
+    ensemblId = ensemblId,
+    efoId = efoId,
+    size = size
+  )
+  
+  # Check that the result is either NULL or a tibble
   expect_true(is.null(result) || tibble::is_tibble(result))
+  
   if (!is.null(result)) {
-    expect_true(all(c("studyLocusId", "pValueMantissa", "pValueExponent", "beta",
-                      "finemappingMethod", "confidence", "variant.id",
-                      "variant.chromosome", "variant.position", "variant.referenceAllele",
-                      "variant.alternateAllele", "study.traitFromSource",
-                      "study.id", "study.diseases", "locus.rows.posteriorProbability",
-                      "locusSize.count", "l2GPredictions.rows.target.id",
-                      "l2GPredictions.rows.target.approvedSymbol", "l2GPredictions.rows.score",
-                      "variantId", "referenceAllele", "alternateAllele") %in% colnames(result)))
+    # Check some columns exist
+    expect_true("score" %in% names(result))
+    expect_true("disease.id" %in% names(result))
+    expect_true("diseaseName" %in% names(result))
+    
+
   }
 })

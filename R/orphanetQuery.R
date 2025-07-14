@@ -1,6 +1,6 @@
 #' Retrieve Orphanet data for a specified gene and disease.
 #'
-#' This function queries the Open Targets Genetics GraphQL API to retrieve Orphanet evidence data
+#' This function queries the Open Targets GraphQL API to retrieve Orphanet evidence data
 #' for a specified gene and disease.
 #'
 #' @param ensemblId Character: ENSEMBL ID of the target gene (e.g., "ENSG00000080815").
@@ -10,7 +10,8 @@
 #' @return Returns a tibble containing Orphanet evidence data for the specified gene and disease.
 #' @examples
 #' \dontrun{
-#' result <- orphanetQuery(ensemblId = "ENSG00000080815", efoId = "MONDO_0004975", size = 3500)
+#' result <- orphanetQuery(ensemblId = "ENSG00000080815", efoId = 
+#' "MONDO_0004975", size = 3500)
 #' }
 #' @importFrom magrittr %>%
 #' @importFrom tibble as_tibble
@@ -24,9 +25,9 @@ orphanetQuery <- function(ensemblId, efoId, size = 3500) {
     stop("Please provide a value for the 'efoId' argument.")
   }
   
-  # Set up to query Open Targets Genetics API
+  # Set up to query Open Targets API
   tryCatch({
-    cli::cli_progress_step("Connecting to the Open Targets Genetics GraphQL API...", spinner = TRUE)
+    cli::cli_progress_step("Connecting to the Open Targets GraphQL API...", spinner = TRUE)
     con <- ghql::GraphqlClient$new("https://api.platform.opentargets.org/api/v4/graphql")
     qry <- ghql::Query$new()
     
@@ -101,7 +102,7 @@ orphanetQuery <- function(ensemblId, efoId, size = 3500) {
   }, error = function(e) {
     # Handle connection timeout
     if (grepl("Timeout was reached", e$message)) {
-      stop("Connection timeout reached while connecting to the Open Targets Genetics GraphQL API.")
+      stop("Connection timeout reached while connecting to the Open Targets GraphQL API.")
     } else {
       stop(e) # Handle other types of errors
     }

@@ -7,7 +7,7 @@
 tagVariantsAndStudiesForIndexVariant(variant_id, pageindex = 0, pagesize = 20)
 }
 \arguments{
-\item{variant_id}{Character: Open Targets Genetics generated ID for a variant (CHRPOSITION_REFALLELE_ALTALLELE or rsId).}
+\item{variant_id}{Character: Open Targets generated ID for a variant (CHRPOSITION_REFALLELE_ALTALLELE or rsId).}
 
 \item{pageindex}{Integer: Index of the current page for pagination (>= 0).}
 
@@ -52,7 +52,8 @@ and associated studies, including scores.
 }
 \examples{
 \dontrun{
-result <- tagVariantsAndStudiesForIndexVariant(variant_id = "1_109274968_G_T")
+result <- tagVariantsAndStudiesForIndexVariant(variant_id = 
+"1_109274968_G_T")
 result <- tagVariantsAndStudiesForIndexVariant(variant_id = "1_109274968_G_T"
     ,pageindex = 1, pagesize = 50)
     }

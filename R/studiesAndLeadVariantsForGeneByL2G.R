@@ -79,10 +79,10 @@ studiesAndLeadVariantsForGeneByL2G <- function(gene, l2g = NA, pvalue = NA, vtyp
     return(NULL)
   }
 
-  # Set up to query Open Targets Genetics API
+  # Set up to query Open Targets API
 
 tryCatch({
-  cli::cli_progress_step("Connecting to the Open Targets Genetics GrpahQL API...", spinner = TRUE)
+  cli::cli_progress_step("Connecting to the Open Targets GrpahQL API...", spinner = TRUE)
   con <- ghql::GraphqlClient$new("https://api.genetics.opentargets.org/graphql")
   qry <- ghql::Query$new()
 
@@ -231,7 +231,7 @@ tryCatch({
 }, error = function(e) {
   # Handling connection timeout
   if(grepl("Timeout was reached", e$message)) {
-    stop("Connection timeout reached while connecting to the Open Targets Genetics GraphQL API.")
+    stop("Connection timeout reached while connecting to the Open Targets GraphQL API.")
   } else {
     stop(e) # Handle other types of errors
   }

@@ -54,7 +54,10 @@ Here are a few examples of the new query functions in `otargen 2.0.0`:
 
 ```r
 # Retrieve GWAS credible set data
-disease_associations <- gene_disease_associations_query(geneId = "ENSG00000157764")
+result <- gwasCredibleSetsQuery(ensemblId = "ENSG00000105397", efoId = "EFO_0000685", size = 500)
+
+# Retrieve ChEMBL data for a specified gene and disease.
+result <- chemblQuery(ensemblId = "ENSG00000080815", efoId = "MONDO_0004975", size = 10)
 
 # Retrieve Pharmacogenomics data for a specified drug.
 result <- pharmacogenomicsChemblQuery(chemblId = "CHEMBL1016")
@@ -68,8 +71,7 @@ result <- safetyQuery(ensgId = "ENSG00000141510")
 # Retrieve UniProt Variants data for a specified variant.
 result <- uniProtVariantsQuery(variantId = "4_1804392_G_A")
 
-# Retrieve ChEMBL data for a specified gene and disease.
-result <- chemblQuery(ensemblId = "ENSG00000080815", efoId = "MONDO_0004975", size = 10)
+
 ```
 
 (Refer to `?gene_disease_associations_query` and other help files for full parameter lists and example outputs.)

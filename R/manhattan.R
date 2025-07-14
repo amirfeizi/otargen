@@ -6,7 +6,7 @@
 #' This function returns a data frame of the underlying data, which can be used to recreate the Manhattan plot using the \code{plot_manhattan()} function,
 #' or for custom plots and downstream analysis.
 #'
-#' @param study_id Character: Open Targets Genetics generated ID for the GWAS study.
+#' @param study_id Character: Open Targets generated ID for the GWAS study.
 #' @param pageindex Int: Index of the current page (pagination index >= 0).
 #' @param pagesize Int: Number of records in a page (pagination size > 0).
 #'
@@ -51,10 +51,10 @@
 #'
 #'
 manhattan <- function(study_id, pageindex = 0, pagesize = 100) {
-  ## Set up to query Open Targets Genetics API
+  ## Set up to query Open Targets API
 
 tryCatch({
-  cli::cli_progress_step("Connecting to the Open Targets Genetics GrpahQL API...", spinner = TRUE)
+  cli::cli_progress_step("Connecting to the Open Targets GrpahQL API...", spinner = TRUE)
   otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
   otg_qry <- ghql::Query$new()
 
@@ -132,7 +132,7 @@ tryCatch({
 }, error = function(e) {
   # Handling connection timeout
   if(grepl("Timeout was reached", e$message)) {
-    stop("Connection timeout reached while connecting to the Open Targets Genetics GraphQL API.")
+    stop("Connection timeout reached while connecting to the Open Targets GraphQL API.")
   } else {
     stop(e) # Handle other types of errors
   }

@@ -6,8 +6,7 @@ test_that("test variantEffectPredictorQuery works", {
   expect_true(is.null(result) || tibble::is_tibble(result))
   if (!is.null(result) && nrow(result) > 0) {
     expect_true(all(c(
-      "variantConsequences.id", "variantConsequences.label",
-      "aminoAcidChange", "transcriptId", "impact", "variantId"
+      "variantConsequences","aminoAcidChange","uniprotAccessions", "codons"  
     ) %in% colnames(result)))
   }
 })

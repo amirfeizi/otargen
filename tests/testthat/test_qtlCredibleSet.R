@@ -11,7 +11,7 @@ test_that("test qtlCredibleSet works", {
   expect_true(is.null(result) || is.data.frame(result))
   if (!is.null(result) && nrow(result) > 0) {
     expect_true(all(c(
-      "tagVariant.id", "tagVariant.rsId", "pval", "se", "beta",
+      "tagVariant","pval", "se", "beta",
       "postProb", "MultisignalMethod", "logABF", "is95", "is99"
     ) %in% colnames(result)))
   }

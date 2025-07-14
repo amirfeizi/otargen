@@ -6,11 +6,7 @@ test_that("test safetyQuery works", {
   expect_true(is.null(result) || tibble::is_tibble(result))
   if (!is.null(result) && nrow(result) > 0) {
     expect_true(all(c(
-      "event", "eventId", "biosamples.cellFormat",
-      "biosamples.cellLabel", "biosamples.tissueLabel",
-      "biosamples.tissueId", "effects.dosing", "effects.direction",
-      "studies.name", "studies.type", "studies.description",
-      "datasource", "literature", "url"
+      "event" ,     "eventId" ,   "biosamples", "effects",    "studies",    "datasource", "literature" ,"url"
     ) %in% colnames(result)))
   }
 })

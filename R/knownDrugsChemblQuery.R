@@ -1,6 +1,6 @@
 #' Retrieve Known Drugs data for a specified drug.
 #'
-#' This function queries the Open Targets Genetics GraphQL API to retrieve known drugs data
+#' This function queries the Open Targets GraphQL API to retrieve known drugs data
 #' for a specified drug.
 #'
 #' @param chemblId Character: ChEMBL ID of the target drug (e.g., "CHEMBL1016").
@@ -12,7 +12,8 @@
 #' @examples
 #' \dontrun{
 #' result <- knownDrugsChemblQuery(chemblId = "CHEMBL1016", size = 10)
-#' result <- knownDrugsChemblQuery(chemblId = "CHEMBL1016", cursor = NULL, freeTextQuery = NULL, size = 10)
+#' result <- knownDrugsChemblQuery(chemblId = "CHEMBL1016", cursor = NULL, 
+#' freeTextQuery = NULL, size = 10)
 #' }
 #' @importFrom magrittr %>%
 #' @importFrom tibble as_tibble
@@ -23,9 +24,9 @@ knownDrugsChemblQuery <- function(chemblId, cursor = NULL, freeTextQuery = NULL,
     stop("Please provide a value for the 'chemblId' argument.")
   }
   
-  # Set up to query Open Targets Genetics API
+  # Set up to query Open Targets API
   tryCatch({
-    cli::cli_progress_step("Connecting to the Open Targets Genetics GraphQL API...", spinner = TRUE)
+    cli::cli_progress_step("Connecting to the Open Targets GraphQL API...", spinner = TRUE)
     con <- ghql::GraphqlClient$new("https://api.platform.opentargets.org/api/v4/graphql")
     qry <- ghql::Query$new()
     
@@ -109,7 +110,7 @@ knownDrugsChemblQuery <- function(chemblId, cursor = NULL, freeTextQuery = NULL,
   }, error = function(e) {
     # Handling connection timeout
     if (grepl("Timeout was reached", e$message)) {
-      stop("Connection timeout reached while connecting to the Open Targets Genetics GraphQL API.")
+      stop("Connection timeout reached while connecting to the Open Targets GraphQL API.")
     } else {
       stop(e) # Handle other types of errors
     }

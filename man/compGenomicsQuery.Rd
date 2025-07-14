@@ -13,7 +13,7 @@ compGenomicsQuery(ensemblId)
 Returns a data frame containing comparative genomics data for the specified gene.
 }
 \description{
-This function queries the Open Targets Genetics GraphQL API to retrieve comparative genomics data
+This function queries the Open Targets  GraphQL API to retrieve comparative genomics data
 for a specified gene.
 }
 \examples{

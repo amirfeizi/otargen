@@ -40,7 +40,8 @@
 #'
 #' @examples
 #' \dontrun{
-#' result1 <- colocalisationsForGene(gene = c("ENSG00000163946", "ENSG00000169174", "ENSG00000143001"))
+#' result1 <- colocalisationsForGene(gene = c("ENSG00000163946", "ENSG00000169174",
+#'  "ENSG00000143001"))
 #' result2 <- colocalisationsForGene(gene = "ENSG00000169174")
 #' result3 <- colocalisationsForGene(gene = c("TP53", "TASOR"))
 #' result4 <- colocalisationsForGene(gene = "TP53") }
@@ -49,7 +50,7 @@
 #'
 colocalisationsForGene <- function(genes) {
 
-  cli::cli_progress_step("Connecting to the Open Targets Genetics GrpahQL API...", spinner = TRUE)
+  cli::cli_progress_step("Connecting to the Open Targets  GrpahQL API...", spinner = TRUE)
   con <- ghql::GraphqlClient$new("https://api.genetics.opentargets.org/graphql")
   qry <- ghql::Query$new()
 

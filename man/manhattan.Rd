@@ -7,7 +7,7 @@
 manhattan(study_id, pageindex = 0, pagesize = 100)
 }
 \arguments{
-\item{study_id}{Character: Open Targets Genetics generated ID for the GWAS study.}
+\item{study_id}{Character: Open Targets generated ID for the GWAS study.}
 
 \item{pageindex}{Int: Index of the current page (pagination index >= 0).}
 

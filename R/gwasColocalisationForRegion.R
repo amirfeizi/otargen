@@ -33,7 +33,8 @@
 #' }
 #' @examples
 #' \dontrun{
-#' result <- gwasColocalisationForRegion(chromosome = "1", start = 153992685, end = 154155116)
+#' result <- gwasColocalisationForRegion(chromosome = "1", start = 153992685, 
+#' end = 154155116)
 #' }
 #' @import dplyr
 #' @importFrom magrittr %>%
@@ -54,11 +55,11 @@ gwasColocalisationForRegion <- function(chromosome, start, end) {
     message("Please provide values for all the argument: chromosome, start, and end.")
     return(NULL)
   }
-  ## Set up to query Open Targets Genetics API
+  ## Set up to query Open Targets API
   variables <- list(chromosome = chromosome, start = start, end = end)
 
 tryCatch({
-  cli::cli_progress_step("Connecting to the Open Targets Genetics GrpahQL API...", spinner = TRUE)
+  cli::cli_progress_step("Connecting to the Open Targets GrpahQL API...", spinner = TRUE)
   otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
   otg_qry <- ghql::Query$new()
 
@@ -105,7 +106,7 @@ tryCatch({
 }, error = function(e) {
   # Handling connection timeout
   if(grepl("Timeout was reached", e$message)) {
-    stop("Connection timeout reached while connecting to the Open Targets Genetics GraphQL API.")
+    stop("Connection timeout reached while connecting to the Open Targets GraphQL API.")
   } else {
     stop(e) # Handle other types of errors
   }

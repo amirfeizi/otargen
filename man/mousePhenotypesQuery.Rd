@@ -13,7 +13,7 @@ mousePhenotypesQuery(ensemblId)
 Returns a data frame containing mouse phenotypes data for the specified gene.
 }
 \description{
-This function queries the Open Targets Genetics GraphQL API to retrieve mouse phenotypes data
+This function queries the Open Targets GraphQL API to retrieve mouse phenotypes data
 for a specified gene.
 }
 \examples{

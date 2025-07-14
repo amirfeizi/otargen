@@ -1,120 +1,133 @@
-#' Retrieve GWAS Credible Sets data for a specified variant.
+#' Retrieve GWAS Credible Sets data for a specified target and disease.
 #'
-#' This function queries the Open Targets Genetics GraphQL API to retrieve GWAS credible sets data
-#' for a specified variant.
+#' This function queries the Open Targets GraphQL API to retrieve GWAS credible sets
+#' evidence data for a specified target gene and disease.
 #'
-#' @param variantId Character: ID of the target variant (e.g., "19_10352442_G_C").
-#' @param size Integer: Number of records to retrieve (default: 500).
-#' @param index Integer: Page index for pagination (default: 0).
+#' @param ensemblId Character. Ensembl gene ID, e.g. "ENSG00000105397".
+#' @param efoId Character. EFO disease ID, e.g. "EFO_0000685".
+#' @param size Integer. Number of rows to fetch. Default: 500.
 #'
-#' @return Returns a tibble containing GWAS credible sets data for the specified variant.
+#' @return A tibble with credible set evidence or NULL if no data found.
+#'
 #' @examples
 #' \dontrun{
-#' result <- gwasCredibleSetsQuery(variantId = "19_10352442_G_C", size = 500, index = 0)
+#'   # Example call:
+#'   result <- gwasCredibleSetsQuery(
+#'     ensemblId = "ENSG00000105397",
+#'     efoId = "EFO_0000685",
+#'     size = 5
+#'   )
+#'   print(result)
 #' }
-#' @importFrom magrittr %>%
-#' @importFrom tibble as_tibble
-#' @export
 #'
-gwasCredibleSetsQuery <- function(variantId, size = 500, index = 0) {
-  if (missing(variantId) || is.null(variantId)) {
-    stop("Please provide a value for the 'variantId' argument.")
+#' @export
+gwasCredibleSetsQuery <- function(ensemblId, efoId, size = 500) {
+  if (missing(ensemblId) || is.null(ensemblId)) {
+    stop("Please provide a value for 'ensemblId'.")
+  }
+  if (missing(efoId) || is.null(efoId)) {
+    stop("Please provide a value for 'efoId'.")
   }
   
-  # Set up to query Open Targets Genetics API
-  tryCatch({
-    cli::cli_progress_step("Connecting to the Open Targets Genetics GraphQL API...", spinner = TRUE)
-    con <- ghql::GraphqlClient$new("https://api.platform.opentargets.org/api/v4/graphql")
-    qry <- ghql::Query$new()
-    
-    query <- "query GWASCredibleSetsQuery($variantId: String!, $size: Int!, $index: Int!) {
-      variant(variantId: $variantId) {
+  query <- '
+    query GwasCredibleSetsQuery($ensemblId: String!, $efoId: String!, $size: Int!) {
+      target(ensemblId: $ensemblId) {
+        approvedSymbol
+      }
+      disease(efoId: $efoId) {
         id
-        referenceAllele
-        alternateAllele
-        gwasCredibleSets: credibleSets(studyTypes: [gwas], page: { size: $size, index: $index }) {
+        name
+        gwasCredibleSets: evidences(
+          ensemblIds: [$ensemblId]
+          enableIndirect: true
+          datasourceIds: ["gwas_credible_sets"]
+          size: $size
+        ) {
           count
           rows {
-            studyLocusId
-            pValueMantissa
-            pValueExponent
-            beta
-            finemappingMethod
-            confidence
-            variant {
+            disease {
               id
-              chromosome
-              position
-              referenceAllele
-              alternateAllele
+              name
             }
-            study {
-              traitFromSource
-              id
-              diseases {
-                name
+            credibleSet {
+              studyLocusId
+              study {
+                traitFromSource
                 id
-                therapeuticAreas {
-                  name
-                  id
-                }
+                projectId
+                publicationFirstAuthor
+                publicationDate
+                pubmedId
+                nSamples
               }
-            }
-            locus(variantIds: [$variantId]) {
-              rows {
-                posteriorProbability
+              variant {
+                id
+                chromosome
+                position
+                referenceAllele
+                alternateAllele
               }
+              pValueMantissa
+              pValueExponent
+              beta
+              finemappingMethod
+              confidence
             }
-            locusSize: locus {
-              count
-            }
-            l2GPredictions(page: { size: 1, index: 0 }) {
-              rows {
-                target {
-                  id
-                  approvedSymbol
-                }
-                score
-              }
-            }
+            score
           }
         }
       }
-    }"
-    
-    variables <- list(
-      variantId = variantId,
-      size = size,
-      index = index
-    )
-    
-    qry$query(name = "getGWASCredibleSetsData", x = query)
-    
-    cli::cli_progress_step(paste0("Downloading data for variant ID: ", variantId, " ..."), spinner = TRUE)
-    
-    # Execute the query
-    output0 <- con$exec(qry$queries$getGWASCredibleSetsData, variables)
-    output1 <- jsonlite::fromJSON(output0, flatten = TRUE)
-    
-    if (length(output1$data$variant$gwasCredibleSets$rows) != 0) {
-      final_output <- tibble::as_tibble(output1$data$variant$gwasCredibleSets$rows) %>%
-        dplyr::mutate(
-          variantId = output1$data$variant$id,
-          referenceAllele = output1$data$variant$referenceAllele,
-          alternateAllele = output1$data$variant$alternateAllele
+    }
+  '
+  
+  cli::cli_progress_step("Sending GraphQL request...", spinner = TRUE)
+  
+  resp <- httr::POST(
+    url = "https://api.platform.opentargets.org/api/v4/graphql",
+    httr::add_headers(`Content-Type` = "application/json"),
+    body = jsonlite::toJSON(
+      list(
+        query = query,
+        variables = list(
+          ensemblId = ensemblId,
+          efoId = efoId,
+          size = size
         )
-      return(final_output)
-    } else {
-      message("No data found for the given parameters.")
-      return(NULL)
-    }
-    
-  }, error = function(e) {
-    # Handling connection timeout
-    if (grepl("Timeout was reached", e$message)) {
-      stop("Connection timeout reached while connecting to the Open Targets Genetics GraphQL API.")
-    } else {
-      stop(e) # Handle other types of errors
-    }
-  })
+      ),
+      auto_unbox = TRUE
+    )
+  )
+  
+  if (httr::status_code(resp) != 200) {
+    stop("GraphQL query failed. HTTP status: ", httr::status_code(resp))
+  }
+  
+  output <- jsonlite::fromJSON(httr::content(resp, as = "text"), flatten = TRUE)
+  
+  rows <- output$data$disease$gwasCredibleSets$rows
+  
+  if (is.null(rows) || length(rows) == 0) {
+    message("No GWAS credible sets data found for the given parameters.")
+    return(NULL)
+  }
+  
+  rows_df <- tibble::as_tibble(rows)
+  
+  if (!"credibleSet" %in% names(rows_df)) {
+    message("No credibleSet data available in the response.")
+    return(NULL)
+  }
+  
+  credible_data <- rows_df %>%
+    tidyr::unnest_wider(credibleSet, names_sep = ".") %>%
+    tidyr::unnest_wider(credibleSet.study, names_sep = ".") %>%
+    tidyr::unnest_wider(credibleSet.variant, names_sep = ".") %>%
+    dplyr::mutate(
+      targetEnsemblId = ensemblId,
+      targetSymbol = output$data$target$approvedSymbol,
+      diseaseId = output$data$disease$id,
+      diseaseName = output$data$disease$name
+    )
+  
+  return(credible_data)
 }

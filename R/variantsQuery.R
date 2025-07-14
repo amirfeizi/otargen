@@ -1,6 +1,6 @@
 #' Retrieve Variants data for a specified study locus.
 #'
-#' This function queries the Open Targets Genetics GraphQL API to retrieve variants data
+#' This function queries the Open Targets GraphQL API to retrieve variants data
 #' for a specified study locus.
 #'
 #' @param studyLocusId Character: ID of the target study locus (e.g., "fa375739ca2a6b825ce5cc69d117e84b").
@@ -10,7 +10,8 @@
 #' @return Returns a tibble containing variants data for the specified study locus.
 #' @examples
 #' \dontrun{
-#' result <- variantsQuery(studyLocusId = "fa375739ca2a6b825ce5cc69d117e84b", size = 500, index = 0)
+#' result <- variantsQuery(studyLocusId = "fa375739ca2a6b825ce5cc69d117e84b", 
+#' size = 500, index = 0)
 #' }
 #' @importFrom magrittr %>%
 #' @importFrom tibble as_tibble
@@ -21,9 +22,9 @@ variantsQuery <- function(studyLocusId, size = 500, index = 0) {
     stop("Please provide a value for the 'studyLocusId' argument.")
   }
   
-  # Set up to query Open Targets Genetics API
+  # Set up to query Open Targets API
   tryCatch({
-    cli::cli_progress_step("Connecting to the Open Targets Genetics GraphQL API...", spinner = TRUE)
+    cli::cli_progress_step("Connecting to the Open Targets GraphQL API...", spinner = TRUE)
     con <- ghql::GraphqlClient$new("https://api.platform.opentargets.org/api/v4/graphql")
     qry <- ghql::Query$new()
     
@@ -84,7 +85,7 @@ variantsQuery <- function(studyLocusId, size = 500, index = 0) {
   }, error = function(e) {
     # Handling connection timeout
     if (grepl("Timeout was reached", e$message)) {
-      stop("Connection timeout reached while connecting to the Open Targets Genetics GraphQL API.")
+      stop("Connection timeout reached while connecting to the Open Targets GraphQL API.")
     } else {
       stop(e) # Handle other types of errors
     }

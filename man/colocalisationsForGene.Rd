@@ -45,7 +45,8 @@ with molecular QTLs for the selected gene(s).
 }
 \examples{
 \dontrun{
-result1 <- colocalisationsForGene(gene = c("ENSG00000163946", "ENSG00000169174", "ENSG00000143001"))
+result1 <- colocalisationsForGene(gene = c("ENSG00000163946", "ENSG00000169174",
+ "ENSG00000143001"))
 result2 <- colocalisationsForGene(gene = "ENSG00000169174")
 result3 <- colocalisationsForGene(gene = c("TP53", "TASOR"))
 result4 <- colocalisationsForGene(gene = "TP53") }

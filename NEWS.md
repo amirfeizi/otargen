@@ -1,9 +1,28 @@
+# otargen 2.0.0
+
+### Major Release
+
+Following [Open Targets' announcement](https://community.opentargets.org/t/open-targets-genetics-will-be-deprecated-on-9-july-2025/1796), Open Targets Genetics has been officially merged into the Open Targets Platform API. Consequently, **otargen 2.0.0 represents a complete overhaul** of the package’s functionality to support this unified API endpoint and schema.
+
+#### What's New
+
+- 🔁 **Unified API Integration**: Full migration from the deprecated Open Targets Genetics GraphQL API to the new Platform GraphQL API.
+- 🔍 **Expanded Query Support**: Includes all major data types now available in the merged schema.
+- 📘 **Updated Documentation**: All help files and vignettes have been rewritten to reflect new function usage.
+- 📄 **New Example Articles**: Practical use cases demonstrating the new API queries.
+- ⚠️ **Deprecation Notice**: Many query functions from version 1.1.5 are now deprecated but retained for backward compatibility where possible.
+
+We **highly recommend** upgrading to otargen 2.0.0 for the best experience with the latest Open Targets Platform API.
+
+---
+
 # otargen 1.1.5
+
 ### Resubmission to CRAN 
 ### Added frequently requested query functions from Open Target to the package
   * chemblQuery(): This function queries the Open Targets GraphQL API to retrieve ChEMBL data
 for a specified gene and disease, including evidence from the ChEMBL datasource.
-  * clinvarQuery(): #' This function queries the Open Targets  GraphQL API to retrieve ClinVar data
+  * clinvarQuery(): This function queries the Open Targets  GraphQL API to retrieve ClinVar data
 for a specified gene and disease, including evidence from the NCBI datasource.
   * knownDrugsQuery(): This function queries the Open Targets  GraphQL API to retrieve known drugs data
 for a specified gene.

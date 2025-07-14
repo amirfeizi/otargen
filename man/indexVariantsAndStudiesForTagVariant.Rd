@@ -7,7 +7,7 @@
 indexVariantsAndStudiesForTagVariant(variant_id, pageindex = 0, pagesize = 20)
 }
 \arguments{
-\item{variant_id}{Character: generated ID for variants by Open Targets Genetics (e.g. 1_154119580_C_A) or rsId (rs2494663).}
+\item{variant_id}{Character: generated ID for variants by Open Targets (e.g. 1_154119580_C_A) or rsId (rs2494663).}
 
 \item{pageindex}{Integer: Index of the current page, pagination index >= 0.}
 
@@ -54,7 +54,8 @@ For an input tag variant ID, this function returns a data frame(tibble format) w
 }
 \examples{
 \dontrun{
-result <- indexVariantsAndStudiesForTagVariant(variant_id = "1_109274968_G_T")
+result <- indexVariantsAndStudiesForTagVariant(variant_id = 
+"1_109274968_G_T")
 result <- indexVariantsAndStudiesForTagVariant(variant_id = "rs12740374",
  pageindex = 1, pagesize = 50)
 }

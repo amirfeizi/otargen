@@ -1,6 +1,6 @@
 #' Retrieve Mechanisms of Action data for a specified drug.
 #'
-#' This function queries the Open Targets Genetics GraphQL API to retrieve mechanisms of action data
+#' This function queries the Open Targets GraphQL API to retrieve mechanisms of action data
 #' for a specified drug.
 #'
 #' @param chemblId Character: ChEMBL ID of the target drug (e.g., "CHEMBL1016").
@@ -19,9 +19,9 @@ mechanismsOfActionQuery <- function(chemblId) {
     stop("Please provide a value for the 'chemblId' argument.")
   }
   
-  # Set up to query Open Targets Genetics API
+  # Set up to query Open Targets API
   tryCatch({
-    cli::cli_progress_step("Connecting to the Open Targets Genetics GraphQL API...", spinner = TRUE)
+    cli::cli_progress_step("Connecting to the Open Targets GraphQL API...", spinner = TRUE)
     con <- ghql::GraphqlClient$new("https://api.platform.opentargets.org/api/v4/graphql")
     qry <- ghql::Query$new()
     
@@ -85,7 +85,7 @@ mechanismsOfActionQuery <- function(chemblId) {
   }, error = function(e) {
     # Handling connection timeout
     if (grepl("Timeout was reached", e$message)) {
-      stop("Connection timeout reached while connecting to the Open Targets Genetics GraphQL API.")
+      stop("Connection timeout reached while connecting to the Open Targets GraphQL API.")
     } else {
       stop(e) # Handle other types of errors
     }

@@ -1,13 +1,13 @@
 Package: otargen
 Type: Package
-Title: Access Open Target Genetics
-Version: 1.1.5
-Date: 2024-09-21
+Title: Access Open Target 
+Version: 2.0.0
+Date: 2025-07-08
 Authors@R: c(
     person("Amir", "Feizi", role = c("aut", "cre"), email = "afeizi@gmail.com"),
     person("Kamalika", "Ray", role = "aut"))
 Maintainer: Amir Feizi <afeizi@gmail.com>
-Description: Interact seamlessly with Open Target Genetics' GraphQL endpoint to query and retrieve tidy data tables, facilitating the analysis of genetic data. For more information about the Open Target Genetics API (<https://genetics.opentargets.org/api>).
+Description: Interact seamlessly with Open Target GraphQL endpoint to query and retrieve tidy data tables, facilitating the analysis of gene, disease, drug, and genetic data. For more information about the Open Target API (<https://platform.opentargets.org/api>).
 Depends: R (>= 3.1.0)
 LazyData: true
 Imports:
@@ -29,6 +29,6 @@ Encoding: UTF-8
 Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 URL: https://amirfeizi.github.io/otargen/
 BugReports: https://github.com/amirfeizi/otargen/issues

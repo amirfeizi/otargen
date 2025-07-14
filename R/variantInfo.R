@@ -7,7 +7,7 @@
 #' harmonizing both exome and genome sequencing data from a wide variety of large-scale sequencing projects,
 #' and making summary data available for the wider scientific community (see the reference).
 #'
-#' @param variant_id Character: generated ID for variants by Open Targets Genetics (e.g. 1_154119580_C_A) or rsId (rs2494663).
+#' @param variant_id Character: generated ID for variants by Open Targets (e.g. 1_154119580_C_A) or rsId (rs2494663).
 #'
 #' @return Returns a data frame (in tibble format) containing information about the variant.
 #' The data frame has the following structure:
@@ -61,8 +61,8 @@ variantInfo <- function(variant_id) {
 
   # Try-catch block for handling connection timeout
   tryCatch({
-    # Set up to query Open Targets Genetics API
-    cli::cli_progress_step("Connecting to the Open Targets Genetics GraphQL API...", spinner = TRUE)
+    # Set up to query Open Targets API
+    cli::cli_progress_step("Connecting to the Open Targets GraphQL API...", spinner = TRUE)
     otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
     otg_qry <- ghql::Query$new()
 
@@ -147,7 +147,7 @@ variantInfo <- function(variant_id) {
   }, error = function(e) {
     # Handling connection timeout
     if(grepl("Timeout was reached", e$message)) {
-      stop("Connection timeout reached while connecting to the Open Targets Genetics GraphQL API.")
+      stop("Connection timeout reached while connecting to the Open Targets GraphQL API.")
     } else {
       stop(e) # Handle other types of errors
     }

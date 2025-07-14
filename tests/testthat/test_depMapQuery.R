@@ -5,8 +5,6 @@ test_that("test depMapQuery works", {
   
   expect_true(is.null(result) || tibble::is_tibble(result))
   if (!is.null(result)) {
-    expect_true(all(c("tissueName", "screens.depmapId", "screens.cellLineName", 
-                      "screens.diseaseFromSource", "screens.geneEffect", 
-                      "screens.expression") %in% colnames(result)))
+    expect_true(all(c("tissueName", "screens"  ) %in% colnames(result)))
   }
 })

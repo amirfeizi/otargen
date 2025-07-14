@@ -2,7 +2,7 @@
 #'
 #' For an input tag variant ID, this function returns a data frame(tibble format) with population-level summary statistics data across various GWAS studies.
 #'
-#' @param variant_id Character: generated ID for variants by Open Targets Genetics (e.g. 1_154119580_C_A) or rsId (rs2494663).
+#' @param variant_id Character: generated ID for variants by Open Targets (e.g. 1_154119580_C_A) or rsId (rs2494663).
 #' @param pageindex Integer: Index of the current page, pagination index >= 0.
 #' @param pagesize Integer: Number of records in a page, pagination size > 0.
 #'
@@ -43,7 +43,8 @@
 #'
 #' @examples
 #' \dontrun{
-#' result <- indexVariantsAndStudiesForTagVariant(variant_id = "1_109274968_G_T")
+#' result <- indexVariantsAndStudiesForTagVariant(variant_id = 
+#' "1_109274968_G_T")
 #' result <- indexVariantsAndStudiesForTagVariant(variant_id = "rs12740374",
 #'  pageindex = 1, pagesize = 50)
 #' }
@@ -59,9 +60,9 @@ indexVariantsAndStudiesForTagVariant <- function(variant_id, pageindex = 0, page
     return(NULL)
   }
 
-  ## Set up to query Open Targets Genetics API
+  ## Set up to query Open Targets API
 tryCatch({
-  cli::cli_progress_step("Connecting to the Open Targets Genetics GrpahQL API...", spinner = TRUE)
+  cli::cli_progress_step("Connecting to the Open Targets GrpahQL API...", spinner = TRUE)
   otg_cli <- ghql::GraphqlClient$new(url = "https://api.genetics.opentargets.org/graphql")
   otg_qry <- ghql::Query$new()
 
@@ -150,7 +151,7 @@ tryCatch({
 }, error = function(e) {
   # Handling connection timeout
   if(grepl("Timeout was reached", e$message)) {
-    stop("Connection timeout reached while connecting to the Open Targets Genetics GraphQL API.")
+    stop("Connection timeout reached while connecting to the Open Targets GraphQL API.")
   } else {
     stop(e) # Handle other types of errors
   }

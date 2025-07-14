@@ -45,7 +45,8 @@ loci information, and other relevant attributes.
 }
 \examples{
 \dontrun{
-result <- gwasColocalisationForRegion(chromosome = "1", start = 153992685, end = 154155116)
+result <- gwasColocalisationForRegion(chromosome = "1", start = 153992685, 
+end = 154155116)
 }
 }
 \references{

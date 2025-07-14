@@ -10,9 +10,7 @@ test_that("test tagVariantsAndStudiesForIndexVariant works", {
   expect_true(is.null(result) || is.data.frame(result))
   if (!is.null(result) && nrow(result) > 0) {
     expect_true(all(c(
-      "tagVariant.id", "tagVariant.chromosome", "tagVariant.rsId",
-      "tagVariant.position", "study.studyId", "study.traitReported",
-      "pval", "pvalMantissa", "pvalExponent"
+      "tagVariant", "study" , "pval", "pvalMantissa",  "pvalExponent" 
     ) %in% colnames(result)))
   }
 })

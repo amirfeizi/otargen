@@ -7,7 +7,7 @@
 pheWAS(variant_id)
 }
 \arguments{
-\item{variant_id}{Character: generated ID for variants by Open Targets Genetics (e.g. 1_154119580_C_A) or rsId (rs2494663).}
+\item{variant_id}{Character: generated ID for variants by Open Targets (e.g. 1_154119580_C_A) or rsId (rs2494663).}
 }
 \value{
 A data frame with PheWAS associations.

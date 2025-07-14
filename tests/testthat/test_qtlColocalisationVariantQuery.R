@@ -9,9 +9,11 @@ test_that("test qtlColocalisationVariantQuery works", {
   expect_true(is.null(result) || is.data.frame(result))
   if (!is.null(result) && nrow(result) > 0) {
     expect_true(all(c(
-      "qtlStudyName", "phenotypeId", "gene.id", "gene.symbol",
-      "tissue.name", "indexVariant.id", "indexVariant.rsId",
-      "beta", "h4", "h3", "log2h4h3"
+      "qtlStudyName", "phenotypeId",
+      "gene" ,"tissue" ,
+      "indexVariant","beta", 
+      "h4","h3",
+      "log2h4h3" 
     ) %in% colnames(result)))
   }
 })
