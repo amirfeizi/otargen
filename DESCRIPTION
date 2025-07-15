@@ -4,26 +4,20 @@ Title: Access Open Target
 Version: 2.0.0
 Date: 2025-07-08
 Authors@R: c(
-    person("Amir", "Feizi", role = c("aut", "cre"), email = "afeizi@gmail.com"),
-    person("Kamalika", "Ray", role = "aut"))
+    person("Amir", "Feizi", role = c("aut", "cre"), email = "afeizi@gmail.com"))
 Maintainer: Amir Feizi <afeizi@gmail.com>
 Description: Interact seamlessly with Open Target GraphQL endpoint to query and retrieve tidy data tables, facilitating the analysis of gene, disease, drug, and genetic data. For more information about the Open Target API (<https://platform.opentargets.org/api>).
 Depends: R (>= 3.1.0)
 LazyData: true
 Imports:
     ghql,
-    janitor,
-    ggiraphExtra,
     cli,
     dplyr,
-    ggplot2,
-    ggrepel,
     jsonlite,
-    rlang,
     magrittr,
-    stringr,
     tibble,
-    tidyr
+    tidyr,
+    httr
 License: MIT + file LICENSE
 Encoding: UTF-8
 Suggests:

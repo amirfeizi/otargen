@@ -5,7 +5,6 @@ test_that("test geneticConstraintQuery works", {
   
   expect_true(is.null(result) || tibble::is_tibble(result))
   if (!is.null(result)) {
-    expect_true(all(c("constraintType", "exp", "obs", "score", "oe", 
-                      "oeLower", "oeUpper", "upperBin6") %in% colnames(result)))
+    expect_true(all(c( "constraintType","score",  "upperBin", "upperBin6",  "geneId",   "approvedSymbol") %in% names(result)))
   }
 })

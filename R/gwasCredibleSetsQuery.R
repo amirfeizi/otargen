@@ -1,26 +1,32 @@
 #' Retrieve GWAS Credible Sets data for a specified target and disease.
 #'
-#' This function queries the Open Targets GraphQL API to retrieve GWAS credible sets
+#' This function queries the Open Targets Platform GraphQL API to retrieve GWAS credible sets
 #' evidence data for a specified target gene and disease.
 #'
-#' @param ensemblId Character. Ensembl gene ID, e.g. "ENSG00000105397".
-#' @param efoId Character. EFO disease ID, e.g. "EFO_0000685".
+#' @param ensemblId Character. Ensembl gene ID, e.g., "ENSG00000169174".
+#' @param efoId Character. EFO disease ID, e.g., "EFO_0004911".
 #' @param size Integer. Number of rows to fetch. Default: 500.
 #'
 #' @return A tibble with credible set evidence or NULL if no data found.
 #'
 #' @examples
 #' \dontrun{
-#'   # Example call:
 #'   result <- gwasCredibleSetsQuery(
-#'     ensemblId = "ENSG00000105397",
-#'     efoId = "EFO_0000685",
+#'     ensemblId = "ENSG00000169174",
+#'     efoId = "EFO_0004911",
 #'     size = 5
 #'   )
 #'   print(result)
 #' }
-#'
+#' @importFrom magrittr %>%
+#' @importFrom tibble as_tibble
+#' @importFrom dplyr mutate
+#' @importFrom tidyr unnest_wider
+#' @importFrom httr POST add_headers content
+#' @importFrom jsonlite toJSON fromJSON
+#' @importFrom cli cli_progress_step
 #' @export
+#'
 gwasCredibleSetsQuery <- function(ensemblId, efoId, size = 500) {
   if (missing(ensemblId) || is.null(ensemblId)) {
     stop("Please provide a value for 'ensemblId'.")
@@ -106,22 +112,22 @@ gwasCredibleSetsQuery <- function(ensemblId, efoId, size = 500) {
   
   rows <- output$data$disease$gwasCredibleSets$rows
   
-  if (is.null(rows) || length(rows) == 0) {
+  if (is.null(rows) || nrow(tibble::as_tibble(rows)) == 0) {
     message("No GWAS credible sets data found for the given parameters.")
     return(NULL)
   }
   
+  # Convert rows to tibble and check for credible set fields
   rows_df <- tibble::as_tibble(rows)
   
-  if (!"credibleSet" %in% names(rows_df)) {
+  # Check if credible set fields exist in the flattened data
+  if (!any(grepl("^credibleSet\\.", names(rows_df)))) {
     message("No credibleSet data available in the response.")
     return(NULL)
   }
   
+  # Unnest flattened credible set fields
   credible_data <- rows_df %>%
-    tidyr::unnest_wider(credibleSet, names_sep = ".") %>%
-    tidyr::unnest_wider(credibleSet.study, names_sep = ".") %>%
-    tidyr::unnest_wider(credibleSet.variant, names_sep = ".") %>%
     dplyr::mutate(
       targetEnsemblId = ensemblId,
       targetSymbol = output$data$target$approvedSymbol,
