@@ -1,3 +1,5 @@
+url: https://amirfeizi.github.io/otargen/
+
 template:
   bootstrap: 5
 
@@ -14,7 +16,7 @@ reference:
     contents:
       - gwasCredibleSet
       - gwasCredibleSetsQuery
-      - GWASColocQuery
+      - gwasColocalisation
       - qtlCredibleSetsQuery
       - sharedTraitStudiesQuery
       - overlapInfoForStudy
@@ -32,8 +34,6 @@ reference:
       - variantsQuery
       - uniProtVariantsQuery
       - clinvarQuery
-      - variantEffectQuery
-      - variantEffectPredictorQuery
       - uniprotLiteratureQuery
 
   - title: Pharmacogenomics
@@ -71,8 +71,7 @@ reference:
       - chemblQuery
       - indicationsQuery
 
-# Optional articles section if you have vignettes:
 articles:
   - title: Getting Started
     contents:
-      - "index"
+      - examples
