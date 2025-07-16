@@ -22,19 +22,16 @@ library(tibble)
 
 ## Introduction
 
-The **otargen** package provides seamless access to the Open Targets Platform API, enabling researchers to query gene-disease associations, variant annotations, pharmacogenomics, and more. This vignette showcases five key query functions to explore the platform’s data, covering targets, diseases, variants, studies, and drugs.
+The **otargen** package provides seamless access to the Open Targets Platform API, enabling researchers to query gene-disease associations, variant annotations, pharmacogenomics, and more. This vignette demonstrates examples from major functional areas in **otargen**, organized into categories such as GWAS, genetic constraint analysis, variants, pharmacogenomics, and more.
 
 ---
 
-## Example 1: GWAS Credible Sets for Gene-Disease Associations
+## GWAS and Colocalisation
+
+### Example: GWAS Credible Sets for Gene-Disease Associations
 
 **Objective:** Identify causal variants linking a gene to a disease using GWAS credible sets.  
-**Function:** `gwasCredibleSetsQuery`  
-**Parameters:**
-
-- `ensemblId`: Ensembl gene ID (e.g., `"ENSG00000198125"`).
-- `efoId`: EFO disease ID (e.g., `"EFO_0003767"` for Alzheimer’s disease).
-- `size`: Number of records to fetch (default: 500).
+**Function:** `gwasCredibleSetsQuery`
 
 ```{r}
 # Retrieve GWAS credible sets for APOE and Alzheimer’s disease
@@ -46,30 +43,29 @@ result <- gwasCredibleSetsQuery(
 print(result)
 ```
 
-Sample output:
+---
 
-```
-# A tibble: 5 × 14
-  disease.id disease.name targetEnsemblId targetSymbol credibleSet.studyLocusId credibleSet.study.id credibleSet.variant.id credibleSet.variant.chromosome credibleSet.variant.position credibleSet.pValueMantissa credibleSet.pValueExponent credibleSet.beta credibleSet.finemappingMethod credibleSet.confidence
-  <chr>      <chr>        <chr>           <chr>        <chr>                   <chr>                <chr>                  <chr>                         <int>                       <dbl>                      <int>                      <dbl>           <chr>                         <chr>                
-1 EFO_0003767 Alzheimer’s… ENSG00000198125 APOE         sl_001                 GCST90027148         19_44908684_C_T        19                            44908684                    5.23                       -20                        0.0687         FINEMAP                      high                 
-2 EFO_0003767 Alzheimer’s… ENSG00000198125 APOE         sl_002                 GCST90027149         19_44908822_G_A        19                            44908822                    3.54                       -20                        0.0668         FINEMAP                      high                 
-3 EFO_0003767 Alzheimer’s… ENSG00000198125 APOE         sl_003                 GCST90027150         19_44909010_A_G        19                            44909010                    1.90                       -88                        0.0487         FINEMAP                      high                 
-4 EFO_0003767 Alzheimer’s… ENSG00000198125 APOE         sl_004                 GCST90027151         19_44909215_T_C        19                            44909215                    4.79                       -12                        0.3940         FINEMAP                      high                 
-5 EFO_0003767 Alzheimer’s… ENSG00000198125 APOE         sl_005                 GCST90027152         19_44909420_G_A        19                            44909420                    3.60                       -14                        0.0156         FINEMAP                      high                 
+## Genetic Analysis
+
+### Example: Genetic Constraint Analysis
+
+**Objective:** Assess a gene’s tolerance to mutations using genetic constraint metrics like pLI and LOEUF.  
+**Function:** `geneticConstraintQuery`
+
+```{r}
+# Retrieve genetic constraint data for TP53
+result <- geneticConstraintQuery(ensgId = "ENSG00000141510")
+print(result)
 ```
 
 ---
 
-## Example 2: Clinical Variant Evidence
+## Variants and Annotations
+
+### Example: Clinical Variant Evidence
 
 **Objective:** Explore ClinVar evidence for gene-disease associations to uncover clinical significance.  
-**Function:** `clinVarQuery`  
-**Parameters:**
-
-- `ensemblId`: Ensembl gene ID (e.g., `"ENSG00000080815"`).
-- `efoId`: EFO disease ID (e.g., `"MONDO_0004975"` for cystic fibrosis).
-- `size`: Number of records to fetch (default: 10).
+**Function:** `clinVarQuery`
 
 ```{r}
 # Retrieve ClinVar evidence for CFTR and cystic fibrosis
@@ -81,28 +77,12 @@ result <- clinVarQuery(
 print(result)
 ```
 
-Sample output:
-
-```
-# A tibble: 5 × 8
-  variantId           clinvarId diseaseId      diseaseName      clinicalSignificance confidence targetEnsemblId targetSymbol
-  <chr>               <chr>     <chr>          <chr>            <chr>                  <chr>      <chr>           <chr>       
-1 7_117559590_C_T     VCV0000   MONDO_0004975  Cystic fibrosis  Pathogenic             High       ENSG00000080815 CFTR        
-2 7_117559591_G_A     VCV0001   MONDO_0004975  Cystic fibrosis  Pathogenic             High       ENSG00000080815 CFTR        
-3 7_117559592_T_C     VCV0002   MONDO_0004975  Cystic fibrosis  Likely pathogenic      Moderate   ENSG00000080815 CFTR        
-4 7_117559593_A_G     VCV0003   MONDO_0004975  Cystic fibrosis  Pathogenic             High       ENSG00000080815 CFTR        
-5 7_117559594_C_A     VCV0004   MONDO_0004975  Cystic fibrosis  Uncertain              Low        ENSG00000080815 CFTR        
-```
-
 ---
 
-## Example 3: UniProt Variants
+### Example: UniProt Variants
 
 **Objective:** Annotate variants with functional data from UniProt to understand their biological impact.  
-**Function:** `uniProtVariantsQuery`  
-**Parameters:**
-
-- `variantId`: Variant ID (e.g., `"12_111446804_T_C"`).
+**Function:** `uniProtVariantsQuery`
 
 ```{r}
 # Retrieve UniProt variants for a specific variant
@@ -110,26 +90,14 @@ result <- uniProtVariantsQuery(variantId = "12_111446804_T_C")
 print(result)
 ```
 
-Sample output:
-
-```
-# A tibble: 3 × 6
-  variantId         proteinId featureType featureDescription consequenceType dbSnp
-  <chr>             <chr>     <chr>       <chr>              <chr>           <chr> 
-1 12_111446804_T_C  P12345    Missense    Amino acid change  Missense        rs123
-2 12_111446804_T_C  P67890    Missense    Functional impact  Missense        rs456
-3 12_111446804_T_C  P23456    Silent      No protein change  Silent          rs789
-```
-
 ---
 
-## Example 4: Pharmacogenomics Insights
+## Pharmacogenomics
+
+### Example: Pharmacogenomics Insights
 
 **Objective:** Investigate how genetic variants influence drug response using pharmacogenomics data.  
-**Function:** `pharmacogenomicsQuery`  
-**Parameters:**
-
-- `chemblId`: ChEMBL drug ID (e.g., `"CHEMBL1016"` for atorvastatin).
+**Function:** `pharmacogenomicsQuery`
 
 ```{r}
 # Retrieve pharmacogenomics data for atorvastatin
@@ -137,41 +105,45 @@ result <- pharmacogenomicsQuery(chemblId = "CHEMBL1016")
 print(result)
 ```
 
-Sample output:
+---
 
-```
-# A tibble: 5 × 7
-  drugId     drugName     variantId         pValue effectSize effectAllele phenotype
-  <chr>      <chr>        <chr>             <dbl>      <dbl> <chr>        <chr>    
-1 CHEMBL1016 Atorvastatin 1_55051234_A_G    1e-6       0.25  A            LDL-C    
-2 CHEMBL1016 Atorvastatin 1_55051235_G_T    2e-5       0.30  G            HDL-C    
-3 CHEMBL1016 Atorvastatin 1_55051236_C_A    5e-4       0.15  C            Triglycerides
-4 CHEMBL1016 Atorvastatin 1_55051237_T_C    3e-5       0.20  T            LDL-C    
-5 CHEMBL1016 Atorvastatin 1_55051238_A_T    1e-4       0.18  A            HDL-C    
-```
+## Additional Functions and Categories
+
+Beyond the examples above, **otargen** includes many other queries grouped into logical categories:
+
+- **Targets and Interactions**
+    - compGenomicsQuery
+    - depMapQuery
+    - interactionsQuery
+    - hallmarksQuery
+    - mousePhenotypesQuery
+    - safetyQuery
+
+- **Pathways and Ontologies**
+    - pathwaysQuery
+    - geneOntologyQuery
+
+- **External Data Sources**
+    - europePMCQuery
+    - orphanetQuery
+    - genomicsEnglandQuery
+
+- **Chembl and Drug Queries**
+    - chemblQuery
+    - indicationsQuery
+
+See the package reference documentation for details on these functions and parameters.
 
 ---
 
-## Example 5: Genetic Constraint Analysis
+## Learn More
 
-**Objective:** Assess a gene’s tolerance to mutations using genetic constraint metrics like pLI and LOEUF.  
-**Function:** `geneticConstraintQuery`  
-**Parameters:**
+For a full list of available queries and example usage:
 
-- `ensgId`: Ensembl gene ID (e.g., `"ENSG00000141510"` for TP53).
-
-```{r}
-# Retrieve genetic constraint data for TP53
-result <- geneticConstraintQuery(ensgId = "ENSG00000141510")
-print(result)
+```r
+help(package = "otargen")
 ```
 
-Sample output:
+or browse the function reference on the pkgdown site.
 
-```
-# A tibble: 2 × 6
-  geneId            approvedSymbol constraintType score upperBin upperBin6
-  <chr>             <chr>          <chr>          <dbl>    <int>     <int>
-1 ENSG00000141510   TP53           pLI            0.99         6         6
-2 ENSG00000141510   TP53           LOEUF          0.12         1         1
-```
+---
