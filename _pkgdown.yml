@@ -3,75 +3,44 @@ url: https://amirfeizi.github.io/otargen/
 template:
   bootstrap: 5
 
-navbar:
-  structure:
-    left:
-      - home
-      - reference
-      - articles
-      - news
+home:
+  title: otargen
 
 reference:
-  - title: GWAS and Colocalisation
+  - title: Queries
     contents:
+      - adverseEventsQuery
+      - chemblQuery
+      - clinVarQuery
+      - compGenomicsQuery
+      - depMapQuery
+      - europePMCQuery
+      - geneBurdenQuery
+      - geneOntologyQuery
+      - geneticConstraintQuery
+      - genomicsEnglandQuery
+      - gwasColocalisation
       - gwasCredibleSet
       - gwasCredibleSetsQuery
-      - gwasColocalisation
-      - qtlCredibleSetsQuery
-      - sharedTraitStudiesQuery
-      - overlapInfoForStudy
-
-  - title: Genetic Analysis
-    contents:
-      - geneBurdenQuery
-      - geneticConstraintQuery
+      - hallmarksQuery
+      - indicationsQuery
+      - interactionsQuery
+      - knownDrugsChemblQuery
+      - knownDrugsGeneQuery
       - locus2GeneQuery
-      - variantEffectPredictorQuery
-      - variantEffectQuery
-
-  - title: Variants and Annotations
-    contents:
-      - variantsQuery
-      - uniProtVariantsQuery
-      - clinvarQuery
-      - uniprotLiteratureQuery
-
-  - title: Pharmacogenomics
-    contents:
+      - mechanismsOfActionQuery
+      - mousePhenotypesQuery
+      - orphanetQuery
+      - overlapInfoForStudy
+      - pathwaysQuery
       - pharmacogenomicsChemblQuery
       - pharmacogenomicsGeneQuery
       - pharmacogenomicsVariantQuery
-      - knownDrugsChemblQuery
-      - knownDrugsGeneQuery
-      - mechanismsOfActionQuery
-      - adverseEventsQuery
-
-  - title: Targets and Interactions
-    contents:
-      - compGenomicsQuery
-      - depMapQuery
-      - interactionsQuery
-      - hallmarksQuery
-      - mousePhenotypesQuery
+      - qtlCredibleSetsQuery
       - safetyQuery
-
-  - title: Pathways and Ontologies
-    contents:
-      - pathwaysQuery
-      - geneOntologyQuery
-
-  - title: External Data Sources
-    contents:
-      - europePMCQuery
-      - orphanetQuery
-      - genomicsEnglandQuery
-
-  - title: Chembl and Drug Queries
-    contents:
-      - chemblQuery
-      - indicationsQuery
-
-articles:
-  - title: Getting Started
-    contents:
-      - examples
+      - sharedTraitStudiesQuery
+      - uniprotLiteratureQuery
+      - uniProtVariantsQuery
+      - variantEffectPredictorQuery
+      - variantEffectQuery
+      - variantsQuery

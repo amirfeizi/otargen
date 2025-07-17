@@ -1,0 +1,147 @@
+---
+title: "examples"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{examples}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  warning = FALSE,
+  message = FALSE
+)
+library(otargen)
+library(tibble)
+```
+
+## Introduction
+
+The **otargen** package provides seamless access to the Open Targets Platform API, enabling researchers to query gene-disease associations, variant annotations, pharmacogenomics, and more. This vignette demonstrates examples from major functional areas in **otargen**, organized into categories such as GWAS, genetic constraint analysis, variants, pharmacogenomics, and more.
+
+---
+
+## GWAS and Colocalisation
+
+### Example: GWAS Credible Sets for Gene-Disease Associations
+
+**Objective:** Identify causal variants linking a gene to a disease using GWAS credible sets.  
+**Function:** `gwasCredibleSetsQuery`
+
+```{r}
+# Retrieve GWAS credible sets for APOE and Alzheimer’s disease
+result <- gwasCredibleSetsQuery(
+  ensemblId = "ENSG00000198125",
+  efoId = "EFO_0003767",
+  size = 5
+)
+print(result)
+```
+
+---
+
+## Genetic Analysis
+
+### Example: Genetic Constraint Analysis
+
+**Objective:** Assess a gene’s tolerance to mutations using genetic constraint metrics like pLI and LOEUF.  
+**Function:** `geneticConstraintQuery`
+
+```{r}
+# Retrieve genetic constraint data for TP53
+result <- geneticConstraintQuery(ensgId = "ENSG00000141510")
+print(result)
+```
+
+---
+
+## Variants and Annotations
+
+### Example: Clinical Variant Evidence
+
+**Objective:** Explore ClinVar evidence for gene-disease associations to uncover clinical significance.  
+**Function:** `clinVarQuery`
+
+```{r}
+# Retrieve ClinVar evidence for CFTR and cystic fibrosis
+result <- clinVarQuery(
+  ensemblId = "ENSG00000080815",
+  efoId = "MONDO_0004975",
+  size = 5
+)
+print(result)
+```
+
+---
+
+### Example: UniProt Variants
+
+**Objective:** Annotate variants with functional data from UniProt to understand their biological impact.  
+**Function:** `uniProtVariantsQuery`
+
+```{r}
+# Retrieve UniProt variants for a specific variant
+result <- uniProtVariantsQuery(variantId = "12_111446804_T_C")
+print(result)
+```
+
+---
+
+## Pharmacogenomics
+
+### Example: Pharmacogenomics Insights
+
+**Objective:** Investigate how genetic variants influence drug response using pharmacogenomics data.  
+**Function:** `pharmacogenomicsQuery`
+
+```{r}
+# Retrieve pharmacogenomics data for atorvastatin
+result <- pharmacogenomicsChemblQuery(chemblId = "CHEMBL1016")
+print(result)
+```
+
+---
+
+## Additional Functions and Categories
+
+Beyond the examples above, **otargen** includes many other queries grouped into logical categories:
+
+- **Targets and Interactions**
+    - compGenomicsQuery
+    - depMapQuery
+    - interactionsQuery
+    - hallmarksQuery
+    - mousePhenotypesQuery
+    - safetyQuery
+
+- **Pathways and Ontologies**
+    - pathwaysQuery
+    - geneOntologyQuery
+
+- **External Data Sources**
+    - europePMCQuery
+    - orphanetQuery
+    - genomicsEnglandQuery
+
+- **Chembl and Drug Queries**
+    - chemblQuery
+    - indicationsQuery
+
+See the package reference documentation for details on these functions and parameters.
+
+---
+
+## Learn More
+
+For a full list of available queries and example usage:
+
+```r
+help(package = "otargen")
+```
+
+or browse the function reference on the pkgdown site.
+
+---

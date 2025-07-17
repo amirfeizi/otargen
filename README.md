@@ -1,9 +1,16 @@
+<div style="display: flex; align-items: center; justify-content: space-between;">
 
-# <img src="man/figures/logo.png" align="right" width="120" />
+<div>
 
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/otargen?color=blue)](https://CRAN.R-project.org/package=otargen)  
 [![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/otargen?color=yellow)](https://CRAN.R-project.org/package=otargen)  
 [![License](https://img.shields.io/badge/License-MIT-blue.svg?color=green)](https://opensource.org/licenses/MIT)
+
+</div>
+
+<img src="man/figures/logo.png" width="120" style="margin-left: 20px;" />
+
+</div>
 
 ---
 
