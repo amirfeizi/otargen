@@ -1,16 +1,27 @@
-<div style="display: flex; align-items: center; justify-content: space-between;">
+<table>
+<tr>
+<td>
 
-<div>
+<!-- Badges -->
+<a href="https://CRAN.R-project.org/package=otargen">
+  <img src="https://www.r-pkg.org/badges/version/otargen?color=blue" alt="CRAN Status Badge"/>
+</a>
+<br>
+<a href="https://CRAN.R-project.org/package=otargen">
+  <img src="https://cranlogs.r-pkg.org/badges/grand-total/otargen?color=yellow" alt="Total Downloads"/>
+</a>
+<br>
+<a href="https://opensource.org/licenses/MIT">
+  <img src="https://img.shields.io/badge/License-MIT-blue.svg?color=green" alt="MIT License"/>
+</a>
 
-[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/otargen?color=blue)](https://CRAN.R-project.org/package=otargen)  
-[![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/otargen?color=yellow)](https://CRAN.R-project.org/package=otargen)  
-[![License](https://img.shields.io/badge/License-MIT-blue.svg?color=green)](https://opensource.org/licenses/MIT)
+</td>
+<td style="padding-left: 20px;">
+  <img src="man/figures/logo.png" width="120" alt="otargen logo"/>
+</td>
+</tr>
+</table>
 
-</div>
-
-<img src="man/figures/logo.png" width="120" style="margin-left: 20px;" />
-
-</div>
 
 ---
 
