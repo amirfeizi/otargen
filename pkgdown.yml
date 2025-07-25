@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   web_only/Contributingguidelines: web_only/Contributingguidelines.html
   web_only/introduction: web_only/introduction.html
-last_built: 2025-07-25T05:13Z
+last_built: 2025-07-25T05:15Z
 urls:
   reference: https://amirfeizi.github.io/otargen/reference
   article: https://amirfeizi.github.io/otargen/articles
