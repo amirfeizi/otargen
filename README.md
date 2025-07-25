@@ -103,12 +103,6 @@ Please cite `otargen` if you use it in your research:
 
 ---
 
-### 🐍 Also Available for Python: `otargenpy`
-
-For Python users, a fully compatible package is available:  
-```bash
-pip install otargenpy
-```
 
 GitHub: [otargenpy on GitHub](https://github.com/amirfeizi/otargenpy)
 
