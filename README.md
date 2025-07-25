@@ -103,11 +103,6 @@ Please cite `otargen` if you use it in your research:
 
 ---
 
-
-GitHub: [otargenpy on GitHub](https://github.com/amirfeizi/otargenpy)
-
----
-
 ### Features
 
 - ⚡ **Fast, declarative API querying**
