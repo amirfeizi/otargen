@@ -1,24 +1,19 @@
-#' Retrieve Known Drugs data for a specified gene.
+#' Retrieve drug and clinical candidate data for a specified gene.
 #'
-#' This function queries the Open Targets GraphQL API to retrieve known drugs data
-#' for a specified gene.
+#' This function queries the Open Targets GraphQL API to retrieve drug
+#' and clinical candidate data for a specified gene.
 #'
 #' @param ensgId Character: ENSEMBL ID of the target gene (e.g., ENSG00000169174).
-#' @param cursor Character: Cursor for pagination (default: NULL).
-#' @param freeTextQuery Character: Free text query to filter results (default: NULL).
-#' @param size Integer: Number of records to retrieve (default: 10).
 #'
-#' @return Returns a data frame containing known drugs data for the specified gene.
+#' @return Returns a data frame containing drug and clinical candidate data for the specified gene.
 #' @examples
 #' \dontrun{
-#' result <- knownDrugsGeneQuery(ensgId = "ENSG00000169174", size = 10)
-#' result <- knownDrugsGeneQuery(ensgId = "ENSG00000169174",
-#'  cursor = NULL, freeTextQuery = NULL, size = 10)
+#' result <- knownDrugsGeneQuery(ensgId = "ENSG00000169174")
 #' }
 #' @importFrom magrittr %>%
 #' @export
 #'
-knownDrugsGeneQuery <- function(ensgId, cursor = NULL, freeTextQuery = NULL, size = 10) {
+knownDrugsGeneQuery <- function(ensgId) {
   if (missing(ensgId) || is.null(ensgId)) {
     stop("Please provide a value for the 'ensgId' argument.")
   }

@@ -1,25 +1,20 @@
-#' Retrieve Known Drugs data for a specified drug.
+#' Retrieve indications and clinical report data for a specified drug.
 #'
-#' This function queries the Open Targets GraphQL API to retrieve known drugs data
-#' for a specified drug.
+#' This function queries the Open Targets GraphQL API to retrieve indications
+#' and clinical report data for a specified drug.
 #'
 #' @param chemblId Character: ChEMBL ID of the target drug (e.g., "CHEMBL1016").
-#' @param cursor Character: Cursor for pagination (default: NULL).
-#' @param freeTextQuery Character: Free text query to filter results (default: NULL).
-#' @param size Integer: Number of records to retrieve (default: 10).
 #'
-#' @return Returns a tibble containing known drugs data for the specified drug.
+#' @return Returns a tibble containing indications data for the specified drug.
 #' @examples
 #' \dontrun{
-#' result <- knownDrugsChemblQuery(chemblId = "CHEMBL1016", size = 10)
-#' result <- knownDrugsChemblQuery(chemblId = "CHEMBL1016", cursor = NULL, 
-#' freeTextQuery = NULL, size = 10)
+#' result <- knownDrugsChemblQuery(chemblId = "CHEMBL1016")
 #' }
 #' @importFrom magrittr %>%
 #' @importFrom tibble as_tibble
 #' @export
 #'
-knownDrugsChemblQuery <- function(chemblId, cursor = NULL, freeTextQuery = NULL, size = 10) {
+knownDrugsChemblQuery <- function(chemblId) {
   if (missing(chemblId) || is.null(chemblId)) {
     stop("Please provide a value for the 'chemblId' argument.")
   }
