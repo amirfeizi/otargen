@@ -10,7 +10,7 @@ test_that("test orphanetQuery works", {
   expect_true(is.null(result) || tibble::is_tibble(result))
   if (!is.null(result) && nrow(result) > 0) {
     expect_true(all(c(
-      "variantEffect", "directionOnTrait", "diseaseFromSource",
+      "directionOnTrait", "diseaseFromSource",
       "diseaseFromSourceId"
     ) %in% names(result)))
   }

@@ -11,7 +11,7 @@ test_that("indicationsQuery returns a tibble with expected columns", {
   if (!is.null(result)) {
     # Check that required columns exist
     expected_cols <- c(
-      "maxPhaseForIndication" , "references" 
+      "maxClinicalStage", "clinicalReports"
     )
     expect_true(all(expected_cols %in% names(result)))
     

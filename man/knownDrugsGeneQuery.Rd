@@ -2,30 +2,22 @@
 % Please edit documentation in R/knownDrugsGeneQuery.R
 \name{knownDrugsGeneQuery}
 \alias{knownDrugsGeneQuery}
-\title{Retrieve Known Drugs data for a specified gene.}
+\title{Retrieve drug and clinical candidate data for a specified gene.}
 \usage{
-knownDrugsGeneQuery(ensgId, cursor = NULL, freeTextQuery = NULL, size = 10)
+knownDrugsGeneQuery(ensgId)
 }
 \arguments{
 \item{ensgId}{Character: ENSEMBL ID of the target gene (e.g., ENSG00000169174).}
-
-\item{cursor}{Character: Cursor for pagination (default: NULL).}
-
-\item{freeTextQuery}{Character: Free text query to filter results (default: NULL).}
-
-\item{size}{Integer: Number of records to retrieve (default: 10).}
 }
 \value{
-Returns a data frame containing known drugs data for the specified gene.
+Returns a data frame containing drug and clinical candidate data for the specified gene.
 }
 \description{
-This function queries the Open Targets GraphQL API to retrieve known drugs data
-for a specified gene.
+This function queries the Open Targets GraphQL API to retrieve drug
+and clinical candidate data for a specified gene.
 }
 \examples{
 \dontrun{
-result <- knownDrugsGeneQuery(ensgId = "ENSG00000169174", size = 10)
-result <- knownDrugsGeneQuery(ensgId = "ENSG00000169174",
- cursor = NULL, freeTextQuery = NULL, size = 10)
+result <- knownDrugsGeneQuery(ensgId = "ENSG00000169174")
 }
 }

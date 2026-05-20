@@ -2,30 +2,22 @@
 % Please edit documentation in R/knownDrugsChemblQuery.R
 \name{knownDrugsChemblQuery}
 \alias{knownDrugsChemblQuery}
-\title{Retrieve Known Drugs data for a specified drug.}
+\title{Retrieve indications and clinical report data for a specified drug.}
 \usage{
-knownDrugsChemblQuery(chemblId, cursor = NULL, freeTextQuery = NULL, size = 10)
+knownDrugsChemblQuery(chemblId)
 }
 \arguments{
 \item{chemblId}{Character: ChEMBL ID of the target drug (e.g., "CHEMBL1016").}
-
-\item{cursor}{Character: Cursor for pagination (default: NULL).}
-
-\item{freeTextQuery}{Character: Free text query to filter results (default: NULL).}
-
-\item{size}{Integer: Number of records to retrieve (default: 10).}
 }
 \value{
-Returns a tibble containing known drugs data for the specified drug.
+Returns a tibble containing indications data for the specified drug.
 }
 \description{
-This function queries the Open Targets GraphQL API to retrieve known drugs data
-for a specified drug.
+This function queries the Open Targets GraphQL API to retrieve indications
+and clinical report data for a specified drug.
 }
 \examples{
 \dontrun{
-result <- knownDrugsChemblQuery(chemblId = "CHEMBL1016", size = 10)
-result <- knownDrugsChemblQuery(chemblId = "CHEMBL1016", cursor = NULL, 
-freeTextQuery = NULL, size = 10)
+result <- knownDrugsChemblQuery(chemblId = "CHEMBL1016")
 }
 }
