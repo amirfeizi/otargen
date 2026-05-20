@@ -35,9 +35,9 @@
 - [`interactionsQuery()`](https://amirfeizi.github.io/otargen/reference/interactionsQuery.md)
   : Retrieve Interactions data for a specified gene.
 - [`knownDrugsChemblQuery()`](https://amirfeizi.github.io/otargen/reference/knownDrugsChemblQuery.md)
-  : Retrieve Known Drugs data for a specified drug.
+  : Retrieve indications and clinical report data for a specified drug.
 - [`knownDrugsGeneQuery()`](https://amirfeizi.github.io/otargen/reference/knownDrugsGeneQuery.md)
-  : Retrieve Known Drugs data for a specified gene.
+  : Retrieve drug and clinical candidate data for a specified gene.
 - [`locus2GeneQuery()`](https://amirfeizi.github.io/otargen/reference/locus2GeneQuery.md)
   : Retrieve Locus-to-Gene Predictions data for a specified study locus.
 - [`mechanismsOfActionQuery()`](https://amirfeizi.github.io/otargen/reference/mechanismsOfActionQuery.md)

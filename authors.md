@@ -7,7 +7,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/amirfeizi/otargen/blob/v2.0.1/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/amirfeizi/otargen/blob/main/DESCRIPTION)
 
 Feizi A (2026). *otargen: Access Open Target*. R package version 2.0.1,
 <https://amirfeizi.github.io/otargen/>.
