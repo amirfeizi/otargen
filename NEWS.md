@@ -2,7 +2,7 @@
 
 ### Bug Fixes
 
-- Fixed HTTP 400 errors caused by Open Targets Platform API schema changes (renamed/removed fields on the `Evidence` type):
+- Fixed HTTP 400 errors caused by Open Targets Platform API schema changes (renamed/removed fields):
   - `chemblQuery()`: Removed deprecated `variantEffect`, `clinicalStatus`; renamed `clinicalPhase` to `clinicalStage`, `studyStopReason` to `trialWhyStopped`, `studyStopReasonCategories` to `trialStopReasonCategories`.
   - `clinVarQuery()`: Removed deprecated `variantEffect` from Evidence query.
   - `geneBurdenQuery()`: Removed deprecated `variantEffect` from Evidence query.
@@ -10,6 +10,8 @@
   - `indicationsQuery()`: Renamed `maxPhaseForIndication` to `maxClinicalStage`; replaced `references` with `clinicalReports`.
   - `knownDrugsChemblQuery()`: Replaced removed `knownDrugs` field on `Drug` type with `indications` + `clinicalReports`.
   - `knownDrugsGeneQuery()`: Replaced removed `knownDrugs` field on `Target` type with `drugAndClinicalCandidates`.
+  - `geneOntologyQuery()`: Renamed `name` to `label` on `GeneOntologyTerm` type.
+  - `interactionsQuery()`: Changed `sourceDatabase` parameter type from `String` to `InteractionSourceEnum`.
 
 ---
 
