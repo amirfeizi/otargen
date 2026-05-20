@@ -12,8 +12,8 @@
 <link rel="icon" sizes="any" href="../../favicon.ico">
 <link rel="manifest" href="../../site.webmanifest">
 <script src="../../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../../deps/headroom-0.11.0/headroom.min.js"></script><script src="../../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../../deps/search-1.0.0/fuse.min.js"></script><script src="../../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../../pkgdown.js"></script><meta property="og:title" content="examples">
 </head>
@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../../index.html">otargen</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -114,11 +114,11 @@ using genetic constraint metrics like pLI and LOEUF.<br><strong>Function:</stron
 <span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/geneticConstraintQuery.html">geneticConstraintQuery</a></span><span class="op">(</span>ensgId <span class="op">=</span> <span class="st">"ENSG00000141510"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 6</span></span></span>
-<span><span class="co">#&gt;   constraintType  score upperBin upperBin6 geneId          approvedSymbol</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> syn            -<span style="color: #BB0000;">0.544</span>       <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span> ENSG00000141510 TP53          </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> mis             0.983       <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span> ENSG00000141510 TP53          </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> lof             0.532        2         1 ENSG00000141510 TP53</span></span></code></pre></div>
+<span><span class="co">#&gt;   constraintType score upperBin upperBin6 geneId          approvedSymbol</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> syn            0.958       <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span> ENSG00000141510 TP53          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> mis            1.15        <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span> ENSG00000141510 TP53          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> lof            0.998        1         0 ENSG00000141510 TP53</span></span></code></pre></div>
 <hr>
 </div>
 </div>
@@ -138,21 +138,21 @@ associations to uncover clinical significance.<br><strong>Function:</strong> <co
 <span>  size <span class="op">=</span> <span class="fl">5</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 24</span></span></span>
-<span><span class="co">#&gt;   variantEffect directionOnTrait diseaseFromSource   variantRsId studyId     </span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> LoF           risk             Alzheimer disease 3 rs63750219  RCV002470967</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> <span style="color: #BB0000;">NA</span>            risk             Alzheimer disease 3 rs63750450  RCV001199924</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> <span style="color: #BB0000;">NA</span>            risk             Alzheimer disease 3 rs63750083  RCV000019785</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> <span style="color: #BB0000;">NA</span>            risk             Alzheimer disease 3 rs63750082  RCV000995615</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> <span style="color: #BB0000;">NA</span>            risk             Alzheimer disease 3 rs63751024  RCV001808318</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 19 more variables: clinicalSignificances &lt;list&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   allelicRequirements &lt;list&gt;, alleleOrigins &lt;list&gt;, confidence &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   literature &lt;list&gt;, cohortPhenotypes &lt;list&gt;, disease.id &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   disease.name &lt;chr&gt;, variant.id &lt;chr&gt;, variant.hgvsId &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   variant.referenceAllele &lt;chr&gt;, variant.alternateAllele &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   variantFunctionalConsequence.id &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   variantFunctionalConsequence.label &lt;chr&gt;, approvedSymbol &lt;chr&gt;, …</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 23</span></span></span>
+<span><span class="co">#&gt;   directionOnTrait diseaseFromSource   variantRsId studyId clinicalSignificances</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>               </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> risk             Alzheimer disease 3 rs63750083  RCV000… <span style="color: #949494;">&lt;chr [1]&gt;</span>            </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> risk             Alzheimer disease 3 rs63751037  RCV000… <span style="color: #949494;">&lt;chr [1]&gt;</span>            </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> risk             Alzheimer disease 3 rs63751024  RCV001… <span style="color: #949494;">&lt;chr [2]&gt;</span>            </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> risk             Alzheimer disease 3 rs63750450  RCV001… <span style="color: #949494;">&lt;chr [2]&gt;</span>            </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> risk             Alzheimer disease 3 rs63751287  RCV000… <span style="color: #949494;">&lt;chr [2]&gt;</span>            </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 18 more variables: allelicRequirements &lt;list&gt;, alleleOrigins &lt;list&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   confidence &lt;chr&gt;, literature &lt;list&gt;, cohortPhenotypes &lt;list&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   disease.id &lt;chr&gt;, disease.name &lt;chr&gt;, variant.id &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   variant.hgvsId &lt;chr&gt;, variant.referenceAllele &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   variant.alternateAllele &lt;chr&gt;, variantFunctionalConsequence.id &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   variantFunctionalConsequence.label &lt;chr&gt;, approvedSymbol &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   diseaseId &lt;chr&gt;, diseaseName &lt;chr&gt;, evaCount &lt;int&gt;, cursor &lt;chr&gt;</span></span></span></code></pre></div>
 <hr>
 </div>
 <div class="section level3">
@@ -184,15 +184,15 @@ influence drug response using pharmacogenomics data.<br><strong>Function:</stron
 <span><span class="co">#&gt;    variantRsId genotypeId       haplotypeId haplotypeFromSourceId isDirectTarget</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>         </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> rs3758785   11_94398973_A_A… <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    FALSE         </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> rs1275988   2_26691496_C_T,T <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    FALSE         </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> rs3184504   12_111446804_T_… <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    FALSE         </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> rs6722745   2_108258788_T_C… <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    FALSE         </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> rs3184504   12_111446804_T_… <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    FALSE         </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> rs5186      3_148742201_A_A… <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    TRUE          </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> rs6722745   2_108258788_T_C… <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    FALSE         </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> rs740406    19_2232222_A_A,G <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    FALSE         </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> rs3758785   11_94398973_A_G… <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    FALSE         </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> rs6722745   2_108258788_T_T… <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    FALSE         </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> rs1799998   8_142918184_A_G… <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    FALSE         </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> rs3758785   11_94398973_A_A… <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    FALSE         </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> rs6722745   2_108258788_T_C… <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    FALSE         </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> rs5186      3_148742201_A_A… <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    TRUE          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> rs3184504   12_111446804_T_… <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    FALSE         </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> rs740406    19_2232222_A_A,G <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    FALSE         </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> rs740406    19_2232222_A_G,G <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    FALSE         </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> rs740406    19_2232222_A_A,G <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    FALSE         </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 14 more rows</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 12 more variables: phenotypeFromSourceId &lt;lgl&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   genotypeAnnotationText &lt;chr&gt;, phenotypeText &lt;chr&gt;, pgxCategory &lt;chr&gt;,</span></span></span>
@@ -267,7 +267,7 @@ functions and parameters.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>
