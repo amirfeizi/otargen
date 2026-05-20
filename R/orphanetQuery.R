@@ -53,7 +53,6 @@ orphanetQuery <- function(ensemblId, efoId, size = 3500) {
               id
               name
             }
-            variantEffect
             directionOnTrait
             diseaseFromSource
             diseaseFromSourceId

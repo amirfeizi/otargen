@@ -1,3 +1,18 @@
+# otargen 2.0.1
+
+### Bug Fixes
+
+- Fixed HTTP 400 errors caused by Open Targets Platform API schema changes (renamed/removed fields on the `Evidence` type):
+  - `chemblQuery()`: Removed deprecated `variantEffect`, `clinicalStatus`; renamed `clinicalPhase` to `clinicalStage`, `studyStopReason` to `trialWhyStopped`, `studyStopReasonCategories` to `trialStopReasonCategories`.
+  - `clinVarQuery()`: Removed deprecated `variantEffect` from Evidence query.
+  - `geneBurdenQuery()`: Removed deprecated `variantEffect` from Evidence query.
+  - `orphanetQuery()`: Removed deprecated `variantEffect` from Evidence query.
+  - `indicationsQuery()`: Renamed `maxPhaseForIndication` to `maxClinicalStage`; replaced `references` with `clinicalReports`.
+  - `knownDrugsChemblQuery()`: Replaced removed `knownDrugs` field on `Drug` type with `indications` + `clinicalReports`.
+  - `knownDrugsGeneQuery()`: Replaced removed `knownDrugs` field on `Target` type with `drugAndClinicalCandidates`.
+
+---
+
 # otargen 2.0.0
 
 ### Major Release

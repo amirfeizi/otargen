@@ -29,26 +29,18 @@ knownDrugsGeneQuery <- function(ensgId, cursor = NULL, freeTextQuery = NULL, siz
     con <- ghql::GraphqlClient$new("https://api.platform.opentargets.org/api/v4/graphql")
     qry <- ghql::Query$new()
 
-    query <- "query KnownDrugsQuery($ensgId: String!, $size: Int = 10) {
+    # knownDrugs removed from Target type; replaced with drugAndClinicalCandidates
+    query <- "query KnownDrugsQuery($ensgId: String!) {
       target(ensemblId: $ensgId) {
         id
-        knownDrugs(size: $size) {
+        drugAndClinicalCandidates {
           count
-          cursor
           rows {
-            phase
-            status
-            urls {
-              name
-              url
-            }
-            disease {
-              id
-              name
-            }
+            maxClinicalStage
             drug {
               id
               name
+              drugType
               mechanismsOfAction {
                 rows {
                   actionType
@@ -58,18 +50,27 @@ knownDrugsGeneQuery <- function(ensgId, cursor = NULL, freeTextQuery = NULL, siz
                 }
               }
             }
-            drugType
-            mechanismOfAction
+            diseases {
+              diseaseFromSource
+              disease {
+                id
+                name
+              }
+            }
+            clinicalReports {
+              id
+              source
+              url
+              clinicalStage
+              trialOverallStatus
+            }
           }
         }
       }
     }"
 
     variables <- list(
-      ensgId = ensgId,
-      cursor = cursor,
-      freeTextQuery = freeTextQuery,
-      size = size
+      ensgId = ensgId
     )
 
     qry$query(name = "getKnownDrugsData", x = query)
@@ -80,8 +81,8 @@ knownDrugsGeneQuery <- function(ensgId, cursor = NULL, freeTextQuery = NULL, siz
     output0 <- con$exec(qry$queries$getKnownDrugsData, variables)
     output1 <- jsonlite::fromJSON(output0, flatten = TRUE)
 
-    if (length(output1$data$target$knownDrugs$rows) != 0) {
-      final_output <- output1$data$target$knownDrugs$rows
+    if (length(output1$data$target$drugAndClinicalCandidates$rows) != 0) {
+      final_output <- output1$data$target$drugAndClinicalCandidates$rows
       return(final_output)
     } else {
       message("No data found for the given parameters.")

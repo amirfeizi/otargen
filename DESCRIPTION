@@ -1,8 +1,8 @@
 Package: otargen
 Type: Package
 Title: Access Open Target 
-Version: 2.0.0
-Date: 2025-07-08
+Version: 2.0.1
+Date: 2026-05-20
 Authors@R: c(
     person("Amir", "Feizi", role = c("aut", "cre"), email = "afeizi@gmail.com"))
 Maintainer: Amir Feizi <afeizi@gmail.com>

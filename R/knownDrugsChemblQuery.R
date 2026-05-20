@@ -30,61 +30,33 @@ knownDrugsChemblQuery <- function(chemblId, cursor = NULL, freeTextQuery = NULL,
     con <- ghql::GraphqlClient$new("https://api.platform.opentargets.org/api/v4/graphql")
     qry <- ghql::Query$new()
     
-    # Define base query
-    query <- "query KnownDrugsQuery($chemblId: String!, $size: Int = 10{optional_cursor}{optional_freeTextQuery}) {
+    # knownDrugs removed from Drug type; replaced with indications + clinicalReports
+    query <- "query KnownDrugsQuery($chemblId: String!) {
       drug(chemblId: $chemblId) {
         id
-        knownDrugs(size: $size{cursor_param}{freeTextQuery_param}) {
+        indications {
           count
-          cursor
           rows {
-            phase
-            status
-            urls {
-              name
-              url
-            }
+            maxClinicalStage
             disease {
               id
               name
             }
-            target {
+            clinicalReports {
               id
-              approvedName
-              approvedSymbol
+              source
+              url
+              clinicalStage
+              trialOverallStatus
             }
           }
         }
       }
     }"
     
-    # Conditionally include cursor and freeTextQuery in query and variables
-    if (!is.null(cursor)) {
-      query <- sub("\\{optional_cursor\\}", ", $cursor: String", query)
-      query <- sub("\\{cursor_param\\}", ", cursor: $cursor", query)
-    } else {
-      query <- sub("\\{optional_cursor\\}", "", query)
-      query <- sub("\\{cursor_param\\}", "", query)
-    }
-    
-    if (!is.null(freeTextQuery)) {
-      query <- sub("\\{optional_freeTextQuery\\}", ", $freeTextQuery: String", query)
-      query <- sub("\\{freeTextQuery_param\\}", ", freeTextQuery: $freeTextQuery", query)
-    } else {
-      query <- sub("\\{optional_freeTextQuery\\}", "", query)
-      query <- sub("\\{freeTextQuery_param\\}", "", query)
-    }
-    
     variables <- list(
-      chemblId = chemblId,
-      size = size
+      chemblId = chemblId
     )
-    if (!is.null(cursor)) {
-      variables$cursor <- cursor
-    }
-    if (!is.null(freeTextQuery)) {
-      variables$freeTextQuery <- freeTextQuery
-    }
     
     qry$query(name = "getKnownDrugsData", x = query)
     
@@ -94,12 +66,11 @@ knownDrugsChemblQuery <- function(chemblId, cursor = NULL, freeTextQuery = NULL,
     output0 <- con$exec(qry$queries$getKnownDrugsData, variables)
     output1 <- jsonlite::fromJSON(output0, flatten = TRUE)
     
-    if (length(output1$data$drug$knownDrugs$rows) != 0) {
-      final_output <- tibble::as_tibble(output1$data$drug$knownDrugs$rows) %>%
+    if (length(output1$data$drug$indications$rows) != 0) {
+      final_output <- tibble::as_tibble(output1$data$drug$indications$rows) %>%
         dplyr::mutate(
           drugId = output1$data$drug$id,
-          knownDrugsCount = output1$data$drug$knownDrugs$count,
-          cursor = output1$data$drug$knownDrugs$cursor
+          indicationsCount = output1$data$drug$indications$count
         )
       return(final_output)
     } else {
