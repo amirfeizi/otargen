@@ -5,6 +5,6 @@ test_that("test geneOntologyQuery works", {
   
   expect_true(is.null(result) || tibble::is_tibble(result))
   if (!is.null(result)) {
-    expect_true(all(c("term.id", "term.name", "aspect", "evidence", "geneProduct", "source") %in% colnames(result)))
+    expect_true(all(c("term.id", "term.label", "aspect", "evidence", "geneProduct", "source") %in% colnames(result)))
   }
 })

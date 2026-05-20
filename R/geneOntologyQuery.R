@@ -31,7 +31,7 @@ geneOntologyQuery <- function(ensgId) {
         geneOntology {
           term {
             id
-            name
+            label
           }
           aspect
           evidence

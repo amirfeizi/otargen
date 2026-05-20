@@ -32,7 +32,8 @@ interactionsQuery <- function(ensgId, sourceDatabase = NULL, index = 0, size = 1
     qry <- ghql::Query$new()
     
     # Define base query
-    query <- "query InteractionsSectionQuery($ensgId: String!, $sourceDatabase: String, $index: Int = 0, $size: Int = 10) {
+    # sourceDatabase type changed from String to InteractionSourceEnum
+    query <- "query InteractionsSectionQuery($ensgId: String!, $sourceDatabase: InteractionSourceEnum, $index: Int = 0, $size: Int = 10) {
       target(ensemblId: $ensgId) {
         id
         approvedName
