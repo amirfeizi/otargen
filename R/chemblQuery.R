@@ -72,14 +72,12 @@ chemblQuery <- function(ensemblId, efoId, cursor = NULL, size = 10) {
                 }
               }
             }
-            variantEffect
             directionOnTrait
             targetFromSourceId
-            clinicalPhase
-            clinicalStatus
+            clinicalStage
             studyStartDate
-            studyStopReason
-            studyStopReasonCategories
+            trialWhyStopped
+            trialStopReasonCategories
             cohortPhenotypes
             urls {
               niceName

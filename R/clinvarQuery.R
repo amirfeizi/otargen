@@ -62,7 +62,6 @@ clinVarQuery <- function(ensemblId, efoId, cursor = NULL, size = 10) {
               referenceAllele
               alternateAllele
             }
-            variantEffect
             directionOnTrait
             diseaseFromSource
             variantRsId

@@ -25,12 +25,13 @@ indicationsQuery <- function(chemblId) {
     con <- ghql::GraphqlClient$new("https://api.platform.opentargets.org/api/v4/graphql")
     qry <- ghql::Query$new()
     
+    # maxPhaseForIndication -> maxClinicalStage, references -> clinicalReports (API schema change)
     query <- "query IndicationsQuery($chemblId: String!) {
       drug(chemblId: $chemblId) {
         id
         indications {
           rows {
-            maxPhaseForIndication
+            maxClinicalStage
             disease {
               id
               name
@@ -39,9 +40,10 @@ indicationsQuery <- function(chemblId) {
                 name
               }
             }
-            references {
-              ids
+            clinicalReports {
+              id
               source
+              url
             }
           }
           count

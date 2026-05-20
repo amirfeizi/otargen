@@ -56,7 +56,6 @@ geneBurdenQuery <- function(ensemblId, efoId, size = 3500) {
             urls {
               url
             }
-            variantEffect
             directionOnTrait
             allelicRequirements
             studyId
