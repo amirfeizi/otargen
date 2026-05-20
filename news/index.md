@@ -5,7 +5,7 @@
 #### Bug Fixes
 
 - Fixed HTTP 400 errors caused by Open Targets Platform API schema
-  changes (renamed/removed fields on the `Evidence` type):
+  changes (renamed/removed fields):
   - [`chemblQuery()`](https://amirfeizi.github.io/otargen/reference/chemblQuery.md):
     Removed deprecated `variantEffect`, `clinicalStatus`; renamed
     `clinicalPhase` to `clinicalStage`, `studyStopReason` to
@@ -26,6 +26,11 @@
   - [`knownDrugsGeneQuery()`](https://amirfeizi.github.io/otargen/reference/knownDrugsGeneQuery.md):
     Replaced removed `knownDrugs` field on `Target` type with
     `drugAndClinicalCandidates`.
+  - [`geneOntologyQuery()`](https://amirfeizi.github.io/otargen/reference/geneOntologyQuery.md):
+    Renamed `name` to `label` on `GeneOntologyTerm` type.
+  - [`interactionsQuery()`](https://amirfeizi.github.io/otargen/reference/interactionsQuery.md):
+    Changed `sourceDatabase` parameter type from `String` to
+    `InteractionSourceEnum`.
 
 ------------------------------------------------------------------------
 

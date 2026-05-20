@@ -40,7 +40,7 @@
 <h2 class="pkg-version" data-toc-text="2.0.1" id="otargen-201">otargen 2.0.1<a class="anchor" aria-label="anchor" href="#otargen-201"></a></h2>
 <div class="section level4">
 <h4 id="bug-fixes-2-0-1">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-0-1"></a></h4>
-<ul><li>Fixed HTTP 400 errors caused by Open Targets Platform API schema changes (renamed/removed fields on the <code>Evidence</code> type):
+<ul><li>Fixed HTTP 400 errors caused by Open Targets Platform API schema changes (renamed/removed fields):
 <ul><li>
 <code><a href="../reference/chemblQuery.html">chemblQuery()</a></code>: Removed deprecated <code>variantEffect</code>, <code>clinicalStatus</code>; renamed <code>clinicalPhase</code> to <code>clinicalStage</code>, <code>studyStopReason</code> to <code>trialWhyStopped</code>, <code>studyStopReasonCategories</code> to <code>trialStopReasonCategories</code>.</li>
 <li>
@@ -55,6 +55,10 @@
 <code><a href="../reference/knownDrugsChemblQuery.html">knownDrugsChemblQuery()</a></code>: Replaced removed <code>knownDrugs</code> field on <code>Drug</code> type with <code>indications</code> + <code>clinicalReports</code>.</li>
 <li>
 <code><a href="../reference/knownDrugsGeneQuery.html">knownDrugsGeneQuery()</a></code>: Replaced removed <code>knownDrugs</code> field on <code>Target</code> type with <code>drugAndClinicalCandidates</code>.</li>
+<li>
+<code><a href="../reference/geneOntologyQuery.html">geneOntologyQuery()</a></code>: Renamed <code>name</code> to <code>label</code> on <code>GeneOntologyTerm</code> type.</li>
+<li>
+<code><a href="../reference/interactionsQuery.html">interactionsQuery()</a></code>: Changed <code>sourceDatabase</code> parameter type from <code>String</code> to <code>InteractionSourceEnum</code>.</li>
 </ul></li>
 </ul><hr></div>
 </div>
