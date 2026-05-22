@@ -153,8 +153,8 @@ If you use `otargen` in your research, please cite:
 Bug reports and feature requests: [GitHub
 Issues](https://github.com/amirfeizi/otargen/issues)
 
-Contributions are welcome — see the [Contributing
-guidelines](https://amirfeizi.github.io/otargen/articles/Contributingguidelines.html).
+Contributions are welcome via pull requests on
+[GitHub](https://github.com/amirfeizi/otargen).
 
 ------------------------------------------------------------------------
 
