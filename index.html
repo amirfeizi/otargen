@@ -59,108 +59,180 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9"><table class="table"><tr>
-<td>
-<!-- Badges -->
-<p><a href="https://CRAN.R-project.org/package=otargen" class="external-link"> <img src="https://www.r-pkg.org/badges/version/otargen?color=blue" alt="CRAN Status Badge"></a> <br><a href="https://CRAN.R-project.org/package=otargen" class="external-link"> <img src="https://cranlogs.r-pkg.org/badges/grand-total/otargen?color=yellow" alt="Total Downloads"></a> <br><a href="https://opensource.org/licenses/MIT" class="external-link"> <img src="https://img.shields.io/badge/License-MIT-blue.svg?color=green" alt="MIT License"></a></p>
-</td>
-<td style="padding-left: 20px;">
-<img src="reference/figures/logo.png" width="120" alt="otargen logo">
-</td>
-</tr></table>
+  <main id="main" class="col-md-9">
+<div class="section level1">
+<div class="page-header">
+<img src="logo.png" class="logo" alt=""><h1 id="otargen">otargen<a class="anchor" aria-label="anchor" href="#otargen"></a>
+</h1>
+</div>
+<p><strong>Tidy R interface to the <a href="https://platform.opentargets.org" class="external-link">Open Targets Platform</a> GraphQL API.</strong></p>
+<p>Query genes, diseases, drugs, variants, and genetic evidence directly from R and receive analysis-ready tibbles — no manual JSON wrangling required.</p>
 <hr>
 <div class="section level2">
-<h2 id="unified-access-to-open-targets-platform-data-mag">Unified Access to Open Targets Platform Data 🔍<a class="anchor" aria-label="anchor" href="#unified-access-to-open-targets-platform-data-mag"></a>
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p><code>otargen</code> is an open-source R package that provides a streamlined and tidy interface for retrieving and analyzing drug target data from <a href="https://platform.opentargets.org" class="external-link">Open Targets Platform</a>. It enables researchers to access gene-disease associations, target safety, tractability, evidence types, and more — all within the R environment.</p>
-<hr>
-<div class="section level3">
-<h3 id="mega-otargen-200--major-release">
-<span class="emoji" data-emoji="mega">📣</span> <strong>otargen 2.0.0 — Major Release</strong>
-<a class="anchor" aria-label="anchor" href="#mega-otargen-200--major-release"></a>
-</h3>
-<p>🚨 <strong>Important Notice</strong>: Following <a href="https://community.opentargets.org/t/open-targets-genetics-will-be-deprecated-on-9-july-2025/1796" class="external-link">Open Targets’ announcement</a>, Open Targets Genetics has been officially merged into the Open Targets Platform API. Consequently, <strong><code>otargen 2.0.0</code> represents a complete overhaul</strong> of the package’s functionality to support this unified API endpoint and schema.</p>
-<hr>
-</div>
-<div class="section level3">
-<h3 id="new-whats-new-in-200">🆕 What’s New in 2.0.0<a class="anchor" aria-label="anchor" href="#new-whats-new-in-200"></a>
-</h3>
-<ul>
-<li>🔁 <strong>Unified API Integration</strong>: Full migration from the deprecated Open Targets Genetics GraphQL API to the new Platform GraphQL API.</li>
-<li>🔍 <strong>Expanded Query Support</strong>: Includes all major data types now available in the merged schema.</li>
-<li>📘 <strong>Updated Documentation</strong>: All help files and vignettes have been rewritten to reflect new function usage.</li>
-<li>📄 <strong>New Example Articles</strong>: Learn to use the new API queries with fresh, practical use cases.</li>
-</ul>
-<hr>
-<p>⚠️ <strong>Deprecation process</strong>:<br>
-The redanndant query functions from version <code>1.1.5</code> are <strong>deprecated</strong> in <code>2.0.0</code>. However, we will keep the queries and plotting functions that still provide useful data as long as supported in the backend API.<br>
-👉 We <strong>highly recommend</strong> upgrading to <code>2.0.0</code> by installing it from CRAN or GitHub.</p>
-<hr>
-</div>
-<div class="section level3">
-<h3 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
-</h3>
-<p><strong>From CRAN:</strong></p>
+<p><strong>CRAN (stable)</strong></p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"otargen"</span><span class="op">)</span></span></code></pre></div>
-<p><strong>From GitHub (development version):</strong></p>
+<p><strong>GitHub (development)</strong></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://devtools.r-lib.org/" class="external-link">"devtools"</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"amirfeizi/otargen"</span><span class="op">)</span></span></code></pre></div>
 <hr>
 </div>
+<div class="section level2">
+<h2 id="quick-start">Quick start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
+</h2>
+<p>Every function takes a single identifier (gene, disease, drug, or variant) and returns a tidy tibble.</p>
 <div class="section level3">
-<h3 id="test_tube-examples-of-new-queries">🧪 Examples of New Queries<a class="anchor" aria-label="anchor" href="#test_tube-examples-of-new-queries"></a>
+<h3 id="drug-safety--mechanisms-by-chembl-id">Drug safety &amp; mechanisms (by ChEMBL ID)<a class="anchor" aria-label="anchor" href="#drug-safety--mechanisms-by-chembl-id"></a>
 </h3>
-<p>Here are a few examples of the new query functions in <code>otargen 2.0.0</code>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Retrieve GWAS credible set data</span></span>
-<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gwasCredibleSetsQuery.html">gwasCredibleSetsQuery</a></span><span class="op">(</span>ensemblId <span class="op">=</span> <span class="st">"ENSG00000105397"</span>, efoId <span class="op">=</span> <span class="st">"EFO_0000685"</span>, size <span class="op">=</span> <span class="fl">500</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://amirfeizi.github.io/otargen/">otargen</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Retrieve ChEMBL data for a specified gene and disease.</span></span>
-<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/chemblQuery.html">chemblQuery</a></span><span class="op">(</span>ensemblId <span class="op">=</span> <span class="st">"ENSG00000080815"</span>, efoId <span class="op">=</span> <span class="st">"MONDO_0004975"</span>, size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="co"># Adverse events reported for imatinib</span></span>
+<span><span class="fu"><a href="reference/adverseEventsQuery.html">adverseEventsQuery</a></span><span class="op">(</span>chemblId <span class="op">=</span> <span class="st">"CHEMBL941"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Retrieve Pharmacogenomics data for a specified drug.</span></span>
-<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/pharmacogenomicsChemblQuery.html">pharmacogenomicsChemblQuery</a></span><span class="op">(</span>chemblId <span class="op">=</span> <span class="st">"CHEMBL1016"</span><span class="op">)</span></span>
+<span><span class="co"># Mechanism of action for imatinib</span></span>
+<span><span class="fu"><a href="reference/mechanismsOfActionQuery.html">mechanismsOfActionQuery</a></span><span class="op">(</span>chemblId <span class="op">=</span> <span class="st">"CHEMBL941"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Retrieve ClinVar data for a specified gene and disease.</span></span>
-<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/clinVarQuery.html">clinVarQuery</a></span><span class="op">(</span>ensemblId <span class="op">=</span> <span class="st">"ENSG00000080815"</span>, efoId <span class="op">=</span> <span class="st">"MONDO_0004975"</span>, size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Retrieve Safety Liabilities data for a specified gene</span></span>
-<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/safetyQuery.html">safetyQuery</a></span><span class="op">(</span>ensgId <span class="op">=</span> <span class="st">"ENSG00000141510"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Retrieve UniProt Variants data for a specified variant.</span></span>
-<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/uniProtVariantsQuery.html">uniProtVariantsQuery</a></span><span class="op">(</span>variantId <span class="op">=</span> <span class="st">"4_1804392_G_A"</span><span class="op">)</span></span></code></pre></div>
-<p>(Refer to <code>?gene_disease_associations_query</code> and other help files for full parameter lists and example outputs.)</p>
-<hr>
+<span><span class="co"># Drug indications with clinical stage info</span></span>
+<span><span class="fu"><a href="reference/indicationsQuery.html">indicationsQuery</a></span><span class="op">(</span>chemblId <span class="op">=</span> <span class="st">"CHEMBL941"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="citing-otargen">Citing <code>otargen</code>
-<a class="anchor" aria-label="anchor" href="#citing-otargen"></a>
+<h3 id="gene-level-queries-by-ensembl-id">Gene-level queries (by Ensembl ID)<a class="anchor" aria-label="anchor" href="#gene-level-queries-by-ensembl-id"></a>
 </h3>
-<p>Please cite <code>otargen</code> if you use it in your research:<br>
-📄 <a href="https://doi.org/10.1093/bioinformatics/btad441" class="external-link">Feizi &amp; Ray, <em>Bioinformatics</em></a></p>
-<hr>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Known drugs and clinical candidates targeting TP53</span></span>
+<span><span class="fu"><a href="reference/knownDrugsGeneQuery.html">knownDrugsGeneQuery</a></span><span class="op">(</span>ensgId <span class="op">=</span> <span class="st">"ENSG00000141510"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Cancer hallmarks for TP53</span></span>
+<span><span class="fu"><a href="reference/hallmarksQuery.html">hallmarksQuery</a></span><span class="op">(</span>ensgId <span class="op">=</span> <span class="st">"ENSG00000141510"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Protein-protein interactions for TP53</span></span>
+<span><span class="fu"><a href="reference/interactionsQuery.html">interactionsQuery</a></span><span class="op">(</span>ensgId <span class="op">=</span> <span class="st">"ENSG00000141510"</span>, size <span class="op">=</span> <span class="fl">25</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># DepMap cancer cell-line essentiality for EGFR</span></span>
+<span><span class="fu"><a href="reference/depMapQuery.html">depMapQuery</a></span><span class="op">(</span>ensgId <span class="op">=</span> <span class="st">"ENSG00000146648"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Target safety liabilities for EGFR</span></span>
+<span><span class="fu"><a href="reference/safetyQuery.html">safetyQuery</a></span><span class="op">(</span>ensgId <span class="op">=</span> <span class="st">"ENSG00000146648"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="features">Features<a class="anchor" aria-label="anchor" href="#features"></a>
+<h3 id="gene--disease-evidence-by-ensembl-id--efo-id">Gene + disease evidence (by Ensembl ID + EFO ID)<a class="anchor" aria-label="anchor" href="#gene--disease-evidence-by-ensembl-id--efo-id"></a>
 </h3>
-<ul>
-<li>⚡ <strong>Fast, declarative API querying</strong>
-</li>
-<li>🧭 <strong>Schema-aware helpers</strong> for key data types</li>
-<li>📊 <strong>Built-in visualizations</strong>
-</li>
-<li>📚 <strong>Example vignettes and reproducible workflows</strong>
-</li>
-</ul>
-<hr>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># ChEMBL evidence linking PARP1 to breast cancer</span></span>
+<span><span class="fu"><a href="reference/chemblQuery.html">chemblQuery</a></span><span class="op">(</span>ensemblId <span class="op">=</span> <span class="st">"ENSG00000143799"</span>, efoId <span class="op">=</span> <span class="st">"EFO_0000305"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># GWAS credible sets for PCSK9 and hyperlipidemia</span></span>
+<span><span class="fu"><a href="reference/gwasCredibleSetsQuery.html">gwasCredibleSetsQuery</a></span><span class="op">(</span>ensemblId <span class="op">=</span> <span class="st">"ENSG00000169174"</span>, efoId <span class="op">=</span> <span class="st">"EFO_0004911"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># ClinVar evidence for BRCA1 and ovarian cancer</span></span>
+<span><span class="fu"><a href="reference/clinVarQuery.html">clinVarQuery</a></span><span class="op">(</span>ensemblId <span class="op">=</span> <span class="st">"ENSG00000012048"</span>, efoId <span class="op">=</span> <span class="st">"EFO_0001075"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Literature evidence from Europe PMC</span></span>
+<span><span class="fu"><a href="reference/europePMCQuery.html">europePMCQuery</a></span><span class="op">(</span>ensemblId <span class="op">=</span> <span class="st">"ENSG00000012048"</span>, efoId <span class="op">=</span> <span class="st">"EFO_0001075"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="join-the-community">Join the Community<a class="anchor" aria-label="anchor" href="#join-the-community"></a>
+<h3 id="pharmacogenomics--variants">Pharmacogenomics &amp; variants<a class="anchor" aria-label="anchor" href="#pharmacogenomics--variants"></a>
 </h3>
-<p>Visit the GitHub repo: <a href="https://github.com/amirfeizi/otargen" class="external-link">https://github.com/amirfeizi/otargen</a><br>
-We welcome contributions, issue reports, and feedback!</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Pharmacogenomics data for a drug</span></span>
+<span><span class="fu"><a href="reference/pharmacogenomicsChemblQuery.html">pharmacogenomicsChemblQuery</a></span><span class="op">(</span>chemblId <span class="op">=</span> <span class="st">"CHEMBL1016"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># UniProt variants</span></span>
+<span><span class="fu"><a href="reference/uniProtVariantsQuery.html">uniProtVariantsQuery</a></span><span class="op">(</span>variantId <span class="op">=</span> <span class="st">"4_1804392_G_A"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Variant effect predictions</span></span>
+<span><span class="fu"><a href="reference/variantEffectPredictorQuery.html">variantEffectPredictorQuery</a></span><span class="op">(</span>variantId <span class="op">=</span> <span class="st">"1_154453788_C_T"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="genetics--colocalisation">Genetics &amp; colocalisation<a class="anchor" aria-label="anchor" href="#genetics--colocalisation"></a>
+</h3>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Locus-to-gene predictions for a credible set</span></span>
+<span><span class="fu"><a href="reference/locus2GeneQuery.html">locus2GeneQuery</a></span><span class="op">(</span>studyLocusId <span class="op">=</span> <span class="st">"fa375739ca2a6b825ce5cc69d117e84b"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># GWAS colocalisation analysis</span></span>
+<span><span class="fu"><a href="reference/gwasColocalisation.html">gwasColocalisation</a></span><span class="op">(</span>study_locus_id <span class="op">=</span> <span class="st">"5a86bfd40d2ebecf6ce97bbe8a737512"</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+</div>
+<div class="section level2">
+<h2 id="available-functions-35">Available functions (35)<a class="anchor" aria-label="anchor" href="#available-functions-35"></a>
+</h2>
+<table class="table">
+<colgroup>
+<col width="50%">
+<col width="50%">
+</colgroup>
+<thead><tr>
+<th>Category</th>
+<th>Functions</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><strong>Drug queries</strong></td>
+<td>
+<code>adverseEventsQuery</code>, <code>indicationsQuery</code>, <code>knownDrugsChemblQuery</code>, <code>mechanismsOfActionQuery</code>, <code>pharmacogenomicsChemblQuery</code>
+</td>
+</tr>
+<tr>
+<td><strong>Gene / target queries</strong></td>
+<td>
+<code>compGenomicsQuery</code>, <code>depMapQuery</code>, <code>geneOntologyQuery</code>, <code>geneticConstraintQuery</code>, <code>hallmarksQuery</code>, <code>interactionsQuery</code>, <code>knownDrugsGeneQuery</code>, <code>mousePhenotypesQuery</code>, <code>pathwaysQuery</code>, <code>pharmacogenomicsGeneQuery</code>, <code>safetyQuery</code>
+</td>
+</tr>
+<tr>
+<td><strong>Gene + disease evidence</strong></td>
+<td>
+<code>chemblQuery</code>, <code>clinVarQuery</code>, <code>europePMCQuery</code>, <code>geneBurdenQuery</code>, <code>genomicsEnglandQuery</code>, <code>orphanetQuery</code>, <code>uniprotLiteratureQuery</code>
+</td>
+</tr>
+<tr>
+<td><strong>Variant queries</strong></td>
+<td>
+<code>pharmacogenomicsVariantQuery</code>, <code>uniProtVariantsQuery</code>, <code>variantEffectPredictorQuery</code>, <code>variantEffectQuery</code>, <code>variantsQuery</code>
+</td>
+</tr>
+<tr>
+<td><strong>Genetics / GWAS</strong></td>
+<td>
+<code>gwasColocalisation</code>, <code>gwasCredibleSet</code>, <code>gwasCredibleSetsQuery</code>, <code>locus2GeneQuery</code>, <code>overlapInfoForStudy</code>, <code>qtlCredibleSetsQuery</code>, <code>sharedTraitStudiesQuery</code>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Full documentation: <strong><a href="https://amirfeizi.github.io/otargen/" class="uri">https://amirfeizi.github.io/otargen/</a></strong></p>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="whats-new-in-201">What’s new in 2.0.1<a class="anchor" aria-label="anchor" href="#whats-new-in-201"></a>
+</h2>
+<p>Bug fixes for HTTP 400 errors caused by upstream Open Targets API schema changes. Nine functions updated: <code>chemblQuery</code>, <code>clinVarQuery</code>, <code>geneBurdenQuery</code>, <code>orphanetQuery</code>, <code>indicationsQuery</code>, <code>knownDrugsChemblQuery</code>, <code>knownDrugsGeneQuery</code>, <code>geneOntologyQuery</code>, and <code>interactionsQuery</code>. See <a href="NEWS.html">NEWS.md</a> for details.</p>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
+</h2>
+<p>If you use <code>otargen</code> in your research, please cite:</p>
+<blockquote>
+<p>Feizi A, Ray D (2023). otargen: an R package for accessing and visualizing Open Targets Genetics data. <em>Bioinformatics</em>, 39(7). <a href="https://doi.org/10.1093/bioinformatics/btad441" class="external-link uri">https://doi.org/10.1093/bioinformatics/btad441</a></p>
+</blockquote>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
+</h2>
+<p>Bug reports and feature requests: <a href="https://github.com/amirfeizi/otargen/issues" class="external-link">GitHub Issues</a></p>
+<p>Contributions are welcome — see the <a href="https://amirfeizi.github.io/otargen/articles/Contributingguidelines.html">Contributing guidelines</a>.</p>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="license">License<a class="anchor" aria-label="anchor" href="#license"></a>
+</h2>
+<p>MIT</p>
 </div>
 </div>
 
@@ -196,7 +268,14 @@ We welcome contributions, issue reports, and feedback!</p>
 </ul>
 </div>
 
-
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://CRAN.R-project.org/package=otargen" class="external-link"><img src="https://www.r-pkg.org/badges/version/otargen" alt="CRAN status"></a></li>
+<li><a href="https://CRAN.R-project.org/package=otargen" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/grand-total/otargen" alt="Downloads"></a></li>
+<li><a href="https://opensource.org/licenses/MIT" class="external-link"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License: MIT"></a></li>
+</ul>
+</div>
 
   </aside>
 </div>
