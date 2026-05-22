@@ -1,118 +1,154 @@
-<table>
-<tr>
-<td>
+<!-- badges -->
+[![CRAN status](https://www.r-pkg.org/badges/version/otargen)](https://CRAN.R-project.org/package=otargen)
+[![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/otargen)](https://CRAN.R-project.org/package=otargen)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-<!-- Badges -->
-<a href="https://CRAN.R-project.org/package=otargen">
-  <img src="https://www.r-pkg.org/badges/version/otargen?color=blue" alt="CRAN Status Badge"/>
-</a>
-<br>
-<a href="https://CRAN.R-project.org/package=otargen">
-  <img src="https://cranlogs.r-pkg.org/badges/grand-total/otargen?color=yellow" alt="Total Downloads"/>
-</a>
-<br>
-<a href="https://opensource.org/licenses/MIT">
-  <img src="https://img.shields.io/badge/License-MIT-blue.svg?color=green" alt="MIT License"/>
-</a>
+# otargen
 
-</td>
-<td style="padding-left: 20px;">
-  <img src="man/figures/logo.png" width="120" alt="otargen logo"/>
-</td>
-</tr>
-</table>
+**Tidy R interface to the [Open Targets Platform](https://platform.opentargets.org) GraphQL API.**
 
+Query genes, diseases, drugs, variants, and genetic evidence directly from R and receive
+analysis-ready tibbles — no manual JSON wrangling required.
 
 ---
 
-## Unified Access to Open Targets Platform Data 🔍  
-`otargen` is an open-source R package that provides a streamlined and tidy interface for retrieving and analyzing drug target data from [Open Targets Platform](https://platform.opentargets.org). It enables researchers to access gene-disease associations, target safety, tractability, evidence types, and more — all within the R environment.
+## Installation
 
----
+**CRAN (stable)**
 
-### :mega: **otargen 2.0.0 — Major Release**
-
-🚨 **Important Notice**: Following [Open Targets' announcement](https://community.opentargets.org/t/open-targets-genetics-will-be-deprecated-on-9-july-2025/1796), Open Targets Genetics has been officially merged into the Open Targets Platform API. Consequently, **`otargen 2.0.0` represents a complete overhaul** of the package’s functionality to support this unified API endpoint and schema.
-
----
-
-### 🆕 What's New in 2.0.0
-
-- 🔁 **Unified API Integration**: Full migration from the deprecated Open Targets Genetics GraphQL API to the new Platform GraphQL API.
-- 🔍 **Expanded Query Support**: Includes all major data types now available in the merged schema.
-- 📘 **Updated Documentation**: All help files and vignettes have been rewritten to reflect new function usage.
-- 📄 **New Example Articles**: Learn to use the new API queries with fresh, practical use cases.
-
----
-
-⚠️ **Deprecation process**:  
-The redanndant query functions from version `1.1.5` are **deprecated** in `2.0.0`. However, we will keep the queries and plotting functions that still provide useful data as long as supported in the backend API.  
-👉 We **highly recommend** upgrading to `2.0.0` by installing it from CRAN or GitHub.
-
----
-
-### Installation
-
-**From CRAN:**
 ```r
 install.packages("otargen")
 ```
 
-**From GitHub (development version):**
+**GitHub (development)**
+
 ```r
-if (!require("devtools")) install.packages("devtools")
+# install.packages("devtools")
 devtools::install_github("amirfeizi/otargen")
 ```
 
 ---
 
-### 🧪 Examples of New Queries
+## Quick start
 
-Here are a few examples of the new query functions in `otargen 2.0.0`:
+Every function takes a single identifier (gene, disease, drug, or variant) and returns a tidy tibble.
+
+### Drug safety & mechanisms (by ChEMBL ID)
 
 ```r
-# Retrieve GWAS credible set data
-result <- gwasCredibleSetsQuery(ensemblId = "ENSG00000105397", efoId = "EFO_0000685", size = 500)
+library(otargen)
 
-# Retrieve ChEMBL data for a specified gene and disease.
-result <- chemblQuery(ensemblId = "ENSG00000080815", efoId = "MONDO_0004975", size = 10)
+# Adverse events reported for imatinib
+adverseEventsQuery(chemblId = "CHEMBL941")
 
-# Retrieve Pharmacogenomics data for a specified drug.
-result <- pharmacogenomicsChemblQuery(chemblId = "CHEMBL1016")
+# Mechanism of action for imatinib
+mechanismsOfActionQuery(chemblId = "CHEMBL941")
 
-# Retrieve ClinVar data for a specified gene and disease.
-result <- clinVarQuery(ensemblId = "ENSG00000080815", efoId = "MONDO_0004975", size = 10)
-
-# Retrieve Safety Liabilities data for a specified gene
-result <- safetyQuery(ensgId = "ENSG00000141510")
-
-# Retrieve UniProt Variants data for a specified variant.
-result <- uniProtVariantsQuery(variantId = "4_1804392_G_A")
-
-
+# Drug indications with clinical stage info
+indicationsQuery(chemblId = "CHEMBL941")
 ```
 
-(Refer to `?gene_disease_associations_query` and other help files for full parameter lists and example outputs.)
+### Gene-level queries (by Ensembl ID)
+
+```r
+# Known drugs and clinical candidates targeting TP53
+knownDrugsGeneQuery(ensgId = "ENSG00000141510")
+
+# Cancer hallmarks for TP53
+hallmarksQuery(ensgId = "ENSG00000141510")
+
+# Protein-protein interactions for TP53
+interactionsQuery(ensgId = "ENSG00000141510", size = 25)
+
+# DepMap cancer cell-line essentiality for EGFR
+depMapQuery(ensgId = "ENSG00000146648")
+
+# Target safety liabilities for EGFR
+safetyQuery(ensgId = "ENSG00000146648")
+```
+
+### Gene + disease evidence (by Ensembl ID + EFO ID)
+
+```r
+# ChEMBL evidence linking PARP1 to breast cancer
+chemblQuery(ensemblId = "ENSG00000143799", efoId = "EFO_0000305")
+
+# GWAS credible sets for PCSK9 and hyperlipidemia
+gwasCredibleSetsQuery(ensemblId = "ENSG00000169174", efoId = "EFO_0004911")
+
+# ClinVar evidence for BRCA1 and ovarian cancer
+clinVarQuery(ensemblId = "ENSG00000012048", efoId = "EFO_0001075")
+
+# Literature evidence from Europe PMC
+europePMCQuery(ensemblId = "ENSG00000012048", efoId = "EFO_0001075")
+```
+
+### Pharmacogenomics & variants
+
+```r
+# Pharmacogenomics data for a drug
+pharmacogenomicsChemblQuery(chemblId = "CHEMBL1016")
+
+# UniProt variants
+uniProtVariantsQuery(variantId = "4_1804392_G_A")
+
+# Variant effect predictions
+variantEffectPredictorQuery(variantId = "1_154453788_C_T")
+```
+
+### Genetics & colocalisation
+
+```r
+# Locus-to-gene predictions for a credible set
+locus2GeneQuery(studyLocusId = "fa375739ca2a6b825ce5cc69d117e84b")
+
+# GWAS colocalisation analysis
+gwasColocalisation(study_locus_id = "5a86bfd40d2ebecf6ce97bbe8a737512")
+```
 
 ---
 
-### Citing `otargen`
+## Available functions (35)
 
-Please cite `otargen` if you use it in your research:  
-📄 [Feizi & Ray, *Bioinformatics*](https://doi.org/10.1093/bioinformatics/btad441)
+| Category | Functions |
+|---|---|
+| **Drug queries** | `adverseEventsQuery`, `indicationsQuery`, `knownDrugsChemblQuery`, `mechanismsOfActionQuery`, `pharmacogenomicsChemblQuery` |
+| **Gene / target queries** | `compGenomicsQuery`, `depMapQuery`, `geneOntologyQuery`, `geneticConstraintQuery`, `hallmarksQuery`, `interactionsQuery`, `knownDrugsGeneQuery`, `mousePhenotypesQuery`, `pathwaysQuery`, `pharmacogenomicsGeneQuery`, `safetyQuery` |
+| **Gene + disease evidence** | `chemblQuery`, `clinVarQuery`, `europePMCQuery`, `geneBurdenQuery`, `genomicsEnglandQuery`, `orphanetQuery`, `uniprotLiteratureQuery` |
+| **Variant queries** | `pharmacogenomicsVariantQuery`, `uniProtVariantsQuery`, `variantEffectPredictorQuery`, `variantEffectQuery`, `variantsQuery` |
+| **Genetics / GWAS** | `gwasColocalisation`, `gwasCredibleSet`, `gwasCredibleSetsQuery`, `locus2GeneQuery`, `overlapInfoForStudy`, `qtlCredibleSetsQuery`, `sharedTraitStudiesQuery` |
 
----
-
-### Features
-
-- ⚡ **Fast, declarative API querying**
-- 🧭 **Schema-aware helpers** for key data types
-- 📊 **Built-in visualizations**
-- 📚 **Example vignettes and reproducible workflows**
+Full documentation: **<https://amirfeizi.github.io/otargen/>**
 
 ---
 
-### Join the Community
+## What's new in 2.0.1
 
-Visit the GitHub repo: [https://github.com/amirfeizi/otargen](https://github.com/amirfeizi/otargen)  
-We welcome contributions, issue reports, and feedback!
+Bug fixes for HTTP 400 errors caused by upstream Open Targets API schema changes.
+Nine functions updated: `chemblQuery`, `clinVarQuery`, `geneBurdenQuery`, `orphanetQuery`,
+`indicationsQuery`, `knownDrugsChemblQuery`, `knownDrugsGeneQuery`, `geneOntologyQuery`,
+and `interactionsQuery`. See [NEWS.md](NEWS.md) for details.
+
+---
+
+## Citation
+
+If you use `otargen` in your research, please cite:
+
+> Feizi A, Ray D (2023). otargen: an R package for accessing
+> and visualizing Open Targets Genetics data. *Bioinformatics*, 39(7).
+> <https://doi.org/10.1093/bioinformatics/btad441>
+
+---
+
+## Contributing
+
+Bug reports and feature requests: [GitHub Issues](https://github.com/amirfeizi/otargen/issues)
+
+Contributions are welcome — see the [Contributing guidelines](https://amirfeizi.github.io/otargen/articles/Contributingguidelines.html).
+
+---
+
+## License
+
+MIT
