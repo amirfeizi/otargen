@@ -20,6 +20,7 @@ Imports:
     httr
 License: MIT + file LICENSE
 Encoding: UTF-8
+Language: en-US
 Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
