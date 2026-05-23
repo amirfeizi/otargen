@@ -11,20 +11,24 @@ required.
 
 ## Installation
 
-**CRAN (stable)**
-
-``` r
-
-install.packages("otargen")
-```
-
-**GitHub (development)**
+**GitHub (recommended — latest features and bug fixes)**
 
 ``` r
 
 # install.packages("devtools")
 devtools::install_github("amirfeizi/otargen")
 ```
+
+**CRAN (stable release)**
+
+``` r
+
+install.packages("otargen")
+```
+
+> **Tip:** The GitHub version often includes new functions and fixes
+> ahead of the CRAN release. We recommend installing from GitHub to get
+> the latest updates.
 
 ------------------------------------------------------------------------
 
