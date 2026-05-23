@@ -58,7 +58,7 @@
 <li>
 <code><a href="../reference/geneOntologyQuery.html">geneOntologyQuery()</a></code>: Renamed <code>name</code> to <code>label</code> on <code>GeneOntologyTerm</code> type.</li>
 <li>
-<code><a href="../reference/interactionsQuery.html">interactionsQuery()</a></code>: Changed <code>sourceDatabase</code> parameter type from <code>String</code> to <code>InteractionSourceEnum</code>.</li>
+<code><a href="../reference/interactionsQuery.html">interactionsQuery()</a></code>: Changed <code>sourceDatabase</code> parameter type from <code>String</code> to <code>InteractionSourceEnum</code>; fixed error when <code>sourceDatabase</code> is NULL (the default) by omitting it from the GraphQL variables.</li>
 </ul></li>
 </ul><hr></div>
 </div>

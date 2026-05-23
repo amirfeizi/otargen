@@ -30,7 +30,8 @@
     Renamed `name` to `label` on `GeneOntologyTerm` type.
   - [`interactionsQuery()`](https://amirfeizi.github.io/otargen/reference/interactionsQuery.md):
     Changed `sourceDatabase` parameter type from `String` to
-    `InteractionSourceEnum`.
+    `InteractionSourceEnum`; fixed error when `sourceDatabase` is NULL
+    (the default) by omitting it from the GraphQL variables.
 
 ------------------------------------------------------------------------
 
