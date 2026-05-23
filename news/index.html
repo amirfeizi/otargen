@@ -39,6 +39,22 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.0.1" id="otargen-201">otargen 2.0.1<a class="anchor" aria-label="anchor" href="#otargen-201"></a></h2>
 <div class="section level4">
+<h4 id="new-features-2-0-1">New Features<a class="anchor" aria-label="anchor" href="#new-features-2-0-1"></a></h4>
+<ul><li>Added five built-in plotting functions for visualizing query outputs:
+<ul><li>
+<code>plot_adverse_events()</code>: Lollipop chart of adverse events ranked by log-likelihood ratio.</li>
+<li>
+<code>plot_interactions()</code>: Circular network graph of protein interaction partners.</li>
+<li>
+<code>plot_l2g()</code>: Horizontal bar chart of locus-to-gene prediction scores.</li>
+<li>
+<code>plot_colocalisation()</code>: Scatter plot of H4 posterior vs colocalising variant count.</li>
+<li>
+<code>plot_indications()</code>: Bar chart of drug indications colored by clinical trial stage.</li>
+</ul></li>
+<li>Added <code>ggplot2</code> as a package dependency.</li>
+</ul></div>
+<div class="section level4">
 <h4 id="bug-fixes-2-0-1">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-0-1"></a></h4>
 <ul><li>Fixed HTTP 400 errors caused by Open Targets Platform API schema changes (renamed/removed fields):
 <ul><li>

@@ -2,6 +2,21 @@
 
 ## otargen 2.0.1
 
+#### New Features
+
+- Added five built-in plotting functions for visualizing query outputs:
+  - `plot_adverse_events()`: Lollipop chart of adverse events ranked by
+    log-likelihood ratio.
+  - `plot_interactions()`: Circular network graph of protein interaction
+    partners.
+  - `plot_l2g()`: Horizontal bar chart of locus-to-gene prediction
+    scores.
+  - `plot_colocalisation()`: Scatter plot of H4 posterior vs
+    colocalising variant count.
+  - `plot_indications()`: Bar chart of drug indications colored by
+    clinical trial stage.
+- Added `ggplot2` as a package dependency.
+
 #### Bug Fixes
 
 - Fixed HTTP 400 errors caused by Open Targets Platform API schema
