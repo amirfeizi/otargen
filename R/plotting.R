@@ -217,11 +217,12 @@ plot_colocalisation <- function(df, h4_threshold = 0.8) {
 
 #' Plot drug indications by clinical stage.
 #'
-#' Horizontal bar chart of disease indications colored by the maximum
-#' clinical trial stage reached (Phase 0 through Phase 4).
+#' Faceted horizontal bar chart showing disease indications grouped by
+#' clinical trial stage. Each stage gets its own panel listing the
+#' individual disease names.
 #'
 #' @param df A tibble returned by \code{\link{indicationsQuery}}.
-#' @param top_n Integer: number of top indications to display (default: 25).
+#' @param top_n Integer: max diseases to show per stage panel (default: 10).
 #'
 #' @return A \code{ggplot} object.
 #' @examples
@@ -229,10 +230,10 @@ plot_colocalisation <- function(df, h4_threshold = 0.8) {
 #' ind <- indicationsQuery(chemblId = "CHEMBL941")
 #' plot_indications(ind)
 #' }
-#' @importFrom ggplot2 ggplot aes geom_col scale_fill_manual
+#' @importFrom ggplot2 ggplot aes geom_col scale_fill_manual facet_wrap
 #'   labs theme_minimal theme element_text element_blank
 #' @export
-plot_indications <- function(df, top_n = 25) {
+plot_indications <- function(df, top_n = 10) {
   if (is.null(df) || nrow(df) == 0) stop("Input data frame is empty or NULL.")
   required <- c("disease.name", "maxClinicalStage")
   if (!all(required %in% names(df))) {
@@ -255,30 +256,46 @@ plot_indications <- function(df, top_n = 25) {
                            stage_map[df$maxClinicalStage],
                            df$maxClinicalStage)
 
-  # Count indications per stage
-  counts <- as.data.frame(table(df$stage_label), stringsAsFactors = FALSE)
-  names(counts) <- c("stage_label", "n")
+  # Ordered factor for facet panel ordering (early -> approved)
+  ordered_labels <- intersect(unname(stage_map), unique(df$stage_label))
+  if (length(ordered_labels) == 0) ordered_labels <- unique(df$stage_label)
+  df$stage_label <- factor(df$stage_label, levels = ordered_labels)
 
-  # Ordered factor so bars go from early to approved
-  ordered_labels <- intersect(unname(stage_map), counts$stage_label)
-  if (length(ordered_labels) == 0) ordered_labels <- counts$stage_label
-  counts$stage_label <- factor(counts$stage_label, levels = ordered_labels)
+  # Limit diseases per stage to top_n (alphabetical within each stage)
+  df <- do.call(rbind, lapply(split(df, df$stage_label), function(sub) {
+    sub <- sub[order(sub$disease.name), ]
+    if (nrow(sub) > top_n) sub <- sub[seq_len(top_n), ]
+    sub
+  }))
+  rownames(df) <- NULL
+
+  # Reverse disease name order within each facet so first alphabetical is on top
+  df$disease.name <- factor(df$disease.name,
+                            levels = rev(unique(df$disease.name[order(
+                              df$stage_label, df$disease.name)])))
 
   # Color palette: yellow (early) to green (approved)
-  n_stages <- length(levels(counts$stage_label))
+  n_stages <- length(levels(df$stage_label))
   stage_colors <- grDevices::colorRampPalette(c("#FDE68A", "#16A34A"))(n_stages)
 
-  ggplot2::ggplot(counts, ggplot2::aes(x = stage_label, y = n,
-                                       fill = stage_label)) +
+  ggplot2::ggplot(df, ggplot2::aes(x = 1, y = disease.name,
+                                   fill = stage_label)) +
     ggplot2::geom_col(width = 0.7) +
-    ggplot2::geom_text(ggplot2::aes(label = n), vjust = -0.4, size = 3.5) +
+    ggplot2::facet_wrap(~ stage_label, scales = "free_y", ncol = 2) +
     ggplot2::scale_fill_manual(values = stats::setNames(stage_colors,
-                                                        levels(counts$stage_label))) +
+                                                        levels(df$stage_label))) +
     ggplot2::labs(
       title = "Drug Indications by Clinical Stage",
-      x = NULL, y = "Number of indications", fill = "Stage"
+      x = NULL, y = NULL
     ) +
     ggplot2::theme_minimal() +
-    ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 30, hjust = 1),
-                   legend.position = "none")
+    ggplot2::theme(
+      axis.text.x  = ggplot2::element_blank(),
+      axis.ticks.x = ggplot2::element_blank(),
+      axis.text.y  = ggplot2::element_text(size = 8),
+      strip.text   = ggplot2::element_text(size = 10, face = "bold"),
+      legend.position = "none",
+      panel.grid.major.x = ggplot2::element_blank(),
+      panel.grid.minor.x = ggplot2::element_blank()
+    )
 }
