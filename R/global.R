@@ -37,5 +37,7 @@ utils::globalVariables(c(
   "target.approvedSymbol",
   "trait_label",
   "disease.name",
-  "maxClinicalStage"
+  "maxClinicalStage",
+  "stage_label",
+  "stage_order"
 ))

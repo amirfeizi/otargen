@@ -229,8 +229,8 @@ plot_colocalisation <- function(df, h4_threshold = 0.8) {
 #' ind <- indicationsQuery(chemblId = "CHEMBL941")
 #' plot_indications(ind)
 #' }
-#' @importFrom ggplot2 ggplot aes geom_col scale_fill_gradient
-#'   labs theme_minimal theme element_text
+#' @importFrom ggplot2 ggplot aes geom_col scale_fill_manual
+#'   labs theme_minimal theme element_text element_blank
 #' @export
 plot_indications <- function(df, top_n = 25) {
   if (is.null(df) || nrow(df) == 0) stop("Input data frame is empty or NULL.")
@@ -240,22 +240,38 @@ plot_indications <- function(df, top_n = 25) {
          paste(setdiff(required, names(df)), collapse = ", "))
   }
 
-  # Keep top N sorted by clinical stage then disease name
-  df <- df[order(-df$maxClinicalStage, df$disease.name), ]
-  if (nrow(df) > top_n) df <- df[seq_len(top_n), ]
-  df$disease.name <- factor(df$disease.name,
-                            levels = rev(df$disease.name))
+  # Map clinical stage strings to ordered factor
+  stage_levels <- c("Phase 0 (Exploratory)", "Phase I", "Phase II",
+                     "Phase III", "Phase IV (Approved)")
+  # Normalize: exact match or prefix match for flexibility
+  df$stage_label <- df$maxClinicalStage
+  df$stage_order <- match(df$maxClinicalStage, stage_levels)
+  # Fall back to alphabetical ordering for unknown stages
+  df$stage_order[is.na(df$stage_order)] <- 0L
 
-  ggplot2::ggplot(df, ggplot2::aes(x = maxClinicalStage, y = disease.name,
-                                   fill = maxClinicalStage)) +
+  df <- df[order(-df$stage_order, df$disease.name), ]
+  if (nrow(df) > top_n) df <- df[seq_len(top_n), ]
+
+  # Ordered factor for fill color
+  present_stages <- intersect(stage_levels, unique(df$maxClinicalStage))
+  if (length(present_stages) == 0) present_stages <- unique(df$maxClinicalStage)
+  df$stage_label <- factor(df$stage_label, levels = present_stages)
+  df$disease.name <- factor(df$disease.name, levels = rev(df$disease.name))
+
+  # Color palette: yellow (early) to green (approved)
+  n_stages <- length(levels(df$stage_label))
+  stage_colors <- grDevices::colorRampPalette(c("#FDE68A", "#16A34A"))(n_stages)
+
+  ggplot2::ggplot(df, ggplot2::aes(x = stage_order, y = disease.name,
+                                   fill = stage_label)) +
     ggplot2::geom_col(width = 0.7) +
-    ggplot2::scale_fill_gradient(low = "#FDE68A", high = "#16A34A",
-                                 breaks = 0:4,
-                                 labels = paste("Phase", 0:4)) +
+    ggplot2::scale_fill_manual(values = stats::setNames(stage_colors,
+                                                        levels(df$stage_label))) +
     ggplot2::labs(
       title = "Drug Indications by Clinical Stage",
-      x = "Max Clinical Stage", y = NULL, fill = "Stage"
+      x = "Clinical Stage", y = NULL, fill = "Stage"
     ) +
     ggplot2::theme_minimal() +
-    ggplot2::theme(axis.text.y = ggplot2::element_text(size = 9))
+    ggplot2::theme(axis.text.y = ggplot2::element_text(size = 9),
+                   axis.text.x = ggplot2::element_blank())
 }
