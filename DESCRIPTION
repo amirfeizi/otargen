@@ -13,6 +13,7 @@ Imports:
     ghql,
     cli,
     dplyr,
+    ggplot2,
     jsonlite,
     magrittr,
     tibble,

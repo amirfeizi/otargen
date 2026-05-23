@@ -108,7 +108,43 @@ gwasColocalisation(study_locus_id = "5a86bfd40d2ebecf6ce97bbe8a737512")
 
 ---
 
-## Available functions (35)
+## Visualization
+
+Built-in plotting functions turn query results into publication-ready figures with a single call.
+
+```r
+# Adverse events lollipop chart for imatinib
+ae <- adverseEventsQuery(chemblId = "CHEMBL941")
+plot_adverse_events(ae)
+
+# Protein interaction network for TP53
+int <- interactionsQuery(ensgId = "ENSG00000141510", sourceDatabase = "intact", size = 25)
+plot_interactions(int)
+
+# Locus-to-gene candidate ranking
+l2g <- locus2GeneQuery(studyLocusId = "fa375739ca2a6b825ce5cc69d117e84b")
+plot_l2g(l2g)
+
+# GWAS colocalisation scatter plot
+coloc <- gwasColocalisation(study_locus_id = "5a86bfd40d2ebecf6ce97bbe8a737512")
+plot_colocalisation(coloc)
+
+# Drug indications by clinical trial stage
+ind <- indicationsQuery(chemblId = "CHEMBL941")
+plot_indications(ind)
+```
+
+| Function | Input | Plot type |
+|---|---|---|
+| `plot_adverse_events` | `adverseEventsQuery` | Lollipop chart with significance threshold |
+| `plot_interactions` | `interactionsQuery` | Circular network graph |
+| `plot_l2g` | `locus2GeneQuery` | Ranked bar chart of L2G scores |
+| `plot_colocalisation` | `gwasColocalisation` | H4 vs variant count scatter |
+| `plot_indications` | `indicationsQuery` | Clinical stage bar chart |
+
+---
+
+## Available functions (40)
 
 | Category | Functions |
 |---|---|
@@ -117,6 +153,7 @@ gwasColocalisation(study_locus_id = "5a86bfd40d2ebecf6ce97bbe8a737512")
 | **Gene + disease evidence** | `chemblQuery`, `clinVarQuery`, `europePMCQuery`, `geneBurdenQuery`, `genomicsEnglandQuery`, `orphanetQuery`, `uniprotLiteratureQuery` |
 | **Variant queries** | `pharmacogenomicsVariantQuery`, `uniProtVariantsQuery`, `variantEffectPredictorQuery`, `variantEffectQuery`, `variantsQuery` |
 | **Genetics / GWAS** | `gwasColocalisation`, `gwasCredibleSet`, `gwasCredibleSetsQuery`, `locus2GeneQuery`, `overlapInfoForStudy`, `qtlCredibleSetsQuery`, `sharedTraitStudiesQuery` |
+| **Visualization** | `plot_adverse_events`, `plot_colocalisation`, `plot_indications`, `plot_interactions`, `plot_l2g` |
 
 Full documentation: **<https://amirfeizi.github.io/otargen/>**
 

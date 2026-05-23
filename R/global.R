@@ -1,4 +1,5 @@
 utils::globalVariables(c(
+  # gwasColocalisation / overlapInfoForStudy columns
   "otherStudyLocus.study.id",
   "otherStudyLocus.study.projectId",
   "otherStudyLocus.study.traitFromSource",
@@ -23,5 +24,18 @@ utils::globalVariables(c(
   "variantIdB",
   "overlapAB",
   "distinctA",
-  "distinctB"
+  "distinctB",
+  # plotting function aesthetics
+  "logLR",
+  "name",
+  "score",
+  "x",
+  "y",
+  "xend",
+  "yend",
+  "label",
+  "target.approvedSymbol",
+  "trait_label",
+  "disease.name",
+  "maxClinicalStage"
 ))
