@@ -27,7 +27,7 @@ Following [Open Targets' announcement](https://community.opentargets.org/t/open-
 - 🔍 **Expanded Query Support**: Includes all major data types now available in the merged schema.
 - 📘 **Updated Documentation**: All help files and vignettes have been rewritten to reflect new function usage.
 - 📄 **New Example Articles**: Practical use cases demonstrating the new API queries.
-- ⚠️ **Deprecation Notice**: Many query functions from version 1.1.5 are now deprecated but retained for backward compatibility where possible.
+- **Deprecation Notice**: Many query functions from version 1.1.5 are now deprecated but retained for backward compatibility where possible.
 
 We **highly recommend** upgrading to otargen 2.0.0 for the best experience with the latest Open Targets Platform API.
 
