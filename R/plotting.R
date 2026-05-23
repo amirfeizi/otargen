@@ -240,7 +240,7 @@ plot_indications <- function(df, top_n = 25) {
          paste(setdiff(required, names(df)), collapse = ", "))
   }
 
-  # Map API stage strings to display labels and numeric order
+  # Map API stage strings to readable display labels (ordered early -> approved)
   stage_map <- c(
     "IND"           = "IND",
     "EARLY_PHASE_1" = "Early Phase 1",
@@ -254,33 +254,31 @@ plot_indications <- function(df, top_n = 25) {
   df$stage_label <- ifelse(df$maxClinicalStage %in% names(stage_map),
                            stage_map[df$maxClinicalStage],
                            df$maxClinicalStage)
-  df$stage_order <- match(df$maxClinicalStage, names(stage_map))
-  df$stage_order[is.na(df$stage_order)] <- 0L
 
-  df <- df[order(-df$stage_order, df$disease.name), ]
-  if (nrow(df) > top_n) df <- df[seq_len(top_n), ]
+  # Count indications per stage
+  counts <- as.data.frame(table(df$stage_label), stringsAsFactors = FALSE)
+  names(counts) <- c("stage_label", "n")
 
-  # Ordered factor for fill color using mapped display labels
-  ordered_labels <- unname(stage_map)
-  present_labels <- intersect(ordered_labels, unique(df$stage_label))
-  if (length(present_labels) == 0) present_labels <- unique(df$stage_label)
-  df$stage_label <- factor(df$stage_label, levels = present_labels)
-  df$disease.name <- factor(df$disease.name, levels = rev(df$disease.name))
+  # Ordered factor so bars go from early to approved
+  ordered_labels <- intersect(unname(stage_map), counts$stage_label)
+  if (length(ordered_labels) == 0) ordered_labels <- counts$stage_label
+  counts$stage_label <- factor(counts$stage_label, levels = ordered_labels)
 
   # Color palette: yellow (early) to green (approved)
-  n_stages <- length(levels(df$stage_label))
+  n_stages <- length(levels(counts$stage_label))
   stage_colors <- grDevices::colorRampPalette(c("#FDE68A", "#16A34A"))(n_stages)
 
-  ggplot2::ggplot(df, ggplot2::aes(x = stage_order, y = disease.name,
-                                   fill = stage_label)) +
+  ggplot2::ggplot(counts, ggplot2::aes(x = stage_label, y = n,
+                                       fill = stage_label)) +
     ggplot2::geom_col(width = 0.7) +
+    ggplot2::geom_text(ggplot2::aes(label = n), vjust = -0.4, size = 3.5) +
     ggplot2::scale_fill_manual(values = stats::setNames(stage_colors,
-                                                        levels(df$stage_label))) +
+                                                        levels(counts$stage_label))) +
     ggplot2::labs(
       title = "Drug Indications by Clinical Stage",
-      x = "Clinical Stage", y = NULL, fill = "Stage"
+      x = NULL, y = "Number of indications", fill = "Stage"
     ) +
     ggplot2::theme_minimal() +
-    ggplot2::theme(axis.text.y = ggplot2::element_text(size = 9),
-                   axis.text.x = ggplot2::element_blank())
+    ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 30, hjust = 1),
+                   legend.position = "none")
 }

@@ -38,6 +38,6 @@ utils::globalVariables(c(
   "trait_label",
   "disease.name",
   "maxClinicalStage",
-  "stage_label",
-  "stage_order"
+  "n",
+  "stage_label"
 ))
