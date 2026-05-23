@@ -2,6 +2,8 @@
 
 ## otargen 2.0.1
 
+CRAN release: 2026-05-23
+
 #### New Features
 
 - Added five built-in plotting functions for visualizing query outputs:
