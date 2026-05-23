@@ -57,8 +57,8 @@ knownDrugsGeneQuery(ensgId = "ENSG00000141510")
 # Cancer hallmarks for TP53
 hallmarksQuery(ensgId = "ENSG00000141510")
 
-# Protein-protein interactions for TP53
-interactionsQuery(ensgId = "ENSG00000141510", size = 25)
+# Protein-protein interactions for TP53 from IntAct
+interactionsQuery(ensgId = "ENSG00000141510", sourceDatabase = "intact", size = 25)
 
 # DepMap cancer cell-line essentiality for EGFR
 depMapQuery(ensgId = "ENSG00000146648")
