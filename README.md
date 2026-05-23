@@ -13,6 +13,8 @@
 Query genes, diseases, drugs, variants, and genetic evidence directly from R and receive
 analysis-ready tibbles — no manual JSON wrangling required.
 
+> **Python users:** see the sister package [otargenpy](https://github.com/amirfeizi/otargenpy).
+
 ---
 
 ## Installation
