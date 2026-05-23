@@ -240,22 +240,31 @@ plot_indications <- function(df, top_n = 25) {
          paste(setdiff(required, names(df)), collapse = ", "))
   }
 
-  # Map clinical stage strings to ordered factor
-  stage_levels <- c("Phase 0 (Exploratory)", "Phase I", "Phase II",
-                     "Phase III", "Phase IV (Approved)")
-  # Normalize: exact match or prefix match for flexibility
-  df$stage_label <- df$maxClinicalStage
-  df$stage_order <- match(df$maxClinicalStage, stage_levels)
-  # Fall back to alphabetical ordering for unknown stages
+  # Map API stage strings to display labels and numeric order
+  stage_map <- c(
+    "IND"           = "IND",
+    "EARLY_PHASE_1" = "Early Phase 1",
+    "PHASE_1"       = "Phase 1",
+    "PHASE_1_2"     = "Phase 1/2",
+    "PHASE_2"       = "Phase 2",
+    "PHASE_2_3"     = "Phase 2/3",
+    "PHASE_3"       = "Phase 3",
+    "APPROVAL"      = "Approved"
+  )
+  df$stage_label <- ifelse(df$maxClinicalStage %in% names(stage_map),
+                           stage_map[df$maxClinicalStage],
+                           df$maxClinicalStage)
+  df$stage_order <- match(df$maxClinicalStage, names(stage_map))
   df$stage_order[is.na(df$stage_order)] <- 0L
 
   df <- df[order(-df$stage_order, df$disease.name), ]
   if (nrow(df) > top_n) df <- df[seq_len(top_n), ]
 
-  # Ordered factor for fill color
-  present_stages <- intersect(stage_levels, unique(df$maxClinicalStage))
-  if (length(present_stages) == 0) present_stages <- unique(df$maxClinicalStage)
-  df$stage_label <- factor(df$stage_label, levels = present_stages)
+  # Ordered factor for fill color using mapped display labels
+  ordered_labels <- unname(stage_map)
+  present_labels <- intersect(ordered_labels, unique(df$stage_label))
+  if (length(present_labels) == 0) present_labels <- unique(df$stage_label)
+  df$stage_label <- factor(df$stage_label, levels = present_labels)
   df$disease.name <- factor(df$disease.name, levels = rev(df$disease.name))
 
   # Color palette: yellow (early) to green (approved)
