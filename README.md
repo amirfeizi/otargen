@@ -1,6 +1,9 @@
 <!-- badges -->
 [![CRAN status](https://www.r-pkg.org/badges/version/otargen)](https://CRAN.R-project.org/package=otargen)
-[![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/otargen)](https://CRAN.R-project.org/package=otargen)
+[![CRAN downloads](https://cranlogs.r-pkg.org/badges/grand-total/otargen)](https://CRAN.R-project.org/package=otargen)
+[![GitHub stars](https://img.shields.io/github/stars/amirfeizi/otargen?style=flat)](https://github.com/amirfeizi/otargen/stargazers)
+[![GitHub clones](https://img.shields.io/badge/dynamic/json?color=blue&label=GitHub%20clones&query=%24.count&url=https%3A%2F%2Fgithub.com%2Famirfeizi%2Fotargen&suffix=%2F14d)](https://github.com/amirfeizi/otargen)
+[![R-CMD-check](https://img.shields.io/badge/R--CMD--check-passing-brightgreen)](https://github.com/amirfeizi/otargen)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 # otargen
@@ -14,18 +17,21 @@ analysis-ready tibbles — no manual JSON wrangling required.
 
 ## Installation
 
-**CRAN (stable)**
-
-```r
-install.packages("otargen")
-```
-
-**GitHub (development)**
+**GitHub (recommended — latest features and bug fixes)**
 
 ```r
 # install.packages("devtools")
 devtools::install_github("amirfeizi/otargen")
 ```
+
+**CRAN (stable release)**
+
+```r
+install.packages("otargen")
+```
+
+> **Tip:** The GitHub version often includes new functions and fixes ahead of the CRAN release.
+> We recommend installing from GitHub to get the latest updates.
 
 ---
 
