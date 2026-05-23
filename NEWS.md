@@ -11,7 +11,7 @@
   - `knownDrugsChemblQuery()`: Replaced removed `knownDrugs` field on `Drug` type with `indications` + `clinicalReports`.
   - `knownDrugsGeneQuery()`: Replaced removed `knownDrugs` field on `Target` type with `drugAndClinicalCandidates`.
   - `geneOntologyQuery()`: Renamed `name` to `label` on `GeneOntologyTerm` type.
-  - `interactionsQuery()`: Changed `sourceDatabase` parameter type from `String` to `InteractionSourceEnum`.
+  - `interactionsQuery()`: Changed `sourceDatabase` parameter type from `String` to `InteractionSourceEnum`; fixed error when `sourceDatabase` is NULL (the default) by omitting it from the GraphQL variables.
 
 ---
 

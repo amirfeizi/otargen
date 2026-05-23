@@ -86,12 +86,11 @@ interactionsQuery <- function(ensgId, sourceDatabase = NULL, index = 0, size = 1
       }
     }"
     
-    variables <- list(
-      ensgId = ensgId,
-      sourceDatabase = sourceDatabase,
-      index = index,
-      size = size
-    )
+    # Only include sourceDatabase when explicitly provided
+    variables <- list(ensgId = ensgId, index = index, size = size)
+    if (!is.null(sourceDatabase)) {
+      variables$sourceDatabase <- sourceDatabase
+    }
     
     qry$query(name = "getInteractionsData", x = query)
     
