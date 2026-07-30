@@ -73,7 +73,7 @@
 - [`variantsQuery()`](https://amirfeizi.github.io/otargen/reference/variantsQuery.md)
   : Retrieve Variants data for a specified study locus.
 
-## Target prioritisation
+## Target safety
 
 - [`targetLiability()`](https://amirfeizi.github.io/otargen/reference/targetLiability.md)
   : Score a target's safety liability for inhibition or knockout.

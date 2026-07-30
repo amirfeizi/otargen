@@ -122,16 +122,23 @@
 <span><span class="fu"><a href="reference/depMapQuery.html">depMapQuery</a></span><span class="op">(</span>ensgId <span class="op">=</span> <span class="st">"ENSG00000146648"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Target safety liabilities for EGFR</span></span>
-<span><span class="fu"><a href="reference/safetyQuery.html">safetyQuery</a></span><span class="op">(</span>ensgId <span class="op">=</span> <span class="st">"ENSG00000146648"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/safetyQuery.html">safetyQuery</a></span><span class="op">(</span>ensgId <span class="op">=</span> <span class="st">"ENSG00000146648"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="target-safety-check-by-ensembl-id">Target safety check (by Ensembl ID)<a class="anchor" aria-label="anchor" href="#target-safety-check-by-ensembl-id"></a>
+</h3>
+<p><code><a href="reference/targetLiability.html">targetLiability()</a></code> bundles genetic constraint, known safety liabilities, and DepMap essentiality into a single 0–1 safety score with a written rationale, flagging genes that look risky for full inhibition or knockout versus ones that may tolerate a partial or tissue-restricted approach.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Combined safety score + rationale for a target (TP53)</span></span>
+<span><span class="fu"><a href="reference/targetLiability.html">targetLiability</a></span><span class="op">(</span>ensgId <span class="op">=</span> <span class="st">"ENSG00000141510"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Combined safety-liability score + rationale for EGFR</span></span>
-<span><span class="co"># (wraps geneticConstraintQuery, safetyQuery and depMapQuery)</span></span>
-<span><span class="fu"><a href="reference/targetLiability.html">targetLiability</a></span><span class="op">(</span>ensgId <span class="op">=</span> <span class="st">"ENSG00000146648"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co"># Skip the DepMap essentiality call (one fewer API request)</span></span>
+<span><span class="fu"><a href="reference/targetLiability.html">targetLiability</a></span><span class="op">(</span>ensgId <span class="op">=</span> <span class="st">"ENSG00000169174"</span>, include_essentiality <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="gene--disease-evidence-by-ensembl-id--efo-id">Gene + disease evidence (by Ensembl ID + EFO ID)<a class="anchor" aria-label="anchor" href="#gene--disease-evidence-by-ensembl-id--efo-id"></a>
 </h3>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ChEMBL evidence linking PARP1 to breast cancer</span></span>
 <span><span class="fu"><a href="reference/chemblQuery.html">chemblQuery</a></span><span class="op">(</span>ensemblId <span class="op">=</span> <span class="st">"ENSG00000143799"</span>, efoId <span class="op">=</span> <span class="st">"EFO_0000305"</span><span class="op">)</span></span>
 <span></span>
@@ -147,7 +154,7 @@
 <div class="section level3">
 <h3 id="pharmacogenomics--variants">Pharmacogenomics &amp; variants<a class="anchor" aria-label="anchor" href="#pharmacogenomics--variants"></a>
 </h3>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Pharmacogenomics data for a drug</span></span>
 <span><span class="fu"><a href="reference/pharmacogenomicsChemblQuery.html">pharmacogenomicsChemblQuery</a></span><span class="op">(</span>chemblId <span class="op">=</span> <span class="st">"CHEMBL1016"</span><span class="op">)</span></span>
 <span></span>
@@ -160,7 +167,7 @@
 <div class="section level3">
 <h3 id="genetics--colocalisation">Genetics &amp; colocalisation<a class="anchor" aria-label="anchor" href="#genetics--colocalisation"></a>
 </h3>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Locus-to-gene predictions for a credible set</span></span>
 <span><span class="fu"><a href="reference/locus2GeneQuery.html">locus2GeneQuery</a></span><span class="op">(</span>studyLocusId <span class="op">=</span> <span class="st">"fa375739ca2a6b825ce5cc69d117e84b"</span><span class="op">)</span></span>
 <span></span>
@@ -173,7 +180,7 @@
 <h2 id="visualization">Visualization<a class="anchor" aria-label="anchor" href="#visualization"></a>
 </h2>
 <p>Built-in plotting functions turn query results into publication-ready figures with a single call.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Adverse events lollipop chart for imatinib</span></span>
 <span><span class="va">ae</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/adverseEventsQuery.html">adverseEventsQuery</a></span><span class="op">(</span>chemblId <span class="op">=</span> <span class="st">"CHEMBL941"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/plot_adverse_events.html">plot_adverse_events</a></span><span class="op">(</span><span class="va">ae</span><span class="op">)</span></span>
@@ -235,74 +242,6 @@
 <hr>
 </div>
 <div class="section level2">
-<h2 id="target-prioritisation">Target prioritisation<a class="anchor" aria-label="anchor" href="#target-prioritisation"></a>
-</h2>
-<p><code><a href="reference/targetLiability.html">targetLiability()</a></code> combines three existing queries — genetic constraint, known safety liabilities, and DepMap essentiality — into a single 0–1 liability score with a written rationale, flagging genes that look risky for full inhibition versus ones that may tolerate a partial or tissue-restricted approach.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Score a single target (TP53) — prints a rationale and returns a tibble</span></span>
-<span><span class="fu"><a href="reference/targetLiability.html">targetLiability</a></span><span class="op">(</span>ensgId <span class="op">=</span> <span class="st">"ENSG00000141510"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Skip the DepMap essentiality call (one fewer API request)</span></span>
-<span><span class="fu"><a href="reference/targetLiability.html">targetLiability</a></span><span class="op">(</span>ensgId <span class="op">=</span> <span class="st">"ENSG00000169174"</span>, include_essentiality <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Score and rank several targets</span></span>
-<span><span class="va">genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ENSG00000141510"</span>, <span class="st">"ENSG00000146648"</span>, <span class="st">"ENSG00000169174"</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">genes</span>, <span class="kw">function</span><span class="op">(</span><span class="va">g</span><span class="op">)</span> <span class="fu"><a href="reference/targetLiability.html">targetLiability</a></span><span class="op">(</span><span class="va">g</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html" class="external-link">bind_rows</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">liability_score</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>The result is one row per gene with:</p>
-<table class="table">
-<colgroup>
-<col width="50%">
-<col width="50%">
-</colgroup>
-<thead><tr>
-<th>Column</th>
-<th>Meaning</th>
-</tr></thead>
-<tbody>
-<tr>
-<td><code>liability_score</code></td>
-<td>Combined score, 0–1 (higher = greater liability)</td>
-</tr>
-<tr>
-<td><code>liability_category</code></td>
-<td>
-<code>Low</code>, <code>Moderate</code>, or <code>High</code>
-</td>
-</tr>
-<tr>
-<td>
-<code>constraint_score</code>, <code>constraint_bin</code>, <code>constraint_loeuf</code>
-</td>
-<td>Genetic constraint component (gnomAD LOEUF)</td>
-</tr>
-<tr>
-<td>
-<code>n_safety_events</code>, <code>safety_score</code>
-</td>
-<td>Known safety liabilities from <code><a href="reference/safetyQuery.html">safetyQuery()</a></code>
-</td>
-</tr>
-<tr>
-<td>
-<code>essentiality_median</code>, <code>essentiality_score</code>
-</td>
-<td>DepMap CRISPR gene-effect component</td>
-</tr>
-<tr>
-<td>
-<code>recommendation</code>, <code>rationale</code>
-</td>
-<td>Human-readable interpretation</td>
-</tr>
-</tbody>
-</table>
-<p>Scoring weights are genetic constraint 0.40, safety 0.35 and essentiality 0.25, renormalised when a component has no data. It is a heuristic triage aid, not a validated clinical safety measure.</p>
-<hr>
-</div>
-<div class="section level2">
 <h2 id="available-functions-41">Available functions (41)<a class="anchor" aria-label="anchor" href="#available-functions-41"></a>
 </h2>
 <table class="table">
@@ -328,7 +267,7 @@
 </td>
 </tr>
 <tr>
-<td><strong>Target prioritisation</strong></td>
+<td><strong>Target safety</strong></td>
 <td><code>targetLiability</code></td>
 </tr>
 <tr>

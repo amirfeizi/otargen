@@ -74,10 +74,23 @@ depMapQuery(ensgId = "ENSG00000146648")
 
 # Target safety liabilities for EGFR
 safetyQuery(ensgId = "ENSG00000146648")
+```
 
-# Combined safety-liability score + rationale for EGFR
-# (wraps geneticConstraintQuery, safetyQuery and depMapQuery)
-targetLiability(ensgId = "ENSG00000146648")
+### Target safety check (by Ensembl ID)
+
+[`targetLiability()`](https://amirfeizi.github.io/otargen/reference/targetLiability.md)
+bundles genetic constraint, known safety liabilities, and DepMap
+essentiality into a single 0–1 safety score with a written rationale,
+flagging genes that look risky for full inhibition or knockout versus
+ones that may tolerate a partial or tissue-restricted approach.
+
+``` r
+
+# Combined safety score + rationale for a target (TP53)
+targetLiability(ensgId = "ENSG00000141510")
+
+# Skip the DepMap essentiality call (one fewer API request)
+targetLiability(ensgId = "ENSG00000169174", include_essentiality = FALSE)
 ```
 
 ### Gene + disease evidence (by Ensembl ID + EFO ID)
@@ -162,55 +175,13 @@ plot_indications(ind)
 
 ------------------------------------------------------------------------
 
-## Target prioritisation
-
-[`targetLiability()`](https://amirfeizi.github.io/otargen/reference/targetLiability.md)
-combines three existing queries — genetic constraint, known safety
-liabilities, and DepMap essentiality — into a single 0–1 liability score
-with a written rationale, flagging genes that look risky for full
-inhibition versus ones that may tolerate a partial or tissue-restricted
-approach.
-
-``` r
-
-# Score a single target (TP53) — prints a rationale and returns a tibble
-targetLiability(ensgId = "ENSG00000141510")
-
-# Skip the DepMap essentiality call (one fewer API request)
-targetLiability(ensgId = "ENSG00000169174", include_essentiality = FALSE)
-
-# Score and rank several targets
-genes <- c("ENSG00000141510", "ENSG00000146648", "ENSG00000169174")
-library(dplyr)
-lapply(genes, function(g) targetLiability(g, verbose = FALSE)) |>
-  bind_rows() |>
-  arrange(desc(liability_score))
-```
-
-The result is one row per gene with:
-
-| Column | Meaning |
-|----|----|
-| `liability_score` | Combined score, 0–1 (higher = greater liability) |
-| `liability_category` | `Low`, `Moderate`, or `High` |
-| `constraint_score`, `constraint_bin`, `constraint_loeuf` | Genetic constraint component (gnomAD LOEUF) |
-| `n_safety_events`, `safety_score` | Known safety liabilities from [`safetyQuery()`](https://amirfeizi.github.io/otargen/reference/safetyQuery.md) |
-| `essentiality_median`, `essentiality_score` | DepMap CRISPR gene-effect component |
-| `recommendation`, `rationale` | Human-readable interpretation |
-
-Scoring weights are genetic constraint 0.40, safety 0.35 and
-essentiality 0.25, renormalised when a component has no data. It is a
-heuristic triage aid, not a validated clinical safety measure.
-
-------------------------------------------------------------------------
-
 ## Available functions (41)
 
 | Category | Functions |
 |----|----|
 | **Drug queries** | `adverseEventsQuery`, `indicationsQuery`, `knownDrugsChemblQuery`, `mechanismsOfActionQuery`, `pharmacogenomicsChemblQuery` |
 | **Gene / target queries** | `compGenomicsQuery`, `depMapQuery`, `geneOntologyQuery`, `geneticConstraintQuery`, `hallmarksQuery`, `interactionsQuery`, `knownDrugsGeneQuery`, `mousePhenotypesQuery`, `pathwaysQuery`, `pharmacogenomicsGeneQuery`, `safetyQuery` |
-| **Target prioritisation** | `targetLiability` |
+| **Target safety** | `targetLiability` |
 | **Gene + disease evidence** | `chemblQuery`, `clinVarQuery`, `europePMCQuery`, `geneBurdenQuery`, `genomicsEnglandQuery`, `orphanetQuery`, `uniprotLiteratureQuery` |
 | **Variant queries** | `pharmacogenomicsVariantQuery`, `uniProtVariantsQuery`, `variantEffectPredictorQuery`, `variantEffectQuery`, `variantsQuery` |
 | **Genetics / GWAS** | `gwasColocalisation`, `gwasCredibleSet`, `gwasCredibleSetsQuery`, `locus2GeneQuery`, `overlapInfoForStudy`, `qtlCredibleSetsQuery`, `sharedTraitStudiesQuery` |
@@ -336,7 +307,7 @@ MIT
 - [`variantsQuery()`](https://amirfeizi.github.io/otargen/reference/variantsQuery.md)
   : Retrieve Variants data for a specified study locus.
 
-## Target prioritisation
+## Target safety
 
 - [`targetLiability()`](https://amirfeizi.github.io/otargen/reference/targetLiability.md)
   : Score a target's safety liability for inhibition or knockout.
