@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">otargen</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,20 +37,32 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2.1.0" id="otargen-210">otargen 2.1.0<a class="anchor" aria-label="anchor" href="#otargen-210"></a></h2>
+<div class="section level4">
+<h4 id="new-features-2-1-0">New Features<a class="anchor" aria-label="anchor" href="#new-features-2-1-0"></a></h4>
+<ul><li>Added <code><a href="../reference/targetLiability.html">targetLiability()</a></code>, a convenience wrapper that combines <code><a href="../reference/geneticConstraintQuery.html">geneticConstraintQuery()</a></code>, <code><a href="../reference/safetyQuery.html">safetyQuery()</a></code> and (optionally) <code><a href="../reference/depMapQuery.html">depMapQuery()</a></code> into a single target-liability score (0-1) with a written rationale and recommendation, flagging genes that look risky for full inhibition versus those that may tolerate a partial or tissue-restricted approach (requested in issue <a href="https://github.com/amirfeizi/otargen/issues/16" class="external-link">#16</a>).</li>
+</ul></div>
+<div class="section level4">
+<h4 id="bug-fixes-2-1-0">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-1-0"></a></h4>
+<ul><li>
+<code><a href="../reference/gwasColocalisation.html">gwasColocalisation()</a></code>: fixed a “column doesn’t exist” error that occurred when a study locus returned a single colocalisation row. Results are now extracted via nested access instead of relying on flattened column names, which works for one or many rows.</li>
+</ul></div>
+</div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.0.1" id="otargen-201">otargen 2.0.1<a class="anchor" aria-label="anchor" href="#otargen-201"></a></h2><p class="text-muted">CRAN release: 2026-05-23</p>
 <div class="section level4">
 <h4 id="new-features-2-0-1">New Features<a class="anchor" aria-label="anchor" href="#new-features-2-0-1"></a></h4>
 <ul><li>Added five built-in plotting functions for visualizing query outputs:
 <ul><li>
-<code>plot_adverse_events()</code>: Lollipop chart of adverse events ranked by log-likelihood ratio.</li>
+<code><a href="../reference/plot_adverse_events.html">plot_adverse_events()</a></code>: Lollipop chart of adverse events ranked by log-likelihood ratio.</li>
 <li>
-<code>plot_interactions()</code>: Circular network graph of protein interaction partners.</li>
+<code><a href="../reference/plot_interactions.html">plot_interactions()</a></code>: Circular network graph of protein interaction partners.</li>
 <li>
-<code>plot_l2g()</code>: Horizontal bar chart of locus-to-gene prediction scores.</li>
+<code><a href="../reference/plot_l2g.html">plot_l2g()</a></code>: Horizontal bar chart of locus-to-gene prediction scores.</li>
 <li>
-<code>plot_colocalisation()</code>: Scatter plot of H4 posterior vs colocalising variant count.</li>
+<code><a href="../reference/plot_colocalisation.html">plot_colocalisation()</a></code>: Scatter plot of H4 posterior vs colocalising variant count.</li>
 <li>
-<code>plot_indications()</code>: Bar chart of drug indications colored by clinical trial stage.</li>
+<code><a href="../reference/plot_indications.html">plot_indications()</a></code>: Bar chart of drug indications colored by clinical trial stage.</li>
 </ul></li>
 <li>Added <code>ggplot2</code> as a package dependency.</li>
 </ul></div>
@@ -131,7 +143,7 @@
 </ul></div>
 <div class="section level4">
 <h4 id="bug-fixes-1-1-1">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-1-1-1"></a></h4>
-<ul><li><p>Fixed and issue with the <code>plot_l2g()</code> function for the cases when the <code>disease</code> parameter were not selected. The previous function were plotting only top disease for one gene. The function now updated with two more parameters to expand the <code>plot_l2g()</code> functionality for plotting disease agnostic scenario. These two parameters are:</p></li>
+<ul><li><p>Fixed and issue with the <code><a href="../reference/plot_l2g.html">plot_l2g()</a></code> function for the cases when the <code>disease</code> parameter were not selected. The previous function were plotting only top disease for one gene. The function now updated with two more parameters to expand the <code><a href="../reference/plot_l2g.html">plot_l2g()</a></code> functionality for plotting disease agnostic scenario. These two parameters are:</p></li>
 <li><p><code>top_n_disease</code> (default: <code>1</code>): Determines the number of top diseases to plot for each gene, ranked by L2G score. Increase this value to include more diseases in the analysis. Use in conjunction with being disease-agnostic to dynamically select the top diseases for each gene.</p></li>
 <li><p><code>l2g_cutoff</code> (default: <code>0.5</code>): Sets the minimum L2G score threshold for diseases to be considered in the plot. Increasing this value can help reduce plot clutter by focusing on higher-confidence associations.</p></li>
 </ul></div>
@@ -171,7 +183,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

@@ -72,3 +72,21 @@
   : Retrieve Variant Effect data for a specified variant.
 - [`variantsQuery()`](https://amirfeizi.github.io/otargen/reference/variantsQuery.md)
   : Retrieve Variants data for a specified study locus.
+
+## Target prioritisation
+
+- [`targetLiability()`](https://amirfeizi.github.io/otargen/reference/targetLiability.md)
+  : Score a target's safety liability for inhibition or knockout.
+
+## Visualization
+
+- [`plot_adverse_events()`](https://amirfeizi.github.io/otargen/reference/plot_adverse_events.md)
+  : Plot adverse events for a drug as a lollipop chart.
+- [`plot_colocalisation()`](https://amirfeizi.github.io/otargen/reference/plot_colocalisation.md)
+  : Plot GWAS colocalisation results.
+- [`plot_indications()`](https://amirfeizi.github.io/otargen/reference/plot_indications.md)
+  : Plot drug indications by clinical stage.
+- [`plot_interactions()`](https://amirfeizi.github.io/otargen/reference/plot_interactions.md)
+  : Plot protein interaction network for a gene.
+- [`plot_l2g()`](https://amirfeizi.github.io/otargen/reference/plot_l2g.md)
+  : Plot locus-to-gene prediction scores.

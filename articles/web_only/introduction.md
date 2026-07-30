@@ -76,11 +76,11 @@ print(result)
 #> # A tibble: 5 × 23
 #>   directionOnTrait diseaseFromSource   variantRsId studyId clinicalSignificances
 #>   <chr>            <chr>               <chr>       <chr>   <list>               
-#> 1 risk             Alzheimer disease 3 rs63750083  RCV000… <chr [1]>            
+#> 1 risk             Alzheimer disease 3 rs63750450  RCV001… <chr [2]>            
 #> 2 risk             Alzheimer disease 3 rs63751037  RCV000… <chr [1]>            
-#> 3 risk             Alzheimer disease 3 rs63751024  RCV001… <chr [2]>            
-#> 4 risk             Alzheimer disease 3 rs63750450  RCV001… <chr [2]>            
-#> 5 risk             Alzheimer disease 3 rs63751287  RCV000… <chr [2]>            
+#> 3 risk             Alzheimer disease 3 rs63750082  RCV000… <chr [1]>            
+#> 4 risk             Alzheimer disease 3 rs63751024  RCV001… <chr [2]>            
+#> 5 risk             Alzheimer disease 3 rs63750083  RCV000… <chr [1]>            
 #> # ℹ 18 more variables: allelicRequirements <list>, alleleOrigins <list>,
 #> #   confidence <chr>, literature <list>, cohortPhenotypes <list>,
 #> #   disease.id <chr>, disease.name <chr>, variant.id <chr>,
@@ -124,16 +124,16 @@ print(result)
 #> # A tibble: 24 × 17
 #>    variantRsId genotypeId       haplotypeId haplotypeFromSourceId isDirectTarget
 #>    <chr>       <chr>            <lgl>       <lgl>                 <lgl>         
-#>  1 rs3758785   11_94398973_A_A… NA          NA                    FALSE         
-#>  2 rs3758785   11_94398973_A_G… NA          NA                    FALSE         
-#>  3 rs6722745   2_108258788_T_T… NA          NA                    FALSE         
-#>  4 rs1799998   8_142918184_A_G… NA          NA                    FALSE         
-#>  5 rs3758785   11_94398973_A_A… NA          NA                    FALSE         
-#>  6 rs6722745   2_108258788_T_C… NA          NA                    FALSE         
-#>  7 rs5186      3_148742201_A_A… NA          NA                    TRUE          
+#>  1 rs6722745   2_108258788_T_C… NA          NA                    FALSE         
+#>  2 rs6722745   2_108258788_T_T… NA          NA                    FALSE         
+#>  3 rs1275988   2_26691496_C_T,T NA          NA                    FALSE         
+#>  4 rs1275988   2_26691496_C_C,C NA          NA                    FALSE         
+#>  5 rs6722745   2_108258788_T_C… NA          NA                    FALSE         
+#>  6 rs1799998   8_142918184_A_A… NA          NA                    FALSE         
+#>  7 rs740406    19_2232222_A_A,G NA          NA                    FALSE         
 #>  8 rs3184504   12_111446804_T_… NA          NA                    FALSE         
-#>  9 rs740406    19_2232222_A_A,G NA          NA                    FALSE         
-#> 10 rs740406    19_2232222_A_A,G NA          NA                    FALSE         
+#>  9 rs3184504   12_111446804_T_… NA          NA                    FALSE         
+#> 10 rs740406    19_2232222_A_A,A NA          NA                    FALSE         
 #> # ℹ 14 more rows
 #> # ℹ 12 more variables: phenotypeFromSourceId <lgl>,
 #> #   genotypeAnnotationText <chr>, phenotypeText <chr>, pgxCategory <chr>,

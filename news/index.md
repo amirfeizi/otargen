@@ -1,5 +1,30 @@
 # Changelog
 
+## otargen 2.1.0
+
+#### New Features
+
+- Added
+  [`targetLiability()`](https://amirfeizi.github.io/otargen/reference/targetLiability.md),
+  a convenience wrapper that combines
+  [`geneticConstraintQuery()`](https://amirfeizi.github.io/otargen/reference/geneticConstraintQuery.md),
+  [`safetyQuery()`](https://amirfeizi.github.io/otargen/reference/safetyQuery.md)
+  and (optionally)
+  [`depMapQuery()`](https://amirfeizi.github.io/otargen/reference/depMapQuery.md)
+  into a single target-liability score (0-1) with a written rationale
+  and recommendation, flagging genes that look risky for full inhibition
+  versus those that may tolerate a partial or tissue-restricted approach
+  (requested in issue
+  [\#16](https://github.com/amirfeizi/otargen/issues/16)).
+
+#### Bug Fixes
+
+- [`gwasColocalisation()`](https://amirfeizi.github.io/otargen/reference/gwasColocalisation.md):
+  fixed a “column doesn’t exist” error that occurred when a study locus
+  returned a single colocalisation row. Results are now extracted via
+  nested access instead of relying on flattened column names, which
+  works for one or many rows.
+
 ## otargen 2.0.1
 
 CRAN release: 2026-05-23
@@ -7,16 +32,16 @@ CRAN release: 2026-05-23
 #### New Features
 
 - Added five built-in plotting functions for visualizing query outputs:
-  - `plot_adverse_events()`: Lollipop chart of adverse events ranked by
-    log-likelihood ratio.
-  - `plot_interactions()`: Circular network graph of protein interaction
-    partners.
-  - `plot_l2g()`: Horizontal bar chart of locus-to-gene prediction
-    scores.
-  - `plot_colocalisation()`: Scatter plot of H4 posterior vs
-    colocalising variant count.
-  - `plot_indications()`: Bar chart of drug indications colored by
-    clinical trial stage.
+  - [`plot_adverse_events()`](https://amirfeizi.github.io/otargen/reference/plot_adverse_events.md):
+    Lollipop chart of adverse events ranked by log-likelihood ratio.
+  - [`plot_interactions()`](https://amirfeizi.github.io/otargen/reference/plot_interactions.md):
+    Circular network graph of protein interaction partners.
+  - [`plot_l2g()`](https://amirfeizi.github.io/otargen/reference/plot_l2g.md):
+    Horizontal bar chart of locus-to-gene prediction scores.
+  - [`plot_colocalisation()`](https://amirfeizi.github.io/otargen/reference/plot_colocalisation.md):
+    Scatter plot of H4 posterior vs colocalising variant count.
+  - [`plot_indications()`](https://amirfeizi.github.io/otargen/reference/plot_indications.md):
+    Bar chart of drug indications colored by clinical trial stage.
 - Added `ggplot2` as a package dependency.
 
 #### Bug Fixes
@@ -128,11 +153,14 @@ CRAN release: 2024-02-21
 
 #### Bug Fixes
 
-- Fixed and issue with the `plot_l2g()` function for the cases when the
-  `disease` parameter were not selected. The previous function were
-  plotting only top disease for one gene. The function now updated with
-  two more parameters to expand the `plot_l2g()` functionality for
-  plotting disease agnostic scenario. These two parameters are:
+- Fixed and issue with the
+  [`plot_l2g()`](https://amirfeizi.github.io/otargen/reference/plot_l2g.md)
+  function for the cases when the `disease` parameter were not selected.
+  The previous function were plotting only top disease for one gene. The
+  function now updated with two more parameters to expand the
+  [`plot_l2g()`](https://amirfeizi.github.io/otargen/reference/plot_l2g.md)
+  functionality for plotting disease agnostic scenario. These two
+  parameters are:
 
 - `top_n_disease` (default: `1`): Determines the number of top diseases
   to plot for each gene, ranked by L2G score. Increase this value to

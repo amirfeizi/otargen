@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="index.html">otargen</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -122,7 +122,11 @@
 <span><span class="fu"><a href="reference/depMapQuery.html">depMapQuery</a></span><span class="op">(</span>ensgId <span class="op">=</span> <span class="st">"ENSG00000146648"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Target safety liabilities for EGFR</span></span>
-<span><span class="fu"><a href="reference/safetyQuery.html">safetyQuery</a></span><span class="op">(</span>ensgId <span class="op">=</span> <span class="st">"ENSG00000146648"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="reference/safetyQuery.html">safetyQuery</a></span><span class="op">(</span>ensgId <span class="op">=</span> <span class="st">"ENSG00000146648"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Combined safety-liability score + rationale for EGFR</span></span>
+<span><span class="co"># (wraps geneticConstraintQuery, safetyQuery and depMapQuery)</span></span>
+<span><span class="fu"><a href="reference/targetLiability.html">targetLiability</a></span><span class="op">(</span>ensgId <span class="op">=</span> <span class="st">"ENSG00000146648"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="gene--disease-evidence-by-ensembl-id--efo-id">Gene + disease evidence (by Ensembl ID + EFO ID)<a class="anchor" aria-label="anchor" href="#gene--disease-evidence-by-ensembl-id--efo-id"></a>
@@ -172,23 +176,23 @@
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Adverse events lollipop chart for imatinib</span></span>
 <span><span class="va">ae</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/adverseEventsQuery.html">adverseEventsQuery</a></span><span class="op">(</span>chemblId <span class="op">=</span> <span class="st">"CHEMBL941"</span><span class="op">)</span></span>
-<span><span class="fu">plot_adverse_events</span><span class="op">(</span><span class="va">ae</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/plot_adverse_events.html">plot_adverse_events</a></span><span class="op">(</span><span class="va">ae</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Protein interaction network for TP53</span></span>
 <span><span class="va">int</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/interactionsQuery.html">interactionsQuery</a></span><span class="op">(</span>ensgId <span class="op">=</span> <span class="st">"ENSG00000141510"</span>, sourceDatabase <span class="op">=</span> <span class="st">"intact"</span>, size <span class="op">=</span> <span class="fl">25</span><span class="op">)</span></span>
-<span><span class="fu">plot_interactions</span><span class="op">(</span><span class="va">int</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/plot_interactions.html">plot_interactions</a></span><span class="op">(</span><span class="va">int</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Locus-to-gene candidate ranking</span></span>
 <span><span class="va">l2g</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/locus2GeneQuery.html">locus2GeneQuery</a></span><span class="op">(</span>studyLocusId <span class="op">=</span> <span class="st">"fa375739ca2a6b825ce5cc69d117e84b"</span><span class="op">)</span></span>
-<span><span class="fu">plot_l2g</span><span class="op">(</span><span class="va">l2g</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/plot_l2g.html">plot_l2g</a></span><span class="op">(</span><span class="va">l2g</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># GWAS colocalisation scatter plot</span></span>
 <span><span class="va">coloc</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gwasColocalisation.html">gwasColocalisation</a></span><span class="op">(</span>study_locus_id <span class="op">=</span> <span class="st">"5a86bfd40d2ebecf6ce97bbe8a737512"</span><span class="op">)</span></span>
-<span><span class="fu">plot_colocalisation</span><span class="op">(</span><span class="va">coloc</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/plot_colocalisation.html">plot_colocalisation</a></span><span class="op">(</span><span class="va">coloc</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Drug indications by clinical trial stage</span></span>
 <span><span class="va">ind</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/indicationsQuery.html">indicationsQuery</a></span><span class="op">(</span>chemblId <span class="op">=</span> <span class="st">"CHEMBL941"</span><span class="op">)</span></span>
-<span><span class="fu">plot_indications</span><span class="op">(</span><span class="va">ind</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="reference/plot_indications.html">plot_indications</a></span><span class="op">(</span><span class="va">ind</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
 <col width="33%">
@@ -231,7 +235,75 @@
 <hr>
 </div>
 <div class="section level2">
-<h2 id="available-functions-40">Available functions (40)<a class="anchor" aria-label="anchor" href="#available-functions-40"></a>
+<h2 id="target-prioritisation">Target prioritisation<a class="anchor" aria-label="anchor" href="#target-prioritisation"></a>
+</h2>
+<p><code><a href="reference/targetLiability.html">targetLiability()</a></code> combines three existing queries — genetic constraint, known safety liabilities, and DepMap essentiality — into a single 0–1 liability score with a written rationale, flagging genes that look risky for full inhibition versus ones that may tolerate a partial or tissue-restricted approach.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Score a single target (TP53) — prints a rationale and returns a tibble</span></span>
+<span><span class="fu"><a href="reference/targetLiability.html">targetLiability</a></span><span class="op">(</span>ensgId <span class="op">=</span> <span class="st">"ENSG00000141510"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Skip the DepMap essentiality call (one fewer API request)</span></span>
+<span><span class="fu"><a href="reference/targetLiability.html">targetLiability</a></span><span class="op">(</span>ensgId <span class="op">=</span> <span class="st">"ENSG00000169174"</span>, include_essentiality <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Score and rank several targets</span></span>
+<span><span class="va">genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ENSG00000141510"</span>, <span class="st">"ENSG00000146648"</span>, <span class="st">"ENSG00000169174"</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">genes</span>, <span class="kw">function</span><span class="op">(</span><span class="va">g</span><span class="op">)</span> <span class="fu"><a href="reference/targetLiability.html">targetLiability</a></span><span class="op">(</span><span class="va">g</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html" class="external-link">bind_rows</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">liability_score</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>The result is one row per gene with:</p>
+<table class="table">
+<colgroup>
+<col width="50%">
+<col width="50%">
+</colgroup>
+<thead><tr>
+<th>Column</th>
+<th>Meaning</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code>liability_score</code></td>
+<td>Combined score, 0–1 (higher = greater liability)</td>
+</tr>
+<tr>
+<td><code>liability_category</code></td>
+<td>
+<code>Low</code>, <code>Moderate</code>, or <code>High</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>constraint_score</code>, <code>constraint_bin</code>, <code>constraint_loeuf</code>
+</td>
+<td>Genetic constraint component (gnomAD LOEUF)</td>
+</tr>
+<tr>
+<td>
+<code>n_safety_events</code>, <code>safety_score</code>
+</td>
+<td>Known safety liabilities from <code><a href="reference/safetyQuery.html">safetyQuery()</a></code>
+</td>
+</tr>
+<tr>
+<td>
+<code>essentiality_median</code>, <code>essentiality_score</code>
+</td>
+<td>DepMap CRISPR gene-effect component</td>
+</tr>
+<tr>
+<td>
+<code>recommendation</code>, <code>rationale</code>
+</td>
+<td>Human-readable interpretation</td>
+</tr>
+</tbody>
+</table>
+<p>Scoring weights are genetic constraint 0.40, safety 0.35 and essentiality 0.25, renormalised when a component has no data. It is a heuristic triage aid, not a validated clinical safety measure.</p>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="available-functions-41">Available functions (41)<a class="anchor" aria-label="anchor" href="#available-functions-41"></a>
 </h2>
 <table class="table">
 <colgroup>
@@ -254,6 +326,10 @@
 <td>
 <code>compGenomicsQuery</code>, <code>depMapQuery</code>, <code>geneOntologyQuery</code>, <code>geneticConstraintQuery</code>, <code>hallmarksQuery</code>, <code>interactionsQuery</code>, <code>knownDrugsGeneQuery</code>, <code>mousePhenotypesQuery</code>, <code>pathwaysQuery</code>, <code>pharmacogenomicsGeneQuery</code>, <code>safetyQuery</code>
 </td>
+</tr>
+<tr>
+<td><strong>Target prioritisation</strong></td>
+<td><code>targetLiability</code></td>
 </tr>
 <tr>
 <td><strong>Gene + disease evidence</strong></td>
@@ -285,9 +361,9 @@
 <hr>
 </div>
 <div class="section level2">
-<h2 id="whats-new-in-201">What’s new in 2.0.1<a class="anchor" aria-label="anchor" href="#whats-new-in-201"></a>
+<h2 id="whats-new-in-210">What’s new in 2.1.0<a class="anchor" aria-label="anchor" href="#whats-new-in-210"></a>
 </h2>
-<p>Bug fixes for HTTP 400 errors caused by upstream Open Targets API schema changes. Nine functions updated: <code>chemblQuery</code>, <code>clinVarQuery</code>, <code>geneBurdenQuery</code>, <code>orphanetQuery</code>, <code>indicationsQuery</code>, <code>knownDrugsChemblQuery</code>, <code>knownDrugsGeneQuery</code>, <code>geneOntologyQuery</code>, and <code>interactionsQuery</code>. See <a href="NEWS.html">NEWS.md</a> for details.</p>
+<p>New <code><a href="reference/targetLiability.html">targetLiability()</a></code> helper that scores a target’s safety liability for inhibition or knockout by combining <code><a href="reference/geneticConstraintQuery.html">geneticConstraintQuery()</a></code>, <code><a href="reference/safetyQuery.html">safetyQuery()</a></code> and <code><a href="reference/depMapQuery.html">depMapQuery()</a></code>. Also fixes <code><a href="reference/gwasColocalisation.html">gwasColocalisation()</a></code> for single-row responses. See <a href="NEWS.html">NEWS.md</a> for details.</p>
 <hr>
 </div>
 <div class="section level2">
@@ -366,7 +442,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>
