@@ -156,6 +156,45 @@ plot_indications(ind)
 
 ---
 
+## Target prioritisation
+
+`targetLiability()` combines three existing queries — genetic constraint,
+known safety liabilities, and DepMap essentiality — into a single 0–1 liability
+score with a written rationale, flagging genes that look risky for full
+inhibition versus ones that may tolerate a partial or tissue-restricted approach.
+
+```r
+# Score a single target (TP53) — prints a rationale and returns a tibble
+targetLiability(ensgId = "ENSG00000141510")
+
+# Skip the DepMap essentiality call (one fewer API request)
+targetLiability(ensgId = "ENSG00000169174", include_essentiality = FALSE)
+
+# Score and rank several targets
+genes <- c("ENSG00000141510", "ENSG00000146648", "ENSG00000169174")
+library(dplyr)
+lapply(genes, function(g) targetLiability(g, verbose = FALSE)) |>
+  bind_rows() |>
+  arrange(desc(liability_score))
+```
+
+The result is one row per gene with:
+
+| Column | Meaning |
+|---|---|
+| `liability_score` | Combined score, 0–1 (higher = greater liability) |
+| `liability_category` | `Low`, `Moderate`, or `High` |
+| `constraint_score`, `constraint_bin`, `constraint_loeuf` | Genetic constraint component (gnomAD LOEUF) |
+| `n_safety_events`, `safety_score` | Known safety liabilities from `safetyQuery()` |
+| `essentiality_median`, `essentiality_score` | DepMap CRISPR gene-effect component |
+| `recommendation`, `rationale` | Human-readable interpretation |
+
+Scoring weights are genetic constraint 0.40, safety 0.35 and essentiality 0.25,
+renormalised when a component has no data. It is a heuristic triage aid, not a
+validated clinical safety measure.
+
+---
+
 ## Available functions (41)
 
 | Category | Functions |
@@ -172,12 +211,12 @@ Full documentation: **<https://amirfeizi.github.io/otargen/>**
 
 ---
 
-## What's new in 2.0.1
+## What's new in 2.1.0
 
-Bug fixes for HTTP 400 errors caused by upstream Open Targets API schema changes.
-Nine functions updated: `chemblQuery`, `clinVarQuery`, `geneBurdenQuery`, `orphanetQuery`,
-`indicationsQuery`, `knownDrugsChemblQuery`, `knownDrugsGeneQuery`, `geneOntologyQuery`,
-and `interactionsQuery`. See [NEWS.md](NEWS.md) for details.
+New `targetLiability()` helper that scores a target's safety liability for
+inhibition or knockout by combining `geneticConstraintQuery()`, `safetyQuery()`
+and `depMapQuery()`. Also fixes `gwasColocalisation()` for single-row responses.
+See [NEWS.md](NEWS.md) for details.
 
 ---
 
