@@ -18,10 +18,10 @@ part of the score. Set to \code{FALSE} to skip the extra API call
 }
 \value{
 A one-row tibble with the input identifiers, the individual
-component scores and flags, the combined \code{liability_score}, a
-\code{liability_category} ("Low", "Moderate" or "High"), a
-\code{recommendation}, and a human-readable \code{rationale}. Returns
-\code{NULL} if none of the underlying queries return data.
+  component scores and flags, the combined \code{liability_score}, a
+  \code{liability_category} ("Low", "Moderate" or "High"), a
+  \code{recommendation}, and a human-readable \code{rationale}. Returns
+  \code{NULL} if none of the underlying queries return data.
 }
 \description{
 \code{targetLiability()} is a convenience wrapper that combines the
@@ -38,7 +38,9 @@ The overall \code{liability_score} is a weighted average (range 0-1, higher
 means greater liability) of up to three normalised components: genetic
 constraint (weight 0.40), known safety liabilities (0.35) and DepMap
 essentiality (0.25). Components without data are dropped and the remaining
-weights are renormalised.
+weights are renormalised. See \emph{Details} for the mapping of each
+component.
+
 
 \strong{Genetic constraint} uses the loss-of-function (LoF) decile bin from
 \code{geneticConstraintQuery()} (gnomAD LOEUF, where bin 0 is the most
