@@ -11,9 +11,9 @@
 
 ## Submission notes
 
-* This is a patch release (2.0.1) fixing HTTP 400 errors caused by
-  upstream Open Targets Platform API schema changes. Nine query
-  functions were updated to use renamed/replaced GraphQL fields:
-  chemblQuery, clinVarQuery, geneBurdenQuery, orphanetQuery,
-  indicationsQuery, knownDrugsChemblQuery, knownDrugsGeneQuery,
-  geneOntologyQuery, and interactionsQuery.
+* This is a minor release (2.1.0) adding one new feature,
+  `targetLiability()`: a convenience wrapper that combines the existing
+  `geneticConstraintQuery()`, `safetyQuery()` and `depMapQuery()` functions
+  into a single target-liability score with a written rationale. No changes
+  to existing function interfaces. `stats` was added to Imports for
+  `stats::median()`.

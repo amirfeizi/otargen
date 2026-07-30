@@ -1,8 +1,8 @@
 Package: otargen
 Type: Package
 Title: Access Open Target 
-Version: 2.0.1
-Date: 2026-05-20
+Version: 2.1.0
+Date: 2026-07-30
 Authors@R: c(
     person("Amir", "Feizi", role = c("aut", "cre"), email = "afeizi@gmail.com"))
 Maintainer: Amir Feizi <afeizi@gmail.com>
@@ -16,6 +16,7 @@ Imports:
     ggplot2,
     jsonlite,
     magrittr,
+    stats,
     tibble,
     tidyr,
     httr

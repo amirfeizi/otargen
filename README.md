@@ -73,6 +73,10 @@ depMapQuery(ensgId = "ENSG00000146648")
 
 # Target safety liabilities for EGFR
 safetyQuery(ensgId = "ENSG00000146648")
+
+# Combined safety-liability score + rationale for EGFR
+# (wraps geneticConstraintQuery, safetyQuery and depMapQuery)
+targetLiability(ensgId = "ENSG00000146648")
 ```
 
 ### Gene + disease evidence (by Ensembl ID + EFO ID)
@@ -152,12 +156,13 @@ plot_indications(ind)
 
 ---
 
-## Available functions (40)
+## Available functions (41)
 
 | Category | Functions |
 |---|---|
 | **Drug queries** | `adverseEventsQuery`, `indicationsQuery`, `knownDrugsChemblQuery`, `mechanismsOfActionQuery`, `pharmacogenomicsChemblQuery` |
 | **Gene / target queries** | `compGenomicsQuery`, `depMapQuery`, `geneOntologyQuery`, `geneticConstraintQuery`, `hallmarksQuery`, `interactionsQuery`, `knownDrugsGeneQuery`, `mousePhenotypesQuery`, `pathwaysQuery`, `pharmacogenomicsGeneQuery`, `safetyQuery` |
+| **Target prioritisation** | `targetLiability` |
 | **Gene + disease evidence** | `chemblQuery`, `clinVarQuery`, `europePMCQuery`, `geneBurdenQuery`, `genomicsEnglandQuery`, `orphanetQuery`, `uniprotLiteratureQuery` |
 | **Variant queries** | `pharmacogenomicsVariantQuery`, `uniProtVariantsQuery`, `variantEffectPredictorQuery`, `variantEffectQuery`, `variantsQuery` |
 | **Genetics / GWAS** | `gwasColocalisation`, `gwasCredibleSet`, `gwasCredibleSetsQuery`, `locus2GeneQuery`, `overlapInfoForStudy`, `qtlCredibleSetsQuery`, `sharedTraitStudiesQuery` |
