@@ -9,6 +9,13 @@
   inhibition versus those that may tolerate a partial or tissue-restricted
   approach (requested in issue #16).
 
+### Bug Fixes
+
+- `gwasColocalisation()`: fixed a "column doesn't exist" error that occurred
+  when a study locus returned a single colocalisation row. Results are now
+  extracted via nested access instead of relying on flattened column names,
+  which works for one or many rows.
+
 # otargen 2.0.1
 
 ### New Features

@@ -101,37 +101,48 @@ gwasColocalisation <- function(study_locus_id, size = 500, index = 0) {
   variables <- list(studyLocusId = study_locus_id, size = size, index = index)
   otg_qry$query(name = "gwascol_query", x = query)
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
-  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$gwascol_query, variables), flatten = TRUE)$data
-  
+  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$gwascol_query, variables), flatten = FALSE)$data
+
   # Process the response
   rows <- result$credibleSet$colocalisation$rows
-  if (is.null(rows) || length(rows) == 0) {
+  if (is.null(rows) || length(rows) == 0 ||
+      (is.data.frame(rows) && nrow(rows) == 0)) {
     message("No colocalisation data found for the given study locus ID.")
-    return(data.frame())
+    return(dplyr::tibble())
   }
-  
-  # Convert to data frame and select relevant columns
-  output <- rows %>%
-    dplyr::tibble() %>%
-    dplyr::select(
-      study.studyId = otherStudyLocus.study.id,
-      study.projectId = otherStudyLocus.study.projectId,
-      study.traitReported = otherStudyLocus.study.traitFromSource,
-      study.publicationFirstAuthor = otherStudyLocus.study.publicationFirstAuthor,
-      indexVariant.id = otherStudyLocus.variant.id,
-      indexVariant.chromosome = otherStudyLocus.variant.chromosome,
-      indexVariant.position = otherStudyLocus.variant.position,
-      indexVariant.referenceAllele = otherStudyLocus.variant.referenceAllele,
-      indexVariant.alternateAllele = otherStudyLocus.variant.alternateAllele,
-      pValueMantissa = otherStudyLocus.pValueMantissa,
-      pValueExponent = otherStudyLocus.pValueExponent,
-      numberColocalisingVariants,
-      colocalisationMethod,
-      h3,
-      h4,
-      clpp,
-      betaRatioSignAverage
-    )
-  
+
+  # `rows` is a data frame whose `otherStudyLocus` column is itself a nested
+  # data frame (with nested `study` and `variant` data frames). Pull fields via
+  # nested access rather than relying on jsonlite's flattened dotted column
+  # names, which are not generated reliably when only a single colocalisation
+  # row is returned (previously caused a "column doesn't exist" error).
+  osl     <- rows$otherStudyLocus
+  study   <- osl$study
+  variant <- osl$variant
+
+  get_col <- function(df, nm) {
+    if (!is.null(df) && is.data.frame(df) && nm %in% names(df)) df[[nm]] else NA
+  }
+
+  output <- dplyr::tibble(
+    study.studyId                = get_col(study, "id"),
+    study.projectId              = get_col(study, "projectId"),
+    study.traitReported          = get_col(study, "traitFromSource"),
+    study.publicationFirstAuthor = get_col(study, "publicationFirstAuthor"),
+    indexVariant.id              = get_col(variant, "id"),
+    indexVariant.chromosome      = get_col(variant, "chromosome"),
+    indexVariant.position        = get_col(variant, "position"),
+    indexVariant.referenceAllele = get_col(variant, "referenceAllele"),
+    indexVariant.alternateAllele = get_col(variant, "alternateAllele"),
+    pValueMantissa               = get_col(osl, "pValueMantissa"),
+    pValueExponent               = get_col(osl, "pValueExponent"),
+    numberColocalisingVariants   = rows$numberColocalisingVariants,
+    colocalisationMethod         = rows$colocalisationMethod,
+    h3                           = rows$h3,
+    h4                           = rows$h4,
+    clpp                         = rows$clpp,
+    betaRatioSignAverage         = rows$betaRatioSignAverage
+  )
+
   return(output)
 }
