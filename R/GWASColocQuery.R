@@ -101,37 +101,61 @@ gwasColocalisation <- function(study_locus_id, size = 500, index = 0) {
   variables <- list(studyLocusId = study_locus_id, size = size, index = index)
   otg_qry$query(name = "gwascol_query", x = query)
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
-  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$gwascol_query, variables), flatten = TRUE)$data
-  
-  # Process the response
-  rows <- result$credibleSet$colocalisation$rows
+  # Parse as plain nested lists (simplifyVector = FALSE) rather than letting
+  # jsonlite simplify into (nested) data frames. jsonlite's data-frame
+  # simplification is inconsistent when only a single colocalisation row is
+  # returned - it collapses `otherStudyLocus` to an atomic vector - so we
+  # traverse the list by key path instead, which is deterministic for any
+  # number of rows.
+  parsed <- jsonlite::fromJSON(
+    otg_cli$exec(otg_qry$queries$gwascol_query, variables),
+    simplifyVector = FALSE
+  )
+  rows <- parsed$data$credibleSet$colocalisation$rows
+
   if (is.null(rows) || length(rows) == 0) {
     message("No colocalisation data found for the given study locus ID.")
-    return(data.frame())
+    return(dplyr::tibble())
   }
-  
-  # Convert to data frame and select relevant columns
-  output <- rows %>%
-    dplyr::tibble() %>%
-    dplyr::select(
-      study.studyId = otherStudyLocus.study.id,
-      study.projectId = otherStudyLocus.study.projectId,
-      study.traitReported = otherStudyLocus.study.traitFromSource,
-      study.publicationFirstAuthor = otherStudyLocus.study.publicationFirstAuthor,
-      indexVariant.id = otherStudyLocus.variant.id,
-      indexVariant.chromosome = otherStudyLocus.variant.chromosome,
-      indexVariant.position = otherStudyLocus.variant.position,
-      indexVariant.referenceAllele = otherStudyLocus.variant.referenceAllele,
-      indexVariant.alternateAllele = otherStudyLocus.variant.alternateAllele,
-      pValueMantissa = otherStudyLocus.pValueMantissa,
-      pValueExponent = otherStudyLocus.pValueExponent,
-      numberColocalisingVariants,
-      colocalisationMethod,
-      h3,
-      h4,
-      clpp,
-      betaRatioSignAverage
-    )
-  
+
+  # Safe nested getter: returns NULL if any element of the key path is missing.
+  get_in <- function(row, keys) {
+    val <- row
+    for (k in keys) {
+      if (!is.list(val) || is.null(val[[k]])) return(NULL)
+      val <- val[[k]]
+    }
+    val
+  }
+  chr <- function(keys) vapply(rows, function(r) {
+    v <- get_in(r, keys); if (is.null(v) || length(v) == 0) NA_character_ else as.character(v)[1]
+  }, character(1))
+  num <- function(keys) vapply(rows, function(r) {
+    v <- get_in(r, keys); if (is.null(v) || length(v) == 0) NA_real_ else as.numeric(v)[1]
+  }, numeric(1))
+  int <- function(keys) vapply(rows, function(r) {
+    v <- get_in(r, keys); if (is.null(v) || length(v) == 0) NA_integer_ else as.integer(v)[1]
+  }, integer(1))
+
+  output <- dplyr::tibble(
+    study.studyId                = chr(c("otherStudyLocus", "study", "id")),
+    study.projectId              = chr(c("otherStudyLocus", "study", "projectId")),
+    study.traitReported          = chr(c("otherStudyLocus", "study", "traitFromSource")),
+    study.publicationFirstAuthor = chr(c("otherStudyLocus", "study", "publicationFirstAuthor")),
+    indexVariant.id              = chr(c("otherStudyLocus", "variant", "id")),
+    indexVariant.chromosome      = chr(c("otherStudyLocus", "variant", "chromosome")),
+    indexVariant.position        = int(c("otherStudyLocus", "variant", "position")),
+    indexVariant.referenceAllele = chr(c("otherStudyLocus", "variant", "referenceAllele")),
+    indexVariant.alternateAllele = chr(c("otherStudyLocus", "variant", "alternateAllele")),
+    pValueMantissa               = num(c("otherStudyLocus", "pValueMantissa")),
+    pValueExponent               = int(c("otherStudyLocus", "pValueExponent")),
+    numberColocalisingVariants   = int("numberColocalisingVariants"),
+    colocalisationMethod         = chr("colocalisationMethod"),
+    h3                           = num("h3"),
+    h4                           = num("h4"),
+    clpp                         = num("clpp"),
+    betaRatioSignAverage         = num("betaRatioSignAverage")
+  )
+
   return(output)
 }

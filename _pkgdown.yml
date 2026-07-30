@@ -44,3 +44,6 @@ reference:
       - variantEffectPredictorQuery
       - variantEffectQuery
       - variantsQuery
+  - title: Target prioritisation
+    contents:
+      - targetLiability

@@ -1,4 +1,4 @@
-test_that("test safetyQuery works", {
+test_that("gwasColocalisation returns colocalisation data", {
   skip_on_cran()
   
   colocalisation_data <- gwasColocalisation(study_locus_id = "5a86bfd40d2ebecf6ce97bbe8a737512", size = 500, index = 0)
