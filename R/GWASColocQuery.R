@@ -101,47 +101,60 @@ gwasColocalisation <- function(study_locus_id, size = 500, index = 0) {
   variables <- list(studyLocusId = study_locus_id, size = size, index = index)
   otg_qry$query(name = "gwascol_query", x = query)
   cli::cli_progress_step("Downloading data...", spinner = TRUE)
-  result <- jsonlite::fromJSON(otg_cli$exec(otg_qry$queries$gwascol_query, variables), flatten = FALSE)$data
+  # Parse as plain nested lists (simplifyVector = FALSE) rather than letting
+  # jsonlite simplify into (nested) data frames. jsonlite's data-frame
+  # simplification is inconsistent when only a single colocalisation row is
+  # returned - it collapses `otherStudyLocus` to an atomic vector - so we
+  # traverse the list by key path instead, which is deterministic for any
+  # number of rows.
+  parsed <- jsonlite::fromJSON(
+    otg_cli$exec(otg_qry$queries$gwascol_query, variables),
+    simplifyVector = FALSE
+  )
+  rows <- parsed$data$credibleSet$colocalisation$rows
 
-  # Process the response
-  rows <- result$credibleSet$colocalisation$rows
-  if (is.null(rows) || length(rows) == 0 ||
-      (is.data.frame(rows) && nrow(rows) == 0)) {
+  if (is.null(rows) || length(rows) == 0) {
     message("No colocalisation data found for the given study locus ID.")
     return(dplyr::tibble())
   }
 
-  # `rows` is a data frame whose `otherStudyLocus` column is itself a nested
-  # data frame (with nested `study` and `variant` data frames). Pull fields via
-  # nested access rather than relying on jsonlite's flattened dotted column
-  # names, which are not generated reliably when only a single colocalisation
-  # row is returned (previously caused a "column doesn't exist" error).
-  osl     <- rows$otherStudyLocus
-  study   <- osl$study
-  variant <- osl$variant
-
-  get_col <- function(df, nm) {
-    if (!is.null(df) && is.data.frame(df) && nm %in% names(df)) df[[nm]] else NA
+  # Safe nested getter: returns NULL if any element of the key path is missing.
+  get_in <- function(row, keys) {
+    val <- row
+    for (k in keys) {
+      if (!is.list(val) || is.null(val[[k]])) return(NULL)
+      val <- val[[k]]
+    }
+    val
   }
+  chr <- function(keys) vapply(rows, function(r) {
+    v <- get_in(r, keys); if (is.null(v) || length(v) == 0) NA_character_ else as.character(v)[1]
+  }, character(1))
+  num <- function(keys) vapply(rows, function(r) {
+    v <- get_in(r, keys); if (is.null(v) || length(v) == 0) NA_real_ else as.numeric(v)[1]
+  }, numeric(1))
+  int <- function(keys) vapply(rows, function(r) {
+    v <- get_in(r, keys); if (is.null(v) || length(v) == 0) NA_integer_ else as.integer(v)[1]
+  }, integer(1))
 
   output <- dplyr::tibble(
-    study.studyId                = get_col(study, "id"),
-    study.projectId              = get_col(study, "projectId"),
-    study.traitReported          = get_col(study, "traitFromSource"),
-    study.publicationFirstAuthor = get_col(study, "publicationFirstAuthor"),
-    indexVariant.id              = get_col(variant, "id"),
-    indexVariant.chromosome      = get_col(variant, "chromosome"),
-    indexVariant.position        = get_col(variant, "position"),
-    indexVariant.referenceAllele = get_col(variant, "referenceAllele"),
-    indexVariant.alternateAllele = get_col(variant, "alternateAllele"),
-    pValueMantissa               = get_col(osl, "pValueMantissa"),
-    pValueExponent               = get_col(osl, "pValueExponent"),
-    numberColocalisingVariants   = rows$numberColocalisingVariants,
-    colocalisationMethod         = rows$colocalisationMethod,
-    h3                           = rows$h3,
-    h4                           = rows$h4,
-    clpp                         = rows$clpp,
-    betaRatioSignAverage         = rows$betaRatioSignAverage
+    study.studyId                = chr(c("otherStudyLocus", "study", "id")),
+    study.projectId              = chr(c("otherStudyLocus", "study", "projectId")),
+    study.traitReported          = chr(c("otherStudyLocus", "study", "traitFromSource")),
+    study.publicationFirstAuthor = chr(c("otherStudyLocus", "study", "publicationFirstAuthor")),
+    indexVariant.id              = chr(c("otherStudyLocus", "variant", "id")),
+    indexVariant.chromosome      = chr(c("otherStudyLocus", "variant", "chromosome")),
+    indexVariant.position        = int(c("otherStudyLocus", "variant", "position")),
+    indexVariant.referenceAllele = chr(c("otherStudyLocus", "variant", "referenceAllele")),
+    indexVariant.alternateAllele = chr(c("otherStudyLocus", "variant", "alternateAllele")),
+    pValueMantissa               = num(c("otherStudyLocus", "pValueMantissa")),
+    pValueExponent               = int(c("otherStudyLocus", "pValueExponent")),
+    numberColocalisingVariants   = int("numberColocalisingVariants"),
+    colocalisationMethod         = chr("colocalisationMethod"),
+    h3                           = num("h3"),
+    h4                           = num("h4"),
+    clpp                         = num("clpp"),
+    betaRatioSignAverage         = num("betaRatioSignAverage")
   )
 
   return(output)
