@@ -47,3 +47,10 @@ reference:
   - title: Target prioritisation
     contents:
       - targetLiability
+  - title: Visualization
+    contents:
+      - plot_adverse_events
+      - plot_colocalisation
+      - plot_indications
+      - plot_interactions
+      - plot_l2g
