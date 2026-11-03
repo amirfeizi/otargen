@@ -49,9 +49,9 @@ print(result)
 #> # A tibble: 3 × 6
 #>   constraintType score upperBin upperBin6 geneId          approvedSymbol
 #>   <chr>          <dbl>    <int>     <int> <chr>           <chr>         
-#> 1 syn            0.958       NA        NA ENSG00000141510 TP53          
-#> 2 mis            1.15        NA        NA ENSG00000141510 TP53          
-#> 3 lof            0.998        1         0 ENSG00000141510 TP53
+#> 1 syn            0.651       NA        NA ENSG00000141510 TP53          
+#> 2 mis            1.12        NA        NA ENSG00000141510 TP53          
+#> 3 lof            1.000        1         0 ENSG00000141510 TP53
 ```
 
 ------------------------------------------------------------------------
@@ -124,16 +124,16 @@ print(result)
 #> # A tibble: 24 × 17
 #>    variantRsId genotypeId       haplotypeId haplotypeFromSourceId isDirectTarget
 #>    <chr>       <chr>            <lgl>       <lgl>                 <lgl>         
-#>  1 rs6722745   2_108258788_T_C… NA          NA                    FALSE         
-#>  2 rs6722745   2_108258788_T_T… NA          NA                    FALSE         
-#>  3 rs1275988   2_26691496_C_T,T NA          NA                    FALSE         
-#>  4 rs1275988   2_26691496_C_C,C NA          NA                    FALSE         
-#>  5 rs6722745   2_108258788_T_C… NA          NA                    FALSE         
-#>  6 rs1799998   8_142918184_A_A… NA          NA                    FALSE         
-#>  7 rs740406    19_2232222_A_A,G NA          NA                    FALSE         
-#>  8 rs3184504   12_111446804_T_… NA          NA                    FALSE         
-#>  9 rs3184504   12_111446804_T_… NA          NA                    FALSE         
-#> 10 rs740406    19_2232222_A_A,A NA          NA                    FALSE         
+#>  1 rs3758785   11_94398973_A_A… NA          NA                    FALSE         
+#>  2 rs3184504   12_111446804_T_… NA          NA                    FALSE         
+#>  3 rs740406    19_2232222_A_A,G NA          NA                    FALSE         
+#>  4 rs1799998   8_142918184_A_G… NA          NA                    FALSE         
+#>  5 rs1275988   2_26691496_C_T,T NA          NA                    FALSE         
+#>  6 rs740406    19_2232222_A_G,G NA          NA                    FALSE         
+#>  7 rs3184504   12_111446804_T_… NA          NA                    FALSE         
+#>  8 rs6722745   2_108258788_T_T… NA          NA                    FALSE         
+#>  9 rs6722745   2_108258788_T_C… NA          NA                    FALSE         
+#> 10 rs740406    19_2232222_A_A,G NA          NA                    FALSE         
 #> # ℹ 14 more rows
 #> # ℹ 12 more variables: phenotypeFromSourceId <lgl>,
 #> #   genotypeAnnotationText <chr>, phenotypeText <chr>, pgxCategory <chr>,

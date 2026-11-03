@@ -116,9 +116,9 @@ using genetic constraint metrics like pLI and LOEUF.<br><strong>Function:</stron
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 6</span></span></span>
 <span><span class="co">#&gt;   constraintType score upperBin upperBin6 geneId          approvedSymbol</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> syn            0.958       <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span> ENSG00000141510 TP53          </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> mis            1.15        <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span> ENSG00000141510 TP53          </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> lof            0.998        1         0 ENSG00000141510 TP53</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> syn            0.651       <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span> ENSG00000141510 TP53          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> mis            1.12        <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span> ENSG00000141510 TP53          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> lof            1.000        1         0 ENSG00000141510 TP53</span></span></code></pre></div>
 <hr>
 </div>
 </div>
@@ -183,16 +183,16 @@ influence drug response using pharmacogenomics data.<br><strong>Function:</stron
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 24 × 17</span></span></span>
 <span><span class="co">#&gt;    variantRsId genotypeId       haplotypeId haplotypeFromSourceId isDirectTarget</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>         </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> rs6722745   2_108258788_T_C… <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    FALSE         </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> rs6722745   2_108258788_T_T… <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    FALSE         </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> rs1275988   2_26691496_C_T,T <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    FALSE         </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> rs1275988   2_26691496_C_C,C <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    FALSE         </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> rs6722745   2_108258788_T_C… <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    FALSE         </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> rs1799998   8_142918184_A_A… <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    FALSE         </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> rs740406    19_2232222_A_A,G <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    FALSE         </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> rs3184504   12_111446804_T_… <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    FALSE         </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> rs3184504   12_111446804_T_… <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    FALSE         </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> rs740406    19_2232222_A_A,A <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    FALSE         </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> rs3758785   11_94398973_A_A… <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    FALSE         </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> rs3184504   12_111446804_T_… <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    FALSE         </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> rs740406    19_2232222_A_A,G <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    FALSE         </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> rs1799998   8_142918184_A_G… <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    FALSE         </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> rs1275988   2_26691496_C_T,T <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    FALSE         </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> rs740406    19_2232222_A_G,G <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    FALSE         </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> rs3184504   12_111446804_T_… <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    FALSE         </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> rs6722745   2_108258788_T_T… <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    FALSE         </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> rs6722745   2_108258788_T_C… <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    FALSE         </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> rs740406    19_2232222_A_A,G <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>                    FALSE         </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 14 more rows</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 12 more variables: phenotypeFromSourceId &lt;lgl&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   genotypeAnnotationText &lt;chr&gt;, phenotypeText &lt;chr&gt;, pgxCategory &lt;chr&gt;,</span></span></span>
