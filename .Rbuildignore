@@ -16,3 +16,5 @@
 ^.Rprofile$
 ^.Renviron$
 ^.*gitcreds.*
+^\.claude$
+^ESM2-T6$

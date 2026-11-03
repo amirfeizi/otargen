@@ -3,6 +3,7 @@
 export(adverseEventsQuery)
 export(chemblQuery)
 export(clinVarQuery)
+export(clinicalReportsQuery)
 export(compGenomicsQuery)
 export(depMapQuery)
 export(europePMCQuery)

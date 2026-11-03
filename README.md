@@ -54,6 +54,12 @@ mechanismsOfActionQuery(chemblId = "CHEMBL941")
 
 # Drug indications with clinical stage info
 indicationsQuery(chemblId = "CHEMBL941")
+
+# Clinical reports (Open Targets Mira) behind imatinib's indications
+clinicalReportsQuery(chemblId = "CHEMBL941")
+
+# Fetch specific clinical reports by ID
+clinicalReportsQuery(reportIds = c("nct00080665", "nct00471497"))
 ```
 
 ### Gene-level queries (by Ensembl ID)
@@ -167,11 +173,11 @@ plot_indications(ind)
 
 ---
 
-## Available functions (41)
+## Available functions (42)
 
 | Category | Functions |
 |---|---|
-| **Drug queries** | `adverseEventsQuery`, `indicationsQuery`, `knownDrugsChemblQuery`, `mechanismsOfActionQuery`, `pharmacogenomicsChemblQuery` |
+| **Drug queries** | `adverseEventsQuery`, `clinicalReportsQuery`, `indicationsQuery`, `knownDrugsChemblQuery`, `mechanismsOfActionQuery`, `pharmacogenomicsChemblQuery` |
 | **Gene / target queries** | `compGenomicsQuery`, `depMapQuery`, `geneOntologyQuery`, `geneticConstraintQuery`, `hallmarksQuery`, `interactionsQuery`, `knownDrugsGeneQuery`, `mousePhenotypesQuery`, `pathwaysQuery`, `pharmacogenomicsGeneQuery`, `safetyQuery` |
 | **Target safety** | `targetLiability` |
 | **Gene + disease evidence** | `chemblQuery`, `clinVarQuery`, `europePMCQuery`, `geneBurdenQuery`, `genomicsEnglandQuery`, `orphanetQuery`, `uniprotLiteratureQuery` |
@@ -183,11 +189,14 @@ Full documentation: **<https://amirfeizi.github.io/otargen/>**
 
 ---
 
-## What's new in 2.1.0
+## What's new in 2.2.0
 
-New `targetLiability()` helper that scores a target's safety liability for
-inhibition or knockout by combining `geneticConstraintQuery()`, `safetyQuery()`
-and `depMapQuery()`. Also fixes `gwasColocalisation()` for single-row responses.
+New `clinicalReportsQuery()` function that exposes the harmonised **clinical
+reports** from the [Open Targets Mira](https://blog.opentargets.org/introducing-open-targets-mira/)
+pipeline — the trial, drug-label and regulatory records behind the Platform's
+drug-indication ("Clinical Precedence") evidence. Query by drug `chemblId` or by
+`reportIds` and get back a tidy table with clinical stage, trial phase and
+status, sponsor, countries, and associated diseases and drugs.
 See [NEWS.md](NEWS.md) for details.
 
 ---
