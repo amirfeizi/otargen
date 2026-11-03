@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">otargen</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,6 +36,13 @@
       <small>Source: <a href="https://github.com/amirfeizi/otargen/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2.2.0" id="otargen-220">otargen 2.2.0<a class="anchor" aria-label="anchor" href="#otargen-220"></a></h2>
+<div class="section level4">
+<h4 id="new-features-2-2-0">New Features<a class="anchor" aria-label="anchor" href="#new-features-2-2-0"></a></h4>
+<ul><li>Added <code><a href="../reference/clinicalReportsQuery.html">clinicalReportsQuery()</a></code>, which exposes the harmonised <strong>clinical reports</strong> produced by the new <a href="https://blog.opentargets.org/introducing-open-targets-mira/" class="external-link">Open Targets Mira</a> pipeline — the individual trial, drug-label and regulatory records behind the Platform’s drug-indication (“Clinical Precedence”) evidence. Provide either a drug <code>chemblId</code> (returns all distinct reports linked to the drug’s indications) or a vector of <code>reportIds</code> (fetched directly via the Platform’s <code>clinicalReports</code> root query). Returns a tidy tibble with one row per report, including clinical stage, trial phase and status, primary purpose, sponsor, countries, and the associated diseases and drugs.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.1.0" id="otargen-210">otargen 2.1.0<a class="anchor" aria-label="anchor" href="#otargen-210"></a></h2>
 <div class="section level4">

@@ -6,6 +6,9 @@
   : Retrieve Adverse Events data for a specified drug.
 - [`chemblQuery()`](https://amirfeizi.github.io/otargen/reference/chemblQuery.md)
   : Retrieve ChEMBL data for a specified gene and disease.
+- [`clinicalReportsQuery()`](https://amirfeizi.github.io/otargen/reference/clinicalReportsQuery.md)
+  : Retrieve clinical reports (Open Targets Mira) for a drug or by
+  report ID.
 - [`clinVarQuery()`](https://amirfeizi.github.io/otargen/reference/clinVarQuery.md)
   : Retrieve ClinVar data for a specified gene and disease.
 - [`compGenomicsQuery()`](https://amirfeizi.github.io/otargen/reference/compGenomicsQuery.md)

@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="index.html">otargen</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -103,7 +103,13 @@
 <span><span class="fu"><a href="reference/mechanismsOfActionQuery.html">mechanismsOfActionQuery</a></span><span class="op">(</span>chemblId <span class="op">=</span> <span class="st">"CHEMBL941"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Drug indications with clinical stage info</span></span>
-<span><span class="fu"><a href="reference/indicationsQuery.html">indicationsQuery</a></span><span class="op">(</span>chemblId <span class="op">=</span> <span class="st">"CHEMBL941"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="reference/indicationsQuery.html">indicationsQuery</a></span><span class="op">(</span>chemblId <span class="op">=</span> <span class="st">"CHEMBL941"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Clinical reports (Open Targets Mira) behind imatinib's indications</span></span>
+<span><span class="fu"><a href="reference/clinicalReportsQuery.html">clinicalReportsQuery</a></span><span class="op">(</span>chemblId <span class="op">=</span> <span class="st">"CHEMBL941"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Fetch specific clinical reports by ID</span></span>
+<span><span class="fu"><a href="reference/clinicalReportsQuery.html">clinicalReportsQuery</a></span><span class="op">(</span>reportIds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"nct00080665"</span>, <span class="st">"nct00471497"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="gene-level-queries-by-ensembl-id">Gene-level queries (by Ensembl ID)<a class="anchor" aria-label="anchor" href="#gene-level-queries-by-ensembl-id"></a>
@@ -242,7 +248,7 @@
 <hr>
 </div>
 <div class="section level2">
-<h2 id="available-functions-41">Available functions (41)<a class="anchor" aria-label="anchor" href="#available-functions-41"></a>
+<h2 id="available-functions-42">Available functions (42)<a class="anchor" aria-label="anchor" href="#available-functions-42"></a>
 </h2>
 <table class="table">
 <colgroup>
@@ -257,7 +263,7 @@
 <tr>
 <td><strong>Drug queries</strong></td>
 <td>
-<code>adverseEventsQuery</code>, <code>indicationsQuery</code>, <code>knownDrugsChemblQuery</code>, <code>mechanismsOfActionQuery</code>, <code>pharmacogenomicsChemblQuery</code>
+<code>adverseEventsQuery</code>, <code>clinicalReportsQuery</code>, <code>indicationsQuery</code>, <code>knownDrugsChemblQuery</code>, <code>mechanismsOfActionQuery</code>, <code>pharmacogenomicsChemblQuery</code>
 </td>
 </tr>
 <tr>
@@ -300,9 +306,9 @@
 <hr>
 </div>
 <div class="section level2">
-<h2 id="whats-new-in-210">What’s new in 2.1.0<a class="anchor" aria-label="anchor" href="#whats-new-in-210"></a>
+<h2 id="whats-new-in-220">What’s new in 2.2.0<a class="anchor" aria-label="anchor" href="#whats-new-in-220"></a>
 </h2>
-<p>New <code><a href="reference/targetLiability.html">targetLiability()</a></code> helper that scores a target’s safety liability for inhibition or knockout by combining <code><a href="reference/geneticConstraintQuery.html">geneticConstraintQuery()</a></code>, <code><a href="reference/safetyQuery.html">safetyQuery()</a></code> and <code><a href="reference/depMapQuery.html">depMapQuery()</a></code>. Also fixes <code><a href="reference/gwasColocalisation.html">gwasColocalisation()</a></code> for single-row responses. See <a href="NEWS.html">NEWS.md</a> for details.</p>
+<p>New <code><a href="reference/clinicalReportsQuery.html">clinicalReportsQuery()</a></code> function that exposes the harmonised <strong>clinical reports</strong> from the <a href="https://blog.opentargets.org/introducing-open-targets-mira/" class="external-link">Open Targets Mira</a> pipeline — the trial, drug-label and regulatory records behind the Platform’s drug-indication (“Clinical Precedence”) evidence. Query by drug <code>chemblId</code> or by <code>reportIds</code> and get back a tidy table with clinical stage, trial phase and status, sponsor, countries, and associated diseases and drugs. See <a href="NEWS.html">NEWS.md</a> for details.</p>
 <hr>
 </div>
 <div class="section level2">

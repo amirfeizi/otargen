@@ -1,5 +1,23 @@
 # Changelog
 
+## otargen 2.2.0
+
+#### New Features
+
+- Added
+  [`clinicalReportsQuery()`](https://amirfeizi.github.io/otargen/reference/clinicalReportsQuery.md),
+  which exposes the harmonised **clinical reports** produced by the new
+  [Open Targets
+  Mira](https://blog.opentargets.org/introducing-open-targets-mira/)
+  pipeline — the individual trial, drug-label and regulatory records
+  behind the Platform’s drug-indication (“Clinical Precedence”)
+  evidence. Provide either a drug `chemblId` (returns all distinct
+  reports linked to the drug’s indications) or a vector of `reportIds`
+  (fetched directly via the Platform’s `clinicalReports` root query).
+  Returns a tidy tibble with one row per report, including clinical
+  stage, trial phase and status, primary purpose, sponsor, countries,
+  and the associated diseases and drugs.
+
 ## otargen 2.1.0
 
 #### New Features
